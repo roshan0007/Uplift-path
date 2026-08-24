@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { ArrowRight, MessageCircle, UsersRound, Video } from 'lucide-react'
 import {
+  Badge,
   ButtonLink,
   Container,
   Eyebrow,
@@ -9,9 +10,9 @@ import {
   Text,
 } from '@/components/uplift'
 import { SiteHeader } from '@/components/header/site-header'
-import { CreativeRotator } from '@/components/home/creative-rotator'
 import { MediaPlaceholder } from '@/components/home/media-placeholder'
 import { Reveal } from '@/components/home/reveal'
+import { StickyCtaBar } from '@/components/home/sticky-cta-bar'
 
 /** Quiet, subordinate text link with an arrow that nudges on hover. */
 const quietLinkClass =
@@ -38,6 +39,21 @@ const steps = [
   },
 ]
 
+const situations = [
+  'Starting over after a layoff',
+  'Getting sober — and staying that way',
+  'Coming home after incarceration',
+  'Caregiving for a parent or partner',
+  'New to a city, building from zero',
+  'Parenting without a map',
+  "Grief that isn't on a schedule",
+  'Steady ground after a diagnosis',
+  'First in the family to do any of this',
+  'Rebuilding after a divorce',
+]
+
+const badgeTones = ['teal', 'blue', 'neutral'] as const
+
 export default function Home() {
   return (
     <>
@@ -45,7 +61,7 @@ export default function Home() {
 
       <main>
         {/* ---- 1. Hero -------------------------------------------------- */}
-        <Section tone="mint" space="none" className="pt-32 pb-20 md:pt-44 md:pb-32">
+        <Section id="hero" tone="mint" space="none" className="pt-32 pb-20 md:pt-44 md:pb-32">
           <Container>
             <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
               <div>
@@ -119,7 +135,7 @@ export default function Home() {
               </Reveal>
 
               <div className="relative">
-                {/* The page's single use of the brand gradient: a hairline
+                {/* This section's use of the brand gradient: a hairline
                     spine threading the three steps, in place of card borders. */}
                 <span
                   aria-hidden="true"
@@ -151,15 +167,51 @@ export default function Home() {
           </Container>
         </Section>
 
-        {/* ---- 3. Creative ---------------------------------------------- */}
-        <Section tone="mint">
+        {/* ---- 3. What people bring --------------------------------------- */}
+        <Section tone="subtle" space="lg">
           <Container width="content">
-            <Reveal>
-              <CreativeRotator />
+            <Reveal className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
+              <Eyebrow>What people bring</Eyebrow>
+              <Heading as="h2" size="h1">
+                Whatever it is, there&rsquo;s probably a coach who&rsquo;s been there.
+              </Heading>
+              <Text size="body-lg" tone="muted">
+                Peer coaches aren&rsquo;t clinicians. They&rsquo;re people who&rsquo;ve lived
+                through something like yours, trained to help you work through what&rsquo;s
+                next.
+              </Text>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <ul
+                aria-label="Situations peer coaches support"
+                className="mt-10 flex flex-wrap justify-center gap-2.5"
+              >
+                {situations.map((situation, index) => (
+                  <li key={situation}>
+                    <Badge tone={badgeTones[index % badgeTones.length]}>{situation}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal delay={180} className="mt-8 text-center">
+              <Text size="caption" tone="muted">
+                Don&rsquo;t see yours? Say so anyway — that still counts as a conversation
+                worth having.
+              </Text>
             </Reveal>
           </Container>
         </Section>
       </main>
+
+      <StickyCtaBar
+        headline="Not sure where to start?"
+        body="One short, no-commitment conversation is enough to find out."
+        ctaLabel="Talk to someone"
+        ctaHref="#"
+        afterId="hero"
+      />
     </>
   )
 }
