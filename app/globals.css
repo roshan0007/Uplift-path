@@ -506,9 +506,6 @@
     cursor: pointer;
   }
 }
-body {
-  border-width: 2px;
-}
 
 @utility container {
   margin-inline: auto;
