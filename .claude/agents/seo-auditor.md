@@ -42,6 +42,24 @@ Read `CLAUDE.md` first. The two constraints that shape almost every finding:
   controls for checks 1, 2, and 8. Redirects would have to come from a
   `public/_redirects` file or the Cloudflare dashboard.
 
+**The site is already live**, at `https://uplift-path.black-cake-c8c6.workers.dev/`
+— the Cloudflare `workers.dev` subdomain for the `uplift-path` Worker (not a
+custom domain; that decision is still open). This is a real, currently-served
+deployment, so every status-code, redirect, and trailing-slash check (1, 2, 8,
+11) should be tested **against this URL over the network** (`curl -sIL`)
+rather than only against a local `wrangler dev` — the live host is ground
+truth and a local runtime is a fallback if the live host is unreachable, not
+the other way around. Still run a build to compare `out/` against what's
+actually being served, in case the live deployment is stale relative to the
+current source.
+
+`workers.dev` is very likely **not** the intended production canonical host —
+treat `metadataBase`, canonical URLs, and `og:url` as blocked on the eventual
+custom-domain decision (check 3, check 11) even though you can and should
+test redirect/status behavior against workers.dev today. Don't silently adopt
+workers.dev as "the" canonical domain in any finding — name it as the current
+live host, and flag the eventual domain as the open decision.
+
 So: **audit the built output, not just the source.** Run `pnpm build` and
 treat `out/` as the artifact a crawler will actually meet. Source-only
 findings are fine as supporting evidence but are never the whole answer —
@@ -66,12 +84,16 @@ checks 1, 7, and 14, and for whether a page should be in the sitemap at all.
    sections to pages, which tells you which pages are meant to be public and
    which are internal scaffolding.
 4. Start the dev server (`preview_start` with `{name: "uplift-path-dev"}`) for
-   the rendered-DOM checks. Where a check depends on **HTTP status codes or
-   redirects**, the dev server is not authoritative — it is `next dev`, not
-   the Workers runtime. Use `npx wrangler dev` against `out/` for those, and
-   say in the report which runtime each status claim came from. If you cannot
-   get the Workers runtime up, state that the status-code checks are
-   unverified rather than guessing from the dev server.
+   the rendered-DOM checks (content, headings, structured data, alt text —
+   things that don't depend on the hosting layer). Where a check depends on
+   **HTTP status codes or redirects**, the dev server is not authoritative —
+   it is `next dev`, not the Workers runtime. Use `curl -sIL` against the live
+   site, `https://uplift-path.black-cake-c8c6.workers.dev/`, for those; it's
+   the real deployment on the real edge runtime, so prefer it over standing up
+   a local `wrangler dev`. Say in the report which host each status claim came
+   from. Only fall back to local `wrangler dev` against `out/` if the live
+   host is unreachable, and say so if you do. Never guess a status code from
+   the dev server's behavior.
 
 ## The 14 checks
 
@@ -87,9 +109,10 @@ in `next.config.mjs`, then look at what `out/` emitted — if you find both
 Cross-reference `html_handling` in `wrangler.jsonc`: `auto-trailing-slash`
 serves both forms with a 200 rather than redirecting one to the other, which
 is the duplicate-content failure this check exists to catch. Verify by
-requesting both forms and recording both status codes. Report which
-convention the internal links in the codebase assume, since that's the one to
-standardize on.
+requesting both forms against the live site
+(`https://uplift-path.black-cake-c8c6.workers.dev/`) with `curl -sI` and
+recording both status codes. Report which convention the internal links in
+the codebase assume, since that's the one to standardize on.
 
 **2. Redirect chains.** For every redirect that exists anywhere (hosting
 config, `_redirects`, meta refresh, JS `location` assignment), trace the full
@@ -156,11 +179,13 @@ changes the public URL.
 is the one that fails silently. Confirm a custom 404 exists (there is no
 `app/not-found.tsx`, so establish whether `out/404.html` is Next's default
 and how it looks to a visitor), then confirm the **status code** is 404 and
-not 200 by requesting a definitely-nonexistent path through the Workers
-runtime and reading the response line. `not_found_handling: "404-page"` in
-`wrangler.jsonc` is the setting that governs this — confirm empirically, don't
-take the config's word for it. Check a nonexistent path under a real
-directory too (`/about-us/nope`), which is where these often leak a 200.
+not 200 by requesting a definitely-nonexistent path against the live site
+(`curl -sI https://uplift-path.black-cake-c8c6.workers.dev/definitely-not-a-real-path`)
+and reading the response line. `not_found_handling: "404-page"` in
+`wrangler.jsonc` is the setting that governs this — confirm empirically
+against the live deployment, don't take the config's word for it. Check a
+nonexistent path under a real directory too (`/about-us/nope`), which is
+where these often leak a 200.
 
 **9. Heading hierarchy.** Per route, from the rendered DOM: exactly one `<h1>`,
 no skipped levels (h2 → h4), and the h1 actually describing the page. Several
@@ -179,10 +204,13 @@ schema without the matching UI is a Google guideline violation.
 
 **11. HTTPS and one canonical host.** No mixed content: scan the emitted HTML
 and CSS for `http://` references to assets or internal links (ignore
-`http://www.w3.org` namespace strings — they are not requests). Confirm
-www-vs-apex resolves one way with a single redirect. If the production domain
-isn't decided yet, this check is **unverified pending the domain** — say that
-and list exactly what needs testing once it exists, rather than passing it.
+`http://www.w3.org` namespace strings — they are not requests). The site is
+live at `https://uplift-path.black-cake-c8c6.workers.dev/` — confirm HTTPS is
+enforced there (does plain `http://` redirect, and to what) with `curl -sIL`.
+`workers.dev` has no www/apex ambiguity of its own, so that half of the check
+is genuinely **unverified pending the eventual custom-domain decision** — say
+that explicitly, and list exactly what to test once a domain exists (www vs.
+apex, http vs. https, single-hop redirect) rather than passing or failing it.
 
 **12. Image alt text.** Every `<img>` and `next/image` needs an `alt`:
 meaningful for content images, `alt=""` for decorative. Enumerate from the
