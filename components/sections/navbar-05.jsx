@@ -8,24 +8,25 @@ import { KeyboardArrowDown, RelumeIcon } from "relume-icons";
 
 const useRelume = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const isMobile = useMediaQuery("(max-width: 991px)");
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
-  const openOnMobileDropdownMenu = () => {
-    setIsDropdownOpen((prev) => !prev);
+  const openOnMobileDropdownMenu = (id) => {
+    setOpenDropdown((prev) => (prev === id ? null : id));
   };
-  const openOnDesktopDropdownMenu = () => {
-    !isMobile && setIsDropdownOpen(true);
+  const openOnDesktopDropdownMenu = (id) => {
+    !isMobile && setOpenDropdown(id);
   };
-  const closeOnDesktopDropdownMenu = () => {
-    !isMobile && setIsDropdownOpen(false);
+  const closeOnDesktopDropdownMenu = (id) => {
+    !isMobile && setOpenDropdown((prev) => (prev === id ? null : prev));
   };
   const animateMobileMenu = isMobileMenuOpen ? "open" : "close";
   const animateMobileMenuButtonSpan = isMobileMenuOpen
     ? ["open", "rotatePhase"]
     : "closed";
-  const animateDropdownMenu = isDropdownOpen ? "open" : "close";
-  const animateDropdownMenuIcon = isDropdownOpen ? "rotated" : "initial";
+  const getDropdownAnimation = (id) => (openDropdown === id ? "open" : "close");
+  const getDropdownIconAnimation = (id) =>
+    openDropdown === id ? "rotated" : "initial";
   return {
     toggleMobileMenu,
     openOnDesktopDropdownMenu,
@@ -33,8 +34,8 @@ const useRelume = () => {
     openOnMobileDropdownMenu,
     animateMobileMenu,
     animateMobileMenuButtonSpan,
-    animateDropdownMenu,
-    animateDropdownMenuIcon,
+    getDropdownAnimation,
+    getDropdownIconAnimation,
   };
 };
 
@@ -113,13 +114,13 @@ export function Navbar5() {
               About us
             </a>
             <div
-              onMouseEnter={useActive.openOnDesktopDropdownMenu}
-              onMouseLeave={useActive.closeOnDesktopDropdownMenu}
+              onMouseEnter={() => useActive.openOnDesktopDropdownMenu("solutions")}
+              onMouseLeave={() => useActive.closeOnDesktopDropdownMenu("solutions")}
             >
               <p
                 role="button"
                 className="flex w-full items-center justify-between gap-2 py-3 text-center text-base lg:w-auto lg:flex-none lg:justify-start lg:px-4 lg:py-6"
-                onClick={useActive.openOnMobileDropdownMenu}
+                onClick={() => useActive.openOnMobileDropdownMenu("solutions")}
               >
                 Uplift Solutions
                 <motion.span
@@ -127,7 +128,7 @@ export function Navbar5() {
                     rotated: { rotate: 180 },
                     initial: { rotate: 0 },
                   }}
-                  animate={useActive.animateDropdownMenuIcon}
+                  animate={useActive.getDropdownIconAnimation("solutions")}
                   transition={{ duration: 0.3 }}
                 >
                   <KeyboardArrowDown className="text-scheme-text" />
@@ -148,7 +149,7 @@ export function Navbar5() {
                 }}
                 initial="close"
                 exit="close"
-                animate={useActive.animateDropdownMenu}
+                animate={useActive.getDropdownAnimation("solutions")}
                 transition={{ duration: 0.3 }}
                 className="top-full bottom-auto left-0 w-full max-w-full min-w-full overflow-hidden bg-scheme-background lg:absolute lg:w-[100vw] lg:border-b lg:border-scheme-border lg:px-[5%] lg:[--height-close:auto]"
               >
@@ -439,13 +440,13 @@ export function Navbar5() {
               </motion.div>
             </div>
             <div
-              onMouseEnter={useActive.openOnDesktopDropdownMenu}
-              onMouseLeave={useActive.closeOnDesktopDropdownMenu}
+              onMouseEnter={() => useActive.openOnDesktopDropdownMenu("resources-services")}
+              onMouseLeave={() => useActive.closeOnDesktopDropdownMenu("resources-services")}
             >
               <p
                 role="button"
                 className="flex w-full items-center justify-between gap-2 py-3 text-center text-base lg:w-auto lg:flex-none lg:justify-start lg:px-4 lg:py-6"
-                onClick={useActive.openOnMobileDropdownMenu}
+                onClick={() => useActive.openOnMobileDropdownMenu("resources-services")}
               >
                 Resources
                 <motion.span
@@ -453,7 +454,7 @@ export function Navbar5() {
                     rotated: { rotate: 180 },
                     initial: { rotate: 0 },
                   }}
-                  animate={useActive.animateDropdownMenuIcon}
+                  animate={useActive.getDropdownIconAnimation("resources-services")}
                   transition={{ duration: 0.3 }}
                 >
                   <KeyboardArrowDown className="text-scheme-text" />
@@ -474,7 +475,7 @@ export function Navbar5() {
                 }}
                 initial="close"
                 exit="close"
-                animate={useActive.animateDropdownMenu}
+                animate={useActive.getDropdownAnimation("resources-services")}
                 transition={{ duration: 0.3 }}
                 className="top-full bottom-auto left-0 w-full max-w-full min-w-full overflow-hidden bg-scheme-background lg:absolute lg:w-[100vw] lg:border-b lg:border-scheme-border lg:px-[5%] lg:[--height-close:auto]"
               >
@@ -736,13 +737,13 @@ export function Navbar5() {
               How we work
             </a>
             <div
-              onMouseEnter={useActive.openOnDesktopDropdownMenu}
-              onMouseLeave={useActive.closeOnDesktopDropdownMenu}
+              onMouseEnter={() => useActive.openOnDesktopDropdownMenu("resources")}
+              onMouseLeave={() => useActive.closeOnDesktopDropdownMenu("resources")}
             >
               <p
                 role="button"
                 className="flex w-full items-center justify-between gap-2 py-3 text-center text-base lg:w-auto lg:flex-none lg:justify-start lg:px-4 lg:py-6"
-                onClick={useActive.openOnMobileDropdownMenu}
+                onClick={() => useActive.openOnMobileDropdownMenu("resources")}
               >
                 Resources
                 <motion.span
@@ -750,7 +751,7 @@ export function Navbar5() {
                     rotated: { rotate: 180 },
                     initial: { rotate: 0 },
                   }}
-                  animate={useActive.animateDropdownMenuIcon}
+                  animate={useActive.getDropdownIconAnimation("resources")}
                   transition={{ duration: 0.3 }}
                 >
                   <KeyboardArrowDown className="text-scheme-text" />
@@ -771,7 +772,7 @@ export function Navbar5() {
                 }}
                 initial="close"
                 exit="close"
-                animate={useActive.animateDropdownMenu}
+                animate={useActive.getDropdownAnimation("resources")}
                 transition={{ duration: 0.3 }}
                 className="top-full bottom-auto left-0 w-full max-w-full min-w-full overflow-hidden bg-scheme-background lg:absolute lg:w-[100vw] lg:border-b lg:border-scheme-border lg:px-[5%] lg:[--height-close:auto]"
               >
