@@ -1,27 +1,20 @@
 import type { Metadata, Viewport } from 'next'
-import { Lexend_Deca, Playfair_Display } from 'next/font/google'
 import './globals.css'
+import { Navbar5 } from '@/components/sections/navbar-05'
+import { Footer9 } from '@/components/sections/footer-09'
 
 /**
  * Playfair Display carries the headlines, Lexend Deca the body — a high-contrast
  * serif against a wide, open sans. The pairing is the approved concept direction
  * and supersedes the earlier Tenon/Figtree plan.
  *
- * These two variables are the only place families are declared. To change the
- * pairing, load different faces here and repoint `--font-heading` / `--font-body`
- * in globals.css. Do not set font-family anywhere else.
+ * Both faces are self-hosted: the woff2 files ship with the design system and
+ * are declared as `@font-face` at the top of `globals.css`, pointing at
+ * `/fonts/`. `next/font` is deliberately not used here — the design export
+ * self-hosts on purpose, and one declaration site is easier to keep honest than
+ * two. To change the pairing, swap the files and the `@font-face` blocks; the
+ * families are named in `globals.css` and nowhere else.
  */
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-})
-
-const lexendDeca = Lexend_Deca({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-text',
-})
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +23,6 @@ export const metadata: Metadata = {
   },
   description:
     'Strategic consulting, coaching, and resources that create clear and sustainable pathways to meaningful growth.',
-  generator: 'v0.app',
   icons: {
     icon: [{ url: '/brand/uplift-path-icon.svg', type: 'image/svg+xml' }],
     apple: '/apple-icon.png',
@@ -42,15 +34,22 @@ export const viewport: Viewport = {
   themeColor: '#ffffff',
 }
 
+/**
+ * The navbar and footer are site chrome, not page sections — they live here so
+ * every route gets them without repeating the import. Individual pages compose
+ * only their own sections.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfairDisplay.variable} ${lexendDeca.variable}`}>
+    <html lang="en">
       <body className="antialiased">
+        <Navbar5 />
         {children}
+        <Footer9 />
       </body>
     </html>
   )
