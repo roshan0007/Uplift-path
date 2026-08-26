@@ -5,31 +5,38 @@ import React from "react";
 // Recovered from the design export. The Relume source wrapped each placeholder
 // <img> in another <img> — invalid markup, replaced with <div> in all four cards.
 // This is almost certainly why the React exporter excluded this component.
+// Images are the four the design export assigns to this component in
+// `assets.md` (For Business page / Benefits Section, 0–3), in the order listed
+// there. Recovering the component cost it its images, so they are wired here.
 const SERVICES = [
   {
     title: "Program Development Consulting",
     body: "Design and refine evidence-based programs that align with your mission, meet community needs, and drive measurable impact to business.",
+    image: "/images/for-business-page-benefits-section-0.png",
   },
   {
     title: "Business Structuring Consulting",
     body: "Build a robust operational foundation with workflows, standard operating procedures, and compliance frameworks for your business needs.",
+    image: "/images/for-business-page-benefits-section-1.png",
   },
   {
     title: "Accreditation Consulting Service",
     body: "Get expert guidance to prepare and navigate accreditation processes, ensuring your organization meets high industry standards.",
+    image: "/images/for-business-page-benefits-section-2.png",
   },
   {
     title: "Business Growth Consultation",
     body: "Identify opportunities, optimize operations, and implement strategies to sustainably scale your services and expand your reach.",
+    image: "/images/for-business-page-benefits-section-3.jpg",
   },
 ];
 
-function ServiceCard({ title, body }) {
+function ServiceCard({ title, body, image }) {
   return (
     <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
       <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
         <img
-          src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+          src={image}
           alt=""
           className="aspect-square size-full rounded-image object-cover"
         />

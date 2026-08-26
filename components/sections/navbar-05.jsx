@@ -47,8 +47,9 @@ export function Navbar5() {
           <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
             <a href="#">
               <img
-                src="https://d22po4pjz3o32e.cloudfront.net/logo-image.svg"
-                alt="Logo image"
+                src="/brand/uplift-path-logo.svg"
+                alt="Uplift Path"
+                className="h-8 w-auto"
               />
             </a>
             <button
@@ -308,7 +309,7 @@ export function Navbar5() {
                           >
                             <div className="relative w-full pt-[66.66%]">
                               <img
-                                src="https://imagedelivery.net/RAP5LnVUMDfmG3LRL4kHtw/61ca5eed-0197-47ed-0f0b-21a8c2aa2601/2560?exp=1788307200&sig=fe8f1e51f47ebe499f74f20e2c03e914361493997e2c65edaba73c089162a293"
+                                src="/images/terms-of-use-navbar-0.jpg"
                                 alt="Relume placeholder image 1"
                                 className="absolute inset-0 size-full rounded-image object-cover"
                               />
@@ -372,7 +373,7 @@ export function Navbar5() {
                           >
                             <div className="relative w-full pt-[66.66%]">
                               <img
-                                src="https://imagedelivery.net/RAP5LnVUMDfmG3LRL4kHtw/b0e2db1f-cf66-41ac-12dc-8643c96c4301/2560?exp=1788307200&sig=34c28f40790d45094463478186ab8fba67d5532c7b89fcbc1b8d0c8514bb4402"
+                                src="/images/terms-of-use-navbar-1.jpg"
                                 alt="Relume placeholder image 1"
                                 className="absolute inset-0 size-full rounded-image object-cover"
                               />
@@ -404,7 +405,7 @@ export function Navbar5() {
                           >
                             <div className="relative w-full pt-[66.66%]">
                               <img
-                                src="https://imagedelivery.net/RAP5LnVUMDfmG3LRL4kHtw/fb4db5cb-4c9b-4bb0-6060-d32b4bda1e01/2560?exp=1788307200&sig=d1c97a3f6e09de10121a641872a3d474fd51ab6b978deb97ce433dbd0b5cf87e"
+                                src="/images/terms-of-use-navbar-2.jpg"
                                 alt="Relume placeholder image 2"
                                 className="absolute inset-0 size-full rounded-image object-cover"
                               />

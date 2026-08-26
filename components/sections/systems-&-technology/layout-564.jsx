@@ -7,7 +7,7 @@ export function Layout564() {
     <section className="grid grid-cols-1 items-center gap-y-16 pt-16 md:pt-24 lg:grid-cols-2 lg:pt-0 scheme-2 badge-alt">
       <div className="relative order-last size-full overflow-hidden lg:order-first lg:min-h-[80vh]">
         <img
-          src="https://imagedelivery.net/RAP5LnVUMDfmG3LRL4kHtw/a7663ed2-b2a8-4c91-5d0e-c8aef848af01/2560?exp=1788307200&sig=0ada8c3261a3b53f87685f2c9dcce9900859162a89a486599a51ed52302933d6"
+          src="/images/systems-technology-about-section-new1.jpg"
           alt="Relume placeholder image"
           className="static size-full object-cover lg:absolute lg:inset-0"
         />

@@ -31,9 +31,9 @@ export function Footer9() {
           <div className="flex flex-col">
             <a href="#" className="mb-5 md:mb-6">
               <img
-                src="https://d22po4pjz3o32e.cloudfront.net/logo-image.svg"
-                alt="Logo image"
-                className="inline-block"
+                src="/brand/uplift-path-logo.svg"
+                alt="Uplift Path"
+                className="inline-block h-8 w-auto"
               />
             </a>
             <p className="mb-5 md:mb-6">

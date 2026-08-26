@@ -16,7 +16,7 @@ export function Layout615() {
               {/* was <img> wrapping an <img> in the Relume source — invalid, replaced with div */}
               <div className="mb-6 w-full overflow-hidden md:mb-8">
                 <img
-                  src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                  src="/images/compliance-support-feature-section-1.jpg"
                   alt="Julia Gilliam, LSW"
                   className="aspect-video size-full rounded-image object-cover"
                 />
@@ -35,7 +35,7 @@ export function Layout615() {
             <div className="border-b border-scheme-border py-6 last:border-b-0 md:border-b-0 md:py-8 lg:py-12">
               <div className="mb-6 w-full overflow-hidden md:mb-8">
                 <img
-                  src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                  src="/images/compliance-support-feature-section-2.jpg"
                   alt="Martha Matthews"
                   className="aspect-video size-full rounded-image object-cover"
                 />
