@@ -1,0 +1,78 @@
+/* Palette — verbatim from DESIGN.md / react/globals.css. */
+:root{
+  /* Neutral */
+  --color-white:#ffffff;
+  --color-neutral-lightest:#f2f2f2;
+  --color-neutral-lighter:#d8dad9;
+  --color-neutral-light:#b2b5b4;
+  --color-neutral:#7f8483;
+  --color-neutral-dark:#4c5352;
+  --color-neutral-darker:#192220;
+  --color-neutral-darkest:#000a08;
+
+  /* Caribbean Green — primary brand */
+  --color-caribbean-green-lightest:#e6faf6;
+  --color-caribbean-green-lighter:#cdf5ed;
+  --color-caribbean-green:#08d1a7;
+  --color-caribbean-green-dark:#06a785;
+  --color-caribbean-green-darker:#035342;
+  --color-caribbean-green-darkest:#023e32;
+
+  /* Viking — secondary green */
+  --color-viking-lightest:#edfbf8;
+  --color-viking-lighter:#dcf8f2;
+  --color-viking-light:#85e7d3;
+  --color-viking:#52dec1;
+  --color-viking-dark:#41b19a;
+  --color-viking-darker:#20584d;
+  --color-viking-darkest:#184239;
+
+  /* Pickled Bluewood — dark navy */
+  --color-pickled-bluewood-lightest:#e9ebed;
+  --color-pickled-bluewood-lighter:#d4d8dc;
+  --color-pickled-bluewood-light:#6b7784;
+  --color-pickled-bluewood:#2c3e50;
+  --color-pickled-bluewood-dark:#233140;
+  --color-pickled-bluewood-darker:#111820;
+  --color-pickled-bluewood-darkest:#0d1218;
+
+  /* Black */
+  --color-black-lightest:#e5e5e5;
+  --color-black-lighter:#cccccc;
+  --color-black-light:#4c4c4c;
+  --color-black-darkest:#000000;
+
+  /* Transparency ramps — used for hairlines, hovers, placeholder text */
+  --color-white-5:color-mix(in srgb,var(--color-white),transparent 95%);
+  --color-white-10:color-mix(in srgb,var(--color-white),transparent 90%);
+  --color-white-15:color-mix(in srgb,var(--color-white),transparent 85%);
+  --color-white-20:color-mix(in srgb,var(--color-white),transparent 80%);
+  --color-white-30:color-mix(in srgb,var(--color-white),transparent 70%);
+  --color-white-40:color-mix(in srgb,var(--color-white),transparent 60%);
+  --color-white-50:color-mix(in srgb,var(--color-white),transparent 50%);
+  --color-white-60:color-mix(in srgb,var(--color-white),transparent 40%);
+  --color-neutral-darkest-5:color-mix(in srgb,var(--color-neutral-darkest),transparent 95%);
+  --color-neutral-darkest-10:color-mix(in srgb,var(--color-neutral-darkest),transparent 90%);
+  --color-neutral-darkest-15:color-mix(in srgb,var(--color-neutral-darkest),transparent 85%);
+  --color-neutral-darkest-20:color-mix(in srgb,var(--color-neutral-darkest),transparent 80%);
+  --color-neutral-darkest-30:color-mix(in srgb,var(--color-neutral-darkest),transparent 70%);
+  --color-neutral-darkest-40:color-mix(in srgb,var(--color-neutral-darkest),transparent 60%);
+  --color-neutral-darkest-50:color-mix(in srgb,var(--color-neutral-darkest),transparent 50%);
+  --color-neutral-darkest-60:color-mix(in srgb,var(--color-neutral-darkest),transparent 40%);
+
+  /* Semantic aliases — default (Scheme 4, white) */
+  --surface-page:var(--color-white);
+  --surface-card:var(--color-white);
+  --surface-muted:var(--color-viking-lighter);
+  --surface-inverse:var(--color-pickled-bluewood);
+  --text-body:var(--color-neutral-darkest);
+  --text-muted:var(--color-neutral-dark);
+  --text-inverse:var(--color-white);
+  --text-accent:var(--color-caribbean-green);
+  --border-default:var(--color-neutral-darkest);
+  --border-hairline:var(--color-neutral-darkest-15);
+  --action-primary:var(--color-caribbean-green);
+  --action-primary-hover:var(--color-caribbean-green-dark);
+  --action-primary-text:var(--color-neutral-darkest);
+  --scrim:var(--color-neutral-darkest-50);
+}

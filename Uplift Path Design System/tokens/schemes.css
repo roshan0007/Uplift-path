@@ -1,0 +1,19 @@
+/* Section colour schemes — from DESIGN.md.
+   Every section of an Uplift Path page carries exactly one .scheme-N class;
+   children read --color-scheme-* rather than raw palette values. */
+.scheme-1,.scheme-2,.scheme-3,.scheme-4,.scheme-5,.scheme-6,.scheme-7,.scheme-8{
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+/* --color-scheme-btn-text is the label colour of a default (green-filled) Button inside
+   the scheme. It stays near-black on every scheme — the green fill never changes. */
+.scheme-1{--color-scheme-background:#08d1a7;--color-scheme-foreground:#08d1a7;--color-scheme-text:#000a08;--color-scheme-accent:#000a08;--color-scheme-border:#000a08;--color-scheme-btn-text:#000a08;--color-scheme-logo:light}
+.scheme-2{--color-scheme-background:#2c3e50;--color-scheme-foreground:#2c3e50;--color-scheme-text:#ffffff;--color-scheme-accent:#08d1a7;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
+.scheme-3{--color-scheme-background:#000000;--color-scheme-foreground:#000000;--color-scheme-text:#ffffff;--color-scheme-accent:#08d1a7;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
+.scheme-4{--color-scheme-background:#ffffff;--color-scheme-foreground:#ffffff;--color-scheme-text:#000a08;--color-scheme-accent:#000a08;--color-scheme-border:#000a08;--color-scheme-btn-text:#000a08;--color-scheme-logo:light}
+.scheme-5{--color-scheme-background:#dcf8f2;--color-scheme-foreground:#dcf8f2;--color-scheme-text:#000a08;--color-scheme-accent:#000a08;--color-scheme-border:#000a08;--color-scheme-btn-text:#000a08;--color-scheme-logo:light}
+.scheme-6{--color-scheme-background:#035342;--color-scheme-foreground:#035342;--color-scheme-text:#ffffff;--color-scheme-accent:#ffffff;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
+.scheme-7{--color-scheme-background:#035342;--color-scheme-foreground:#035342;--color-scheme-text:#ffffff;--color-scheme-accent:#ffffff;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
+.scheme-8{--color-scheme-background:#41b19a;--color-scheme-foreground:#41b19a;--color-scheme-text:#ffffff;--color-scheme-accent:#ffffff;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
+/* Logo inversion helper — apply to sections whose scheme calls for the dark-background logo. */
+.logo-alt img[alt*="logo" i],.logo-alt img[src*="logo" i]{filter:brightness(0) invert(1)}

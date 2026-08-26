@@ -1,0 +1,35 @@
+/* Spacing, containers, breakpoints — from react/globals.css @theme. */
+:root{
+  --spacing-1:0.25rem;
+  --spacing-2:0.5rem;
+  --spacing-3:0.75rem;
+  --spacing-4:1rem;
+  --spacing-5:1.25rem;
+  --spacing-6:1.5rem;
+  --spacing-8:2rem;
+  --spacing-12:3rem;
+  --spacing-16:4rem;
+  --spacing-18:4.5rem;
+  --spacing-20:5rem;
+  --spacing-24:6rem;
+  --spacing-28:7rem;
+  --spacing-30:7.5rem;
+
+  /* Section rhythm: py-16 mobile / py-24 tablet / py-28 desktop, px-[5%] inline. */
+  --section-py:var(--spacing-16);
+  --section-py-md:var(--spacing-24);
+  --section-py-lg:var(--spacing-28);
+  --section-px:5%;
+
+  --breakpoint-sm:480px;
+  --breakpoint-md:768px;
+  --breakpoint-lg:992px;
+
+  --container-xxs:20rem;
+  --container-xs:25rem;
+  --container-sm:30rem;
+  --container-md:35rem;
+  --container-lg:48rem;
+  --container-xl:64rem;
+  --container-xxl:80rem;
+}

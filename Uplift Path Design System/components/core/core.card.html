@@ -1,0 +1,72 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Core" subtitle="Card, BackgroundCard, Accordion, Tabs, Carousel, Icon, Dialog" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;font-family:var(--font-body);background:#fff}.lbl{font-size:10px;color:#7f8483;margin-bottom:6px}</style></head>
+<body><div id="root"></div><script type="text/babel">
+
+const { Card, BackgroundCard, CardContent, Accordion, AccordionItem, AccordionTrigger, AccordionContent, Tabs, TabsList, TabsTrigger, TabsContent, Carousel, CarouselContent, CarouselItem, CarouselDots, Icon, Button, Dialog, DialogTitle, DialogDescription } = window.UpliftPathDesignSystem_930664;
+function Demo(){
+  const [open,setOpen] = React.useState(false);
+  return (
+    <div style={{display:"grid",gap:"20px"}}>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"16px"}}>
+        <div><div className="lbl">Card</div>
+          <Card style={{padding:"16px"}}>
+            <div style={{fontFamily:"var(--font-display)",fontSize:"20px",marginBottom:"6px"}}>Operational Consulting</div>
+            <div style={{fontSize:"13px"}}>Improve workflows, operational clarity, and long-term growth.</div>
+          </Card>
+        </div>
+        <div><div className="lbl">BackgroundCard</div>
+          <BackgroundCard style={{position:"relative",height:"104px"}}>
+            <img src="../../assets/images/home-who-we-help-0.jpg" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}} />
+            <div style={{position:"absolute",inset:0,background:"var(--scrim)"}} />
+            <div style={{position:"absolute",left:"14px",bottom:"12px",color:"#fff"}}>
+              <div style={{fontSize:"11px",fontWeight:600}}>Operational consulting</div>
+              <div style={{fontFamily:"var(--font-display)",fontSize:"20px"}}>Discovery &amp; Listening</div>
+            </div>
+          </BackgroundCard>
+        </div>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1.2fr 1fr",gap:"20px",alignItems:"start"}}>
+        <div><div className="lbl">Accordion</div>
+          <Accordion type="multiple" defaultValue={["q1"]}>
+            <AccordionItem value="q1"><AccordionTrigger style={{fontSize:"14px"}}>What is business consulting?</AccordionTrigger>
+              <AccordionContent style={{fontSize:"13px"}}>Expert advice, actionable strategies, and hands-on support.</AccordionContent></AccordionItem>
+            <AccordionItem value="q2"><AccordionTrigger style={{fontSize:"14px"}}>Which industries do you specialize in?</AccordionTrigger>
+              <AccordionContent style={{fontSize:"13px"}}>Behavioral health, education, nonprofits and startups.</AccordionContent></AccordionItem>
+          </Accordion>
+        </div>
+        <div><div className="lbl">Tabs</div>
+          <Tabs defaultValue="b">
+            <TabsList><TabsTrigger value="b" style={{fontSize:"13px",padding:"6px 14px"}}>Businesses</TabsTrigger><TabsTrigger value="i" style={{fontSize:"13px",padding:"6px 14px"}}>Individuals</TabsTrigger></TabsList>
+            <TabsContent value="b" style={{fontSize:"13px",paddingTop:"10px"}}>Consulting that turns plans into progress.</TabsContent>
+            <TabsContent value="i" style={{fontSize:"13px",paddingTop:"10px"}}>Confidential support, whenever you need it.</TabsContent>
+          </Tabs>
+          <div className="lbl" style={{marginTop:"16px"}}>Dialog</div>
+          <Button variant="secondary" size="sm" onClick={()=>setOpen(true)}>Open dialog</Button>
+          <Dialog open={open} onOpenChange={setOpen} style={{maxWidth:"22rem"}}>
+            <Card style={{padding:"20px",background:"#fff"}}>
+              <DialogTitle>Book a discovery call</DialogTitle>
+              <DialogDescription style={{marginTop:"6px"}}>We'll be in touch within one business day.</DialogDescription>
+            </Card>
+          </Dialog>
+        </div>
+      </div>
+      <div><div className="lbl">Carousel</div>
+        <Carousel>
+          <CarouselContent>
+            <CarouselItem><div style={{textAlign:"center",fontFamily:"var(--font-display)",fontSize:"17px",padding:"0 40px"}}>"The fog lifted. For the first time in years I could see the next step."</div></CarouselItem>
+            <CarouselItem><div style={{textAlign:"center",fontFamily:"var(--font-display)",fontSize:"17px",padding:"0 40px"}}>"Structure we could actually keep using after they left."</div></CarouselItem>
+          </CarouselContent>
+          <CarouselDots style={{marginTop:"12px"}} />
+        </Carousel>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>
