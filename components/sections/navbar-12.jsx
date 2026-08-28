@@ -85,7 +85,13 @@ const MenuItem = ({ item }) => (
     />
     <div className="flex grow flex-col">
       <p className="font-semibold">{item.label}</p>
-      <p className="hidden text-small md:block">{item.description}</p>
+      {/* Descriptions need ~325px of column to stay at two lines. The sheet is
+          min(72rem, 90vw), so that only holds from about 1270px up; below it the
+          copy blows out to four lines and the sheet grows past the hero's
+          supporting paragraph. Labels-only below 1280 keeps the sheet short
+          across the whole range. There is no `xl` breakpoint in this project
+          (`--breakpoint-*: initial`), hence the arbitrary variant. */}
+      <p className="hidden text-small min-[1280px]:block">{item.description}</p>
     </div>
   </a>
 );
@@ -150,7 +156,10 @@ export function Navbar12() {
   return (
     <section className="z-[999] flex w-full items-center bg-scheme-background lg:min-h-18 lg:px-[5%] scheme-1 badge-alt">
       <div className="size-full lg:flex lg:items-center lg:justify-between">
-        <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
+        {/* The logo block and the Contact block are both `lg:flex-1`, so the
+            <nav> between them sits on the exact centre of the bar no matter how
+            wide the logo or the button get. */}
+        <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:flex-1 lg:px-0">
           <a href="/">
             <img
               src="/brand/uplift-path-logo.svg"
@@ -221,7 +230,7 @@ export function Navbar12() {
           exit="close"
           animate={useActive.animateMobileMenu}
           transition={{ duration: 0.4 }}
-          className="overflow-auto px-[5%] lg:flex lg:h-auto! lg:items-center lg:overflow-visible lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
+          className="overflow-auto px-[5%] lg:contents lg:h-auto! lg:items-center lg:overflow-visible lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
         >
           <nav className="lg:flex lg:items-center">
             <a
@@ -285,13 +294,13 @@ export function Navbar12() {
                   initial="close"
                   exit="close"
                   transition={{ duration: 0.2 }}
-                  className="bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(65rem,92vw)] lg:-translate-x-1/2 lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%]"
+                  className="bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%]"
                 >
-                  <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.28fr] lg:gap-8">
+                  <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.42fr] lg:gap-8">
                     <div>
                       <a
                         href="/for-business-page"
-                        className="mb-3 block text-small leading-[1.3] font-semibold"
+                        className="mb-3 block text-medium leading-[1.3] font-semibold"
                       >
                         For Businesses
                       </a>
@@ -301,10 +310,16 @@ export function Navbar12() {
                         ))}
                       </div>
                     </div>
-                    <div>
+                    {/* The hairline reads as a divider between the two audiences
+                        rather than the individual column looking like a leftover
+                        of the business grid. Solid 1px in the scheme border
+                        colour: it is the same rule the footer divider and this
+                        sheet's own outline use -- the brand has no dotted rules
+                        anywhere, so a dashed one would read as foreign. */}
+                    <div className="lg:border-l lg:border-scheme-border lg:pl-8">
                       <a
                         href="/for-individual-page"
-                        className="mb-3 block text-small leading-[1.3] font-semibold"
+                        className="mb-3 block text-medium leading-[1.3] font-semibold"
                       >
                         For Individuals
                       </a>
@@ -325,7 +340,7 @@ export function Navbar12() {
               Careers
             </a>
           </nav>
-          <div className="my-6 flex flex-col gap-4 lg:my-0 lg:ml-4 lg:flex-row lg:items-center">
+          <div className="my-6 flex flex-col gap-4 lg:my-0 lg:flex-1 lg:flex-row lg:items-center lg:justify-end">
             <Button asChild title="Contact" size="sm">
               <a href="/contact-us">Contact</a>
             </Button>
