@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { AnimatePresence, motion } from "motion/react";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
 
 const iconUrl = (name) =>
@@ -100,15 +100,28 @@ const useRelume = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 991px)");
+  // The sheet closes on a short delay rather than instantly. Pointer paths to a
+  // mega-menu item are rarely straight down: people cut the corner, overshoot,
+  // or pause. Closing on the first mouseleave pulls the menu out from under
+  // them mid-reach. The timer is cancelled the moment the pointer comes back
+  // into the trigger or the sheet (the sheet is a DOM child of the same
+  // wrapper, so re-entering it fires onMouseEnter here).
+  const closeTimer = useRef(null);
+  useEffect(() => () => clearTimeout(closeTimer.current), []);
+
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
   const openOnMobileDropdownMenu = () => {
     setIsDropdownOpen((prev) => !prev);
   };
   const openOnDesktopDropdownMenu = () => {
-    !isMobile && setIsDropdownOpen(true);
+    if (isMobile) return;
+    clearTimeout(closeTimer.current);
+    setIsDropdownOpen(true);
   };
   const closeOnDesktopDropdownMenu = () => {
-    !isMobile && setIsDropdownOpen(false);
+    if (isMobile) return;
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setIsDropdownOpen(false), 300);
   };
   const animateMobileMenu = isMobileMenuOpen ? "open" : "close";
   const animateMobileMenuButtonSpan = isMobileMenuOpen
@@ -294,7 +307,16 @@ export function Navbar12() {
                   initial="close"
                   exit="close"
                   transition={{ duration: 0.2 }}
-                  className="bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%]"
+                  // The trigger's box ends at y 56 but the sheet starts at 72,
+                  // so those 16px belonged to neither and crossing them fired
+                  // mouseleave. This invisible strip spans the gap and is part
+                  // of the sheet, so the pointer stays inside the hover target
+                  // the whole way down. It only exists while the sheet is open,
+                  // and sits below the nav links (which end at y 56), so it
+                  // never intercepts a click on them. `lg:overflow-visible`
+                  // is required: the Card primitive ships `overflow-hidden`,
+                  // which clips the strip away entirely.
+                  className="bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:overflow-visible lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%] lg:before:absolute lg:before:inset-x-0 lg:before:-top-4 lg:before:h-4 lg:before:content-['']"
                 >
                   <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.42fr] lg:gap-8">
                     <div>
