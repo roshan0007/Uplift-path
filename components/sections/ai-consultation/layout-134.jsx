@@ -16,8 +16,8 @@ export function Layout134() {
           drive real growth and lasting value.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button title="Book your AI strategy session" variant="secondary">
-            Book your AI strategy session
+          <Button asChild title="Book your AI strategy session" variant="secondary">
+            <a href="/contact-us">Book your AI strategy session</a>
           </Button>
         </div>
       </div>

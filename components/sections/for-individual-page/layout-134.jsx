@@ -17,8 +17,8 @@ export function Layout134() {
           18+ with active Ohio Medicaid.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button title="Get Started" variant="secondary">
-            Get Started
+          <Button asChild title="Get Started" variant="secondary">
+            <a href="/contact-us">Get Started</a>
           </Button>
         </div>
       </div>

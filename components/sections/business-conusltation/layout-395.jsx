@@ -40,12 +40,13 @@ export function Layout395() {
               </div>
               <div className="mt-5 md:mt-6">
                 <Button
+                  asChild
                   title="Learn more"
                   variant="link"
                   size="link"
                   iconRight={<ChevronRight className="text-scheme-text" />}
                 >
-                  Learn more
+                  <a href="/advisory--services">Learn more</a>
                 </Button>
               </div>
             </div>
@@ -69,12 +70,13 @@ export function Layout395() {
               </div>
               <div className="mt-5 md:mt-6">
                 <Button
+                  asChild
                   title="Learn more"
                   variant="link"
                   size="link"
                   iconRight={<ChevronRight className="text-scheme-text" />}
                 >
-                  Learn more
+                  <a href="/systems-&-technology">Learn more</a>
                 </Button>
               </div>
             </div>
@@ -99,12 +101,13 @@ export function Layout395() {
               </div>
               <div className="mt-5 md:mt-6">
                 <Button
+                  asChild
                   title="Learn more"
                   variant="link"
                   size="link"
                   iconRight={<ChevronRight className="text-scheme-text" />}
                 >
-                  Learn more
+                  <a href="/resource-assistance">Learn more</a>
                 </Button>
               </div>
             </div>

@@ -44,7 +44,7 @@ export function Layout423() {
             onMouseOver={hoverState.handleMouseEnter(0)}
             onMouseLeave={hoverState.handleMouseLeave}
           >
-            <a href="#">
+            <a href="/how-we-work">
               <div className="absolute inset-0 flex size-full flex-col items-center justify-center self-start">
                 <div className="bg-neutral-darkest/50 absolute inset-0" />
                 <img
@@ -105,7 +105,7 @@ export function Layout423() {
             onMouseOver={hoverState.handleMouseEnter(1)}
             onMouseLeave={hoverState.handleMouseLeave}
           >
-            <a href="#">
+            <a href="/how-we-work">
               <div className="absolute inset-0 flex size-full flex-col items-center justify-center self-start">
                 <div className="bg-neutral-darkest/50 absolute inset-0" />
                 <img
@@ -166,7 +166,7 @@ export function Layout423() {
             onMouseOver={hoverState.handleMouseEnter(2)}
             onMouseLeave={hoverState.handleMouseLeave}
           >
-            <a href="#">
+            <a href="/how-we-work">
               <div className="absolute inset-0 flex size-full flex-col items-center justify-center self-start">
                 <div className="bg-neutral-darkest/50 absolute inset-0" />
                 <img

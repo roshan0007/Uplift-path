@@ -16,8 +16,8 @@ export function Layout134() {
           opportunities with focused business consulting.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button title="Get started" variant="secondary">
-            Get started
+          <Button asChild title="Get started" variant="secondary">
+            <a href="/contact-us">Get started</a>
           </Button>
         </div>
       </div>

@@ -46,8 +46,10 @@ export function Layout359() {
               </p>
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-4 md:mt-8">
-              <Button title="Explore opportunities" variant="secondary">
-                Explore opportunities
+              {/* Self-link, flagged: no jobs board or ATS URL exists in the
+                  repo, so /career is a placeholder destination. */}
+              <Button asChild title="Explore opportunities" variant="secondary">
+                <a href="/career">Explore opportunities</a>
               </Button>
             </div>
           </div>

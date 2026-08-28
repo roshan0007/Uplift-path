@@ -15,7 +15,9 @@ export function Cta25() {
           tailored to your goals.
         </p>
         <div className="mt-6 flex items-center justify-center gap-4 md:mt-8">
-          <Button title="Get Started">Get Started</Button>
+          <Button asChild title="Get Started">
+            <a href="/contact-us">Get Started</a>
+          </Button>
         </div>
       </div>
     </section>
