@@ -17,7 +17,7 @@ Everything below marked **CONFIRMED** was verified against these folders on
 
 Read `CLAUDE.md` first, then `.claude/skills/uplift-path-design/readme.md`.
 
-## What's in `designv2/`
+## What's in `v2/`
 
 Two artifacts, both from the same Relume revision:
 
