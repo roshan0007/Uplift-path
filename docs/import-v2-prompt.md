@@ -1,8 +1,19 @@
 # Uplift Path — Relume v2 import
 
 The Relume design for this site has been substantially redesigned: new sections,
-new components, new photography. Everything needed is in `designv2/` at the repo
-root. Import it and rebuild the site on a new branch.
+new components, new photography. Everything needed is in `v2/` at the repo root:
+
+```
+v2/
+├─ Uplift Path Design System v2/   the Claude Design bundle (note the spaces)
+└─ uplift-export-v2/               the Relume "export to Claude Code" download
+```
+
+Import it and rebuild the site on a new branch. **Delete `v2/` as part of the
+final cleanup** — it is input, not source, and git keeps it.
+
+Everything below marked **CONFIRMED** was verified against these folders on
+2026-08-28. Those are facts about the files on disk, not things to go re-check.
 
 Read `CLAUDE.md` first, then `.claude/skills/uplift-path-design/readme.md`.
 
@@ -34,10 +45,12 @@ all: no error, just silently unstyled. It was discarded in the previous import f
 exactly this reason, and was also missing components. Use it only to recover a
 component the Claude Code export drops.
 
-Verify the two artifacts match before starting: the design system's `readme.md`
-names the export it was built from and dates it. Its page count and section
-inventory should line up with `sitemap.md` and `react/components/` in the export.
-If they disagree, they came from different Relume revisions — stop and say so.
+**CONFIRMED — both artifacts are present and consistent.** Design system: 48
+images, 10 woff2, 10 svgs, 22 guidelines, 10 reference screenshots, 8 token files.
+Relume export: `DESIGN.md`, `sitemap.md`, `assets.md`, `react/globals.css` (10 KB),
+13 UI primitives in `react/@/components/ui/`, and **78 section files across 18
+folders** in `react/components/`. No `missing-components/` folder exists and none
+appears to be needed, but cross-check against `sitemap.md` before assuming so.
 
 ## Deliverables
 
@@ -116,11 +129,12 @@ does. Do not blind-apply the patch to a file that changed underneath it.
 ## Order of operations
 
 1. `git checkout -b relume-import-v2`
-2. **Download every remaining `imagedelivery.net` image immediately** — before any
-   other work. The current URLs are signed `exp=1788307200`, i.e. **4 Sep 2026**.
-   The new export's URLs are signed too. If they lapse, the design is
-   unrecoverable and the user has to re-export from Relume. Find them with a
-   recursive grep for `imagedelivery.net` across `designv2/` and `components/`.
+2. **Download every `imagedelivery.net` image immediately** — before any other
+   work. **CONFIRMED: 53 references in the new export, all signed
+   `exp=1788480000` — that is 6 Sep 2026.** The old ones in `components/` expire
+   4 Sep. If either lapses the design is unrecoverable and the user has to
+   re-export from Relume. Grep for `imagedelivery.net` across `v2/` and
+   `components/`, download into `public/images/`, and rewrite the references.
 3. Save the navbar + `globals.css` diffs as a patch.
 4. Diff the new `sitemap.md` against the current `app/` routes. Produce three
    lists: pages added, pages removed, sections renamed. Show them before copying
@@ -133,20 +147,24 @@ does. Do not blind-apply the patch to a file that changed underneath it.
 
 ## Known traps — every one of these cost time in the v1 import
 
-**`globals.css` does not compile as shipped.** In v1 the export nested
-`@layer theme { @media ... }` *inside* `@theme`, which Tailwind 4 rejects outright.
-The current `app/globals.css` is derived from it with three fixes, marked
-`[1] [2] [3]` in its header: self-hosted fonts, that block lifted out, and an
-`@theme inline` block. Check whether v2's `react/globals.css` still has the nesting
-bug, and re-derive with whichever fixes still apply. Never hand-edit token values.
+**CONFIRMED — `globals.css` still does not compile.** `v2/uplift-export-v2/react/
+globals.css` opens `@theme` at line 13 and nests `@layer theme { @media (min-width:
+992px) { ... } }` at **line 147, two levels deep inside it**. Tailwind 4 rejects
+this outright. Identical to the v1 bug. Fix `[2]` — lift that block out — applies
+unchanged.
 
-**The `scheme-*` colour utilities still need an `@theme inline` block.** The design
-system's `tokens/schemes.css` defines the scheme classes and sets `--color-scheme-*`
-properly — but Tailwind cannot know those custom properties are *colours*, so
-`bg-scheme-foreground` / `text-scheme-text` / `border-scheme-border` generate
-*nothing* without an `@theme inline` block naming them. It must be `inline`, or the
-values freeze instead of resolving per section. Symptom when missing: every card
-borderless, every input transparent — silent, no error. This trap survives v2.
+The current `app/globals.css` carries three fixes marked `[1] [2] [3]` in its
+header: self-hosted fonts, that block lifted out, and an `@theme inline` block. All
+three still apply. Re-derive with them; never hand-edit token values.
+
+**CONFIRMED — there is no `@theme inline` block in the export.** Zero occurrences.
+The design system's `tokens/schemes.css` defines the scheme classes and sets
+`--color-scheme-*` correctly, but Tailwind cannot know those custom properties are
+*colours*, so `bg-scheme-foreground` / `text-scheme-text` / `border-scheme-border`
+generate *nothing* without an `@theme inline` block naming them. It must be
+`inline`, or the values freeze instead of resolving per section. Symptom when
+missing: every card borderless, every input transparent — silent, no error. Fix
+`[3]` applies unchanged.
 
 **v2 has seven schemes, not four, and they're named.** `.scheme-light`,
 `.scheme-accent`, `.scheme-navy`, `.scheme-mint`, `.scheme-deep-teal`,
@@ -164,18 +182,26 @@ count in `react/components/` against `sitemap.md` before assuming the export is
 complete. If something is missing, the discarded "export React" download is the
 place to recover it from.
 
-**Export bugs fixed in v1 — check whether they recur, and don't "restore" them:**
-`features is not defined` (crashed `ai-consultation/layout-485` and both
-`layout-486`s; fixed with a derived `FEATURE_COUNT`), `tansition-all` in
-`ui/textarea.jsx`, `mb-8border-none` in `business-conusltation/layout-353`.
+**CONFIRMED — all three v1 export bugs recur, at these exact locations.** Fix them
+on the way in; do not "restore" them later.
 
-**v2 documents 16 pages; the repo currently has 18 routes.** The design system's
-readme lists Home, About Us, How We Work, For Individuals, For Businesses, Business
-Consultation, AI Consultation, Advisory Services, Systems & Technology, Compliance
-Support, Resource Assistance, Career, Contact Us, Accessibility, Privacy Policy,
-Terms of Use. That leaves `app/faq-for-test/` and `app/page-20/` unaccounted for.
-Confirm against `sitemap.md`, then either delete them with 301s to a sensible
-target, or keep them deliberately — but don't leave them orphaned and unnoticed.
+| Bug | Location in `v2/uplift-export-v2/` |
+|---|---|
+| `const featureCount = features.length;` — `features` is never defined, crashes the page | `react/components/business-conusltation/layout-486.jsx:16` and `react/components/for-individual-page/layout-486.jsx:16` |
+| `tansition-all` (typo, silently dead class) | `react/@/components/ui/textarea.jsx:4` |
+| `mb-8border-none` (two classes fused, both dead) | `react/components/business-conusltation/layout-353.jsx` lines 27, 42, 58, 74 |
+
+v1 fixed the `features` crash with a derived `FEATURE_COUNT`; do the same. Note the
+affected files shifted — v1 also hit `ai-consultation/layout-485`, which is clean
+this time.
+
+**CONFIRMED — `faq-for-test` and `page-20` are still in the export.** The design
+system's readme describes the site as 16 pages and doesn't list either, but the
+Relume export ships 18 route folders including both. So they aren't dropped — they
+just aren't considered real pages. Both look like scratch pages (`faq-for-test` by
+name; `page-20` is a Relume default). They're currently live and indexed. Decide
+explicitly: ship them, `noindex` them, or delete them with 301s — but surface the
+choice, don't recreate them silently because the export happened to include them.
 
 **Section folder names carry Relume's typos** (`business-conusltation`,
 `advisory--services`) and the routes match them. If the new export fixes those
