@@ -30,7 +30,6 @@ export function Layout423() {
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="md:mb-18 mx-auto mb-12 w-full max-w-lg text-center lg:mb-20">
-          <p className="mb-3 font-semibold md:mb-4">Services</p>
           <h2 className="text-h2 mb-5 font-bold md:mb-6">
             Our AI consulting and implementation services
           </h2>
@@ -81,8 +80,8 @@ export function Layout423() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <p className="mt-5 text-white md:mt-6">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse varius enim in eros elementum tristique.
+                      We help you build a strong AI foundation with strategy,
+                      governance, and workforce-ready solutions.
                     </p>
                     <div className="mt-6 md:mt-8">
                       <Button
@@ -91,7 +90,7 @@ export function Layout423() {
                         iconRight={<ChevronRight />}
                         className="text-white"
                       >
-                        Button
+                        Learn more
                       </Button>
                     </div>
                   </motion.div>
@@ -140,8 +139,8 @@ export function Layout423() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <p className="mt-5 text-white md:mt-6">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse varius enim in eros elementum tristique.
+                      We help you build a strong AI foundation with strategy,
+                      governance, and workforce-ready solutions.
                     </p>
                     <div className="mt-6 md:mt-8">
                       <Button
@@ -150,7 +149,7 @@ export function Layout423() {
                         iconRight={<ChevronRight />}
                         className="text-white"
                       >
-                        Button
+                        Learn more
                       </Button>
                     </div>
                   </motion.div>
@@ -199,8 +198,8 @@ export function Layout423() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <p className="mt-5 text-white md:mt-6">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse varius enim in eros elementum tristique.
+                      We help you build a strong AI foundation with strategy,
+                      governance, and workforce-ready solutions.
                     </p>
                     <div className="mt-6 md:mt-8">
                       <Button
@@ -209,7 +208,7 @@ export function Layout423() {
                         iconRight={<ChevronRight />}
                         className="text-white"
                       >
-                        Button
+                        Learn more
                       </Button>
                     </div>
                   </motion.div>

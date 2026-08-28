@@ -26,14 +26,14 @@ export function Layout469() {
           <div className="relative flex">
             <div className="absolute top-[10%] left-0 w-1/2">
               <img
-                src="/images/career-feature-section-2.png"
+                src="/images/career-feature-section-3.jpg"
                 className="aspect-square size-full rounded-image object-cover"
                 alt="Relume placeholder image 1"
               />
             </div>
             <div className="ml-[30%]">
               <img
-                src="/images/career-feature-section-3.jpg"
+                src="/images/career-feature-section-2.png"
                 className="aspect-[2/3] size-full rounded-image object-cover"
                 alt="Relume placeholder image 2"
               />

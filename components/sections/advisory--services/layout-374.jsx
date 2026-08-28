@@ -9,7 +9,6 @@ export function Layout374() {
       <div className="container">
         <div className="mb-12 md:mb-18 lg:mb-20">
           <div className="mx-auto max-w-lg text-center">
-            <p className="mb-3 font-semibold md:mb-4">Capabilities</p>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">What we do</h2>
           </div>
         </div>

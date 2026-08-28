@@ -27,12 +27,9 @@ const useRelume = () => {
 export function Layout423() {
   const hoverState = useRelume();
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-2 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="md:mb-18 mx-auto mb-12 w-full max-w-lg text-center lg:mb-20">
-          <p className="mb-3 font-semibold md:mb-4">
-            How we help organizations thrive
-          </p>
           <h2 className="text-h2 mb-5 font-bold md:mb-6">
             Create Clear, Sustainable Pathways to Meaningful Growth
           </h2>
@@ -51,7 +48,7 @@ export function Layout423() {
               <div className="absolute inset-0 flex size-full flex-col items-center justify-center self-start">
                 <div className="bg-neutral-darkest/50 absolute inset-0" />
                 <img
-                  src="/images/home-who-we-help-0.jpg"
+                  src="/images/home-who-we-help-0.png"
                   alt="Relume placeholder image 1"
                   className="size-full object-cover"
                 />
@@ -85,8 +82,8 @@ export function Layout423() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <p className="mt-5 text-white md:mt-6">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse varius enim in eros elementum tristique.
+                      Let's start with a quick conversation to understand your
+                      goals, strengths, and any barriers you face.
                     </p>
                     <div className="mt-6 md:mt-8">
                       <Button
@@ -95,7 +92,7 @@ export function Layout423() {
                         iconRight={<ChevronRight />}
                         className="text-white"
                       >
-                        Button
+                        Learn more
                       </Button>
                     </div>
                   </motion.div>
@@ -121,15 +118,15 @@ export function Layout423() {
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">
-                    Operational consulting
+                    Process optimization
                   </p>
                   <h3 className="text-h4 font-bold text-white">
-                    Discovery & Listening
+                    Your Pathway Plan
                   </h3>
                   <div className="lg:hidden">
                     <p className="mt-5 text-white md:mt-6">
-                      Let's start with a quick conversation to understand your
-                      goals, strengths, and any barriers you face.
+                      A clear plan with transparent milestones and support, so you
+                      always know your path forward.
                     </p>
                   </div>
                 </div>
@@ -146,8 +143,8 @@ export function Layout423() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <p className="mt-5 text-white md:mt-6">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse varius enim in eros elementum tristique.
+                      A clear plan with transparent milestones and support, so you
+                      always know your path forward.
                     </p>
                     <div className="mt-6 md:mt-8">
                       <Button
@@ -156,7 +153,7 @@ export function Layout423() {
                         iconRight={<ChevronRight />}
                         className="text-white"
                       >
-                        Button
+                        Learn more
                       </Button>
                     </div>
                   </motion.div>
@@ -182,15 +179,15 @@ export function Layout423() {
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">
-                    Operational consulting
+                    Leadership and strategy
                   </p>
                   <h3 className="text-h4 font-bold text-white">
-                    Discovery & Listening
+                    Measurable Progress
                   </h3>
                   <div className="lg:hidden">
                     <p className="mt-5 text-white md:mt-6">
-                      Let's start with a quick conversation to understand your
-                      goals, strengths, and any barriers you face.
+                      Ongoing support to execute, track results, and adjust the
+                      pathway for sustainable growth.
                     </p>
                   </div>
                 </div>
@@ -207,8 +204,8 @@ export function Layout423() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <p className="mt-5 text-white md:mt-6">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse varius enim in eros elementum tristique.
+                      Ongoing support to execute, track results, and adjust the
+                      pathway for sustainable growth.
                     </p>
                     <div className="mt-6 md:mt-8">
                       <Button
@@ -217,7 +214,7 @@ export function Layout423() {
                         iconRight={<ChevronRight />}
                         className="text-white"
                       >
-                        Button
+                        Learn more
                       </Button>
                     </div>
                   </motion.div>

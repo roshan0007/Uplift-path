@@ -1,13 +1,10 @@
-"use client"
-
 import React from "react";
 import { Layout134 } from "@/components/sections/advisory--services/layout-134";
 import { Layout19 } from "@/components/sections/advisory--services/layout-19";
 import { Layout374 } from "@/components/sections/advisory--services/layout-374";
 import { Layout28 } from "@/components/sections/advisory--services/layout-28";
 import { Faq1 } from "@/components/sections/advisory--services/faq-01";
-import { Cta40 } from "@/components/sections/advisory--services/cta-40";
-
+import { Cta25 } from "@/components/sections/advisory--services/cta-25";
 
 export default function Page() {
   return (
@@ -17,7 +14,7 @@ export default function Page() {
       <Layout374 />
       <Layout28 />
       <Faq1 />
-      <Cta40 />
+      <Cta25 />
     </div>
   );
 }

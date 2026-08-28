@@ -8,7 +8,6 @@ export function Layout237() {
       <div className="container">
         <div className="flex flex-col items-center">
           <div className="mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
-            <p className="mb-3 font-semibold md:mb-4">Values</p>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">Our Core Values</h2>
             <p className="text-medium">
               At Uplift Path, we care, we’re honest, and we put people first. We

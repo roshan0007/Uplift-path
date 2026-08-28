@@ -29,14 +29,14 @@ colors:
     shade-5: "#233140"
     shade-6: "#111820"
     shade-7: "#0D1218"
-  caribbean-green:
-    shade-1: "#E6FAF6"
-    shade-2: "#CDF5ED"
-    shade-3: "#52DEC1"
-    shade-4: "#08D1A7"
-    shade-5: "#06A785"
-    shade-6: "#035342"
-    shade-7: "#023E32"
+  cerulean:
+    shade-1: "#E5F5FA"
+    shade-2: "#CCEBF5"
+    shade-3: "#4DBBDE"
+    shade-4: "#019ED0"
+    shade-5: "#007EA6"
+    shade-6: "#003F53"
+    shade-7: "#002F3E"
   black:
     shade-1: "#E5E5E5"
     shade-2: "#CCCCCC"
@@ -88,10 +88,10 @@ typography:
       text-tiny: 10px
 
 ui:
-  style: "sleek"
-  buttonRadius: 6px
-  tagRadius: 4px
-  inputRadius: 6px
+  style: "bubble"
+  buttonRadius: 12px
+  tagRadius: 6px
+  inputRadius: 12px
 
 cards:
   style: "edgy"
@@ -149,10 +149,10 @@ schemes:
     cssClass: "scheme-5"
   - name: "Scheme 6"
     background: "chromatic3-shade-6"
-    backgroundHex: "#035342"
-    foregroundHex: "#035342"
+    backgroundHex: "#003F53"
+    foregroundHex: "#003F53"
     textHex: "#ffffff"
-    accentHex: "#ffffff"
+    accentHex: "#08D1A7"
     borderValue: "#ffffff"
     useLogoVariant: dark
     cssClass: "scheme-6"
@@ -165,15 +165,6 @@ schemes:
     borderValue: "#ffffff"
     useLogoVariant: dark
     cssClass: "scheme-7"
-  - name: "Scheme 8"
-    background: "chromatic5-shade-5"
-    backgroundHex: "#41B19A"
-    foregroundHex: "#41B19A"
-    textHex: "#ffffff"
-    accentHex: "#ffffff"
-    borderValue: "#ffffff"
-    useLogoVariant: dark
-    cssClass: "scheme-8"
 ---
 
 # Demo site design uplift — Design Specification
@@ -187,7 +178,7 @@ The design uses a **light** theme with a neutral palette and 5 chromatic palette
 - **Neutral shades** range from shade-0 (darkest) to shade-7 (lightest), plus white
 - **Caribbean Green** — primary shade: `#08D1A7`
 - **Pickled Bluewood** — primary shade: `#2C3E50`
-- **Caribbean Green** — primary shade: `#08D1A7`
+- **Cerulean** — primary shade: `#019ED0`
 - **Black** — primary shade: `#000000`
 - **Viking** — primary shade: `#52DEC1`
 
@@ -201,7 +192,7 @@ The type scale has desktop and mobile sizes. Apply mobile sizes at smaller break
 
 ## UI Elements
 
-UI style is **sleek** with button radius 6px. Cards use the **edgy** style with border-width 2px.
+UI style is **bubble** with button radius 12px. Cards use the **edgy** style with border-width 2px.
 
 ## Color Schemes
 
@@ -214,9 +205,8 @@ Sections use color schemes to control their visual appearance. Each scheme is de
 | Scheme 3 | Black (#000000) | #ffffff | #08D1A7 | dark | `.scheme-3` |
 | Scheme 4 | Neutral White (#FFFFFF) | #000a08 | #000a08 | light | `.scheme-4` |
 | Scheme 5 | Viking Lighter (#DCF8F2) | #000a08 | #000a08 | light | `.scheme-5` |
-| Scheme 6 | Caribbean Green Darker (#035342) | #ffffff | #ffffff | dark | `.scheme-6` |
+| Scheme 6 | Cerulean Darker (#003F53) | #ffffff | #08D1A7 | dark | `.scheme-6` |
 | Scheme 7 | Caribbean Green Darker (#035342) | #ffffff | #ffffff | dark | `.scheme-7` |
-| Scheme 8 | Viking Dark (#41B19A) | #ffffff | #ffffff | dark | `.scheme-8` |
 
 Apply a scheme by adding its CSS class to the section element. See `sitemap.md` for which scheme each section uses.
 

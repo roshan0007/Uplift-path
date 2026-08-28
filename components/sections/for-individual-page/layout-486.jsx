@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 // The export references an undefined `features` array here, which crashes the
 // component on render. The section has 4 hard-coded cards (data-card-index
-// 0..3) and the sibling progress hook seeds 4 values, so the count is 4.
+// 0..3), so the count is 4.
 const FEATURE_COUNT = 4;
 
 const useLayout486 = () => {
@@ -200,8 +200,7 @@ export function Layout486() {
               <h2 className="mb-5 text-h2 font-bold md:mb-6">Discovery call</h2>
               <p className="text-medium">
                 Our team reviews your information and contacts you to discuss
-                your business challenges and needs. We listen first and talk
-                second.
+                your challenges and needs. We listen first and talk second.
               </p>
             </div>
             <div
@@ -223,9 +222,8 @@ export function Layout486() {
                 Expert guidance
               </h2>
               <p className="text-medium">
-                Meet a consultation expert who offers tailored business
-                strategies and solutions. Then you execute with a clear map in
-                hand.
+                Meet a consultation expert who offers tailored strategies and
+                solutions. Then you execute with a clear map in hand.
               </p>
             </div>
           </div>

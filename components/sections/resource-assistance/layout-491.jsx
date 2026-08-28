@@ -25,7 +25,7 @@ const useActiveValue = (initialValue) => {
 export function Layout491() {
   const activeValueState = useActiveValue("tab-one");
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-2 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="mx-auto mb-12 max-w-lg text-center md:mb-18 lg:mb-20">
           <h1 className="mb-5 text-h2 font-bold md:mb-6">What do you need?</h1>
@@ -112,7 +112,7 @@ export function Layout491() {
                     exit={{ opacity: 0 }}
                   >
                     <img
-                      src="/images/resource-assistance-feature-section.jpg"
+                      src="/images/resource-assistance-feature-section.png"
                       alt="Relume placeholder image 1"
                       className="rounded-image object-cover"
                     />

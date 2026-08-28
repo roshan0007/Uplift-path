@@ -1,29 +1,36 @@
-/* Spacing, containers, breakpoints — from react/globals.css @theme. */
+/* Uplift Path spacing, containers and breakpoints.
+   Every marketing section is `px-[5%] py-16 md:py-24 lg:py-28` — those literal
+   values are captured as --section-* tokens below. */
 :root{
-  --spacing-1:0.25rem;
-  --spacing-2:0.5rem;
-  --spacing-3:0.75rem;
-  --spacing-4:1rem;
-  --spacing-5:1.25rem;
-  --spacing-6:1.5rem;
-  --spacing-8:2rem;
-  --spacing-12:3rem;
-  --spacing-16:4rem;
-  --spacing-18:4.5rem;
-  --spacing-20:5rem;
-  --spacing-24:6rem;
-  --spacing-28:7rem;
-  --spacing-30:7.5rem;
+  --space-1:0.25rem;
+  --space-2:0.5rem;
+  --space-3:0.75rem;
+  --space-4:1rem;
+  --space-5:1.25rem;
+  --space-6:1.5rem;
+  --space-8:2rem;
+  --space-12:3rem;
+  --space-16:4rem;
+  --space-18:4.5rem;
+  --space-20:5rem;
+  --space-24:6rem;
+  --space-28:7rem;
+  --space-30:7.5rem;
 
-  /* Section rhythm: py-16 mobile / py-24 tablet / py-28 desktop, px-[5%] inline. */
-  --section-py:var(--spacing-16);
-  --section-py-md:var(--spacing-24);
-  --section-py-lg:var(--spacing-28);
-  --section-px:5%;
-
-  --breakpoint-sm:480px;
-  --breakpoint-md:768px;
-  --breakpoint-lg:992px;
+  /* section rhythm */
+  --section-padding-inline:5%;
+  --section-padding-block:4rem;    /* base   py-16 */
+  --section-padding-block-md:6rem; /* ≥768   py-24 */
+  --section-padding-block-lg:7rem; /* ≥992   py-28 */
+  /* gap between a section heading block and its content */
+  --section-heading-gap:3rem;
+  --section-heading-gap-md:4.5rem;
+  --section-heading-gap-lg:5rem;
+  /* gap under a heading, before its supporting paragraph */
+  --heading-gap:1.25rem;
+  --heading-gap-md:1.5rem;
+  --grid-gap:2rem;
+  --grid-gap-lg:3rem;
 
   --container-xxs:20rem;
   --container-xs:25rem;
@@ -32,4 +39,12 @@
   --container-lg:48rem;
   --container-xl:64rem;
   --container-xxl:80rem;
+  --container:var(--container-xxl);
+
+  --breakpoint-sm:480px;
+  --breakpoint-md:768px;
+  --breakpoint-lg:992px;
+
+  --navbar-height:4rem;
+  --navbar-height-lg:4.5rem;
 }

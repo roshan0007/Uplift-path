@@ -1,0 +1,36 @@
+<!-- @dsCard group="Components" viewport="700x260" name="Actions" subtitle="Button variants, sizes and the Material Symbols icon wrapper" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;font-family:var(--font-body)}.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:14px}.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);width:100%;margin-bottom:2px}.dark{background:var(--color-pickled-bluewood);padding:12px;border-radius:8px}</style>
+</head><body class="scheme-light"><div id="root"></div>
+<script type="text/babel">
+const { Button, Icon } = window.UpliftPathDesignSystem_a5cd7a;
+function Demo(){return <div>
+  <div className="row"><span className="lbl">Variants</span>
+    <Button>Get Started</Button>
+    <Button variant="secondary">Individual</Button>
+    <Button variant="dark">Get Started</Button>
+    <Button variant="alternate">Learn more</Button>
+    <Button variant="link" size="link" iconRight={<Icon name="chevron_right" size={20}/>}>Learn more</Button>
+    <Button disabled>Disabled</Button>
+  </div>
+  <div className="row"><span className="lbl">Sizes &amp; icon</span>
+    <Button size="sm">Start</Button>
+    <Button>Default</Button>
+    <Button size="icon" variant="secondary"><Icon name="arrow_forward" size={24}/></Button>
+    <Button iconLeft={<Icon name="call" size={20}/>}>Book a call</Button>
+  </div>
+  <div className="row scheme-navy dark alternate"><span className="lbl" style={{color:"var(--color-white-60)"}}>On dark</span>
+    <Button>Get Started</Button>
+    <Button variant="secondary-alt">Individual</Button>
+    <Button variant="link-alt" size="link" iconRight={<Icon name="chevron_right" size={20}/>}>Learn more</Button>
+  </div>
+  <div className="row"><span className="lbl">Icons — Material Symbols Rounded 500</span>
+    {["step","settings","progress_activity","psychology_alt","work","edit","partner_reports","support","mail","location_on"].map(n=><Icon key={n} name={n} size={28}/>)}
+  </div>
+</div>}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

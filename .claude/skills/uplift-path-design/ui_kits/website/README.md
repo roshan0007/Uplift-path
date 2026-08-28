@@ -1,21 +1,30 @@
-# UI kit — Uplift Path marketing website
+# Uplift Path — website UI kit
 
-Click-through recreation of the exported Relume site. Open `index.html`.
+A click-through recreation of the Uplift Path marketing site, built from the section components in the source export (`react/components/`) and cross-checked against the homepage screenshots in `reference/homepage/`.
 
-| File | Source components recreated |
-|---|---|
-| `Chrome.jsx` | `navbar-05` (sticky bar + two mega-menus), `footer-09`, plus `Section` / `SectionHeader` layout helpers |
-| `HomeScreen.jsx` | `home/layout-422`, `home/layout-423`, `home/comparison-09`, `home/testimonial-10`, `home/faq-01`, `home/cta-40` |
-| `BusinessScreen.jsx` | `for-business-page/layout-134`, `layout-237`, `layout-237_1`, `layout-419`, `layout-613`, `faq-01`, `cta-40` |
-| `ContactScreen.jsx` | `contact-us/contact-09`, `contact-us/contact-06` |
+Open `index.html`. Navigation works: the navbar links and every CTA move between the three screens, and "Uplift Services" opens the real two-column dropdown on hover.
 
-All headings and body copy are lifted verbatim from those source files.
+## Screens
 
-Interactions that work: nav mega-menus on hover, page switching via nav / Contact / Get Started / Book a discovery call, hover-expanding image cards, the `layout-419` sticky scroll-stack, accordions, testimonial carousel, and every form control (newsletter, signup, both contact forms acknowledge submit).
+| File | Screen | Source sections |
+|---|---|---|
+| `HomeScreen.jsx` | Home | `home/header-104`, `home/layout-423`, `home/layout-237`, `home/layout-254`, `home/testimonial-10`, `home/faq-01`, `home/cta-25` |
+| `BusinessScreen.jsx` | For Businesses | `for-business-page/layout-134`, `layout-237`, `layout-613`, `business-conusltation/layout-353` |
+| `ContactScreen.jsx` | Contact Us | `contact-us/contact-09`, `contact-us/contact-06` |
+| `Chrome.jsx` | Navbar, footer, section heading, CTA banner, FAQ block | `navbar-12`, `footer-04`, `home/faq-01`, `home/cta-25` |
 
-Deliberate gaps:
+## Interactions that are real
 
-- Images are the 16-photo subset copied into `assets/images/`, so `layout-419` and `layout-613` reuse photos from neighbouring sections rather than their own (the source points those at Relume CDN URLs).
-- The comparison table's two Relume placeholder logos are replaced with the Uplift Path mark and a plain "Going it alone" column label.
-- The `cta-40` on the business page uses the sitemap's stated headline ("Let's Build More Effective Systems Together"); the shipped `for-business-page/cta-40.jsx` was not read.
-- Mobile breakpoints are not implemented — this is a desktop recreation at 1440.
+- Navbar "Uplift Services" dropdown — opens on hover, chevron rotates 180°, panel slides down from -25% and fades in
+- Home Pathway cards — hovering expands the card's flex basis and reveals its description and "Learn more" link
+- Testimonial carousel — arrows and dots, looping
+- FAQ accordion — multiple items open at once
+- Contact form — select, radio group, checkbox and a submitted state
+
+## What is abbreviated
+
+Only three of the site's sixteen pages are built; the remaining thirteen reuse the same section vocabulary. Repeated content is trimmed (two testimonials instead of a full set). Nothing submits anywhere.
+
+## Notes
+
+Social logos in the footer come from Simple Icons via jsDelivr — the source imported them from the private `relume-icons` package, which was not readable. All other glyphs are Material Symbols Rounded 500, matching the source.

@@ -4,11 +4,10 @@ import React from "react";
 
 export function Layout1() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-2 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 lg:gap-x-20">
           <div>
-            <p className="mb-3 font-semibold md:mb-4">About</p>
             <h1 className="mb-5 text-h2 font-bold md:mb-6">
               Your Partner in Practical AI Implementation
             </h1>
@@ -23,7 +22,7 @@ export function Layout1() {
           </div>
           <div>
             <img
-              src="/images/ai-consultation-about-section.jpg"
+              src="/images/ai-consultation-about-section.png"
               className="w-full rounded-image object-cover"
               alt="Relume placeholder image"
             />

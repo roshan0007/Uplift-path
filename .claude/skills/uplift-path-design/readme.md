@@ -1,159 +1,152 @@
 # Uplift Path — Design System
 
-Uplift Path is a consulting and support practice with two audiences held in one brand: **organizations** (behavioral health providers, educational institutions, nonprofits, startups) and **individuals** (telehealth peer coaching, therapy, counseling). The organizational side sells operational consulting, advisory services, systems & technology, compliance support, credentialing, resource assistance and AI consultation. The individual side sells confidential, remote care.
+Uplift Path is a consulting firm serving behavioral health providers, nonprofits, educational institutions and early-stage founders — mostly in Ohio. The tagline the site leads with is "One Path. Two Ways Forward.", referring to its two audiences: **businesses** (operational consulting, advisory services, systems & technology, compliance support, credentialing, resource assistance, AI consultation) and **individuals** (peer coaching, mental health therapy, counseling). Its stated goal is "to impact 100K lives by uplifting the individuals, businesses, and communities we serve by 2036."
 
-The brand's job is to make a heavy subject feel steady. Deep-green and near-black type on white and mint, one saturated green for action, photography of real people in real rooms with a dark scrim over it, and a serif that reads calm rather than corporate.
-
-There is one product surface: the **marketing website**. No app, no dashboard, no docs site appears in the source.
+There is one product surface: a multi-page marketing website. It has 16 pages — Home, About Us, How We Work, For Individuals, For Businesses, Business Consultation, AI Consultation, Advisory Services, Systems & Technology, Compliance Support, Resource Assistance, Career, Contact Us, plus Accessibility, Privacy Policy and Terms of Use. Every page follows the same spine: navbar → hero → two to four content sections → FAQ accordion → green CTA banner → footer.
 
 ## Sources
 
-Everything here was derived from one attached read-only codebase:
+This system was built from one attached, read-only codebase — a Relume export dated 2026-08-28, mounted locally as:
 
-- `demo-site-design-uplift-design/` — a design bundle exported from **Relume** (relume.io) on 2026-08-26.
-  - `DESIGN.md` — machine-readable tokens (colors, type scale, radii, the eight section schemes)
-  - `react/globals.css` — the same tokens as Tailwind v4 `@theme` custom properties
-  - `react/@/components/ui/*.jsx` — 13 shadcn/Radix-style primitives; **this is the component inventory**
-  - `react/components/**` — ~70 page-section components across 16 pages
-  - `sitemap.md`, `assets.md` — page structure, scheme per section, asset placement
-  - `homepage/*.png` — full-page and per-section screenshots (copied to `reference/homepage/`)
-  - `fonts/`, `logo/`, `images/`, `svgs/`
+```
+demo-site-design-uplift-design/
+├─ DESIGN.md        design tokens as YAML (colours, type scale, radii, 7 colour schemes)
+├─ sitemap.md       all 16 pages, section order, component per section, scheme per section
+├─ assets.md        exact placement of every logo, image and SVG
+├─ react/globals.css  the same tokens as Tailwind v4 @theme custom properties
+├─ react/@/components/ui/   13 UI primitives (shadcn/Radix-based)
+├─ react/components/        ~70 page sections, one file per section
+├─ homepage/        full-page + per-section screenshots of the built homepage
+├─ logo/ images/ svgs/ fonts/
+└─ README.md
+```
 
-No Figma file, no live URL, no slide deck was provided.
-
-**One source conflict, flagged:** `DESIGN.md` defines eight schemes; `react/globals.css` defines only four `@utility scheme-*` rules with different colour assignments. `DESIGN.md` is the document the export tells you to read first, and its eight schemes are what `sitemap.md` references, so `tokens/schemes.css` implements the DESIGN.md eight. If the CSS is actually authoritative, tell me and I'll swap them.
-
----
+No Figma file, GitHub repo or slide deck was provided. The homepage screenshots in `reference/homepage/` were used to resolve places where the code and the rendered result disagree (see the H1 note under Visual Foundations).
 
 ## Content fundamentals
 
-**Voice.** Plain, declarative, unhurried. Sentences are short and complete; there is very little hedging and no exclamation. The register sits between a clinician and an operator — competent, unsentimental, warm at the edges.
+**Voice.** Plain, calm, operational. It sells clarity rather than transformation. Sentences are declarative and moderate-length; the copy explains what happens and in what order, and rarely reaches for adjectives. No exclamation marks anywhere on the site.
 
-**Person.** Second person for the reader, first-person plural for the company. "Whether **you're** seeking compassionate mental-health support…", "**We** turn complexity into clear, sustainable pathways". Never "I". The company also appears by name where reassurance matters: "Uplift Path pairs you with experienced guidance."
+**Person.** "We" for Uplift Path, "you"/"your" for the reader. Never "I". Never a named author. The reader's organization is "your practice", "your team", "your organisation".
 
-**Casing.** Sentence case is the default and the safest choice. The site is genuinely inconsistent above it — "Carry less alone" and "The difference is clear" sit alongside Title Case headings like "Create Clear, Sustainable Pathways to Meaningful Growth" and "Our Simple 3-Step Consultation Process". Eyebrows are sentence case ("For individuals", "How we help organizations thrive"). Buttons are Title Case more often than not: "Get Started", "Schedule a Consultation", "Book a discovery call" (that last one sentence case — the inconsistency is in the source).
+**Casing.** Sentence case in body copy. Headings are inconsistently cased in the source and that inconsistency is real — some are title case ("Create Clear, Sustainable Pathways to Meaningful Growth", "Empowering Success Across Industries"), some sentence case ("Ready to unlock Your growth plan", "Everything under one roof"). Eyebrows above headings are sentence case with a middot separator: "Uplift Solutions · For Businesses". Breadcrumbs use "›": "Home › For Businesses › Advisory Services".
 
-**Structure of a section.** Almost every section is the same three-part block, centred, max 48rem: semibold eyebrow → Playfair heading → one supporting sentence. Then the content grid. Copy the rhythm, not just the styles.
+**Signature vocabulary.** "Uplift" is used as a verb and as a product prefix — Uplift Strategy, Uplift Systems, Uplift Growth, Uplift Services, Uplift Solutions. "Pathway" is the core metaphor and appears as a named artifact: *your Pathway Plan*. Recurring nouns: clarity, pathway, progress, sustainable, measurable, co-create, support, systems, milestones. The word "co-create" carries the brand's positioning — the client is a participant, not a recipient.
 
-**Headlines.** Two modes. Emotional and short for the individual-facing sections — "Carry less alone", "Find a clear path through the fog of uncertainty", "Build a foundation that holds steady under pressure". Descriptive and functional for the business-facing ones — "Consulting that turns plans into progress", "Everything under one roof", "Industries we serve".
+**Sentence patterns.** Section intros very often end on a payoff clause introduced by "so": "We turn complexity into clear, sustainable pathways co-created so every step is supported and success is measurable." Benefit lists come in threes.
 
-**Body copy.** One idea per sentence, 15–30 words. Outcome-led: "so your practice can grow while staying true to its mission", "so every step is supported and success is measurable". The word *clear* / *clarity* recurs deliberately, as do *sustainable*, *measurable*, *systems*, *pathway*, *steady*, *support*.
+**CTA labels.** Short imperatives, title case: "Get Started", "Book a discovery call", "Book a session", "Schedule a Consultation", "Start", "Learn more", "Submit". Two CTAs sit side by side in the hero, one per audience: "Business" / "Individual".
 
-**Testimonials** are first-person, single-sentence, and about relief rather than ROI: *"The fog lifted. For the first time in years I could see the next step and the one after that."*
+**Testimonials** are first-person, one sentence, specific about the feeling of relief rather than about ROI: *"The fog lifted. For the first time in years I could see the next step and the one after that."* — Sarah Mitchell, Executive Director, Behavioral Health.
 
-**Links and CTAs.** "Explore", "Learn more", "Read more", "About" for in-page links; "Contact", "Get Started", "Book a discovery call", "Schedule a Consultation", "Book Your AI Strategy Session", "Sign up", "Subscribe", "Submit" for actions. Never "Click here", never "Learn More →" with a typed arrow — trailing chevrons are icons.
+**Spelling** mixes US and UK forms in the source ("optimize" and "optimise", "organization" and "organisation"). Prefer US spelling in new copy; do not "fix" existing strings.
 
-**Legal/microcopy** is small, plain and unapologetic: "By clicking Sign Up you're confirming that you agree with our Terms and Conditions." / "We respect your privacy and only send valuable content to help your organization thrive."
-
-**Emoji: none.** Not in headings, not in cards, not in nav. Do not introduce them.
-
-**Spelling** mixes US and UK forms in the source (*optimization* and *optimise*, *behavioral* and *behavioural*). Write US English for new copy.
-
----
+**No emoji.** Not in copy, not in UI, not in headings. Icons do that job.
 
 ## Visual foundations
 
-**Colour.** One saturated brand green — Caribbean Green `#08d1a7` — used almost exclusively for the primary button. Everything else is quiet: white and Viking Lighter `#dcf8f2` for page bands, Pickled Bluewood `#2c3e50` for the dark CTA banner and dark form sections, near-black `#000a08` for all body text. Viking Dark `#41b19a` is the sub-page hero band. Two backgrounds per page is the norm: white plus one mint or navy band. Full palette in `tokens/colors.css`.
+**Colour.** A near-white page, black-ish text (`#000A08`, never pure black), and one loud accent: Caribbean Green `#08D1A7`. Pickled Bluewood `#2C3E50` is the dark counterweight; Cerulean and Viking (mint) are supporting tints used for washes and occasional full-bleed sections. The homepage runs almost entirely on the white scheme, then hits the green CTA banner at the bottom — that single colour block is the page's only strong colour event. Sections carry exactly one scheme class (`.scheme-light`, `.scheme-accent`, `.scheme-navy`, `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`), which sets background, text, border and accent together, and children read from `--color-scheme-*`. Never more than one dark section adjacent to another.
 
-**Schemes, not ad-hoc colours.** Every section carries exactly one `.scheme-N` class, and children read `--color-scheme-background / -foreground / -text / -accent / -border`. Never hardcode a section colour — switch the scheme. Scheme 4 (white) is the default; 5 (mint) is the alternate band; 2 (navy) is the CTA; 8 (Viking Dark) is the sub-page hero.
+**Type.** Two families, split by job. Playfair Display for headings — a high-contrast serif carrying all the warmth: weight 400 for section headings h2–h6, weight 600 for the hero H1. Lexend Deca for everything else: body, nav, buttons, labels, eyebrows. Weight 400 is default; 500 on buttons, 600 on eyebrows, FAQ questions and footer nav. Note the source sets `--font-weight-bold: 400`, so a "bold" section heading is still regular weight — h2–h6 never actually bolden. The hero H1 is the exception: Playfair Display SemiBold at 4.5rem, tight (-0.02em). Type scale doubles up at 992px (h1 2.75rem → 4.5rem).
 
-**Type.** Playfair Display for every heading, always weight 400 — the source explicitly remaps `--font-weight-bold` to 400, so "bold" headings are regular weight with a `-1%` tracking. Lexend Deca for everything else, 400 body / 500 buttons / 600 eyebrows and nav / 700 FAQ triggers. Desktop h1 72px, h2 52px, h3 44px, h4 36px; mobile 44/40/32/24. Body 18px desktop, 16px mobile.
+**Spacing.** Every section is `padding-inline: 5%` with `padding-block` stepping 4rem → 6rem (768px) → 7rem (992px). The page shell is an 80rem centred container; heading blocks cap at 48rem; text columns at 35rem. A section heading block sits 3rem above its content (5rem at desktop), and a heading sits 1.25–1.5rem above its supporting paragraph. Grids use 2rem gaps, 3rem at desktop.
 
-**Layout.** `padding: 7rem 5%` on desktop sections (`4rem` mobile, `6rem` tablet), content centred at `max-width: 80rem`. Text blocks cap at 48rem and centre. Card grids are 2-up or 3-up with 2rem gaps. The navbar is sticky, 4.5rem tall, and the only fixed element.
+**Backgrounds.** Flat colour only. No gradients anywhere — not in sections, not in buttons, not behind text. No repeating patterns, no textures, no noise. Where an image sits behind type it gets a flat 50% darkest-neutral scrim, never a directional protection gradient.
 
-**Backgrounds and imagery.** Photography, never illustration; no patterns, no textures, no gradients anywhere in the source. Images are warm-neutral documentary photographs of people at work — laptops, offices, telehealth calls, handshakes — with natural colour, no filter, no grain, no duotone. Any image that carries text over it gets a flat 50% near-black scrim (`--scrim`) across the whole image, not a bottom-up gradient. Text sits bottom-left over the scrim.
+**Imagery.** Two distinct kinds. (1) Loose hand-drawn line illustrations — black ink outlines with flat Caribbean Green / dark-teal fills, figures mid-gesture, on a plain grey or white ground. These carry the conceptual sections. (2) Straight photography for hero and feature slots, warm and mid-contrast, no filter, no duotone, no grain. Both get an 8px radius; illustrations are often `object-fit: contain` on their grey ground, photos `cover`.
 
-**Cards.** "Edgy" style: 2px solid border in the scheme border colour, 8px radius, scheme foreground fill, and **no shadow at all**. There is no elevation system in this brand — depth comes from borders and scrims. Image tiles (`BackgroundCard`) drop the border entirely and just clip to 8px.
+**Borders.** The system is drawn, not shadowed. 2px solid borders on buttons, cards, inputs and select triggers; 1px hairlines for accordion rules, the footer divider, the nav dropdown sheet and carousel arrows. Borders always take the scheme colour — dark on light sections, white on dark ones.
 
-**Corner radii.** Buttons 6px, cards 8px, images 8px, form fields 6px, badges 6px, carousel controls 4px, checkbox 2px. Nothing is fully rounded except avatars and carousel dots.
+**Shadows.** Zero blur, ever. The only shadow in the system is a hard 3px ledge under a control (`0 3px 0 0 <edge colour>`). Hovering translates the control down 3px and removes the ledge, so the button visibly presses into the page. There are no soft drop shadows on cards, modals or dropdowns.
 
-**Borders.** 2px is the brand's border weight (cards, buttons, dividers, input underlines). 1px hairlines appear only inside data structures — comparison-table rows, accordion rules, dropdown panels.
+**Hover and press.** Buttons: translate down onto the ledge (200ms ease-in-out). Inputs and select triggers: wash with 5% of the text colour (10% white on dark). Links: reduce opacity. Image cards on the homepage grow their flex basis and darken by 50% while the description slides up from 50px. Ghost buttons invert to dark background / white text. There is no separate press state — hover and press look identical, which is why the ledge reads as a press.
 
-**Forms.** Underline-only. Inputs, textareas and selects draw a single 2px bottom border (`--color-neutral-darkest-15` on light, `--color-white-10` on dark) with a transparent fill. No boxes, no filled fields, no focus rings — focus is `outline: none`.
+**Motion.** Restrained and short: 200ms for controls, 300ms for dropdowns and reveals, 400ms for the mobile menu height, 600ms `cubic-bezier(0.4,0,0.2,1)` for tab content fades. Reveals are opacity + a small y-translate. Accordions animate height. Chevrons rotate 180°. Long marquee/loop keyframes exist in the source for logo strips (20–50s linear infinite). Nothing bounces, nothing springs, nothing scales on hover.
 
-**Animation.** Restrained and functional. 200ms `ease-in-out` for hover/colour changes; 300ms for dropdown and disclosure reveals; 400ms for the mobile menu height. Chevrons rotate 180°. Accordions animate height. Feature cards expand their flex basis to 70% on hover over 200ms while their body copy fades and slides up 50px. Tabs cross-fade over 600ms `cubic-bezier(0.4,0,0.2,1)`. Marquee loops (20–50s linear) exist for logo strips. No bounce, no spring, no scroll-triggered reveals.
+**Radii.** Buttons, inputs and select triggers 12px (the source calls this the "bubble" style). Cards and images 8px ("edgy"). Tags 6px, checkboxes 4px, avatars and dots fully round. Carousel arrows are 48px squares at 8px — the one control that isn't a bubble.
 
-**Hover states.** Filled buttons darken (`#08d1a7` → `#06a785`); white buttons go to `#d8dad9`. Outlined buttons pick up a 5% near-black wash. Image cards darken by 50% and grow. Links do not change colour — they reveal or expand instead.
+**Cards.** Flat: 2px border in the scheme colour, 8px radius, no shadow, no fill beyond the scheme foreground. Content slots pad 24px. Image cards drop the border entirely (`BackgroundCard`) so the photo runs to the corner. On dark sections the card becomes a 1px white outline on transparent.
 
-**Press states.** None. No transform, no scale, no active colour. Disabled is `opacity: 0.5` with pointer events off.
+**Transparency and blur.** No backdrop blur anywhere. Transparency appears only as flat alpha: the 50% image scrim, the 90% modal overlay, 5–15% hover washes, 20% inactive carousel dots, and the 60% placeholder text.
 
-**Transparency and blur.** Blur appears in exactly one place: `backdrop-filter: blur(10px)` on the secondary button, so it stays legible over photography. Otherwise transparency is used only for hairlines, hover washes and placeholder text, through the `--color-white-N` / `--color-neutral-darkest-N` ramps.
+**Fixed elements.** The navbar is the only one — sticky at the top with a `z-index: 999`, 64px tall on mobile and 72px at desktop. No sticky CTAs, no floating buttons, no cookie bar in the source.
 
-**Protection.** Flat scrims, never capsules or protection gradients. Logo protection is handled by inverting the mark (`.logo-alt`) rather than by placing it on a plate.
-
----
+**Layout rules.** Centred, symmetrical, generous. Section heading blocks are centred; two-column hero splits are 1:1 with the image on the right; feature rows are 3-up; the "Empowering Success Across Industries" section is a 1 / 1.5 / 1 grid with an illustration in the middle. Content is never full-width — the 5% inline padding and 80rem container always hold.
 
 ## Iconography
 
-**One system: Material Symbols Rounded, weight 500**, loaded per-glyph as SVG from `https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/<name>.svg`. This is exactly what the exported site does — it writes `<img src="…/rounded/work.svg">` inline. The `Icon` component wraps that URL in a CSS mask so the glyph inherits `color` from the current scheme, which the raw `<img>` version could not do.
+**Material Symbols Rounded, weight 500** is the icon system. The source loads individual glyph SVGs straight from jsDelivr (`@material-symbols/svg-500@latest/rounded/<name>.svg`) as `<img>` tags, and imports React versions of the same glyph set from a private `relume-icons` package. Ten of the actual SVGs shipped in the export and are in `assets/svgs/` (`navbar-0.svg` … `navbar-9.svg`) — all Material Symbols with `viewBox="0 -960 960 960"` and `fill="currentColor"`.
 
-The source also imports a handful of glyphs from a private `relume-icons` package (`Check`, `Close`, `ChevronRight`, `KeyboardArrowDown/Up`, `ArrowBack/Forward`, `StarFull`, `CircleFull`, `Mail`, `Call`, `LocationOn`, `ProgressActivity`, `FacebookLogo`, `InstagramLogo`, `XLogo`, `LinkedinLogo`, `RelumeIcon`). **That package is not in the bundle**, so those are substituted with the equivalent Material Symbols Rounded names — a like-for-like swap in stroke weight and corner treatment, except for the four social logos, which Material Symbols does not carry. Those currently render as a generic `public` glyph in the UI kit and need real brand marks. **Flagged for you below.**
+There is no custom icon font, no sprite sheet, and no hand-drawn icon set. Icons are used at exactly two sizes: **48px** for section feature icons (the three "Uplift Outcomes" glyphs, the four industry glyphs) and **24px** for UI (chevrons, checks, closes, contact glyphs, dropdown items). They are monochrome, inheriting the scheme text colour, and never coloured green.
 
-Glyph names in active use: `work`, `star_shine`, `stars`, `computer`, `support_agent`, `science`, `support`, `overview`, `enterprise`, `design_services`, `api`, `strategy`, `handshake`, `bar_chart`, `category_search`, `check`, `close`, `chevron_right`, `keyboard_arrow_down`, `keyboard_arrow_up`, `arrow_back`, `arrow_forward`, `mail`, `call`, `location_on`, `star`, `verified`, `progress_activity`.
+Glyphs the live site uses: `step`, `settings`, `progress_activity`, `psychology_alt`, `work`, `edit`, `partner_reports`, `add_business`, `business_messages`, `chat_info`, `medical_services`, `support`, `devices`, `assistant_device`, `more_time`, `keyboard_arrow_down`, `keyboard_arrow_up`, `chevron_right`, `arrow_back`, `arrow_forward`, `check`, `close`, `mail`, `call`, `location_on`, `star`.
 
-Icons render at 24px inline, 40–48px as feature-card marks. **No emoji. No unicode glyphs used as icons.** There is no icon font and no sprite sheet.
+Unicode characters do double duty as typographic marks, not icons: `›` in breadcrumbs, `·` in eyebrows, `—` in body copy. No emoji.
 
-The three SVGs the export pulled off the homepage are copied to `assets/svgs/` as-is.
+**Substitutions, flagged:**
+- `relume-icons` is a private package and could not be read. The `Icon` component pulls the same glyphs from the public Material Symbols Rounded 500 set on jsDelivr, which is what the source's own `<img>` tags do. Glyph shapes should match; if any Relume icon is bespoke, it will differ.
+- The footer's five social logos (Facebook, Instagram, X, LinkedIn, YouTube) came from `relume-icons` too. The UI kit renders them from **Simple Icons** via jsDelivr — same filled-brand-mark style as the screenshot, but not byte-identical.
 
----
+## Logo
 
-## Assets
+One file was provided: `assets/logo/logo-light.png` (996×345, transparent) — a mark of a figure rising from a leaf beside a two-line "UPLIFT PATH" wordmark. The mark is teal, the wordmark near-black. There is no dark variant; `assets.md` points both light and dark slots at the same file, and dark sections knock it out to solid white with `filter: brightness(0) invert(1)` (the `.logo-alt` utility). No SVG version was supplied.
 
-- `assets/logo/logo-light.png` — the Uplift Path wordmark and leaf/figure mark (996×345, transparent). The export ships **one** logo file; the dark-background variant is this same file inverted via `.logo-alt` (`filter: brightness(0) invert(1)`), which is what the source does. There is no standalone mark-only lockup and no SVG version — worth requesting.
-- `assets/fonts/` — Playfair Display 400–900 and Lexend Deca 300–700, woff2, self-hosted. Do not load these from the Google Fonts CDN.
-- `assets/images/` — 16 of the 60 photographs in the export, chosen to cover the homepage, one sub-page hero, the CTA banner and the contact header. The rest stay in the source bundle; ask if you need more.
-- `assets/svgs/` — the three inline homepage SVGs.
-- `reference/homepage/` — the source screenshots, for layout comparison.
+## Fonts
 
----
+Both families are self-hosted from the export's woff2 files in `assets/fonts/` — Lexend Deca 300–800 and Playfair Display 400–700. No substitution was needed. The source's own `globals.css` also imports them from the Google Fonts CDN, but its README says to use the bundled files; `tokens/fonts.css` does that.
 
 ## Index
 
-| Path | What it is |
+Root files:
+
+| File | What it is |
 |---|---|
-| `production.md` | **How to use this in a Next.js app** — component map, setup, sanity checklist |
-| `styles.css` | Entry point — `@import`s only. Link this one file. |
-| `tokens/colors.css` | Palette, transparency ramps, semantic aliases |
-| `tokens/typography.css` | Font families, weights, responsive type scale |
-| `tokens/spacing.css` | Spacing scale, section rhythm, containers, breakpoints |
-| `tokens/shape.css` | Radii, border widths, durations, easings, keyframes |
-| `tokens/schemes.css` | The eight `.scheme-N` section schemes |
-| `tokens/fonts.css` | `@font-face` for the bundled woff2 files |
-| `tokens/base.css` | Element defaults (headings, body, links) |
-| `tokens/tailwind-theme.css` | The same tokens as a Tailwind v4 `@theme` block (not imported — for your app) |
-| `guidelines/*.card.html` | Foundation specimen cards (Colors, Type, Spacing, Brand) |
-| `components/core/` | Card, BackgroundCard, Accordion, Tabs, Carousel, Dialog, Icon, VideoIframe |
-| `components/forms/` | Button, Input, Textarea, Label, Checkbox, RadioGroup, Select |
+| `readme.md` | This guide |
+| `SKILL.md` | Agent-Skills front matter for use outside this project |
+| `styles.css` | Global CSS entry point — `@import` lines only |
+| `thumbnail.html` | Project tile |
+| `tokens/` | `fonts.css`, `colors.css`, `typography.css`, `spacing.css`, `radius.css`, `effects.css`, `schemes.css`, `base.css` |
+| `guidelines/` | 22 foundation specimen cards (Colors, Type, Spacing, Brand) |
+| `assets/` | `logo/`, `fonts/`, `images/` (49 illustrations and photos), `svgs/` (10 Material Symbols) |
+| `components/` | Reusable primitives, grouped below |
 | `ui_kits/website/` | Click-through recreation of the marketing site |
-| `reference/` | Source screenshots |
-| `SKILL.md` | Agent Skills entry point |
+| `reference/homepage/` | Source screenshots kept for comparison |
+| `design-export/` | The Relume export this system was built from, kept for this repo: `DESIGN.md`, `sitemap.md`, `assets.md`, `RELUME-README.md`, `globals.original.css` (what `app/globals.css` is derived from) and `screenshots/` |
 
 ### Components
 
-Mirrors the 13 primitives in `react/@/components/ui/`, one for one:
+Built to match the source's own inventory in `react/@/components/ui` — 13 families, nothing added beyond the `Icon` wrapper.
 
-**Core** — `Accordion` (with `AccordionItem`, `AccordionTrigger`, `AccordionContent`), `Card` (with `BackgroundCard`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`), `Carousel` (with `CarouselContent`, `CarouselItem`, `CarouselPrevious`, `CarouselNext`, `CarouselDots`), `Dialog` (with `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`), `Icon`, `Tabs` (with `TabsList`, `TabsTrigger`, `TabsContent`), `VideoIframe`.
+`components/actions/` — **Button**, **Icon**
+`components/forms/` — **Input**, **Textarea**, **Label**, **Select**, **Checkbox**, **Radio**, **RadioGroup**
+`components/surfaces/` — **Card** (+ `BackgroundCard`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`), **Accordion**, **Tabs**, **Carousel**, **Dialog**, **VideoEmbed**
 
-**Forms** — `Button`, `Checkbox`, `Input`, `Label`, `RadioGroup` (with `RadioGroupItem`), `Select`, `Textarea`.
+Each directory has a `.d.ts` props contract, a `.prompt.md` usage note, and one `@dsCard` HTML showing states side by side.
 
-#### Intentional additions
+**Intentional additions.** `Icon` — the source has no Icon component; glyphs arrive as raw `<img>` tags or from the unreadable `relume-icons`. A wrapper was needed so glyphs inherit scheme colour on dark sections.
 
-- **`Icon`** — the source has no icon component, just inline `<img>` tags and imports from the unavailable `relume-icons`. A single wrapper gives every glyph the scheme's text colour and one place to swap the icon set later.
-- **`CarouselDots`** — the source builds dot pagination inline inside `testimonial-10.jsx` rather than in the Carousel file. Lifted into the component so kits don't re-derive it.
-
-Nothing else was invented. There is no Toast, Avatar, Badge, Tooltip or Breadcrumb component here because the source defines none.
+**Deliberate omissions.** No Badge, Tag, Toast, Tooltip, Avatar, Breadcrumb or Pagination component — the source defines none, even though `--radius-badge` and `--radius-tag` tokens exist. Breadcrumbs and eyebrows are plain paragraphs on the live site; keep them that way.
 
 ### UI kit
 
-`ui_kits/website/index.html` — Home, For Businesses and Contact, with working nav mega-menus, page switching, hover-expanding image cards, the FAQ accordion, the testimonial carousel and all form controls. See `ui_kits/website/README.md` for the section-by-section mapping back to the source components.
+`ui_kits/website/` recreates three screens with working navigation:
 
----
+- **Home** — hero, the three expanding Pathway cards, Uplift Outcomes, Empowering Success Across Industries, testimonial carousel, FAQ, green CTA banner
+- **For Businesses** — breadcrumb hero, six service cards, "Why founders choose us" on the mint scheme, four consulting services on the navy scheme, FAQ, CTA
+- **Contact Us** — hero, and the full contact form on the navy scheme with a submitted state
 
-## Known gaps
+`Chrome.jsx` holds the navbar (with the hover dropdown), footer, section heading, CTA banner and FAQ block; one file per screen alongside.
 
-1. **Social logos.** Facebook, Instagram, X and LinkedIn marks came from `relume-icons`, which is not distributable. The footer currently uses a placeholder glyph. Real SVGs needed.
-2. **Logo formats.** One PNG, light variant only, no SVG, no mark-only lockup.
-3. **Scheme conflict.** `DESIGN.md` (8 schemes) vs `react/globals.css` (4, different). DESIGN.md implemented.
-4. **Images.** 16 of 60 copied; `layout-419` and `layout-613` in the UI kit reuse photos from neighbouring sections (the source points those at Relume CDN URLs that aren't in the export).
-5. **`for-business-page/cta-40.jsx` not read.** The business page's CTA uses the headline `sitemap.md` states for it. Everything else on that page is verbatim from the section components.
-6. **Mobile.** The kit is a desktop recreation at 1440. The mobile type scale is in the tokens; the mobile layouts are not built.
+### Colour scheme numbering
+
+`DESIGN.md` lists seven schemes numbered 1–7, and `react/globals.css` defines three utilities numbered 1–3 — with different meanings (DESIGN.md's scheme 4 is white; globals' scheme-1 is white). This system uses **named** classes to avoid the collision, with `.scheme-1/2/3` kept as aliases matching the code, since the code is what the site actually renders:
+
+| Named class | Background | DESIGN.md | globals.css |
+|---|---|---|---|
+| `.scheme-light` | `#FFFFFF` | 4 | `.scheme-1` |
+| `.scheme-accent` | `#08D1A7` | 1 | `.scheme-2` |
+| `.scheme-navy` | `#2C3E50` | 2 | `.scheme-3` |
+| `.scheme-mint` | `#DCF8F2` | 5 | — |
+| `.scheme-deep-teal` | `#035342` | 7 | — |
+| `.scheme-cerulean-deep` | `#003F53` | 6 | — |
+| `.scheme-black` | `#000000` | 3 | — |

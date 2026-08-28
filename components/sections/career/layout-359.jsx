@@ -10,7 +10,6 @@ export function Layout359() {
       <div className="container">
         <div className="mb-12 md:mb-18 lg:mb-20">
           <div className="mx-auto max-w-lg text-center">
-            <p className="mb-3 font-semibold md:mb-4">Careers</p>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Why Uplift Path — Hear from Our Team
             </h2>

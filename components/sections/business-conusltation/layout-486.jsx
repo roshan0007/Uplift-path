@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 // The export references an undefined `features` array here, which crashes the
 // component on render. The section has 4 hard-coded cards (data-card-index
-// 0..3) and the sibling progress hook seeds 4 values, so the count is 4.
+// 0..3), so the count is 4.
 const FEATURE_COUNT = 4;
 
 const useLayout486 = () => {

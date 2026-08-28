@@ -45,8 +45,8 @@ export function Layout254() {
                 The people behind it
               </h3>
               <p>
-                Our leadership brings decades of hard-won experience from the
-                front lines of business and technology.
+                Decades of frontline business and tech experience guide our
+                leadership.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -57,12 +57,15 @@ export function Layout254() {
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">Transparency</h3>
-              <p>Open goals. Open data. Open decisions.</p>
+              <p>
+                Open goals, open data, and open decisions—transparency drives
+                every step forward.
+              </p>
             </div>
           </div>
           <div className="relative order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
             <img
-              src="/images/how-we-work-team-section-new.jpg"
+              src="/images/how-we-work-team-section-new.png"
               alt="Relume placeholder image"
               className="h-auto w-full rounded-image object-cover"
             />
@@ -89,8 +92,8 @@ export function Layout254() {
                 The people behind it
               </h3>
               <p>
-                Our leadership brings decades of hard-won experience from the
-                front lines of business and technology.
+                Our leadership brings decades of frontline business and tech
+                experience.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">

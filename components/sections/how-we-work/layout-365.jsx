@@ -5,11 +5,10 @@ import React from "react";
 
 export function Layout365() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-2 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="mb-12 md:mb-18 lg:mb-20">
           <div className="mx-auto max-w-lg text-center">
-            <p className="mb-3 font-semibold md:mb-4">Process</p>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Three simple steps
             </h2>
@@ -35,7 +34,7 @@ export function Layout365() {
               </div>
               <div className="flex items-center justify-center">
                 <img
-                  src="/images/how-we-work-how-it-works-section-new-0.jpg"
+                  src="/images/how-we-work-how-it-works-section-new-0.png"
                   alt="Relume placeholder image 1"
                   className="size-full object-cover"
                 />
@@ -55,7 +54,7 @@ export function Layout365() {
               </div>
               <div className="flex items-center justify-center">
                 <img
-                  src="/images/how-we-work-how-it-works-section-new-0.jpg"
+                  src="/images/how-we-work-how-it-works-section-new-0.png"
                   alt="Relume placeholder image 2"
                   className="size-full object-cover"
                 />
@@ -77,7 +76,7 @@ export function Layout365() {
               </div>
               <div>
                 <img
-                  src="/images/how-we-work-how-it-works-section-new-1.jpg"
+                  src="/images/how-we-work-how-it-works-section-new-2.png"
                   alt="Relume placeholder image 3"
                   className="size-full object-cover"
                 />

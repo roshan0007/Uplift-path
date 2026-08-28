@@ -13,7 +13,7 @@ function SelectValue({ ...props }) {
     return <SelectPrimitive.Value data-slot="select-value" {...props}/>;
 }
 function SelectTrigger({ children, className, ...props }) {
-    return (<SelectPrimitive.Trigger data-slot="select-trigger" className={cn("flex w-full items-center justify-between gap-1 rounded-form whitespace-nowrap transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 [&[data-state=open]>svg]:rotate-180", "border-b-2 border-neutral-darkest-15 bg-transparent text-scheme-text placeholder:text-neutral-darkest-60 alternate:border-white-10 alternate:text-white alternate:placeholder:text-white", "min-h-8 py-2", className)} {...props}>
+    return (<SelectPrimitive.Trigger data-slot="select-trigger" className={cn("flex w-full items-center justify-between gap-1 rounded-form whitespace-nowrap transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 [&[data-state=open]>svg]:rotate-180", "border-2 border-neutral-darkest bg-transparent text-scheme-text placeholder:text-neutral-darkest-60 hover:bg-neutral-darkest-5 alternate:border-white alternate:bg-transparent alternate:text-white alternate:placeholder:text-white-60 alternate:hover:bg-white-10", "min-h-11 px-3 py-2", className)} {...props}>
       {children}
       <SelectPrimitive.Icon asChild>
         <KeyboardArrowDown className="size-5 text-scheme-text transition-transform duration-300"/>

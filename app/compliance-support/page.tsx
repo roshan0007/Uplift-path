@@ -1,12 +1,9 @@
-"use client"
-
 import React from "react";
 import { Layout134 } from "@/components/sections/compliance-support/layout-134";
 import { Layout16 } from "@/components/sections/compliance-support/layout-16";
 import { Layout615 } from "@/components/sections/compliance-support/layout-615";
 import { Faq1 } from "@/components/sections/compliance-support/faq-01";
-import { Cta40 } from "@/components/sections/compliance-support/cta-40";
-
+import { Cta25 } from "@/components/sections/compliance-support/cta-25";
 
 export default function Page() {
   return (
@@ -15,7 +12,7 @@ export default function Page() {
       <Layout16 />
       <Layout615 />
       <Faq1 />
-      <Cta40 />
+      <Cta25 />
     </div>
   );
 }

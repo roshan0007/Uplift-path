@@ -4,11 +4,10 @@ import React from "react";
 
 export function Layout237() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-2 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="flex flex-col items-center">
           <div className="mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
-            <p className="mb-3 font-semibold md:mb-4">Operations</p>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Business Consultation That Fuels Your Growth
             </h2>

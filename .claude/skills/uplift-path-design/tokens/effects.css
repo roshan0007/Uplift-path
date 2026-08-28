@@ -1,0 +1,29 @@
+/* Uplift Path borders, shadows and motion.
+   The signature: hard offset "press" shadows, no blur. A button sits on a 3px
+   solid ledge; hovering translates it down 3px and removes the ledge, so the
+   button physically presses into the page. There are no soft/blurred shadows
+   anywhere in the source. */
+:root{
+  --border-width:2px;          /* buttons, cards, inputs, dividers */
+  --border-width-hairline:1px; /* accordion rules, footer divider, dropdown card */
+
+  --shadow-press-accent:0 3px 0 0 var(--color-caribbean-green-dark);
+  --shadow-press-dark:0 3px 0 0 var(--color-neutral-darkest);
+  --shadow-press-light:0 3px 0 0 var(--color-neutral-lighter);
+  --shadow-press-white:0 3px 0 0 var(--color-white);
+  --shadow-press-offset:3px;
+  --shadow-none:none;
+
+  --duration-fast:200ms; /* @kind other */
+  --duration-medium:300ms; /* @kind other */
+  --duration-slow:400ms; /* @kind other */
+  --ease-standard:cubic-bezier(0.4,0,0.2,1); /* @kind other */
+  --ease-in-out:ease-in-out; /* @kind other */
+  --ease-out:ease-out; /* @kind other */
+  --transition-control:all var(--duration-fast) var(--ease-in-out);
+
+  --scrim-image:var(--color-neutral-darkest-50);
+  --hover-wash-dark:var(--color-neutral-darkest-5);
+  --hover-wash-light:var(--color-white-10);
+  --disabled-opacity:0.5; /* @kind other */
+}

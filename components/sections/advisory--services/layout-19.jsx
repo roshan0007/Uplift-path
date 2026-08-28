@@ -4,11 +4,10 @@ import React from "react";
 
 export function Layout19() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-2 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 lg:gap-x-20">
           <div>
-            <p className="mb-3 font-semibold md:mb-4">Truth</p>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               The problem we solve
             </h2>
@@ -48,7 +47,7 @@ export function Layout19() {
           </div>
           <div>
             <img
-              src="/images/advisory-services-about-section-new.jpg"
+              src="/images/advisory-services-about-section-new.png"
               className="w-full rounded-image object-cover"
               alt="Relume placeholder image"
             />

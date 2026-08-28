@@ -81,13 +81,13 @@
   --color-pickled-bluewood-dark: #233140;
   --color-pickled-bluewood-darker: #111820;
   --color-pickled-bluewood-darkest: #0d1218;
-  --color-caribbean-green-lightest: #e6faf6;
-  --color-caribbean-green-lighter: #cdf5ed;
-  --color-viking: #52dec1;
-  --color-caribbean-green: #08d1a7;
-  --color-caribbean-green-dark: #06a785;
-  --color-caribbean-green-darker: #035342;
-  --color-caribbean-green-darkest: #023e32;
+  --color-cerulean-lightest: #e5f5fa;
+  --color-cerulean-lighter: #ccebf5;
+  --color-cerulean-light: #4dbbde;
+  --color-cerulean: #019ed0;
+  --color-cerulean-dark: #007ea6;
+  --color-cerulean-darker: #003f53;
+  --color-cerulean-darkest: #002f3e;
   --color-black-lightest: #e5e5e5;
   --color-black-lighter: #cccccc;
   --color-black-light: #4c4c4c;
@@ -162,12 +162,12 @@
     }
   }
 
-  --radius-button: 0.375rem;
+  --radius-button: 0.75rem;
   --radius-card: 0.5rem;
-  --radius-checkbox: 0.125rem;
-  --radius-carousel: 0.25rem;
-  --radius-form: min(0.375rem, 0.75rem);
-  --radius-badge: 0.375rem;
+  --radius-checkbox: 0.25rem;
+  --radius-carousel: 0.5rem;
+  --radius-form: min(0.75rem, 0.75rem);
+  --radius-badge: 0.75rem;
   --radius-image: 0.5rem;
 
   --breakpoint-*: initial;
@@ -331,18 +331,13 @@
 }
 
 @utility scheme-2 {
-  --color-scheme-background: var(--color-viking-lighter);
-  --color-scheme-foreground: var(--color-viking-lighter);
+  --color-scheme-background: var(--color-caribbean-green);
+  --color-scheme-foreground: var(--color-caribbean-green);
   --color-scheme-text: var(--color-neutral-darkest);
   --color-scheme-border: var(--color-neutral-darkest);
-  --color-scheme-btn-text: var(--color-neutral-darkest);
 
   background-color: var(--color-scheme-background);
   color: var(--color-scheme-text);
-
-  & [data-slot="button"][data-variant="default"] {
-    color: var(--color-scheme-btn-text);
-  }
 }
 
 @utility scheme-3 {
@@ -358,16 +353,6 @@
   & [data-slot="button"][data-variant="default"] {
     color: var(--color-scheme-btn-text);
   }
-}
-
-@utility scheme-4 {
-  --color-scheme-background: var(--color-viking-dark);
-  --color-scheme-foreground: var(--color-viking-dark);
-  --color-scheme-text: var(--color-white);
-  --color-scheme-border: var(--color-white);
-
-  background-color: var(--color-scheme-background);
-  color: var(--color-scheme-text);
 }
 
 @layer base {

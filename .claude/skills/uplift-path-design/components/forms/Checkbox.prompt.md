@@ -1,10 +1,16 @@
-18px square checkbox — used for consent rows in contact and signup forms.
+Boolean and single-choice controls — both 18px, both outlined then filled solid dark when on.
 
 ```jsx
-<div style={{display:"flex",alignItems:"center",gap:"0.5rem"}}>
-  <Checkbox id="terms" />
-  <Label htmlFor="terms">I accept the terms</Label>
-</div>
+<label style={{display:"flex",gap:"0.5rem",alignItems:"center"}}>
+  <Checkbox defaultChecked />
+  I accept the terms
+</label>
+
+<RadioGroup
+  value={who}
+  onValueChange={setWho}
+  options={[{value:"owner",label:"Business owner"},{value:"individual",label:"Individual"}]}
+/>
 ```
 
-On a dark section (scheme 2, 3, 6, 7, 8) pass `variant="alternate"`: white border, and when checked a white fill with a near-black tick. Hover washes the box 5% (near-black) or 10% (white).
+Checkbox uses a 1px border and a 4px radius; Radio uses a 2px border and is fully round. Neither has a coloured "on" state — they fill with the scheme border colour (dark on light sections, white on dark ones).

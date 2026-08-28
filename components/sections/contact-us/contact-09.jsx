@@ -13,7 +13,7 @@ export function Contact9() {
       <div className="container grid grid-cols-1 gap-y-12 md:grid-flow-row md:grid-cols-2 md:gap-x-12 lg:gap-x-20">
         <div>
           <img
-            src="/images/contact-us-header-section.jpg"
+            src="/images/contact-us-header-section.png"
             alt="Relume placeholder image"
             className="size-full rounded-image object-cover"
           />

@@ -1,59 +1,18 @@
 /* ==========================================================================
-   Uplift Path — Tailwind v4 theme.
+   Uplift Path - Tailwind v4 theme.
 
-   Derived from the Relume design export's globals.css (kept at
-   `.claude/skills/uplift-path-design/`). Three changes were needed to make it
-   compile and resolve under Tailwind 4.x; they are marked [1] [2] [3] below.
-   Everything else is the export verbatim — do not hand-edit the token values,
-   they are the design system's source of truth.
+   Derived from the Relume v2 design export's `react/globals.css`, kept at
+   `.claude/skills/uplift-path-design/design-export/globals.original.css`.
+   Four changes were needed to make it compile, resolve, and not break layout
+   under Tailwind 4.x; they are marked [1] [2] [3] [4] below. Everything else is
+   the export verbatim - do not hand-edit the token values, they are the design
+   system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
 
-/* [1] The export loaded Playfair Display and Lexend Deca from the Google Fonts
-   CDN. The design system ships the woff2 files deliberately, so they are
-   self-hosted from /fonts instead. Weights are limited to the faces actually
-   bundled in `assets/fonts/`. */
-@font-face {
-  font-family: "Playfair Display";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/playfair-display-400.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Playfair Display";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("/fonts/playfair-display-500.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Playfair Display";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("/fonts/playfair-display-600.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Playfair Display";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("/fonts/playfair-display-700.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Playfair Display";
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url("/fonts/playfair-display-800.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Playfair Display";
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url("/fonts/playfair-display-900.woff2") format("woff2");
-}
+/* [1] The export loads Playfair Display and Lexend Deca from the Google Fonts
+   CDN. The design system ships the woff2 files deliberately and its README says
+   to use them, so they are self-hosted from /fonts. Weights are exactly the
+   faces bundled in the design system's `assets/fonts/`. */
 @font-face {
   font-family: "Lexend Deca";
   font-style: normal;
@@ -89,7 +48,41 @@
   font-display: swap;
   src: url("/fonts/lexend-deca-700.woff2") format("woff2");
 }
-
+@font-face {
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/lexend-deca-800.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/playfair-display-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/playfair-display-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/playfair-display-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/playfair-display-700.woff2") format("woff2");
+}
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -171,13 +164,13 @@
   --color-pickled-bluewood-dark: #233140;
   --color-pickled-bluewood-darker: #111820;
   --color-pickled-bluewood-darkest: #0d1218;
-  --color-caribbean-green-lightest: #e6faf6;
-  --color-caribbean-green-lighter: #cdf5ed;
-  --color-viking: #52dec1;
-  --color-caribbean-green: #08d1a7;
-  --color-caribbean-green-dark: #06a785;
-  --color-caribbean-green-darker: #035342;
-  --color-caribbean-green-darkest: #023e32;
+  --color-cerulean-lightest: #e5f5fa;
+  --color-cerulean-lighter: #ccebf5;
+  --color-cerulean-light: #4dbbde;
+  --color-cerulean: #019ed0;
+  --color-cerulean-dark: #007ea6;
+  --color-cerulean-darker: #003f53;
+  --color-cerulean-darkest: #002f3e;
   --color-black-lightest: #e5e5e5;
   --color-black-lighter: #cccccc;
   --color-black-light: #4c4c4c;
@@ -234,12 +227,12 @@
   --text-tiny: 0.625rem;
   --text-tiny--line-height: 1.5;
 
-  --radius-button: 0.375rem;
+  --radius-button: 0.75rem;
   --radius-card: 0.5rem;
-  --radius-checkbox: 0.125rem;
-  --radius-carousel: 0.25rem;
-  --radius-form: min(0.375rem, 0.75rem);
-  --radius-badge: 0.375rem;
+  --radius-checkbox: 0.25rem;
+  --radius-carousel: 0.5rem;
+  --radius-form: min(0.75rem, 0.75rem);
+  --radius-badge: 0.75rem;
   --radius-image: 0.5rem;
 
   --breakpoint-*: initial;
@@ -389,15 +382,15 @@
 
 /* [3] Scheme-aware colour utilities.
 
-   `.scheme-1` … `.scheme-4` (below) set `--color-scheme-*` on the section they
-   are applied to. Tailwind has no way to know those names are colours, so
-   `bg-scheme-foreground`, `text-scheme-text`, `border-scheme-border` and friends
-   generate nothing without these entries — every card would render borderless
-   and every input transparent.
+   The `.scheme-*` classes below set `--color-scheme-*`, but Tailwind has no way
+   to know those custom properties hold colours, so `bg-scheme-foreground`,
+   `text-scheme-text` and `border-scheme-border` generate nothing at all without
+   this block - silently, with no error. Symptom: every card borderless, every
+   input transparent.
 
    The block must be `@theme inline`: that makes each utility emit
-   `var(--color-scheme-*)` directly rather than defining a second variable, so
-   the value resolves against whichever `.scheme-N` is in scope at runtime.
+   `var(--color-scheme-*)` rather than the property's value at build time, so
+   the value resolves against whichever `.scheme-*` is in scope at runtime.
    A plain `@theme` here would freeze them at their initial value. */
 @theme inline {
   --color-scheme-background: var(--color-scheme-background);
@@ -408,10 +401,10 @@
   --color-scheme-accent: var(--color-scheme-accent);
 }
 
-/* [2] The export nested `@layer theme { @media … }` inside `@theme`, which
-   Tailwind 4 rejects outright ("@theme blocks must only contain custom
-   properties or @keyframes") — the stylesheet did not compile at all. Same
-   rules, lifted out to the top level. This is the desktop step-up of the
+/* [2] The export nests `@layer theme { @media ... }` two levels deep inside
+   `@theme`, which Tailwind 4 rejects outright ("@theme blocks must only contain
+   custom properties or @keyframes") - the stylesheet did not compile at all.
+   Same rules, lifted out to the top level. This is the desktop step-up of the
    heading scale at >=992px. */
 @layer theme {
   @media (min-width: 992px) {
@@ -431,12 +424,151 @@
   }
 }
 
+/* --------------------------------------------------------------------------
+   Section colour schemes.
 
+   Every section carries exactly one of these. The named classes are canonical;
+   `.scheme-1/2/3` are byte-identical aliases, because that is what the exported
+   sections actually write in their markup. The extra four names cover the
+   backgrounds DESIGN.md documents but `react/globals.css` never emitted.
+
+   One deliberate correction against `react/globals.css`, taken from the design
+   system's own `tokens/schemes.css` (the later artifact): that file sets
+   `--color-scheme-btn-text` and `--color-scheme-accent` on *every* scheme,
+   where the export left one or both unset on some - which leaves a default
+   button on the green section with no resolved text colour at all.
+   -------------------------------------------------------------------------- */
+
+/* White - the page default; almost every section sits on this. */
+@utility scheme-light {
+  --color-scheme-background: var(--color-white);
+  --color-scheme-foreground: var(--color-white);
+  --color-scheme-text: var(--color-neutral-darkest);
+  --color-scheme-border: var(--color-neutral-darkest);
+  --color-scheme-accent: var(--color-neutral-darkest);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
+}
+
+/* The green/accent scheme deliberately does NOT force the default button's colour.
+   All eleven `cta-25` banners that use it also carry `.btn-dark`, whose white
+   label is a plain utility -- `.btn-dark .text-white`, specificity 0-2-0. A
+   nested `.scheme-accent [data-slot="button"][data-variant="default"]` rule is
+   0-3-1 and beats it, which paints a black label on the black CTA button: the
+   text disappears. `react/globals.css` omits the rule here for exactly this
+   reason. Do not "restore" it for symmetry. The button still gets its colour
+   from its own `text-scheme-btn-text` class, which reads the property above. */
+/* Caribbean Green - the CTA banner. Dark text only: white on this fill is 1.96:1 and fails WCAG AA. */
+@utility scheme-accent {
+  --color-scheme-background: var(--color-caribbean-green);
+  --color-scheme-foreground: var(--color-caribbean-green);
+  --color-scheme-text: var(--color-neutral-darkest);
+  --color-scheme-border: var(--color-neutral-darkest);
+  --color-scheme-accent: var(--color-neutral-darkest);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+}
+
+/* Pickled Bluewood - the contact form and the business-consultation services grid. */
+@utility scheme-navy {
+  --color-scheme-background: var(--color-pickled-bluewood);
+  --color-scheme-foreground: var(--color-pickled-bluewood);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-caribbean-green);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
+}
+
+/* Viking Lighter - a soft wash. DESIGN.md scheme 5; unused by the export. */
+@utility scheme-mint {
+  --color-scheme-background: var(--color-viking-lighter);
+  --color-scheme-foreground: var(--color-viking-lighter);
+  --color-scheme-text: var(--color-neutral-darkest);
+  --color-scheme-border: var(--color-neutral-darkest);
+  --color-scheme-accent: var(--color-neutral-darkest);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
+}
+
+/* Caribbean Green Darker. DESIGN.md scheme 7; unused by the export. */
+@utility scheme-deep-teal {
+  --color-scheme-background: var(--color-caribbean-green-darker);
+  --color-scheme-foreground: var(--color-caribbean-green-darker);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-white);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
+}
+
+/* Cerulean Darker. DESIGN.md scheme 6; unused by the export. */
+@utility scheme-cerulean-deep {
+  --color-scheme-background: var(--color-cerulean-darker);
+  --color-scheme-foreground: var(--color-cerulean-darker);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-caribbean-green);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
+}
+
+/* Black. DESIGN.md scheme 3; unused by the export. */
+@utility scheme-black {
+  --color-scheme-background: var(--color-black-darkest);
+  --color-scheme-foreground: var(--color-black-darkest);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-caribbean-green);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
+}
+
+/* Alias of .scheme-light - this is the class the exported sections carry. */
 @utility scheme-1 {
   --color-scheme-background: var(--color-white);
   --color-scheme-foreground: var(--color-white);
   --color-scheme-text: var(--color-neutral-darkest);
   --color-scheme-border: var(--color-neutral-darkest);
+  --color-scheme-accent: var(--color-neutral-darkest);
   --color-scheme-btn-text: var(--color-neutral-darkest);
 
   background-color: var(--color-scheme-background);
@@ -447,26 +579,34 @@
   }
 }
 
+/* The green/accent scheme deliberately does NOT force the default button's colour.
+   All eleven `cta-25` banners that use it also carry `.btn-dark`, whose white
+   label is a plain utility -- `.btn-dark .text-white`, specificity 0-2-0. A
+   nested `.scheme-accent [data-slot="button"][data-variant="default"]` rule is
+   0-3-1 and beats it, which paints a black label on the black CTA button: the
+   text disappears. `react/globals.css` omits the rule here for exactly this
+   reason. Do not "restore" it for symmetry. The button still gets its colour
+   from its own `text-scheme-btn-text` class, which reads the property above. */
+/* Alias of .scheme-accent - this is the class the exported sections carry. */
 @utility scheme-2 {
-  --color-scheme-background: var(--color-viking-lighter);
-  --color-scheme-foreground: var(--color-viking-lighter);
+  --color-scheme-background: var(--color-caribbean-green);
+  --color-scheme-foreground: var(--color-caribbean-green);
   --color-scheme-text: var(--color-neutral-darkest);
   --color-scheme-border: var(--color-neutral-darkest);
+  --color-scheme-accent: var(--color-neutral-darkest);
   --color-scheme-btn-text: var(--color-neutral-darkest);
 
   background-color: var(--color-scheme-background);
   color: var(--color-scheme-text);
-
-  & [data-slot="button"][data-variant="default"] {
-    color: var(--color-scheme-btn-text);
-  }
 }
 
+/* Alias of .scheme-navy - this is the class the exported sections carry. */
 @utility scheme-3 {
   --color-scheme-background: var(--color-pickled-bluewood);
   --color-scheme-foreground: var(--color-pickled-bluewood);
   --color-scheme-text: var(--color-white);
   --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-caribbean-green);
   --color-scheme-btn-text: var(--color-neutral-darkest);
 
   background-color: var(--color-scheme-background);
@@ -475,16 +615,6 @@
   & [data-slot="button"][data-variant="default"] {
     color: var(--color-scheme-btn-text);
   }
-}
-
-@utility scheme-4 {
-  --color-scheme-background: var(--color-viking-dark);
-  --color-scheme-foreground: var(--color-viking-dark);
-  --color-scheme-text: var(--color-white);
-  --color-scheme-border: var(--color-white);
-
-  background-color: var(--color-scheme-background);
-  color: var(--color-scheme-text);
 }
 
 @layer base {
@@ -506,6 +636,12 @@
     cursor: pointer;
   }
 }
+
+/* [4] The export ends with `body { border-width: 2px; }`, which paints a 2px
+   border around the whole document and makes the page 4px wider than the
+   viewport - a horizontal scrollbar on every route. It is a stray application
+   of the card border token, not a design decision, and is dropped. The same
+   line was removed during the v1 import for the same reason (commit 6cfc055). */
 
 @utility container {
   margin-inline: auto;

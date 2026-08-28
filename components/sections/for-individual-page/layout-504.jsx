@@ -48,13 +48,12 @@ export function Layout504() {
             <Card className="grid grid-cols-1 md:grid-cols-2 md:items-center">
               <div className="aspect-square">
                 <img
-                  src="/images/for-individual-page-feature-section.jpg"
+                  src="/images/for-individual-page-feature-section.png"
                   className="size-full object-cover"
                   alt="Relume placeholder image 1"
                 />
               </div>
               <div className="p-6 md:p-8 lg:p-12">
-                <p className="mb-3 font-semibold md:mb-4">Phone</p>
                 <h2 className="mb-5 text-h3 font-bold md:mb-6">
                   A steady voice on the other end of the line
                 </h2>
@@ -83,7 +82,6 @@ export function Layout504() {
                 />
               </div>
               <div className="p-6 md:p-8 lg:p-12">
-                <p className="mb-3 font-semibold md:mb-4">Phone</p>
                 <h2 className="mb-5 text-h3 font-bold md:mb-6">
                   A steady voice on the other end of the line
                 </h2>
@@ -112,7 +110,6 @@ export function Layout504() {
                 />
               </div>
               <div className="p-6 md:p-8 lg:p-12">
-                <p className="mb-3 font-semibold md:mb-4">Phone</p>
                 <h2 className="mb-5 text-h3 font-bold md:mb-6">
                   A steady voice on the other end of the line
                 </h2>

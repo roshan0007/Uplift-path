@@ -1,6 +1,8 @@
-/* Palette — verbatim from DESIGN.md / react/globals.css. */
+/* Uplift Path colour system.
+   Base palettes are verbatim from the source export (DESIGN.md + react/globals.css).
+   Semantic aliases sit at the bottom; prefer those in product code. */
 :root{
-  /* Neutral */
+  /* ---- Neutral (lightest → darkest) ---- */
   --color-white:#ffffff;
   --color-neutral-lightest:#f2f2f2;
   --color-neutral-lighter:#d8dad9;
@@ -10,24 +12,16 @@
   --color-neutral-darker:#192220;
   --color-neutral-darkest:#000a08;
 
-  /* Caribbean Green — primary brand */
+  /* ---- Caribbean Green (primary brand) ---- */
   --color-caribbean-green-lightest:#e6faf6;
   --color-caribbean-green-lighter:#cdf5ed;
+  --color-caribbean-green-light:#52dec1;
   --color-caribbean-green:#08d1a7;
   --color-caribbean-green-dark:#06a785;
   --color-caribbean-green-darker:#035342;
   --color-caribbean-green-darkest:#023e32;
 
-  /* Viking — secondary green */
-  --color-viking-lightest:#edfbf8;
-  --color-viking-lighter:#dcf8f2;
-  --color-viking-light:#85e7d3;
-  --color-viking:#52dec1;
-  --color-viking-dark:#41b19a;
-  --color-viking-darker:#20584d;
-  --color-viking-darkest:#184239;
-
-  /* Pickled Bluewood — dark navy */
+  /* ---- Pickled Bluewood (deep navy) ---- */
   --color-pickled-bluewood-lightest:#e9ebed;
   --color-pickled-bluewood-lighter:#d4d8dc;
   --color-pickled-bluewood-light:#6b7784;
@@ -36,13 +30,31 @@
   --color-pickled-bluewood-darker:#111820;
   --color-pickled-bluewood-darkest:#0d1218;
 
-  /* Black */
+  /* ---- Cerulean ---- */
+  --color-cerulean-lightest:#e5f5fa;
+  --color-cerulean-lighter:#ccebf5;
+  --color-cerulean-light:#4dbbde;
+  --color-cerulean:#019ed0;
+  --color-cerulean-dark:#007ea6;
+  --color-cerulean-darker:#003f53;
+  --color-cerulean-darkest:#002f3e;
+
+  /* ---- Viking (mint) ---- */
+  --color-viking-lightest:#edfbf8;
+  --color-viking-lighter:#dcf8f2;
+  --color-viking-light:#85e7d3;
+  --color-viking:#52dec1;
+  --color-viking-dark:#41b19a;
+  --color-viking-darker:#20584d;
+  --color-viking-darkest:#184239;
+
+  /* ---- Black ---- */
   --color-black-lightest:#e5e5e5;
   --color-black-lighter:#cccccc;
   --color-black-light:#4c4c4c;
   --color-black-darkest:#000000;
 
-  /* Transparency ramps — used for hairlines, hovers, placeholder text */
+  /* ---- Alpha ramps (image scrims, hover washes, hairlines) ---- */
   --color-white-5:color-mix(in srgb,var(--color-white),transparent 95%);
   --color-white-10:color-mix(in srgb,var(--color-white),transparent 90%);
   --color-white-15:color-mix(in srgb,var(--color-white),transparent 85%);
@@ -60,19 +72,29 @@
   --color-neutral-darkest-50:color-mix(in srgb,var(--color-neutral-darkest),transparent 50%);
   --color-neutral-darkest-60:color-mix(in srgb,var(--color-neutral-darkest),transparent 40%);
 
-  /* Semantic aliases — default (Scheme 4, white) */
+  /* ---- Semantic aliases ---- */
   --surface-page:var(--color-white);
   --surface-card:var(--color-white);
-  --surface-muted:var(--color-viking-lighter);
+  --surface-sunken:var(--color-neutral-lightest);
+  --surface-accent:var(--color-caribbean-green);
+  --surface-accent-soft:var(--color-viking-lighter);
   --surface-inverse:var(--color-pickled-bluewood);
+  --surface-scrim:var(--color-neutral-darkest-50);
+
   --text-body:var(--color-neutral-darkest);
-  --text-muted:var(--color-neutral-dark);
+  --text-heading:var(--color-neutral-darkest);
+  --text-muted:var(--color-neutral);
   --text-inverse:var(--color-white);
-  --text-accent:var(--color-caribbean-green);
+  --text-accent:var(--color-caribbean-green-dark);
+  --text-on-accent:var(--color-neutral-darkest);
+
   --border-default:var(--color-neutral-darkest);
-  --border-hairline:var(--color-neutral-darkest-15);
-  --action-primary:var(--color-caribbean-green);
-  --action-primary-hover:var(--color-caribbean-green-dark);
+  --border-subtle:var(--color-neutral-lighter);
+  --border-inverse:var(--color-white);
+
+  --action-primary-bg:var(--color-caribbean-green);
+  --action-primary-edge:var(--color-caribbean-green-dark);
   --action-primary-text:var(--color-neutral-darkest);
-  --scrim:var(--color-neutral-darkest-50);
+  --action-secondary-edge:var(--color-neutral-darkest);
+  --focus-ring:var(--color-caribbean-green-dark);
 }

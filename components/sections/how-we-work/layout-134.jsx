@@ -5,9 +5,9 @@ import React from "react";
 
 export function Layout134() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-4 btn-dark badge-alt alternate logo-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container max-w-lg text-center">
-        <p className="mb-3 font-semibold md:mb-4">Uplift</p>
+        <p className="mb-3 font-semibold md:mb-4">How We Work</p>
         <h2 className="mb-5 text-h2 font-bold md:mb-6">
           A clear path to better outcomes starts here
         </h2>

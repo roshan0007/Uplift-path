@@ -67,7 +67,7 @@ export function Layout28() {
               className="data-[state=active]:animate-tabs"
             >
               <img
-                src="/images/advisory-services-how-it-works-section.jpg"
+                src="/images/advisory-services-how-it-works-section.png"
                 alt="Relume placeholder image 1"
                 className="size-full rounded-image object-cover"
               />

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import { Navbar5 } from '@/components/sections/navbar-05'
-import { Footer9 } from '@/components/sections/footer-09'
+import { Navbar12 } from '@/components/sections/navbar-12'
+import { Footer4 } from '@/components/sections/footer-04'
 
 /**
  * Playfair Display carries the headlines, Lexend Deca the body — a high-contrast
@@ -47,9 +47,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <Navbar5 />
+        <Navbar12 />
         {children}
-        <Footer9 />
+        <Footer4 />
       </body>
     </html>
   )

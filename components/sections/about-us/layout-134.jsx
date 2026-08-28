@@ -8,7 +8,7 @@ export function Layout134() {
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container max-w-lg text-center">
         <p className="mb-3 font-semibold md:mb-4">About</p>
-        <h2 className="mb-5 text-h2 font-bold md:mb-6">About Uplift Path</h2>
+        <h2 className="mb-5 text-h2 font-bold md:mb-6">Uplift Path</h2>
         <p className="text-medium">
           Uplift Path unlocks true growth for Founders, and organizations by
           designing clear, sustainable pathways to progress. Our purpose is to

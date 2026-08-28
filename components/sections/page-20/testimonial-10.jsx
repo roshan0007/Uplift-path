@@ -79,7 +79,7 @@ export function Testimonial10() {
                     <div className="hidden w-px self-stretch bg-scheme-border md:block" />
                     <div>
                       <img
-                        src="https://imagedelivery.net/RAP5LnVUMDfmG3LRL4kHtw/5c526e84-1a61-41d5-a8fe-b560e3dedd01/2560?exp=1788307200&sig=91bd59ff484d62fa459677d492fac1aa6714c1a9f5672e5252da786a9e5f9ace"
+                        src="/images/page-20-impact-outcomes-new2.jpg"
                         alt="Webflow logo 1"
                         className="max-h-12"
                       />
@@ -115,7 +115,7 @@ export function Testimonial10() {
                     <div className="hidden w-px self-stretch bg-scheme-border md:block" />
                     <div>
                       <img
-                        src="https://imagedelivery.net/RAP5LnVUMDfmG3LRL4kHtw/5c526e84-1a61-41d5-a8fe-b560e3dedd01/2560?exp=1788307200&sig=91bd59ff484d62fa459677d492fac1aa6714c1a9f5672e5252da786a9e5f9ace"
+                        src="/images/page-20-impact-outcomes-new2.jpg"
                         alt="Webflow logo 1"
                         className="max-h-12"
                       />

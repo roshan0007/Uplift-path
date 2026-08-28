@@ -1,12 +1,27 @@
-<!-- @dsCard group="Website" viewport="1440x900" name="Uplift Path marketing site" subtitle="Home, For Businesses and Contact — click-through recreation of the exported site" -->
-<!doctype html>
-<html><head><meta charset="utf-8"><title>Uplift Path — UI kit</title>
+<!-- @dsCard group="Website" viewport="1440x900" name="Uplift Path marketing site" subtitle="Home, For Businesses and Contact — click through the nav" -->
+<!-- @startingPoint section="Website" subtitle="Uplift Path marketing site — home, services, contact" viewport="1440x900" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Uplift Path — marketing site</title>
 <link rel="stylesheet" href="../../styles.css">
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
-<style>body{margin:0}a{color:inherit}a:hover{color:inherit}</style>
+<style>
+body{margin:0}
+.navbar{position:sticky;top:0;z-index:999;display:flex;align-items:center;justify-content:space-between;min-height:var(--navbar-height-lg);padding-inline:5%}
+.navbar-links{display:flex;align-items:center;gap:0.5rem}
+.nav-link{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;font-size:var(--text-regular);margin:0}
+.nav-link[aria-current="page"]{font-weight:600}
+.nav-dd{position:relative}
+.nav-panel{position:absolute;right:0;top:100%;z-index:50;width:640px;padding:1.5rem;border:var(--border-width-hairline) solid var(--color-scheme-border);background:var(--color-scheme-background);transition:opacity var(--duration-fast) var(--ease-in-out),transform var(--duration-fast) var(--ease-in-out)}
+.nav-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.nav-panel-item{display:flex;align-items:flex-start;gap:0.75rem;margin-block:0.25rem;font-size:var(--text-regular)}
+.footer-top{display:grid;grid-template-columns:0.25fr 1fr 0.25fr;align-items:center;gap:1rem;padding-bottom:5rem}
+.footer-nav{display:flex;justify-content:center;gap:1.5rem;list-style:none;margin:0;padding:0}
+.footer-social{display:flex;gap:0.75rem;justify-self:end}
+.social-glyph{display:block;width:24px;height:24px}
+.footer-legal{display:flex;align-items:center;justify-content:center;gap:1.5rem;padding-top:2rem;font-size:var(--text-small)}
+</style>
 </head><body>
 <div id="root"></div>
 <script type="text/babel" src="Chrome.jsx"></script>
@@ -14,19 +29,16 @@
 <script type="text/babel" src="BusinessScreen.jsx"></script>
 <script type="text/babel" src="ContactScreen.jsx"></script>
 <script type="text/babel">
-function App(){
-  const [page,setPage] = React.useState("home");
-  const navigate = (p) => { setPage(p); window.scrollTo(0,0); };
-  return (
-    <>
-      <Navbar page={page} onNavigate={navigate} />
-      {page === "home" && <HomeScreen onNavigate={navigate} />}
-      {page === "business" && <BusinessScreen onNavigate={navigate} />}
-      {page === "contact" && <ContactScreen onNavigate={navigate} />}
-      <Footer onNavigate={navigate} />
-    </>
-  );
+function Site(){
+  const [page,setPage]=React.useState("home");
+  const go=(p)=>{setPage(p);window.scrollTo(0,0);};
+  const Screen={home:window.HomeScreen,business:window.BusinessScreen,contact:window.ContactScreen}[page];
+  return <div>
+    <window.Navbar page={page} onNavigate={go}/>
+    <Screen onNavigate={go}/>
+    <window.Footer onNavigate={go}/>
+  </div>;
 }
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(<Site/>);
 </script>
 </body></html>

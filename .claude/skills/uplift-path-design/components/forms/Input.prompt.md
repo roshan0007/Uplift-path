@@ -1,8 +1,11 @@
-Underlined text field — Uplift Path forms never use boxed inputs.
+Text entry for Uplift Path forms — `Input`, `Textarea` and `Label`, all sharing a 2px border, 12px radius and 44px minimum height.
 
 ```jsx
-<Input type="email" placeholder="Your email" />
-<Input variant="secondary" placeholder="Enter your email" />
+<div style={{display:"grid"}}>
+  <Label htmlFor="email" style={{marginBottom:"0.5rem"}}>Email</Label>
+  <Input type="email" id="email" />
+</div>
+<Textarea placeholder="Type your message..." style={{minHeight:"11.25rem"}} />
 ```
 
-`primary` draws a 2px `--color-neutral-darkest-15` bottom border; `secondary` uses `--color-white-10` for dark sections. Supports `icon`/`iconPosition` and a bordered `prefix`.
+Fields are transparent, not filled — the border does the work. Hovering washes the field with 5% of the text colour. On a dark section pass `variant="secondary"` for white borders. Message textareas on the live contact form are 11.25rem tall.

@@ -1,57 +1,33 @@
-<!-- @dsCard group="Components" viewport="700x400" name="Forms" subtitle="Button, Input, Textarea, Select, Checkbox, RadioGroup, Label" -->
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<!-- @dsCard group="Components" viewport="700x340" name="Forms" subtitle="Input, Textarea, Label, Select, Checkbox and RadioGroup" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
-<style>body{margin:0;padding:20px;font-family:var(--font-body);background:#fff}.lbl{font-size:10px;color:#7f8483;margin-bottom:6px}</style></head>
-<body><div id="root"></div><script type="text/babel">
-
-const { Button, Input, Textarea, Select, Checkbox, RadioGroup, RadioGroupItem, Label, Icon } = window.UpliftPathDesignSystem_930664;
+<style>body{margin:0;padding:20px;font-family:var(--font-body);font-size:var(--text-medium)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field{display:grid}.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}</style>
+</head><body class="scheme-light"><div id="root"></div>
+<script type="text/babel">
+const { Input, Textarea, Label, Select, Checkbox, RadioGroup, Icon, Button } = window.UpliftPathDesignSystem_a5cd7a;
 function Demo(){
-  return (
-    <div style={{display:"grid",gap:"20px"}}>
-      <div>
-        <div className="lbl">Button — variants</div>
-        <div style={{display:"flex",gap:"10px",flexWrap:"wrap",alignItems:"center"}}>
-          <Button>Contact</Button>
-          <Button variant="secondary">Get Started</Button>
-          <Button variant="ghost">Ghost</Button>
-          <Button variant="link" size="link" iconRight={<Icon name="chevron_right" size={18} />}>Explore</Button>
-          <Button size="sm">Small</Button>
-          <Button disabled>Disabled</Button>
-          <Button size="icon" variant="secondary"><Icon name="arrow_forward" size={22} /></Button>
-        </div>
-      </div>
-      <div style={{background:"#2c3e50",padding:"14px",borderRadius:"8px",display:"flex",gap:"10px",flexWrap:"wrap"}}>
-        <Button variant="alternate">Alternate</Button>
-        <Button variant="secondary-alt">Secondary alt</Button>
-        <Button variant="link-alt" size="link" iconRight={<Icon name="chevron_right" size={18} color="#fff" />}>Link alt</Button>
-      </div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"20px"}}>
-        <div><div className="lbl">Input</div><Input placeholder="Your email" /></div>
-        <div><div className="lbl">Input with icon</div><Input placeholder="Search" icon={<Icon name="search" size={18} />} /></div>
-        <div><div className="lbl">Select</div><Select options={[{value:"a",label:"First Choice"},{value:"b",label:"Second Choice"}]} /></div>
-        <div><div className="lbl">Textarea</div><Textarea placeholder="Type your message..." style={{minHeight:"56px"}} /></div>
-      </div>
-      <div style={{display:"flex",gap:"32px",alignItems:"center"}}>
-        <div><div className="lbl">Checkbox — default / alternate</div><div style={{display:"flex",gap:"12px",alignItems:"center"}}><Checkbox defaultChecked /><Checkbox /><Checkbox disabled /><span style={{background:"#2c3e50",padding:"8px 10px",borderRadius:"6px",display:"flex",gap:"12px"}}><Checkbox variant="alternate" defaultChecked /><Checkbox variant="alternate" /></span></div></div>
-        <div><div className="lbl">RadioGroup — default / alternate</div><div style={{display:"flex",gap:"16px",alignItems:"center"}}>
-          <RadioGroup defaultValue="one" style={{gridTemplateColumns:"auto auto",gap:"8px 20px"}}>
-            <Label><RadioGroupItem value="one" />Business owner</Label>
-            <Label><RadioGroupItem value="two" />Individual</Label>
-          </RadioGroup>
-          <span style={{background:"#2c3e50",color:"#fff",padding:"8px 12px",borderRadius:"6px"}}>
-            <RadioGroup variant="alternate" defaultValue="one" style={{gridTemplateColumns:"auto auto",gap:"8px 20px"}}>
-              <Label><RadioGroupItem value="one" />Owner</Label>
-              <Label><RadioGroupItem value="two" />Individual</Label>
-            </RadioGroup>
-          </span>
-        </div></div>
-      </div>
+  const [topic,setTopic]=React.useState("second");
+  const [who,setWho]=React.useState("individual");
+  const [ok,setOk]=React.useState(true);
+  return <div className="grid">
+    <div style={{display:"grid",gap:"16px"}}>
+      <div className="field"><Label htmlFor="a" style={{marginBottom:"0.5rem"}}>First name</Label><Input id="a" defaultValue="Sarah"/></div>
+      <div className="field"><Label htmlFor="b" style={{marginBottom:"0.5rem"}}>Email</Label><Input id="b" type="email" placeholder="you@example.com" icon={<Icon name="mail" size={20}/>}/></div>
+      <div className="field"><Label style={{marginBottom:"0.5rem"}}>Choose a topic</Label>
+        <Select value={topic} onValueChange={setTopic} options={[{value:"first",label:"First Choice"},{value:"second",label:"Second Choice"}]}/></div>
+      <div className="field"><Label htmlFor="d" style={{marginBottom:"0.5rem"}}>Disabled</Label><Input id="d" disabled placeholder="Unavailable"/></div>
     </div>
-  );
+    <div style={{display:"grid",gap:"16px",alignContent:"start"}}>
+      <div className="field"><Label style={{marginBottom:"0.5rem"}}>Message</Label><Textarea placeholder="Type your message..." style={{minHeight:"5rem"}}/></div>
+      <div><div className="lbl">Which best describes you?</div>
+        <RadioGroup value={who} onValueChange={setWho} options={[{value:"owner",label:"Business owner"},{value:"individual",label:"Individual"},{value:"founder",label:"Startup founder"},{value:"other",label:"Other"}]}/></div>
+      <label style={{display:"flex",gap:"0.5rem",alignItems:"center",fontSize:"var(--text-small)"}}><Checkbox checked={ok} onCheckedChange={setOk}/>I accept the terms</label>
+      <div><Button>Submit</Button></div>
+    </div>
+  </div>;
 }
-
-ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
 </script></body></html>

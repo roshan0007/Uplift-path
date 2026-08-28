@@ -1,0 +1,13 @@
+/* Uplift Path corner radii. Source calls the button style "bubble" (12px)
+   and the card style "edgy" (8px + 2px border). */
+:root{
+  --radius-button:0.75rem;   /* 12px */
+  --radius-card:0.5rem;      /* 8px  */
+  --radius-image:0.5rem;     /* 8px  */
+  --radius-form:0.75rem;     /* 12px */
+  --radius-badge:0.75rem;    /* 12px */
+  --radius-tag:0.375rem;     /* 6px  */
+  --radius-carousel:0.5rem;  /* 8px  */
+  --radius-checkbox:0.25rem; /* 4px  */
+  --radius-full:9999px;
+}

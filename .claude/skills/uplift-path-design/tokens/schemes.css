@@ -1,19 +1,86 @@
-/* Section colour schemes — from DESIGN.md.
-   Every section of an Uplift Path page carries exactly one .scheme-N class;
-   children read --color-scheme-* rather than raw palette values. */
-.scheme-1,.scheme-2,.scheme-3,.scheme-4,.scheme-5,.scheme-6,.scheme-7,.scheme-8{
+/* Uplift Path section colour schemes.
+   Every marketing section carries exactly one scheme class. The scheme sets
+   --color-scheme-* and children read from those, so a section can be recoloured
+   by swapping one class. Named aliases are preferred; the numeric classes
+   .scheme-1/2/3 match the source's react/globals.css utilities verbatim. */
+
+.scheme-light,.scheme-1{
+  --color-scheme-background:var(--color-white);
+  --color-scheme-foreground:var(--color-white);
+  --color-scheme-text:var(--color-neutral-darkest);
+  --color-scheme-border:var(--color-neutral-darkest);
+  --color-scheme-accent:var(--color-neutral-darkest);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
   background-color:var(--color-scheme-background);
   color:var(--color-scheme-text);
 }
-/* --color-scheme-btn-text is the label colour of a default (green-filled) Button inside
-   the scheme. It stays near-black on every scheme — the green fill never changes. */
-.scheme-1{--color-scheme-background:#08d1a7;--color-scheme-foreground:#08d1a7;--color-scheme-text:#000a08;--color-scheme-accent:#000a08;--color-scheme-border:#000a08;--color-scheme-btn-text:#000a08;--color-scheme-logo:light}
-.scheme-2{--color-scheme-background:#2c3e50;--color-scheme-foreground:#2c3e50;--color-scheme-text:#ffffff;--color-scheme-accent:#08d1a7;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
-.scheme-3{--color-scheme-background:#000000;--color-scheme-foreground:#000000;--color-scheme-text:#ffffff;--color-scheme-accent:#08d1a7;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
-.scheme-4{--color-scheme-background:#ffffff;--color-scheme-foreground:#ffffff;--color-scheme-text:#000a08;--color-scheme-accent:#000a08;--color-scheme-border:#000a08;--color-scheme-btn-text:#000a08;--color-scheme-logo:light}
-.scheme-5{--color-scheme-background:#dcf8f2;--color-scheme-foreground:#dcf8f2;--color-scheme-text:#000a08;--color-scheme-accent:#000a08;--color-scheme-border:#000a08;--color-scheme-btn-text:#000a08;--color-scheme-logo:light}
-.scheme-6{--color-scheme-background:#035342;--color-scheme-foreground:#035342;--color-scheme-text:#ffffff;--color-scheme-accent:#ffffff;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
-.scheme-7{--color-scheme-background:#035342;--color-scheme-foreground:#035342;--color-scheme-text:#ffffff;--color-scheme-accent:#ffffff;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
-.scheme-8{--color-scheme-background:#41b19a;--color-scheme-foreground:#41b19a;--color-scheme-text:#ffffff;--color-scheme-accent:#ffffff;--color-scheme-border:#ffffff;--color-scheme-btn-text:#000a08;--color-scheme-logo:dark}
-/* Logo inversion helper — apply to sections whose scheme calls for the dark-background logo. */
+.scheme-accent,.scheme-2{
+  --color-scheme-background:var(--color-caribbean-green);
+  --color-scheme-foreground:var(--color-caribbean-green);
+  --color-scheme-text:var(--color-neutral-darkest);
+  --color-scheme-border:var(--color-neutral-darkest);
+  --color-scheme-accent:var(--color-neutral-darkest);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+.scheme-navy,.scheme-3{
+  --color-scheme-background:var(--color-pickled-bluewood);
+  --color-scheme-foreground:var(--color-pickled-bluewood);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-caribbean-green);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+/* Additional backgrounds defined in DESIGN.md's scheme table. */
+.scheme-mint{
+  --color-scheme-background:var(--color-viking-lighter);
+  --color-scheme-foreground:var(--color-viking-lighter);
+  --color-scheme-text:var(--color-neutral-darkest);
+  --color-scheme-border:var(--color-neutral-darkest);
+  --color-scheme-accent:var(--color-neutral-darkest);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+.scheme-deep-teal{
+  --color-scheme-background:var(--color-caribbean-green-darker);
+  --color-scheme-foreground:var(--color-caribbean-green-darker);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-white);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+.scheme-cerulean-deep{
+  --color-scheme-background:var(--color-cerulean-darker);
+  --color-scheme-foreground:var(--color-cerulean-darker);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-caribbean-green);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+.scheme-black{
+  --color-scheme-background:var(--color-black-darkest);
+  --color-scheme-foreground:var(--color-black-darkest);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-caribbean-green);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+
+/* Inverts controls that sit on a dark scheme (white borders, white text). */
+.alternate{--control-on-dark:1 /* @kind other */}
+/* Forces the primary button to the dark treatment on a green section. */
+.btn-dark{--btn-force:dark /* @kind other */}
+/* Forces the primary button to the white treatment on a dark section. */
+.btn-light{--btn-force:light /* @kind other */}
+/* Knocks a colour logo to solid white for dark sections. */
 .logo-alt img[alt*="logo" i],.logo-alt img[src*="logo" i]{filter:brightness(0) invert(1)}

@@ -1,0 +1,54 @@
+<!-- @dsCard group="Components" viewport="700x380" name="Surfaces" subtitle="Card, BackgroundCard, Accordion, Tabs, Carousel and Dialog" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;font-family:var(--font-body);font-size:var(--text-small)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}</style>
+</head><body class="scheme-light"><div id="root"></div>
+<script type="text/babel">
+const { Card, CardHeader, CardTitle, CardContent, CardFooter, BackgroundCard, Accordion, Tabs, Carousel, Dialog, Button, Icon } = window.UpliftPathDesignSystem_a5cd7a;
+function Demo(){
+  const [open,setOpen]=React.useState(false);
+  return <div>
+    <div className="grid" style={{marginBottom:"20px"}}>
+      <Card>
+        <CardHeader><CardTitle style={{fontSize:"var(--text-h6)"}}>Program Development</CardTitle></CardHeader>
+        <CardContent><p style={{marginTop:"8px"}}>Design and refine evidence-based programs that align with your mission.</p></CardContent>
+        <CardFooter><Button variant="link" size="link" iconRight={<Icon name="chevron_right" size={18}/>}>Learn more</Button></CardFooter>
+      </Card>
+      <BackgroundCard style={{position:"relative",minHeight:"150px"}}>
+        <img src="../../assets/images/home-who-we-help-0.png" alt="" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}}/>
+        <div style={{position:"absolute",inset:0,background:"var(--scrim-image)"}}></div>
+        <div style={{position:"relative",padding:"16px",height:"150px",display:"flex",flexDirection:"column",justifyContent:"flex-end",color:"var(--color-white)"}}>
+          <p style={{fontWeight:600,marginBottom:"4px"}}>Operational consulting</p>
+          <h3 style={{color:"var(--color-white)",fontSize:"var(--text-h6)"}}>Discovery &amp; Listening</h3>
+        </div>
+      </BackgroundCard>
+    </div>
+    <div className="grid">
+      <div>
+        <div className="lbl">Accordion</div>
+        <Accordion defaultOpen={[0]} items={[
+          {question:"What is business consulting?",answer:"Expert advice, actionable strategies, and hands-on support."},
+          {question:"Which industries do you specialize in?",answer:"Behavioural health, nonprofits, education and startups."}]}/>
+      </div>
+      <div>
+        <div className="lbl">Tabs</div>
+        <Tabs defaultValue="t1" tabs={[
+          {value:"t1",label:"By phone",content:<p style={{paddingTop:"12px"}}>Call from anywhere in Ohio.</p>},
+          {value:"t2",label:"By video",content:<p style={{paddingTop:"12px"}}>Meet on your schedule.</p>}]}/>
+        <div className="lbl" style={{marginTop:"16px"}}>Carousel &amp; Dialog</div>
+        <div style={{paddingInline:"56px"}}><Carousel slides={[
+          <p key="a" style={{textAlign:"center",fontFamily:"var(--font-display)",fontSize:"var(--text-h6)"}}>"The fog lifted."</p>,
+          <p key="b" style={{textAlign:"center",fontFamily:"var(--font-display)",fontSize:"var(--text-h6)"}}>"We finally had a plan."</p>]}/></div>
+        <Button size="sm" variant="secondary" onClick={()=>setOpen(true)}>Open dialog</Button>
+        <Dialog open={open} onClose={()=>setOpen(false)} width="20rem">
+          <Card style={{padding:"20px",background:"var(--color-white)"}}><p>Dialog panel</p></Card>
+        </Dialog>
+      </div>
+    </div>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>
