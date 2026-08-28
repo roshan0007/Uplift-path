@@ -18,8 +18,11 @@ export function Layout353() {
               the map and the compass for your journey.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-4 md:mt-8">
-              <Button title="Explore" variant="secondary">
-                Explore
+              {/* Self-link, flagged: the section already sits on this page and
+                  lists the services beside it, so there is no other obvious
+                  destination. Owner to confirm. */}
+              <Button asChild title="Explore" variant="secondary">
+                <a href="/business-conusltation">Explore</a>
               </Button>
             </div>
           </div>

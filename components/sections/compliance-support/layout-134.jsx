@@ -16,8 +16,8 @@ export function Layout134() {
           organisation, not only advised on it.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button title="Book a discovery call" variant="secondary">
-            Book a discovery call
+          <Button asChild title="Book a discovery call" variant="secondary">
+            <a href="/contact-us">Book a discovery call</a>
           </Button>
         </div>
       </div>

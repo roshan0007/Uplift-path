@@ -8,7 +8,7 @@ export function Footer4() {
     <footer className="px-[5%] py-12 md:py-18 lg:py-20 scheme-1 badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 items-center justify-center justify-items-center gap-x-[4vw] gap-y-12 pb-12 md:pb-18 lg:grid-cols-[0.25fr_1fr_0.25fr] lg:justify-between lg:gap-y-4 lg:pb-20">
-          <a href="#" className="lg:justify-self-start">
+          <a href="/" className="lg:justify-self-start">
             <img
               src="/brand/uplift-path-logo.svg"
               alt="Uplift Path"
@@ -17,21 +17,25 @@ export function Footer4() {
           </a>
           <ul className="grid grid-flow-row grid-cols-1 items-start justify-center justify-items-center gap-6 md:grid-flow-col md:grid-cols-[max-content] md:justify-center md:justify-items-start">
             <li className="font-semibold">
-              <a href="#">Home</a>
+              <a href="/">Home</a>
             </li>
             <li className="font-semibold">
-              <a href="#">Services</a>
+              <a href="/for-business-page">Services</a>
             </li>
             <li className="font-semibold">
-              <a href="#">About</a>
+              <a href="/about-us">About</a>
             </li>
             <li className="font-semibold">
-              <a href="#">Contact</a>
+              <a href="/contact-us">Contact</a>
             </li>
             <li className="font-semibold">
-              <a href="#">Get started</a>
+              <a href="/contact-us">Get started</a>
             </li>
           </ul>
+          {/* Left at "#" on purpose: no Facebook or LinkedIn profile URL exists
+              anywhere in the repo or the design export, and guessing one would
+              point the site at an account we cannot verify. Owner to supply the
+              two URLs, or say to drop the icons. */}
           <div className="flex items-start justify-start justify-items-center gap-x-3 lg:justify-self-end">
             <a href="#">
               <FacebookLogo className="size-6 text-scheme-text" />
@@ -56,20 +60,23 @@ export function Footer4() {
               </p>
             </li>
             <li>
-              <a href="#" className="underline">
+              <a href="/accessibility" className="underline">
                 Accessibility
               </a>
             </li>
             <li>
-              <a href="#" className="underline">
+              <a href="/terms-of-use" className="underline">
                 Terms of service
               </a>
             </li>
             <li>
-              <a href="#" className="underline">
+              <a href="/privacy-policy" className="underline">
                 Privacy Policy
               </a>
             </li>
+            {/* Left at "#" on purpose: there is no Grievance route and never
+                was one. Inventing the page or deleting the link are both
+                content decisions for the owner, not import fixes. */}
             <li>
               <a href="#" className="underline">
                 Grievance

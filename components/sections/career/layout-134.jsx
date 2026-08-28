@@ -16,8 +16,10 @@ export function Layout134() {
           business results.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button title="Explore Opportunities" variant="secondary">
-            Explore Opportunities
+          {/* Self-link, flagged: no jobs board or ATS URL exists in the repo,
+              so /career is a placeholder destination. */}
+          <Button asChild title="Explore Opportunities" variant="secondary">
+            <a href="/career">Explore Opportunities</a>
           </Button>
         </div>
       </div>

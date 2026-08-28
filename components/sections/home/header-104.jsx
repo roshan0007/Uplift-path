@@ -15,9 +15,11 @@ export function Header104() {
           and trusted guidance every step.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button title="Business">Business</Button>
-          <Button title="Individual" variant="secondary">
-            Individual
+          <Button asChild title="Business">
+            <a href="/for-business-page">Business</a>
+          </Button>
+          <Button asChild title="Individual" variant="secondary">
+            <a href="/for-individual-page">Individual</a>
           </Button>
         </div>
       </div>

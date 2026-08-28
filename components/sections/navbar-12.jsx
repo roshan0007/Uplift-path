@@ -8,6 +8,88 @@ import { AnimatePresence, motion } from "motion/react";
 import React, { useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
 
+const iconUrl = (name) =>
+  `https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/${name}.svg`;
+
+// The v2 export shipped this menu with nine items whose labels and descriptions
+// did not match each other ("Advisory Services / Resources", "Contact / How we
+// work"). Replaced wholesale. The descriptions are the page subheadings from
+// design-export/sitemap.md, so each one matches what its destination says.
+const BUSINESS_SERVICES = [
+  {
+    label: "AI Consultation",
+    description:
+      "Leverage AI-driven strategies to streamline operations and decision-making.",
+    href: "/ai-consultation",
+    icon: "business_messages",
+  },
+  {
+    label: "Advisory Services",
+    description:
+      "Strategic guidance tailored for behavioral health, nonprofit, education, and growing organizations.",
+    href: "/advisory--services",
+    icon: "medical_services",
+  },
+  {
+    // The literal "&" is kept unencoded on purpose. Measured 2026-08-28:
+    //   raw  "/systems-&-technology"   -> dev 200, production 307 to the
+    //                                     encoded form, which then serves 200
+    //   enc. "/systems-%26-technology" -> dev 404, production 200
+    // Neither form is clean in both environments, so this takes the one that
+    // works everywhere at the cost of a single redirect hop in production,
+    // rather than the one that hard-404s for anyone running `pnpm dev`.
+    // Cloudflare normalises the path server-side, so that hop happens for any
+    // inbound "&" URL regardless of what we write here. Do not rename the slug.
+    label: "Systems & Technology",
+    description:
+      "Build scalable systems, streamline operations, and improve organizational efficiency.",
+    href: "/systems-&-technology",
+    icon: "devices",
+  },
+  {
+    label: "Compliance Support",
+    description: "Support operational readiness and compliance processes.",
+    href: "/compliance-support",
+    icon: "more_time",
+  },
+  {
+    label: "Business Consultation",
+    description: "Expert guidance to grow, optimize, and scale your business.",
+    href: "/business-conusltation",
+    icon: "add_business",
+  },
+  {
+    label: "Resource Assistance",
+    description:
+      "Helping organizations access tools, systems and operational support resources.",
+    href: "/resource-assistance",
+    icon: "support",
+  },
+];
+
+const INDIVIDUAL_SERVICES = [
+  {
+    label: "Peer Coaching Support (Telehealth)",
+    description: "Help navigating difficulties of life.",
+    href: "/for-individual-page",
+    icon: "chat_info",
+  },
+];
+
+const MenuItem = ({ item }) => (
+  <a href={item.href} className="flex items-start gap-x-3 text-base">
+    <img
+      className="size-6 shrink-0 text-scheme-text"
+      src={iconUrl(item.icon)}
+      alt=""
+    />
+    <div className="flex grow flex-col">
+      <p className="font-semibold">{item.label}</p>
+      <p className="hidden text-small md:block">{item.description}</p>
+    </div>
+  </a>
+);
+
 const useRelume = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -69,7 +151,7 @@ export function Navbar12() {
     <section className="z-[999] flex w-full items-center bg-scheme-background lg:min-h-18 lg:px-[5%] scheme-1 badge-alt">
       <div className="size-full lg:flex lg:items-center lg:justify-between">
         <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
-          <a href="#">
+          <a href="/">
             <img
               src="/brand/uplift-path-logo.svg"
               alt="Uplift Path"
@@ -139,17 +221,17 @@ export function Navbar12() {
           exit="close"
           animate={useActive.animateMobileMenu}
           transition={{ duration: 0.4 }}
-          className="overflow-auto px-[5%] lg:flex lg:h-auto! lg:items-center lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
+          className="overflow-auto px-[5%] lg:flex lg:h-auto! lg:items-center lg:overflow-visible lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
         >
           <nav className="lg:flex lg:items-center">
             <a
-              href="#"
+              href="/"
               className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
             >
               Home
             </a>
             <a
-              href="#"
+              href="/about-us"
               className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
             >
               About
@@ -176,6 +258,14 @@ export function Navbar12() {
                 </motion.span>
               </p>
               <AnimatePresence>
+                {/* Nothing between this sheet and <body> is positioned, so it
+                    resolves against the page: `top-18` puts it exactly on the
+                    navbar's 72px bottom edge and `left-1/2` centres it. The
+                    export right-anchored it with `right-[186px]`, which pinned
+                    it under the Contact button. `-translate-x-1/2` is a Tailwind
+                    v4 utility and writes the `translate` property, not
+                    `transform`, so it composes with Motion's translateY on `y`
+                    instead of being overwritten by it. */}
                 <ConditionalRenderedCard
                   variants={{
                     open: {
@@ -195,153 +285,33 @@ export function Navbar12() {
                   initial="close"
                   exit="close"
                   transition={{ duration: 0.2 }}
-                  className="bg-scheme-background py-4 lg:absolute lg:right-[186px] lg:z-50 lg:max-w-[640px] lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%]"
+                  className="bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(65rem,92vw)] lg:-translate-x-1/2 lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%]"
                 >
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+                  <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.28fr] lg:gap-8">
                     <div>
-                      <div className="flex flex-col gap-2 md:gap-4">
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/add_business.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">
-                              Business Consultation
-                            </p>
-                            <p className="hidden text-small md:block">About</p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/business_messages.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">AI Consultation</p>
-                            <p className="hidden text-small md:block">
-                              For Businesses
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/chat_info.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">
-                              Individual Consultation
-                            </p>
-                            <p className="hidden text-small md:block">
-                              For Individuals
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/medical_services.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Advisory Services</p>
-                            <p className="hidden text-small md:block">
-                              Resources
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/support.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Resource Assistance</p>
-                            <p className="hidden text-small md:block">
-                              Compliance support for behavioral health and human
-                              services
-                            </p>
-                          </div>
-                        </a>
+                      <a
+                        href="/for-business-page"
+                        className="mb-3 block text-small leading-[1.3] font-semibold"
+                      >
+                        For Businesses
+                      </a>
+                      <div className="grid grid-cols-1 gap-x-8 gap-y-2 md:grid-cols-2">
+                        {BUSINESS_SERVICES.map((item) => (
+                          <MenuItem key={item.href} item={item} />
+                        ))}
                       </div>
                     </div>
                     <div>
-                      <div className="flex flex-col gap-2 md:gap-4">
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/work.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Contact</p>
-                            <p className="hidden text-small md:block">
-                              How we work
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/devices.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Advisory services</p>
-                            <p className="hidden text-small md:block">
-                              Systems & Technology
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/assistant_device.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">System & Technology</p>
-                            <p className="hidden text-small md:block">
-                              Resource Assistance
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/more_time.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Compliance Support</p>
-                            <p className="hidden text-small md:block">
-                              Systems that give your people time back
-                            </p>
-                          </div>
-                        </a>
+                      <a
+                        href="/for-individual-page"
+                        className="mb-3 block text-small leading-[1.3] font-semibold"
+                      >
+                        For Individuals
+                      </a>
+                      <div className="grid grid-cols-1 gap-y-2">
+                        {INDIVIDUAL_SERVICES.map((item) => (
+                          <MenuItem key={item.href} item={item} />
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -349,15 +319,15 @@ export function Navbar12() {
               </AnimatePresence>
             </div>
             <a
-              href="#"
+              href="/career"
               className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
             >
               Careers
             </a>
           </nav>
           <div className="my-6 flex flex-col gap-4 lg:my-0 lg:ml-4 lg:flex-row lg:items-center">
-            <Button title="Contact" size="sm">
-              Contact
+            <Button asChild title="Contact" size="sm">
+              <a href="/contact-us">Contact</a>
             </Button>
           </div>
         </motion.div>

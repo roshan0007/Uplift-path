@@ -56,6 +56,10 @@ export function Contact9() {
                 I accept the terms
               </Label>
             </div>
+            {/* Deliberately NOT turned into a link. Despite its label this is
+                the submit control of the contact form, and the section already
+                sits on /contact-us -- making it an <a> would both break the
+                form and self-link. Same treatment as contact-06's "Submit". */}
             <div>
               <Button title="Get Started">Get Started</Button>
             </div>
