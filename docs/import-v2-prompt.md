@@ -15,6 +15,33 @@ final cleanup** — it is input, not source, and git keeps it.
 Everything below marked **CONFIRMED** was verified against these folders on
 2026-08-28. Those are facts about the files on disk, not things to go re-check.
 
+## Run this unattended
+
+**The user is AFK and cannot answer anything. Do not ask questions, do not pause
+for approval, do not stop on an ambiguity.** Every judgment call below already has
+a default — take it, and note what you did. Where something genuinely isn't covered,
+pick the option that preserves what is currently live and keeps the change
+reversible, then record it.
+
+Two standing rules that resolve almost everything:
+
+1. **Never change a URL that is live today.** The site is indexed. If the new
+   export renames a section folder, rename it *back* to the existing route name.
+   Preserving a URL is always safer than redirecting it, and no one is around to
+   verify a redirect works.
+2. **Never delete a live page.** If a page exists today but not in the new design,
+   keep the route building and note it, rather than producing a 404.
+
+Write everything you decided to `docs/import-v2-report.md` — decisions taken,
+anything you couldn't do, anything that looks wrong but you left alone. That file
+is how the user picks this up when they're back, so make it complete and honest.
+Report what actually happened, including failures; do not describe work as done
+if it isn't.
+
+**Stop at a pushed branch. Do not merge to `master` and do not deploy.** Merging
+triggers the Actions workflow and changes the live site — that is the user's call
+to make when they return.
+
 Read `CLAUDE.md` first, then `.claude/skills/uplift-path-design/readme.md`.
 
 ## What's in `v2/`
@@ -60,6 +87,8 @@ appears to be needed, but cross-check against `sitemap.md` before assuming so.
 3. **A clean, production-grade repo.** This is an explicit deliverable, not a
    nice-to-have. See below.
 4. A green `pnpm build`.
+5. `docs/import-v2-report.md` — what you decided and why, for the user to read
+   when they're back.
 
 Do not run the `/qa-sweep` or `/seo-audit` agents. The user runs those themselves,
 separately, once the branch is up.
@@ -137,13 +166,15 @@ does. Do not blind-apply the patch to a file that changed underneath it.
    `components/`, download into `public/images/`, and rewrite the references.
 3. Save the navbar + `globals.css` diffs as a patch.
 4. Diff the new `sitemap.md` against the current `app/` routes. Produce three
-   lists: pages added, pages removed, sections renamed. Show them before copying
-   anything — renamed routes are the highest-risk part of this job.
+   lists: pages added, pages removed, sections renamed. Record all three in the
+   report, apply the two standing rules, and keep going — do not pause.
 5. Replace sections, ui, skill, images, svgs.
-6. Re-derive `app/globals.css`.
-7. Rewrite page composition. Add redirects for every changed slug.
-8. `pnpm build`, then fix class-name gaps section by section against the screenshots.
-9. Update `CLAUDE.md`. Clean the root.
+6. Re-derive `app/globals.css` with fixes `[1] [2] [3]`.
+7. Rewrite page composition. Add new pages; keep every existing route's slug.
+8. `pnpm build`, then fix class-name gaps section by section against the
+   screenshots in the design system's `reference/homepage/`.
+9. Update `CLAUDE.md`. Clean the root. Delete `v2/`.
+10. Write `docs/import-v2-report.md`. Commit, push the branch, stop.
 
 ## Known traps — every one of these cost time in the v1 import
 
@@ -199,16 +230,21 @@ this time.
 system's readme describes the site as 16 pages and doesn't list either, but the
 Relume export ships 18 route folders including both. So they aren't dropped — they
 just aren't considered real pages. Both look like scratch pages (`faq-for-test` by
-name; `page-20` is a Relume default). They're currently live and indexed. Decide
-explicitly: ship them, `noindex` them, or delete them with 301s — but surface the
-choice, don't recreate them silently because the export happened to include them.
+name; `page-20` is a Relume default).
+
+**Unattended default: build them, but don't advertise them.** Keep both routes so
+their live URLs don't start 404ing, add `robots: { index: false }` to each page's
+metadata, and leave them out of the nav and `sitemap.xml`. That's reversible in
+both directions. Flag them in the report as pages the user probably wants deleted.
 
 **Section folder names carry Relume's typos** (`business-conusltation`,
 `advisory--services`) and the routes match them. If the new export fixes those
 spellings, every one is a changed URL on a **live, indexed site** — each needs a
-301. Static export means no middleware and no `next.config` redirects: the Worker
-is static-assets-only with no `main` script, so use `public/_redirects`, and
-verify it actually works on Workers Assets before relying on it.
+301. **Unattended default: don't rename anything.** Keep every existing route
+exactly as it is and rename the imported folders to match, so no URL changes and
+no redirect is needed. A redirect can't be verified without deploying, and nobody
+is around to check. Record every name the export wanted to change, so the user can
+do the rename deliberately later.
 
 **Never white text on the teal/green fill** — 1.96:1, fails WCAG AA. Every v2
 scheme, green included, sets `--color-scheme-btn-text` to `--color-neutral-darkest`
@@ -229,8 +265,9 @@ carries the headings. Only the hero H1 is heavier (600). Do not "fix" this.
 
 **Photography:** check whether the new images are real client photos or more
 Relume stock. The v1 QA report flagged stock placeholders in the navbar mega-menu,
-testimonial company logos, and a testimonial avatar. Flag any that remain — don't
-silently ship them.
+testimonial company logos, and a testimonial avatar. Ship whatever the export
+gives you, but list every one you're unsure about in the report — don't silently
+pass stock imagery off as final.
 
 ## Definition of done
 
@@ -239,6 +276,14 @@ silently ship them.
 - No `imagedelivery.net` URL anywhere in the source.
 - No unstyled section — spot-check one section per `scheme-N`: no transparent
   cards, no borderless inputs.
-- 301s in place for every changed slug.
-- Root contains only config; no loose reports.
-- `master` untouched. Show the running site and wait for approval before merging.
+- Every route that is live today still resolves at the same URL.
+- Root contains only config. `v2/` deleted. The old `qa-report-2026-08-26.md` and
+  `MIGRATION.md` moved to `docs/` or removed. This prompt deleted.
+- `docs/import-v2-report.md` written: every decision taken, everything skipped,
+  everything that looks wrong but was left alone. Honest about failures.
+- Branch committed and pushed. **`master` untouched, nothing merged, nothing
+  deployed.**
+
+If something blocks you, finish everything it doesn't block, then write down what
+you couldn't do and why. A branch that is 90% done with an honest report beats a
+branch that stalled waiting for an answer nobody was there to give.
