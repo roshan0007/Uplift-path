@@ -5,9 +5,9 @@ import React from "react";
 
 export function Layout365() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
-        <div className="mb-12 md:mb-18 lg:mb-20">
+        <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Three simple steps
@@ -32,7 +32,7 @@ export function Layout365() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center justify-center">
+              <div className="flex aspect-[3/2] items-center justify-center">
                 <img
                   src="/images/how-we-work-how-it-works-section-new-0.png"
                   alt="Relume placeholder image 1"
@@ -52,7 +52,7 @@ export function Layout365() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center justify-center">
+              <div className="flex aspect-[3/2] items-center justify-center">
                 <img
                   src="/images/how-we-work-how-it-works-section-new-0.png"
                   alt="Relume placeholder image 2"
@@ -74,7 +74,7 @@ export function Layout365() {
                   </p>
                 </div>
               </div>
-              <div>
+              <div className="aspect-[2/1] min-h-0">
                 <img
                   src="/images/how-we-work-how-it-works-section-new-2.png"
                   alt="Relume placeholder image 3"

@@ -18,7 +18,7 @@ export function Layout254() {
           </div>
         </div>
         <div className="grid place-items-center gap-x-8 gap-y-12 sm:grid-cols-2 md:gap-y-16 lg:grid-cols-[1fr_1.5fr_1fr] lg:gap-x-12">
-          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">
+          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-8 md:gap-y-8">
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
                 <img
@@ -70,7 +70,7 @@ export function Layout254() {
               className="h-auto w-full rounded-image object-cover"
             />
           </div>
-          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">
+          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-8 md:gap-y-8">
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
                 <img

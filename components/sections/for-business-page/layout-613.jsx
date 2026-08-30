@@ -4,9 +4,9 @@ import React from "react";
 
 export function Layout613() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
-        <div className="mb-12 max-w-lg md:mb-18 lg:mb-20">
+        <div className="mb-12 max-w-lg md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Our Business Consulting Services
           </h2>
@@ -14,7 +14,7 @@ export function Layout613() {
             Helping you build, structure, and grow your business.
           </p>
         </div>
-        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-12">
+        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-8">
           <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img

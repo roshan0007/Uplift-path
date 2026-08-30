@@ -6,10 +6,10 @@ import React from "react";
 
 export function Layout359() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
-        <div className="mb-12 md:mb-18 lg:mb-20">
-          <div className="mx-auto max-w-lg text-center">
+        <div className="mb-12 md:mb-12 lg:mb-12">
+          <div className="mx-auto max-w-2xl text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Why Uplift Path — Hear from Our Team
             </h2>
@@ -26,7 +26,7 @@ export function Layout359() {
           </div>
         </div>
         <Card className="grid auto-cols-fr grid-cols-1 md:grid-cols-2">
-          <div className="flex items-center justify-center">
+          <div className="flex aspect-[3/2] items-center justify-center">
             <img
               src="/images/career-feature-section-1.png"
               className="size-full object-cover"
