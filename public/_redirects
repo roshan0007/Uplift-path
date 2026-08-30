@@ -5,3 +5,8 @@
 # /business-conusltation was merged into /for-business-page on 2026-08-31. The
 # old URL is indexed, so it keeps a permanent redirect rather than 404ing.
 /business-conusltation /for-business-page 301
+
+# /advisory--services carried a Relume typo (double hyphen) in the slug. Renamed
+# to /advisory-services on 2026-08-31; the old URL is indexed, so it keeps a
+# permanent redirect.
+/advisory--services /advisory-services 301

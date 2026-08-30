@@ -4,7 +4,8 @@ import React from "react";
 
 export function Layout237() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // `id` is what the sticky IntakeBar watches to decide when to appear.
+    <section id="uplift-outcomes" className="scroll-mt-20 px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="flex flex-col items-center">
           <div className="mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">

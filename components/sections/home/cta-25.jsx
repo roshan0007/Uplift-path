@@ -5,7 +5,9 @@ import React from "react";
 
 export function Cta25() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-2 btn-dark badge-alt">
+    // `id` is what the sticky IntakeBar watches to know it should get out of
+    // the way - two green CTAs stacked reads as a mistake.
+    <section id="home-cta" className="scroll-mt-20 px-[5%] py-16 md:py-24 lg:py-28 scheme-2 btn-dark badge-alt">
       <div className="container max-w-lg text-center">
         <h2 className="mb-5 text-h2 font-bold md:mb-6">
           Ready to unlock Your growth plan

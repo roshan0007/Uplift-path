@@ -22,7 +22,7 @@ export default function Page() {
       {/* ZOHO FORM EMBED SLOT — paste the Zoho iframe/script here, as children
           of <ZohoFormSlot>. Step: Eligibility. Nothing else in this file needs
           to change. Set the form's post-submit redirect to /booking and remove
-          the temporary continue control in components/intake/intake-page.jsx. */}
+          the temporary continue control in components/intake/intake-shell.jsx. */}
       <ZohoFormSlot step="Eligibility" />
     </IntakePage>
   );

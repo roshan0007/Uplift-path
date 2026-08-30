@@ -1,7 +1,6 @@
 "use client";
 
-import { IntakeProgress } from "@/components/intake/intake-progress";
-import { nextStep } from "@/components/intake/intake-steps";
+import { IntakeShell } from "@/components/intake/intake-shell";
 import { ZohoFormSlot } from "@/components/intake/zoho-form-slot";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,17 +13,21 @@ import {
 import React from "react";
 
 /**
- * Step 1 of the individual intake flow: the Application form, as a modal over
- * whatever page the visitor is already on. The URL deliberately does not change
- * — someone who came to read about Peer Coaching should not lose the page they
- * were reading just to start an application.
+ * Step 1 of the individual intake flow: the Application form, as a full-screen
+ * overlay on whatever page the visitor is already on. The URL deliberately does
+ * not change — someone who came to read about Peer Coaching should not lose the
+ * page they were reading just to start an application.
+ *
+ * It takes the whole viewport, with a close ✕ and no navbar or footer, so it
+ * matches steps 2-4 exactly. The four screens should feel like one flow, and a
+ * small centred card followed by three full pages does not.
  *
  * This replaces the "Get started" buttons on /for-individual-page that all used
  * to point at /contact-us. Anywhere on the individual side that offers to start
  * the process should render this rather than link somewhere.
  *
  * Composed from the Dialog primitive, not a new modal: Radix already gives the
- * focus trap, Escape-to-close, scroll lock, `aria-modal` and the labelling that
+ * focus trap, Escape-to-close, scroll lock, and the labelling that
  * DialogTitle/DialogDescription wire up. Nothing in components/ui was changed.
  */
 export function GetStartedButton({
@@ -45,45 +48,49 @@ export function GetStartedButton({
   );
 }
 
+// Module scope, not inline in the JSX below: a component defined during render
+// is a brand-new type every render and would remount the whole subtree — the
+// same bug the navbar's ConditionalRenderedCard comment documents.
+const DialogTitleSlot = (props) => <DialogTitle asChild {...props} />;
+const DialogDescriptionSlot = (props) => (
+  <DialogDescription asChild {...props} />
+);
+
 function ApplicationDialogContent() {
-  const next = nextStep("application");
-
   return (
+    // Full-bleed. The primitive centres a `w-full` box on the viewport, so the
+    // centring translate, the width and the radius are all overridden here.
+    // `inset-0` does the sizing on its own — `w-screen`/`h-screen` would be
+    // 100vw/100vh, and 100vw includes the scrollbar gutter that Radix's scroll
+    // lock leaves behind, which shows up as a few pixels of horizontal overflow.
+    //
+    // `closeIconPosition="inside"` is required, not cosmetic. The default puts
+    // the ✕ on the overlay, and the overlay is completely covered by a
+    // full-screen panel, so the only close control would be underneath it.
+    //
     // The portal drops this at <body>, outside every section, so the scheme
-    // class has to travel with it or the card would render on unset colours.
-    <DialogContent className="max-h-[90vh] w-[min(44rem,92vw)] overflow-y-auto rounded-card border-2 border-scheme-border bg-scheme-background p-6 text-scheme-text md:p-10 scheme-1 badge-alt">
-      <IntakeProgress current="application" className="mb-8 md:mb-10" />
-      <div className="mb-8 text-center md:mb-10">
-        <DialogTitle asChild>
-          <h2 className="mb-5 text-h3 font-bold md:mb-6">
-            Find The Right Peer Coach For You
-          </h2>
-        </DialogTitle>
-        <DialogDescription asChild>
-          <p className="text-medium text-scheme-text">
-            The details you share below are confidential and help our team make
-            a thoughtful match with a Peer Coach who best fits your unique goals
-            and needs.
-          </p>
-        </DialogDescription>
-      </div>
-
-      {/* ZOHO FORM EMBED SLOT — paste the Zoho iframe/script here, as children
-          of <ZohoFormSlot>. Step: Application. Nothing else in this file needs
-          to change; the "form loads here" placeholder disappears on its own once
-          the slot has children. */}
-      <ZohoFormSlot step="Application" />
-
-      {/* TEMPORARY — remove once the Zoho form is embedded. The real handoff is
-          the Application form's post-submit redirect, which should be set to
-          /cmps. Until then this is how the flow stays walkable end to end. */}
-      <div className="mt-8 flex flex-col items-center gap-3">
-        <Button asChild title={`Continue to ${next.label}`} variant="secondary">
-          <a href={next.href}>Continue to {next.label}</a>
-        </Button>
-        <p className="text-small text-scheme-text/60">
-          Temporary — the Zoho form will redirect here on submit.
-        </p>
+    // class has to travel with it or the panel would render on unset colours.
+    <DialogContent
+      closeIconPosition="inside"
+      closeIconClassName="top-6 right-[5%] md:top-8 opacity-60 hover:opacity-100"
+      className="inset-0 flex h-auto w-auto max-w-none translate-x-0 translate-y-0 flex-col overflow-y-auto rounded-none border-0 bg-scheme-background px-[5%] py-16 text-scheme-text md:py-20 scheme-1 badge-alt"
+    >
+      <div className="container flex flex-1 flex-col justify-center">
+        <IntakeShell
+          step="application"
+          title="Find The Right Peer Coach For You"
+          intro="The details you share below are confidential and help our team make a thoughtful match with a Peer Coach who best fits your unique goals and needs."
+          TitleWrapper={DialogTitleSlot}
+          IntroWrapper={DialogDescriptionSlot}
+        >
+          {/* ZOHO FORM EMBED SLOT — paste the Zoho iframe/script here, as
+              children of <ZohoFormSlot>. Step: Application. Nothing else in this
+              file needs to change; the "form loads here" placeholder disappears
+              on its own once the slot has children. Set the form's post-submit
+              redirect to /cmps and delete the temporary continue control in
+              components/intake/intake-shell.jsx. */}
+          <ZohoFormSlot step="Application" />
+        </IntakeShell>
       </div>
     </DialogContent>
   );

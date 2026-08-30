@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import { Navbar12 } from '@/components/sections/navbar-12'
-import { Footer4 } from '@/components/sections/footer-04'
 
 /**
  * Playfair Display carries the headlines, Lexend Deca the body — a high-contrast
@@ -35,9 +33,16 @@ export const viewport: Viewport = {
 }
 
 /**
- * The navbar and footer are site chrome, not page sections — they live here so
- * every route gets them without repeating the import. Individual pages compose
- * only their own sections.
+ * The root layout is the document shell and nothing else — no navbar, no footer.
+ *
+ * The site chrome moved down into `app/(site)/layout.tsx` so the individual
+ * intake funnel can opt out of it. `/cmps`, `/booking` and `/consent-form` sit
+ * outside the `(site)` group and render full-screen with only a close control,
+ * matching the Application modal that starts the flow: once someone is filling
+ * in an intake form, a nav bar offering to take them to Careers is a way out of
+ * the funnel, not a convenience.
+ *
+ * Route groups do not appear in the URL, so every existing path is unchanged.
  */
 export default function RootLayout({
   children,
@@ -46,11 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <Navbar12 />
-        {children}
-        <Footer4 />
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   )
 }

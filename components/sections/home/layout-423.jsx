@@ -27,7 +27,8 @@ const useRelume = () => {
 export function Layout423() {
   const hoverState = useRelume();
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // `id` is the hero scroll cue's destination.
+    <section id="uplift-pathways" className="scroll-mt-20 px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="md:mb-18 mx-auto mb-12 w-full max-w-lg text-center lg:mb-20">
           <h2 className="text-h2 mb-5 font-bold md:mb-6">

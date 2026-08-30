@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { motion } from "motion/react";
 import React from "react";
-import { ChevronRight } from "relume-icons";
+import { ChevronRight, KeyboardArrowDown } from "relume-icons";
 
 /**
  * The two audiences are the whole information architecture of this site, so the
@@ -77,7 +77,46 @@ export function Header104() {
             </motion.div>
           ))}
         </div>
+
+        {/* Scroll cue. The audience selector ends near the fold, and without a
+            cue the two cards read as the whole page. It is a real control, not
+            decoration: it scrolls to the next section.
+
+            Static, not animated. A bouncing or pulsing arrow is the usual
+            treatment and this brand does not bounce, spring or scale anything —
+            the only movement it gets is the standard link hover, which reduces
+            opacity. */}
+        <ScrollCue />
       </div>
     </section>
+  );
+}
+
+function ScrollCue() {
+  const handleClick = (event) => {
+    event.preventDefault();
+    const next = document.getElementById("uplift-pathways");
+    if (!next) return;
+    // `scrollIntoView` rather than a hash link: a hash would push a URL nobody
+    // asked for into the address bar and the back button.
+    next.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "start",
+    });
+  };
+
+  return (
+    <div className="mt-10 flex justify-center md:mt-12">
+      <button
+        type="button"
+        onClick={handleClick}
+        aria-label="See what we do"
+        className="inline-flex size-10 items-center justify-center opacity-60 transition-opacity duration-200 ease-in-out hover:opacity-100"
+      >
+        <KeyboardArrowDown className="size-8 text-scheme-text" />
+      </button>
+    </div>
   );
 }

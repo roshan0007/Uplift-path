@@ -376,12 +376,13 @@
      element makes whichever loses the cascade vanish silently. Keeping every
      movement on `translate` keeps that from ever being a question here.
 
-     Two thirds of the cycle is dead time with the highlight parked off the left
-     edge. That is the point - the sweep should be something you notice on a
-     second look, not on the first. */
+     Part of the cycle is dead time with the highlight parked off the left edge,
+     so the seal is not permanently shimmering. The dwell was two thirds of a 9s
+     cycle originally and read as too rare to notice; it is now a little over a
+     third of a 5s one, which lands a sweep roughly every three seconds. */
   @keyframes carf-sheen {
     0%,
-    65% {
+    38% {
       translate: -150% 0;
     }
     100% {
@@ -402,7 +403,7 @@
   --animate-marquee-bottom: marquee-bottom 50s linear infinite;
   --animate-marquee-left: marquee-left 25s linear infinite;
   --animate-tabs: tabs 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  --animate-carf-sheen: carf-sheen 9s ease-in-out infinite;
+  --animate-carf-sheen: carf-sheen 5s ease-in-out infinite;
 }
 
 /* [3] Scheme-aware colour utilities.
