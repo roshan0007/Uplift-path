@@ -12,9 +12,8 @@ export function Layout237() {
               Uplift Outcomes Across Your Organization
             </h2>
             <p className="text-medium">
-              We co-create clear, sustainable pathways, so every program,
-              process, and person moves forward with support and measurable
-              progress.
+              Strategy, systems and growth work as one set of practices, so change
+              reaches the programs, the processes, and the people behind them.
             </p>
           </div>
           <div className="grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12">

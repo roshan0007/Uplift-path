@@ -34,7 +34,7 @@ export function Layout469() {
             <div className="ml-[30%]">
               <img
                 src="/images/career-feature-section-2.png"
-                className="aspect-[2/3] size-full rounded-image object-cover"
+                className="aspect-[3/4] size-full rounded-image object-cover"
                 alt="Relume placeholder image 2"
               />
             </div>

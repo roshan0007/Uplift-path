@@ -1,5 +1,6 @@
 import React from "react";
 import { Header104 } from "@/components/sections/home/header-104";
+import { TrustStrip } from "@/components/sections/home/trust-strip";
 import { Layout423 } from "@/components/sections/home/layout-423";
 import { Layout237 } from "@/components/sections/home/layout-237";
 import { Layout254 } from "@/components/sections/home/layout-254";
@@ -11,6 +12,7 @@ export default function Page() {
   return (
     <div>
       <Header104 />
+      <TrustStrip />
       <Layout423 />
       <Layout237 />
       <Layout254 />

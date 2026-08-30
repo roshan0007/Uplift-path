@@ -34,8 +34,8 @@ export function Layout423() {
             Create Clear, Sustainable Pathways to Meaningful Growth
           </h2>
           <p className="text-medium">
-            We turn complexity into clear, sustainable pathways co-created so
-            every step is supported and success is measurable.
+            Every engagement follows the same three steps, so you always know
+            where you are and what comes next.
           </p>
         </div>
         <div className="flex flex-col justify-between gap-6 md:gap-8 lg:flex-row">
@@ -53,7 +53,7 @@ export function Layout423() {
                   className="size-full object-cover"
                 />
               </div>
-              <div className="group relative flex h-full min-h-[70vh] flex-col justify-end p-6 md:p-8">
+              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">
@@ -114,7 +114,7 @@ export function Layout423() {
                   className="size-full object-cover"
                 />
               </div>
-              <div className="group relative flex h-full min-h-[70vh] flex-col justify-end p-6 md:p-8">
+              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">
@@ -175,7 +175,7 @@ export function Layout423() {
                   className="size-full object-cover"
                 />
               </div>
-              <div className="group relative flex h-full min-h-[70vh] flex-col justify-end p-6 md:p-8">
+              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">

@@ -11,10 +11,10 @@ export function Layout134() {
           Uplift Solutions · For Businesses
         </p>
         <h2 className="mb-5 text-h2 font-bold md:mb-6">
-          Consulting Services for Businesses Growth
+          Consulting Services for Business Growth
         </h2>
         <p className="text-medium">
-          Expert guidance for founders and leaders Transform challenges into
+          Expert guidance for founders and leaders. Transform challenges into
           opportunities with focused business consulting.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">

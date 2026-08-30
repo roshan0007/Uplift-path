@@ -4,9 +4,9 @@ import React from "react";
 
 export function Layout254() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
-        <div className="mb-12 md:mb-18 lg:mb-20">
+        <div className="mb-12 md:mb-14 lg:mb-14">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               What You'll Experience
@@ -18,7 +18,7 @@ export function Layout254() {
           </div>
         </div>
         <div className="grid place-items-center gap-x-8 gap-y-12 sm:grid-cols-2 md:gap-y-16 lg:grid-cols-[1fr_1.5fr_1fr] lg:gap-x-12">
-          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16">
+          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
                 <img
@@ -70,7 +70,7 @@ export function Layout254() {
               className="h-auto w-full rounded-image object-cover"
             />
           </div>
-          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16">
+          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
                 <img
@@ -111,7 +111,6 @@ export function Layout254() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:mt-18 lg:mt-20" />
       </div>
     </section>
   );

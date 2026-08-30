@@ -8,13 +8,32 @@ export function Footer4() {
     <footer className="px-[5%] py-12 md:py-18 lg:py-20 scheme-1 badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 items-center justify-center justify-items-center gap-x-[4vw] gap-y-12 pb-12 md:pb-18 lg:grid-cols-[0.25fr_1fr_0.25fr] lg:justify-between lg:gap-y-4 lg:pb-20">
-          <a href="/" className="lg:justify-self-start">
-            <img
-              src="/brand/uplift-path-logo.svg"
-              alt="Uplift Path"
-              className="inline-block h-8 w-auto"
-            />
-          </a>
+          {/* The CARF seal sits with the logo so the accreditation travels with
+              the brand on every page. It is a third-party accreditation mark:
+              rendered at its native 1:1, colours untouched, never cropped. */}
+          <div className="flex flex-col items-center gap-4 lg:items-start lg:justify-self-start">
+            <a href="/">
+              <img
+                src="/brand/uplift-path-logo.svg"
+                alt="Uplift Path"
+                className="inline-block h-8 w-auto"
+              />
+            </a>
+            <a
+              href="/compliance-support"
+              className="flex items-center gap-2"
+              title="CARF accredited"
+            >
+              <img
+                src="/brand/CARF.webp"
+                alt="CARF accredited — Aspire to Excellence seal"
+                width={900}
+                height={900}
+                className="size-10 shrink-0"
+              />
+              <span className="text-small font-semibold">CARF accredited</span>
+            </a>
+          </div>
           <ul className="grid grid-flow-row grid-cols-1 items-start justify-center justify-items-center gap-6 md:grid-flow-col md:grid-cols-[max-content] md:justify-center md:justify-items-start">
             <li className="font-semibold">
               <a href="/">Home</a>

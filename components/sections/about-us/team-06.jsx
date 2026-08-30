@@ -18,7 +18,7 @@ export function Team6() {
                 <img
                   src="/images/about-us-award-logos-list-section-0.jpg"
                   alt="Relume placeholder image 1"
-                  className="aspect-square size-full rounded-image object-cover"
+                  className="aspect-[4/3] size-full rounded-image object-cover"
                 />
               </div>
             </div>
@@ -53,7 +53,7 @@ export function Team6() {
                 <img
                   src="/images/about-us-award-logos-list-section-1.jpg"
                   alt="Relume placeholder image 1"
-                  className="aspect-square size-full rounded-image object-cover"
+                  className="aspect-[4/3] size-full rounded-image object-cover"
                 />
               </div>
             </div>
@@ -87,7 +87,7 @@ export function Team6() {
                 <img
                   src="/images/about-us-award-logos-list-section-2.jpg"
                   alt="Relume placeholder image 1"
-                  className="aspect-square size-full rounded-image object-cover"
+                  className="aspect-[4/3] size-full rounded-image object-cover"
                 />
               </div>
             </div>

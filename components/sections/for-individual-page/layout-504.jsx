@@ -46,7 +46,7 @@ export function Layout504() {
             className="data-[state=active]:animate-tabs"
           >
             <Card className="grid grid-cols-1 md:grid-cols-2 md:items-center">
-              <div className="aspect-square">
+              <div className="aspect-[3/2]">
                 <img
                   src="/images/for-individual-page-feature-section.png"
                   className="size-full object-cover"
@@ -74,7 +74,7 @@ export function Layout504() {
             className="data-[state=active]:animate-tabs"
           >
             <Card className="grid grid-cols-1 md:grid-cols-2 md:items-center">
-              <div className="aspect-square">
+              <div className="aspect-[3/2]">
                 <img
                   src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
                   className="size-full object-cover"
@@ -102,7 +102,7 @@ export function Layout504() {
             className="data-[state=active]:animate-tabs"
           >
             <Card className="grid grid-cols-1 md:grid-cols-2 md:items-center">
-              <div className="aspect-square">
+              <div className="aspect-[3/2]">
                 <img
                   src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
                   className="size-full object-cover"

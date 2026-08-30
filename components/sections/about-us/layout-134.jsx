@@ -12,7 +12,7 @@ export function Layout134() {
         <p className="text-medium">
           Uplift Path unlocks true growth for Founders, and organizations by
           designing clear, sustainable pathways to progress. Our purpose is to
-          uplift every client we serve through trusted collaboration, holistic
+          uplift every life we serve through trusted collaboration, holistic
           support, and transparent guidance at every stage of business
           development. With a foundation in strategic advisory and disciplined
           business solutions, our team brings cross-industry expertise to help

@@ -53,7 +53,7 @@ export function Layout423() {
                   className="size-full object-cover"
                 />
               </div>
-              <div className="group relative flex h-full min-h-[70vh] flex-col justify-end p-6 md:p-8">
+              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">AI consulting</p>
@@ -112,7 +112,7 @@ export function Layout423() {
                   className="size-full object-cover"
                 />
               </div>
-              <div className="group relative flex h-full min-h-[70vh] flex-col justify-end p-6 md:p-8">
+              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">AI consulting</p>
@@ -171,7 +171,7 @@ export function Layout423() {
                   className="size-full object-cover"
                 />
               </div>
-              <div className="group relative flex h-full min-h-[70vh] flex-col justify-end p-6 md:p-8">
+              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
                 <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
                 <div className="z-10">
                   <p className="mb-2 font-semibold text-white">AI consulting</p>
