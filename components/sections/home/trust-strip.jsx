@@ -1,5 +1,6 @@
 "use client";
 
+import { CarfSeal } from "@/components/brand/carf-seal";
 import React from "react";
 import { ChevronRight } from "relume-icons";
 
@@ -15,13 +16,7 @@ export function TrustStrip() {
     <section className="px-[5%] pb-16 md:pb-20 lg:pb-24 scheme-1 badge-alt">
       <div className="container">
         <div className="mx-auto flex max-w-lg flex-col items-center gap-5 border-t border-scheme-border pt-8 text-center sm:max-w-none sm:flex-row sm:justify-center sm:gap-8 sm:text-left md:pt-10">
-          <img
-            src="/brand/CARF.webp"
-            alt="CARF accredited — Aspire to Excellence seal"
-            width={900}
-            height={900}
-            className="size-16 shrink-0 md:size-20"
-          />
+          <CarfSeal className="size-16 md:size-20" />
           <div className="sm:max-w-md">
             <p className="font-semibold">CARF accredited</p>
             <p className="mt-1 text-small">

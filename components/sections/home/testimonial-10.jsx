@@ -1,143 +1,46 @@
 "use client";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StarFull } from "relume-icons";
 
-const useCarousel = () => {
-  const [api, setApi] = useState();
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-    setCurrent(api.selectedScrollSnap() + 1);
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
-
-  const handleDotClick = (index) => () => {
-    if (api) {
-      api.scrollTo(index);
-    }
-  };
-
-  const dotClassName = (index) => {
-    return `relative mx-[3px] inline-block size-2 rounded-full ${
-      current === index + 1 ? "bg-scheme-text" : "bg-scheme-text/20"
-    }`;
-  };
-
-  return { api, setApi, current, handleDotClick, dotClassName };
-};
-
+/**
+ * One testimonial, not a carousel.
+ *
+ * The export shipped a two-slide carousel in which both slides were the same
+ * invented quote from "Sarah Mitchell, Executive Director, Behavioral Health",
+ * with a CloudFront placeholder avatar and a stock photo labelled
+ * `alt="Webflow logo 1"`. We have exactly one real testimonial, so the carousel,
+ * its arrows, its dots and both images are gone.
+ *
+ * The same file is still duplicated at `faq-for-test/testimonial-10.jsx` and
+ * `page-20/testimonial-10.jsx`. Those are Relume scratch pages carrying
+ * `robots: { index: false }` and were deliberately left untouched — they still
+ * contain the fake testimonial.
+ */
 export function Testimonial10() {
-  const carouselState = useCarousel();
   return (
-    <section className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
-        <Carousel
-          setApi={carouselState.setApi}
-          opts={{ loop: true, align: "start" }}
-          className="overflow-hidden"
-        >
-          <div className="relative pb-12 md:pb-16 lg:px-8">
-            <CarouselContent className="ml-0">
-              <CarouselItem className="pl-0 md:px-16 lg:px-6">
-                <div className="mx-auto flex h-full max-w-lg flex-col items-center justify-center text-center">
-                  <div className="mb-6 flex gap-1 md:mb-8">
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                  </div>
-                  <h5 className="text-h5 font-bold">
-                    "The fog lifted. For the first time in years I could see the
-                    next step and the one after that."
-                  </h5>
-                  <div className="mt-6 flex w-full flex-col items-center gap-3 text-center md:mt-8 md:w-auto md:flex-row md:gap-5 md:text-left">
-                    <div className="size-14 min-h-14 min-w-14 overflow-hidden rounded-full">
-                      <img
-                        src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
-                        alt="Testimonial avatar 1"
-                        className="size-full object-cover"
-                      />
-                    </div>
-                    <div className="mb-4 md:mb-0">
-                      <p className="font-semibold">Sarah Mitchell</p>
-                      <p>Executive Director, Behavioral Health</p>
-                    </div>
-                    <div className="hidden w-px self-stretch bg-scheme-border md:block" />
-                    <div>
-                      <img
-                        src="/images/page-20-impact-outcomes-new2.jpg"
-                        alt="Webflow logo 1"
-                        className="max-h-12"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-              <CarouselItem className="pl-0 md:px-16 lg:px-6">
-                <div className="mx-auto flex h-full max-w-lg flex-col items-center justify-center text-center">
-                  <div className="mb-6 flex gap-1 md:mb-8">
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                    <StarFull className="size-6 text-scheme-text" />
-                  </div>
-                  <h5 className="text-h5 font-bold">
-                    "The fog lifted. For the first time in years I could see the
-                    next step and the one after that."
-                  </h5>
-                  <div className="mt-6 flex w-full flex-col items-center gap-3 text-center md:mt-8 md:w-auto md:flex-row md:gap-5 md:text-left">
-                    <div className="size-14 min-h-14 min-w-14 overflow-hidden rounded-full">
-                      <img
-                        src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
-                        alt="Testimonial avatar 1"
-                        className="size-full object-cover"
-                      />
-                    </div>
-                    <div className="mb-4 md:mb-0">
-                      <p className="font-semibold">Sarah Mitchell</p>
-                      <p>Executive Director, Behavioral Health</p>
-                    </div>
-                    <div className="hidden w-px self-stretch bg-scheme-border md:block" />
-                    <div>
-                      <img
-                        src="/images/page-20-impact-outcomes-new2.jpg"
-                        alt="Webflow logo 1"
-                        className="max-h-12"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-            <div className="absolute right-0 bottom-0 left-0 z-20 flex h-7 justify-center pt-2.5">
-              <button
-                onClick={carouselState.handleDotClick(0)}
-                className={carouselState.dotClassName(0)}
-              />
-              <button
-                onClick={carouselState.handleDotClick(1)}
-                className={carouselState.dotClassName(1)}
-              />
-            </div>
+        <div className="mx-auto flex max-w-lg flex-col items-center justify-center text-center">
+          <div className="mb-6 flex gap-1 md:mb-8">
+            <StarFull className="size-6 text-scheme-text" />
+            <StarFull className="size-6 text-scheme-text" />
+            <StarFull className="size-6 text-scheme-text" />
+            <StarFull className="size-6 text-scheme-text" />
+            <StarFull className="size-6 text-scheme-text" />
           </div>
-        </Carousel>
+          <blockquote className="text-h5 font-bold">
+            {/* PLACEHOLDER — awaiting real testimonial copy from Kylie Smith.
+                Swap the sentence below for her actual words; the attribution
+                underneath is real and stays. */}
+            "They gave us a plan we could actually follow, and stayed with us
+            until our own team could run it without them."
+          </blockquote>
+          <div className="mt-6 md:mt-8">
+            <p className="font-semibold">Kylie Smith</p>
+            <p>Owner, LifeBridge Mentorship</p>
+          </div>
+        </div>
       </div>
     </section>
   );

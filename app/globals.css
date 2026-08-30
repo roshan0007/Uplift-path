@@ -4,7 +4,8 @@
    Derived from the Relume v2 design export's `react/globals.css`, kept at
    `.claude/skills/uplift-path-design/design-export/globals.original.css`.
    Four changes were needed to make it compile, resolve, and not break layout
-   under Tailwind 4.x; they are marked [1] [2] [3] [4] below. Everything else is
+   under Tailwind 4.x; they are marked [1] [2] [3] [4] below. [5] is a single
+   added keyframe that is not in the export at all. Everything else is
    the export verbatim - do not hand-edit the token values, they are the design
    system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
@@ -365,6 +366,29 @@
     }
   }
 
+  /* [5] Not in the export. Drives the specular sweep across the CARF
+     accreditation seal - see components/brand/carf-seal.jsx, which carries the
+     full note on why the one gradient in this codebase is allowed to exist
+     there and nowhere else.
+
+     Written with the `translate` property, not `transform`: Tailwind 4 compiles
+     its own translate utilities to `translate`, and mixing the two on one
+     element makes whichever loses the cascade vanish silently. Keeping every
+     movement on `translate` keeps that from ever being a question here.
+
+     Two thirds of the cycle is dead time with the highlight parked off the left
+     edge. That is the point - the sweep should be something you notice on a
+     second look, not on the first. */
+  @keyframes carf-sheen {
+    0%,
+    65% {
+      translate: -150% 0;
+    }
+    100% {
+      translate: 150% 0;
+    }
+  }
+
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-loop-horizontally: loop-horizontally 20s linear infinite;
@@ -378,6 +402,7 @@
   --animate-marquee-bottom: marquee-bottom 50s linear infinite;
   --animate-marquee-left: marquee-left 25s linear infinite;
   --animate-tabs: tabs 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --animate-carf-sheen: carf-sheen 9s ease-in-out infinite;
 }
 
 /* [3] Scheme-aware colour utilities.

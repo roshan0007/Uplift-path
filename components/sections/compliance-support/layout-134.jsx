@@ -1,19 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { CarfSeal } from "@/components/brand/carf-seal";
 import React from "react";
 
 export function Layout134() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container max-w-lg text-center">
-        <img
-          src="/brand/CARF.webp"
-          alt="CARF accredited — Aspire to Excellence seal"
-          width={900}
-          height={900}
-          className="mx-auto mb-5 size-24 md:mb-6"
-        />
+        <CarfSeal className="mx-auto mb-5 block size-24 md:mb-6" />
         <p className="mb-3 font-semibold md:mb-4">Compliance Support</p>
         <h2 className="mb-5 text-h2 font-bold md:mb-6">
           Be ready before the audit, not because of it
