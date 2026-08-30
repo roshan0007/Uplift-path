@@ -4,7 +4,13 @@ import React from "react";
 
 export function Layout613() {
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
+    // `id` added when /business-conusltation was merged in: this section is
+    // where that page's content landed, so the navbar's "Business
+    // Consultation" entry and the service card both deep-link to it.
+    <section
+      id="business-consulting"
+      className="scroll-mt-20 px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt"
+    >
       <div className="container">
         <div className="mb-12 max-w-lg md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">

@@ -8,73 +8,14 @@ import { AnimatePresence, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
 
-const iconUrl = (name) =>
-  `https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/${name}.svg`;
-
-// The v2 export shipped this menu with nine items whose labels and descriptions
-// did not match each other ("Advisory Services / Resources", "Contact / How we
-// work"). Replaced wholesale. The descriptions are the page subheadings from
-// design-export/sitemap.md, so each one matches what its destination says.
-const BUSINESS_SERVICES = [
-  {
-    label: "AI Consultation",
-    description:
-      "Leverage AI-driven strategies to streamline operations and decision-making.",
-    href: "/ai-consultation",
-    icon: "business_messages",
-  },
-  {
-    label: "Advisory Services",
-    description:
-      "Strategic guidance tailored for behavioral health, nonprofit, education, and growing organizations.",
-    href: "/advisory--services",
-    icon: "medical_services",
-  },
-  {
-    // The literal "&" is kept unencoded on purpose. Measured 2026-08-28:
-    //   raw  "/systems-&-technology"   -> dev 200, production 307 to the
-    //                                     encoded form, which then serves 200
-    //   enc. "/systems-%26-technology" -> dev 404, production 200
-    // Neither form is clean in both environments, so this takes the one that
-    // works everywhere at the cost of a single redirect hop in production,
-    // rather than the one that hard-404s for anyone running `pnpm dev`.
-    // Cloudflare normalises the path server-side, so that hop happens for any
-    // inbound "&" URL regardless of what we write here. Do not rename the slug.
-    label: "Systems & Technology",
-    description:
-      "Build scalable systems, streamline operations, and improve organizational efficiency.",
-    href: "/systems-&-technology",
-    icon: "devices",
-  },
-  {
-    label: "Compliance Support",
-    description: "Support operational readiness and compliance processes.",
-    href: "/compliance-support",
-    icon: "more_time",
-  },
-  {
-    label: "Business Consultation",
-    description: "Expert guidance to grow, optimize, and scale your business.",
-    href: "/business-conusltation",
-    icon: "add_business",
-  },
-  {
-    label: "Resource Assistance",
-    description:
-      "Helping organizations access tools, systems and operational support resources.",
-    href: "/resource-assistance",
-    icon: "support",
-  },
-];
-
-const INDIVIDUAL_SERVICES = [
-  {
-    label: "Peer Coaching Support (Telehealth)",
-    description: "Help navigating difficulties of life.",
-    href: "/for-individual-page",
-    icon: "chat_info",
-  },
-];
+// The two service arrays and `iconUrl` moved to `lib/services.js` when the
+// merged /for-business-page started rendering the same six services as cards.
+// The nav and that page now read one array, so they cannot drift apart.
+import {
+  BUSINESS_SERVICES,
+  INDIVIDUAL_SERVICES,
+  iconUrl,
+} from "@/lib/services";
 
 const MenuItem = ({ item }) => (
   <a href={item.href} className="flex items-start gap-x-3 text-base">

@@ -1,0 +1,7 @@
+# Cloudflare Workers static assets reads this file (wrangler.jsonc has no `main`,
+# so `out/` is served directly). Next's static export copies everything in
+# `public/` to `out/`, so this lands at `out/_redirects` on build.
+#
+# /business-conusltation was merged into /for-business-page on 2026-08-31. The
+# old URL is indexed, so it keeps a permanent redirect rather than 404ing.
+/business-conusltation /for-business-page 301
