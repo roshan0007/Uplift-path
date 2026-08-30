@@ -29,12 +29,18 @@ export function Testimonial10() {
             <StarFull className="size-6 text-scheme-text" />
             <StarFull className="size-6 text-scheme-text" />
           </div>
-          <blockquote className="text-h5 font-bold">
-            {/* PLACEHOLDER — awaiting real testimonial copy from Kylie Smith.
-                Swap the sentence below for her actual words; the attribution
-                underneath is real and stays. */}
-            "They gave us a plan we could actually follow, and stayed with us
-            until our own team could run it without them."
+          <blockquote>
+            {/* Still an <h5> inside the <blockquote>, as the export had it.
+                globals.css binds Playfair Display to h1-h6 and nowhere else, so
+                a <p> here would silently drop the quote to Lexend Deca and
+                restyle a section this pass was not meant to restyle. */}
+            <h5 className="text-h5 font-bold">
+              {/* PLACEHOLDER — awaiting real testimonial copy from Kylie Smith.
+                  Swap the sentence below for her actual words; the attribution
+                  underneath is real and stays. */}
+              "They gave us a plan we could actually follow, and stayed with us
+              until our own team could run it without them."
+            </h5>
           </blockquote>
           <div className="mt-6 md:mt-8">
             <p className="font-semibold">Kylie Smith</p>

@@ -23,7 +23,7 @@ export function ServicesList() {
   return (
     <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
-        <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-12 lg:mb-12">
+        <div className="mx-auto mb-10 w-full max-w-lg text-center md:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Everything under one roof
           </h2>
@@ -35,28 +35,31 @@ export function ServicesList() {
         </div>
         <div className="grid auto-cols-fr grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {BUSINESS_SERVICES.map((service) => (
-            <Card key={service.href} className="flex flex-col p-6 md:p-8">
-              <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src={iconUrl(service.icon)}
-                  alt=""
-                />
-              </div>
-              <h3 className="mb-3 text-h4 font-bold md:mb-4">
-                {service.label}
-              </h3>
-              <p className="flex-1">{service.description}</p>
-              <div className="mt-5 md:mt-6">
-                <Button
-                  asChild
-                  title="Learn more"
-                  variant="link"
-                  size="link"
-                  iconRight={<ChevronRight className="text-scheme-text" />}
-                >
-                  <a href={service.href}>Learn more</a>
-                </Button>
+            <Card key={service.href} className="flex gap-x-4 p-6">
+              {/* Icon beside the title rather than stacked above it. Six cards
+                  in a 3-up grid is two rows, and the stacked version put the
+                  section at 1096px -- past the 900px single-screen ceiling the
+                  rest of the site was brought under. This is also the layout
+                  the navbar's mega-menu uses for the same six items. */}
+              <img
+                className="mt-1 size-8 shrink-0 text-scheme-text"
+                src={iconUrl(service.icon)}
+                alt=""
+              />
+              <div className="flex flex-1 flex-col">
+                <h3 className="mb-2 text-h5 font-bold">{service.label}</h3>
+                <p className="flex-1">{service.description}</p>
+                <div className="mt-4">
+                  <Button
+                    asChild
+                    title="Learn more"
+                    variant="link"
+                    size="link"
+                    iconRight={<ChevronRight className="text-scheme-text" />}
+                  >
+                    <a href={service.href}>Learn more</a>
+                  </Button>
+                </div>
               </div>
             </Card>
           ))}
