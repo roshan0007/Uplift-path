@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { GetStartedButton } from "@/components/intake/get-started-button";
 import React from "react";
 
 export function Cta25() {
@@ -15,9 +15,10 @@ export function Cta25() {
           tailored to your goals.
         </p>
         <div className="mt-6 flex items-center justify-center gap-4 md:mt-8">
-          <Button asChild title="Get Started">
-            <a href="/contact-us">Get Started</a>
-          </Button>
+          {/* Opens the intake Application modal (step 1). The default variant
+              is correct here: this banner carries .btn-dark, which makes the
+              button black with a white label on the green fill. */}
+          <GetStartedButton label="Get Started" variant="default" />
         </div>
       </div>
     </section>

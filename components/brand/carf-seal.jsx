@@ -32,7 +32,7 @@ import React from "react";
  *
  * @param {string} className - sizing utilities for the seal (e.g. "size-10").
  */
-export function CarfSeal({ className }) {
+export function CarfSeal({ className = undefined }) {
   return (
     <span
       className={cn("relative inline-block shrink-0 align-middle", className)}

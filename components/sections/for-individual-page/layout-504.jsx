@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { GetStartedButton } from "@/components/intake/get-started-button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
@@ -62,9 +62,8 @@ export function Layout504() {
                   simple and direct. You talk, someone listens.
                 </p>
                 <div className="mt-6 flex items-center gap-x-4 md:mt-8">
-                  <Button asChild title="Get started" variant="secondary">
-                    <a href="/contact-us">Get started</a>
-                  </Button>
+                  {/* Opens the intake Application modal (step 1). */}
+                  <GetStartedButton label="Get started" />
                 </div>
               </div>
             </Card>
@@ -90,9 +89,8 @@ export function Layout504() {
                   simple and direct. You talk, someone listens.
                 </p>
                 <div className="mt-6 flex items-center gap-x-4 md:mt-8">
-                  <Button asChild title="Get started" variant="secondary">
-                    <a href="/contact-us">Get started</a>
-                  </Button>
+                  {/* Opens the intake Application modal (step 1). */}
+                  <GetStartedButton label="Get started" />
                 </div>
               </div>
             </Card>
@@ -118,9 +116,8 @@ export function Layout504() {
                   simple and direct. You talk, someone listens.
                 </p>
                 <div className="mt-6 flex items-center gap-x-4 md:mt-8">
-                  <Button asChild title="Get started" variant="secondary">
-                    <a href="/contact-us">Get started</a>
-                  </Button>
+                  {/* Opens the intake Application modal (step 1). */}
+                  <GetStartedButton label="Get started" />
                 </div>
               </div>
             </Card>
