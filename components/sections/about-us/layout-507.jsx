@@ -6,9 +6,9 @@ import React from "react";
 
 export function Layout507() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
-        <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
+        <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-12 lg:mb-12">
           <h1 className="mb-5 text-h2 font-bold md:mb-6">Board of Advisory</h1>
           <p className="text-medium">
             Our advisors bring decades of cross-industry expertise to guide our
@@ -16,7 +16,7 @@ export function Layout507() {
           </p>
         </div>
         <Card className="relative grid auto-cols-fr grid-cols-1 gap-x-12 lg:gap-x-0">
-          <Tabs defaultValue="tab-1">
+          <Tabs defaultValue="tab-2">
             <TabsList className="flex-col group-data-[slot=card-flat]:border-0 md:flex-row">
               <TabsTrigger
                 value="tab-2"
@@ -47,7 +47,7 @@ export function Layout507() {
               value="tab-2"
               className="data-[state=active]:animate-tabs"
             >
-              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-12">
+              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-10">
                 <div>
                   <p className="mb-3 font-semibold md:mb-4">
                     Educational Leader & Administrator
@@ -70,7 +70,7 @@ export function Layout507() {
                     UNC Wilmington.
                   </p>
                 </div>
-                <div className="h-full">
+                <div className="aspect-[4/3] w-full">
                   <img
                     src="/images/about-us-feature-section-new-0.jpg"
                     className="size-full rounded-image object-cover"
@@ -83,7 +83,7 @@ export function Layout507() {
               value="tab-3"
               className="data-[state=active]:animate-tabs"
             >
-              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-12">
+              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-10">
                 <div>
                   <p className="mb-3 font-semibold md:mb-4">
                     Associate Dean of Residential Life - MIT
@@ -106,7 +106,7 @@ export function Layout507() {
                     Cornell University.
                   </p>
                 </div>
-                <div className="h-full">
+                <div className="aspect-[4/3] w-full">
                   <img
                     src="/images/about-us-feature-section-new-1.jpg"
                     className="size-full rounded-image object-cover"
@@ -119,7 +119,7 @@ export function Layout507() {
               value="tab-4"
               className="data-[state=active]:animate-tabs"
             >
-              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-12">
+              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-10">
                 <div>
                   <p className="mb-3 font-semibold md:mb-4">
                     Education Consultant
@@ -141,7 +141,7 @@ export function Layout507() {
                     facilitation, and school improvement.
                   </p>
                 </div>
-                <div className="h-full">
+                <div className="aspect-[4/3] w-full">
                   <img
                     src="/images/about-us-feature-section-new-2.png"
                     className="size-full rounded-image object-cover"
@@ -154,7 +154,7 @@ export function Layout507() {
               value="tab-5"
               className="data-[state=active]:animate-tabs"
             >
-              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-12">
+              <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-10">
                 <div>
                   <p className="mb-3 font-semibold md:mb-4">
                     Licensed Clinical Social Worker
@@ -175,7 +175,7 @@ export function Layout507() {
                     Master of Social Work (Johnson C. Smith University).
                   </p>
                 </div>
-                <div className="h-full">
+                <div className="aspect-[4/3] w-full">
                   <img
                     src="/images/about-us-feature-section-new-3.jpg"
                     className="size-full rounded-image object-cover"

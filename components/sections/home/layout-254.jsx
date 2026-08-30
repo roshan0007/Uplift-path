@@ -4,9 +4,9 @@ import React from "react";
 
 export function Layout254() {
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-18 lg:py-18 scheme-1 badge-alt">
       <div className="container">
-        <div className="mb-12 md:mb-14 lg:mb-14">
+        <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Empowering Success Across Industries
