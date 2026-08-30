@@ -1,6 +1,16 @@
 # Uplift Path — Design System
 
-Uplift Path is a consulting firm serving behavioral health providers, nonprofits, educational institutions and early-stage founders — mostly in Ohio. The tagline the site leads with is "One Path. Two Ways Forward.", referring to its two audiences: **businesses** (operational consulting, advisory services, systems & technology, compliance support, credentialing, resource assistance, AI consultation) and **individuals** (peer coaching, mental health therapy, counseling). Its stated goal is "to impact 100K lives by uplifting the individuals, businesses, and communities we serve by 2036."
+Uplift Path is a consulting firm serving behavioral health providers, nonprofits, educational institutions and early-stage founders. The business consulting practice is national in scope; the individual services (peer coaching, mental health therapy, counseling) are delivered in Ohio. The tagline is **"Uplifting every life we serve"** — page 1 of the brand guidelines sets it in caps as UPLIFTING EVERY LIFE WE SERVE, and it is the line the site leads with. **"One Path. Two Ways Forward." is not the tagline.** It is a positioning line about the two audiences: **businesses** (operational consulting, advisory services, systems & technology, compliance support, credentialing, resource assistance, AI consultation) and **individuals** (peer coaching, mental health therapy, counseling). Describe it that way, never as the tagline.
+
+The brand guidelines give vision, mission and purpose on page 2. They are the wording to defer to:
+
+- **Vision** — "A future where uplifting every life we serve is at the heart of every system we build, where clear and sustainable pathways unlock potential through trusted collaboration, holistic support, and the resources needed for everyone to thrive and create meaningful growth."
+- **Mission** — "To empower individuals, businesses and communities to navigate change and foster growth by providing strategic consulting, coaching services, access to essential resources, and personalized support."
+- **Purpose** — "To uplift every life we serve by unlocking true potential through clear and sustainable pathways to meaningful growth."
+
+The stated goal is **to uplift 100,000 lives nationwide by 2036**. The site renders it as "To impact 100K lives by uplifting the individuals, businesses, and communities we serve by 2036" — same commitment, and the brand doc is the authority on the number and the reach.
+
+The six core values are **UPLIFT**: Unity Through Collaboration, Pathways with Clarity, Lead with Compassion, Inclusion for All, Foster Hope, Total Person Care. "Client" is the wrong noun in mission copy — the brand says "every life we serve", not "every client we serve".
 
 There is one product surface: a multi-page marketing website. It has 16 pages — Home, About Us, How We Work, For Individuals, For Businesses, Business Consultation, AI Consultation, Advisory Services, Systems & Technology, Compliance Support, Resource Assistance, Career, Contact Us, plus Accessibility, Privacy Policy and Terms of Use. Every page follows the same spine: navbar → hero → two to four content sections → FAQ accordion → green CTA banner → footer.
 
@@ -35,7 +45,7 @@ No Figma file, GitHub repo or slide deck was provided. The homepage screenshots 
 
 **Sentence patterns.** Section intros very often end on a payoff clause introduced by "so": "We turn complexity into clear, sustainable pathways co-created so every step is supported and success is measurable." Benefit lists come in threes.
 
-**CTA labels.** Short imperatives, title case: "Get Started", "Book a discovery call", "Book a session", "Schedule a Consultation", "Start", "Learn more", "Submit". Two CTAs sit side by side in the hero, one per audience: "Business" / "Individual".
+**CTA labels.** Short imperatives, title case: "Get Started", "Book a discovery call", "Book a session", "Schedule a Consultation", "Start", "Learn more", "Submit". The homepage hero does not use plain side-by-side CTAs: it presents an audience selector — two bordered cards, "For Businesses" and "For Individuals", each with a one-line descriptor — which is the one place the "One Path. Two Ways Forward." positioning is expressed.
 
 **Testimonials** are first-person, one sentence, specific about the feeling of relief rather than about ROI: *"The fog lifted. For the first time in years I could see the next step and the one after that."* — Sarah Mitchell, Executive Director, Behavioral Health.
 
