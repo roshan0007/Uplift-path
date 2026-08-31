@@ -123,18 +123,17 @@ export function ContactPanel() {
               Tell us a little about what you need and who you are, and we will
               get it to the right person.
             </p>
-            {/* ZOHO FORM EMBED SLOT — paste the Zoho iframe/script here, as
-                children of <ZohoFormSlot>. Step: Contact. This is the contact
-                form, not part of the intake funnel — it is a separate Zoho form.
-                Nothing else in this file needs to change; the "form loads here"
-                placeholder disappears on its own once the slot has children.
+            {/* Zoho form: "Contact Us". Not part of the intake funnel — this is
+                a separate form and there is no redirect to configure.
 
-                Border and padding are dropped because the card around it already
-                provides both — the slot only needs to hold the height. */}
+                Border and radius are dropped because the card around it already
+                provides both. 50rem is the whole form measured at this width,
+                so nothing scrolls inside the card — unlike the intake screens
+                this page scrolls normally, and an inner scrollbar next to an
+                outer one would be one too many. */}
             <ZohoFormSlot
-              step="Contact"
-              minHeight="24rem"
-              className="mt-6 border-0 p-0"
+              form="contact"
+              className="mt-6 h-[50rem] rounded-none border-0"
             />
           </Card>
         </div>

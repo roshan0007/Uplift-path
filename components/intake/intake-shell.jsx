@@ -1,8 +1,6 @@
 "use client";
 
 import { IntakeProgress } from "@/components/intake/intake-progress";
-import { nextStep } from "@/components/intake/intake-steps";
-import { Button } from "@/components/ui/button";
 import React from "react";
 
 /**
@@ -21,19 +19,31 @@ import React from "react";
  * conflict with — twMerge cannot drop a utility that nothing competes against.
  */
 export const INTAKE_TITLE_CLASS =
-  "mb-5 text-h2 leading-[var(--text-h2--line-height)] font-bold tracking-[var(--text-h2--letter-spacing)] md:mb-6";
+  "mb-4 text-h2 leading-[var(--text-h2--line-height)] font-bold tracking-[var(--text-h2--letter-spacing)] md:mb-5";
 
 /**
- * The inside of an intake screen: step indicator, heading, then the form slot.
+ * The inside of an intake screen: a step bar, the heading, and the form.
  *
  * Both surfaces render this — the Application modal (step 1) and the three
  * routes (steps 2-4) — so the four screens are the same screen with different
  * content in the middle. The only difference is what wraps it: a Dialog for step
  * 1, a full-height page for the rest.
  *
- * Neither surface shows the navbar or the footer. Once someone is filling in an
- * intake form, site chrome is a way out of the funnel rather than a convenience,
- * so the only navigation offered is the close control and the step indicator.
+ * **The screen is exactly one viewport tall and never scrolls.** That is the
+ * whole shape of this component: a fixed step bar at the top, then a region
+ * that takes every remaining pixel and gives it to the form. The form is an
+ * embedded Zoho iframe, and an iframe cannot report its own height across
+ * origins — so rather than guess a height and let the page scroll past it, the
+ * frame is handed a known box and scrolls inside itself. One scrollbar, in the
+ * form, where the content actually is.
+ *
+ * Two columns from `lg` up, one below it. Stacked, the heading and intro eat
+ * the height the form needs; beside it, the same words cost nothing and the
+ * form gets the full column. This matters most on Consent, where the form is
+ * the longest of the four — it is the reason the split exists.
+ *
+ * `leading` is the top-left control. The pages pass a Back link; the modal
+ * passes nothing, because it has a ✕ of its own and closing is its way out.
  *
  * `TitleWrapper` / `IntroWrapper` exist for the modal. Radix needs the dialog's
  * accessible name to come from its own DialogTitle/DialogDescription, and the
@@ -47,45 +57,37 @@ export function IntakeShell({
   title,
   intro,
   children,
+  leading = null,
   TitleWrapper = React.Fragment,
   IntroWrapper = React.Fragment,
 }) {
-  const next = nextStep(step);
-
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col">
-      <IntakeProgress current={step} className="mb-10 md:mb-12" />
-      <div className="mb-10 text-center md:mb-12">
-        <TitleWrapper>
-          <h1 className={INTAKE_TITLE_CLASS}>{title}</h1>
-        </TitleWrapper>
-        <IntroWrapper>
-          <p className="text-medium">{intro}</p>
-        </IntroWrapper>
+    <>
+      {/* The step bar. `relative` so `leading` can sit at the content edge
+          rather than the viewport edge — the 5% inline padding is on the
+          section, and Back should line up with the heading below it, not with
+          the screen. */}
+      <header className="container relative flex shrink-0 items-center justify-center py-5 md:py-6">
+        {leading}
+        <IntakeProgress current={step} />
+      </header>
+
+      <div className="container grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] gap-6 pb-6 md:gap-8 md:pb-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-14 lg:pb-10">
+        <div className="text-center lg:self-center lg:text-left">
+          <TitleWrapper>
+            <h1 className={INTAKE_TITLE_CLASS}>{title}</h1>
+          </TitleWrapper>
+          <IntroWrapper>
+            <p className="text-medium">{intro}</p>
+          </IntroWrapper>
+        </div>
+        {/* The row's `minmax(0,1fr)` lets this shrink to whatever height is
+            left over; `min-h-96` is the floor underneath that. A 24rem frame is
+            about the least you can fill a form in, and on a screen too short to
+            spare that much the row holds its floor and the page scrolls a
+            little instead of handing the form a keyhole. */}
+        <div className="min-h-96">{children}</div>
       </div>
-      {children}
-      {next && <ContinueControl href={next.href} label={next.label} />}
-    </div>
-  );
-}
-
-/**
- * TEMPORARY — remove once the Zoho forms are embedded.
- *
- * The real handoff to the next step is the Zoho form's own submit/redirect: set
- * each form's post-submit redirect to the href named here and delete this
- * control. Until then this is how the flow stays walkable end to end, which the
- * brief requires of it before any form exists.
- */
-function ContinueControl({ href, label }) {
-  return (
-    <div className="mt-8 flex flex-col items-center gap-3 md:mt-10">
-      <Button asChild title={`Continue to ${label}`} variant="secondary">
-        <a href={href}>Continue to {label}</a>
-      </Button>
-      <p className="text-small text-scheme-text/60">
-        Temporary — the Zoho form will redirect here on submit.
-      </p>
-    </div>
+    </>
   );
 }

@@ -19,11 +19,9 @@ export default function Page() {
       title="Check Your Eligibility For Peer Coaching"
       intro="Personalized Supportive Services are available to Ohio adults 18 and over with active Ohio Medicaid. The questions below confirm those basics, so we can tell you plainly where you stand before going any further."
     >
-      {/* ZOHO FORM EMBED SLOT — paste the Zoho iframe/script here, as children
-          of <ZohoFormSlot>. Step: Eligibility. Nothing else in this file needs
-          to change. Set the form's post-submit redirect to /booking and remove
-          the temporary continue control in components/intake/intake-shell.jsx. */}
-      <ZohoFormSlot step="Eligibility" />
+      {/* Zoho form: "CMPS". Its post-submit redirect has to be set to /booking
+          inside Zoho — that redirect is the only handoff from step 2 to step 3. */}
+      <ZohoFormSlot form="eligibility" />
     </IntakePage>
   );
 }

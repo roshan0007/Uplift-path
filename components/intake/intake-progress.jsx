@@ -44,15 +44,25 @@ export function IntakeProgress({ current, className = undefined }) {
             </span>
           );
 
+          // Below `md` only the current step keeps its label; the rest are
+          // discs. Four labels and three separators wrap to three lines on a
+          // phone, and on a screen that is exactly one viewport tall those two
+          // extra lines come straight out of the form's height. The name is
+          // still announced — `sr-only` carries it where the ink does not.
           const label = (
-            <span
-              className={cn(
-                isCurrent && "font-semibold",
-                !isDone && !isCurrent && "text-scheme-text/50",
+            <>
+              <span
+                className={cn(
+                  isCurrent ? "font-semibold" : "hidden md:inline",
+                  !isDone && !isCurrent && "text-scheme-text/50",
+                )}
+              >
+                {step.label}
+              </span>
+              {!isCurrent && (
+                <span className="sr-only md:hidden">{step.label}</span>
               )}
-            >
-              {step.label}
-            </span>
+            </>
           );
 
           const inner = (

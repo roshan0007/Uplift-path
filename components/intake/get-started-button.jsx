@@ -94,34 +94,44 @@ function ApplicationDialogContent() {
     //
     // The portal drops this at <body>, outside every section, so the scheme
     // class has to travel with it or the panel would render on unset colours.
+    //
+    // `overflow-y-auto` is the modal's version of steps 2-4's `min-h-dvh`.
+    // Normally nothing scrolls here — the frame takes the height that is left
+    // and scrolls inside itself — but the panel is pinned to the viewport by
+    // `inset-0` and cannot grow, so on a screen too short for the form's 24rem
+    // floor this is what stops the bottom of the form being unreachable.
+    //
+    // `py-0` matters more than it looks. The primitive's base class carries
+    // `p-6`, and `px-[5%]` only replaces the horizontal half of it — the 24px
+    // top and bottom survived, pushing the step bar down and costing the form
+    // 48px of height that steps 2-4 keep. With it gone this screen and the
+    // three routes are the same geometry to the pixel.
+    //
+    // The ✕ then sits at `top-5` to line up with the step bar IntakeShell
+    // renders, which is vertically centred at 32px.
     <DialogContent
       closeIconPosition="inside"
-      closeIconClassName="top-6 right-[5%] md:top-8 opacity-60 hover:opacity-100"
+      closeIconClassName="top-5 right-[5%] opacity-60 hover:opacity-100"
       // The form rises into place rather than replacing the page in one frame.
       // The overlay behind it is already fading (the primitive does that), so
       // the panel gets 300ms of fade plus a short lift from the bottom edge --
       // the same opacity-and-small-y-translate the rest of the site reveals
       // with, and no scale, which this brand does not do. Closing is quicker:
       // 200ms, because leaving should not be something you wait through.
-      className="inset-0 flex h-auto w-auto max-w-none translate-x-0 translate-y-0 flex-col overflow-y-auto rounded-none border-0 bg-scheme-background px-[5%] py-16 text-scheme-text duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-bottom-4 data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-bottom-4 md:py-20 scheme-1 badge-alt"
+      className="inset-0 flex h-auto w-auto max-w-none translate-x-0 translate-y-0 flex-col overflow-y-auto rounded-none border-0 bg-scheme-background px-[5%] py-0 text-scheme-text duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-bottom-4 data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-bottom-4 scheme-1 badge-alt"
     >
-      <div className="container flex flex-1 flex-col justify-center">
-        <IntakeShell
-          step="application"
-          title="Find The Right Peer Coach For You"
-          intro="The details you share below are confidential and help our team make a thoughtful match with a Peer Coach who best fits your unique goals and needs."
-          TitleWrapper={DialogTitleSlot}
-          IntroWrapper={DialogDescriptionSlot}
-        >
-          {/* ZOHO FORM EMBED SLOT — paste the Zoho iframe/script here, as
-              children of <ZohoFormSlot>. Step: Application. Nothing else in this
-              file needs to change; the "form loads here" placeholder disappears
-              on its own once the slot has children. Set the form's post-submit
-              redirect to /cmps and delete the temporary continue control in
-              components/intake/intake-shell.jsx. */}
-          <ZohoFormSlot step="Application" />
-        </IntakeShell>
-      </div>
+      <IntakeShell
+        step="application"
+        title="Find The Right Peer Coach For You"
+        intro="The details you share below are confidential and help our team make a thoughtful match with a Peer Coach who best fits your unique goals and needs."
+        TitleWrapper={DialogTitleSlot}
+        IntroWrapper={DialogDescriptionSlot}
+      >
+        {/* Zoho form: "Find the Right Peer Coach for You". Its post-submit
+            redirect has to be set to /cmps inside Zoho — that redirect is the
+            only handoff from step 1 to step 2. */}
+        <ZohoFormSlot form="application" />
+      </IntakeShell>
     </DialogContent>
   );
 }
