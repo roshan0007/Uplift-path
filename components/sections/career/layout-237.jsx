@@ -23,7 +23,13 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/commit.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              {/* Two lines' worth of height whether the heading takes one or
+                  two. Without it a one-line heading pulls its paragraph up and
+                  the row's supporting text sits on three different baselines —
+                  "Unity Through Collaboration" wraps, its neighbours do not.
+                  `lh` is the element's own line-height, so this holds at both
+                  ends of the type scale instead of needing a magic rem value. */}
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Integrity & Trust
               </h3>
               <p>
@@ -38,7 +44,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/celebration.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Collaboration & Inclusion
               </h3>
               <p>
@@ -53,7 +59,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/power.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Empowerment & Growth
               </h3>
               <p>
@@ -69,7 +75,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/biotech.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Excellence & Innovation
               </h3>
               <p>
@@ -84,7 +90,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/design_services.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Compassion & Service
               </h3>
               <p>
@@ -99,7 +105,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/target.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Sustainability & Impact
               </h3>
               <p>

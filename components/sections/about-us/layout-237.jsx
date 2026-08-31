@@ -23,7 +23,13 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/diversity_2.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              {/* Two lines' worth of height whether the heading takes one or
+                  two. Without it a one-line heading pulls its paragraph up and
+                  the row's supporting text sits on three different baselines —
+                  "Unity Through Collaboration" wraps, its neighbours do not.
+                  `lh` is the element's own line-height, so this holds at both
+                  ends of the type scale instead of needing a magic rem value. */}
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Unity Through Collaboration
               </h3>
               <p>Partnership where everyone rises together.</p>
@@ -35,7 +41,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/map.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Pathways with Clarity
               </h3>
               <p>Clear, transparent routes to meaningful progress.</p>
@@ -47,7 +53,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/leaderboard.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Lead with Compassion
               </h3>
               <p>Empathy and person-centered care in every interaction.</p>
@@ -59,7 +65,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/all_inclusive.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Inclusion for All
               </h3>
               <p>Cultural humility and equity for marginalized populations.</p>
@@ -71,7 +77,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/support.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">Foster Hope</h3>
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">Foster Hope</h3>
               <p>
                 Unlock true potential through strength-based, holistic support.
               </p>
@@ -83,7 +89,7 @@ export function Layout237() {
                   src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/security.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Total Person Care
               </h3>
               <p>Holistic support addressing all dimensions of wellness.</p>
