@@ -2,7 +2,7 @@
 
 import { CarfSeal } from "@/components/brand/carf-seal";
 import React from "react";
-import { FacebookLogo, LinkedinLogo } from "relume-icons";
+import { LinkedinLogo } from "relume-icons";
 
 export function Footer4() {
   return (
@@ -62,22 +62,20 @@ export function Footer4() {
               <a href="/contact-us">Get started</a>
             </li>
           </ul>
-          {/* LinkedIn is the supplied company page. Facebook is still "#":
-              no URL for it exists in the repo or the design export, and
-              guessing one would point the site at an account we cannot verify.
-              Owner to supply it, or say to drop the icon. */}
-          <div className="flex items-center justify-center gap-x-4 lg:justify-self-end">
-            <a href="#" className="inline-flex" aria-label="Facebook">
-              <FacebookLogo className="size-7 text-scheme-text" />
-            </a>
+          {/* LinkedIn is the only social account this site has a verified URL
+              for. The Facebook mark that used to sit beside it never had one —
+              it pointed at "#" from the Relume export onward — and a dead icon
+              is worse than no icon. Alone it also carries the column on its
+              own, so it is sized up to hold that side of the row. */}
+          <div className="flex items-center justify-center lg:justify-self-end">
             <a
               href="https://www.linkedin.com/in/uptech-support"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex"
-              aria-label="LinkedIn"
+              className="inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"
+              aria-label="Uplift Path on LinkedIn"
             >
-              <LinkedinLogo className="size-7 text-scheme-text" />
+              <LinkedinLogo className="size-10 text-scheme-text" />
             </a>
           </div>
         </div>
