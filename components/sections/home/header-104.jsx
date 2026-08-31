@@ -17,15 +17,15 @@ const AUDIENCES = [
     title: "For Businesses",
     description: "Consulting services for business growth.",
     href: "/for-business-page",
-    image: "/images/for-business-page-benefits-section-3.jpg",
-    alt: "A leadership team working through a plan together around a table",
+    image: "/images/home-audience-for-business.png",
+    alt: "An illustration of someone meeting their team over a video call",
   },
   {
     title: "For Individuals",
     description: "Peer coaching, mental health therapy and counseling.",
     href: "/for-individual-page",
-    image: "/images/for-individual-page-benefits-section-0.jpg",
-    alt: "A counselor and a client talking in a calm, everyday setting",
+    image: "/images/home-audience-for-individual.png",
+    alt: "An illustration of two people reaching through their screens to embrace",
   },
 ];
 
@@ -57,11 +57,15 @@ export function Header104() {
             >
               <a href={audience.href} className="group block h-full">
                 <Card className="flex h-full flex-col transition-colors duration-200 hover:bg-scheme-text/5">
-                  <div className="aspect-[5/2] w-full min-h-0 border-b-2 border-scheme-border">
+                  {/* `object-contain`, not cover: these are line illustrations
+                      on a transparent ground, so cropping them to a 5:2 band
+                      would cut the figures in half. They sit inside the band
+                      with the card showing through instead. */}
+                  <div className="aspect-[5/2] w-full min-h-0 border-b-2 border-scheme-border p-4">
                     <img
                       src={audience.image}
                       alt={audience.alt}
-                      className="size-full object-cover"
+                      className="size-full object-contain"
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-6">

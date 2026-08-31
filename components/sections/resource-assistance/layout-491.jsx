@@ -1,11 +1,8 @@
 "use client";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VideoIframe } from "@/components/ui/video-iframe";
 import { AnimatePresence, motion } from "motion/react";
 import React, { useState } from "react";
-import { PlayCircle } from "relume-icons";
 
 const useActiveValue = (initialValue) => {
   const [activeValue, setActiveValue] = useState(initialValue);
@@ -130,20 +127,11 @@ export function Layout491() {
                     transition={{ duration: 0.2 }}
                     exit={{ opacity: 0 }}
                   >
-                    <Dialog>
-                      <DialogTrigger className="relative flex w-full items-center justify-center overflow-hidden rounded-image">
-                        <img
-                          src="https://d22po4pjz3o32e.cloudfront.net/placeholder-video-thumbnail.svg"
-                          alt="Relume placeholder image 2"
-                          className="size-full object-cover"
-                        />
-                        <span className="absolute inset-0 z-10 bg-neutral-darkest/50" />
-                        <PlayCircle className="absolute z-20 size-20 text-white" />
-                      </DialogTrigger>
-                      <DialogContent>
-                        <VideoIframe video="https://www.youtube.com/embed/8DKLYsikxTs?si=Ch9W0KrDWWUiCMMW" />
-                      </DialogContent>
-                    </Dialog>
+                    <img
+                      src="/images/resource-assistance-payer-enrolment.png"
+                      alt="An illustration of enrolment paperwork and forms stacked together"
+                      className="w-full rounded-image object-contain"
+                    />
                   </motion.div>
                 </AnimatePresence>
               </TabsContent>
@@ -159,9 +147,9 @@ export function Layout491() {
                     exit={{ opacity: 0 }}
                   >
                     <img
-                      src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
-                      alt="Relume placeholder image 3"
-                      className="rounded-image object-cover"
+                      src="/images/resource-assistance-staff.png"
+                      alt="An illustration of two colleagues handing work to each other through their screens"
+                      className="w-full rounded-image object-contain"
                     />
                   </motion.div>
                 </AnimatePresence>

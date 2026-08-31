@@ -66,8 +66,8 @@ export function Layout374() {
                 section grows past a screen again. */}
             <div className="min-h-0 flex-1">
               <img
-                src="/images/advisory-services-features-list-section-0.jpg"
-                alt="A team mapping out a programme on a wall of sticky notes"
+                src="/images/advisory-services-operational-advisory.jpg"
+                alt="An advisory team working through a programme plan around a table"
                 className="size-full min-h-40 object-cover"
               />
             </div>

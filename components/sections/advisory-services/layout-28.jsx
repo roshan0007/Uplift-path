@@ -1,10 +1,7 @@
 "use client";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VideoIframe } from "@/components/ui/video-iframe";
 import React from "react";
-import { PlayCircle } from "relume-icons";
 
 export function Layout28() {
   return (
@@ -67,8 +64,8 @@ export function Layout28() {
               className="data-[state=active]:animate-tabs"
             >
               <img
-                src="/images/advisory-services-how-it-works-section.png"
-                alt="Relume placeholder image 1"
+                src="/images/advisory-services-growth-expansion-strategy.jpg"
+                alt="Two people talking through a growth strategy at a desk"
                 className="size-full rounded-image object-cover"
               />
             </TabsContent>
@@ -76,28 +73,19 @@ export function Layout28() {
               value="tab-2"
               className="data-[state=active]:animate-tabs"
             >
-              <Dialog>
-                <DialogTrigger className="relative flex w-full items-center justify-center overflow-hidden rounded-image">
-                  <img
-                    src="https://d22po4pjz3o32e.cloudfront.net/placeholder-video-thumbnail.svg"
-                    alt="Relume placeholder image 2"
-                    className="size-full object-cover"
-                  />
-                  <PlayCircle className="absolute z-20 size-20 text-white" />
-                  <span className="absolute inset-0 z-10 bg-neutral-darkest/50" />
-                </DialogTrigger>
-                <DialogContent>
-                  <VideoIframe video="https://www.youtube.com/embed/8DKLYsikxTs?si=Ch9W0KrDWWUiCMMW" />
-                </DialogContent>
-              </Dialog>
+              <img
+                src="/images/advisory-services-business-structuring.jpg"
+                alt="A desk with a laptop, a written plan and a pen"
+                className="size-full rounded-image object-cover"
+              />
             </TabsContent>
             <TabsContent
               value="tab-3"
               className="data-[state=active]:animate-tabs"
             >
               <img
-                src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
-                alt="Relume placeholder image 3"
+                src="/images/advisory-services-features-list-section-0.jpg"
+                alt="A team reviewing progress against the plan together"
                 className="size-full rounded-image object-cover"
               />
             </TabsContent>

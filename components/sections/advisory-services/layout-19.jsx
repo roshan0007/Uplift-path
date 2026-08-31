@@ -47,9 +47,9 @@ export function Layout19() {
           </div>
           <div>
             <img
-              src="/images/advisory-services-about-section-new.png"
+              src="/images/advisory-services-growth-gap-assessment.jpg"
               className="w-full rounded-image object-cover"
-              alt="Relume placeholder image"
+              alt="Two colleagues reviewing an assessment on a tablet together"
             />
           </div>
         </div>

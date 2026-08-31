@@ -73,11 +73,13 @@ export function Layout504() {
             className="data-[state=active]:animate-tabs"
           >
             <Card className="grid grid-cols-1 md:grid-cols-2 md:items-center">
-              <div className="aspect-[3/2]">
+              {/* `object-contain` and padding: the tab illustrations sit on a
+                  transparent ground, so cropping them to 3:2 would clip them. */}
+              <div className="aspect-[3/2] p-6">
                 <img
-                  src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
-                  className="size-full object-cover"
-                  alt="Relume placeholder image 2"
+                  src="/images/for-individual-page-by-video.png"
+                  className="size-full object-contain"
+                  alt="An illustration of a laptop, for a session held by video"
                 />
               </div>
               <div className="p-6 md:p-8 lg:p-12">
@@ -100,11 +102,11 @@ export function Layout504() {
             className="data-[state=active]:animate-tabs"
           >
             <Card className="grid grid-cols-1 md:grid-cols-2 md:items-center">
-              <div className="aspect-[3/2]">
+              <div className="aspect-[3/2] p-6">
                 <img
-                  src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
-                  className="size-full object-cover"
-                  alt="Relume placeholder image 3"
+                  src="/images/for-individual-page-on-your-schedule.png"
+                  className="size-full object-contain"
+                  alt="An illustration of two people shaking hands on an arrangement"
                 />
               </div>
               <div className="p-6 md:p-8 lg:p-12">
