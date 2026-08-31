@@ -26,13 +26,18 @@ const MenuItem = ({ item }) => (
     />
     <div className="flex grow flex-col">
       <p className="font-semibold">{item.label}</p>
-      {/* Descriptions need ~325px of column to stay at two lines. The sheet is
-          min(72rem, 90vw), so that only holds from about 1270px up; below it the
-          copy blows out to four lines and the sheet grows past the hero's
-          supporting paragraph. Labels-only below 1280 keeps the sheet short
-          across the whole range. There is no `xl` breakpoint in this project
+      {/* `short`, not `description`. The full descriptions run to two lines
+          each at this column width, and six of those stacked made the sheet a
+          third taller than it needed to be. The long form still runs on the
+          service cards, where there is room for it.
+
+          Still hidden below 1280: the column narrows enough there that even the
+          short line wraps, and a menu of labels is better than a menu of ragged
+          two-line items. There is no `xl` breakpoint in this project
           (`--breakpoint-*: initial`), hence the arbitrary variant. */}
-      <p className="hidden text-small min-[1280px]:block">{item.description}</p>
+      <p className="hidden text-small min-[1280px]:block">
+        {item.short ?? item.description}
+      </p>
     </div>
   </a>
 );
@@ -259,7 +264,7 @@ export function Navbar12() {
                   // which clips the strip away entirely.
                   className="bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:overflow-visible lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%] lg:before:absolute lg:before:inset-x-0 lg:before:-top-4 lg:before:h-4 lg:before:content-['']"
                 >
-                  <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.42fr] lg:gap-8">
+                  <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.34fr] lg:gap-8">
                     <div>
                       <a
                         href="/for-business-page"
@@ -267,7 +272,11 @@ export function Navbar12() {
                       >
                         For Businesses
                       </a>
-                      <div className="grid grid-cols-1 gap-x-8 gap-y-2 md:grid-cols-2">
+                      {/* Three columns from 1280 up, which is exactly where the
+                          descriptions appear. Six items become two rows instead
+                          of three, and the single-item Individuals column beside
+                          them stops trailing two empty rows of dead space. */}
+                      <div className="grid grid-cols-1 gap-x-8 gap-y-3 md:grid-cols-2 min-[1280px]:grid-cols-3">
                         {BUSINESS_SERVICES.map((item) => (
                           <MenuItem key={item.href} item={item} />
                         ))}

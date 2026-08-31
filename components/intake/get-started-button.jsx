@@ -97,7 +97,13 @@ function ApplicationDialogContent() {
     <DialogContent
       closeIconPosition="inside"
       closeIconClassName="top-6 right-[5%] md:top-8 opacity-60 hover:opacity-100"
-      className="inset-0 flex h-auto w-auto max-w-none translate-x-0 translate-y-0 flex-col overflow-y-auto rounded-none border-0 bg-scheme-background px-[5%] py-16 text-scheme-text md:py-20 scheme-1 badge-alt"
+      // The form rises into place rather than replacing the page in one frame.
+      // The overlay behind it is already fading (the primitive does that), so
+      // the panel gets 300ms of fade plus a short lift from the bottom edge --
+      // the same opacity-and-small-y-translate the rest of the site reveals
+      // with, and no scale, which this brand does not do. Closing is quicker:
+      // 200ms, because leaving should not be something you wait through.
+      className="inset-0 flex h-auto w-auto max-w-none translate-x-0 translate-y-0 flex-col overflow-y-auto rounded-none border-0 bg-scheme-background px-[5%] py-16 text-scheme-text duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-bottom-4 data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-bottom-4 md:py-20 scheme-1 badge-alt"
     >
       <div className="container flex flex-1 flex-col justify-center">
         <IntakeShell
