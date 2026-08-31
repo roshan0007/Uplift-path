@@ -26,11 +26,8 @@ export function Layout213() {
               they operate.
             </p>
             <div className="mt-6 flex flex-wrap gap-4 md:mt-8">
-              {/* Self-link, flagged: there is no jobs board, ATS or application
-                  URL anywhere in the repo, so /career is a placeholder until
-                  the owner supplies the real destination. */}
               <Button asChild title="Apply" variant="secondary">
-                <a href="/career">Apply</a>
+                <a href="https://openings.upliftpathwellness.com/jobs/Careers" target="_blank" rel="noreferrer">Apply</a>
               </Button>
             </div>
           </div>

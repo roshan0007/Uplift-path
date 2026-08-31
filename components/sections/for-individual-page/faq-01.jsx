@@ -46,7 +46,7 @@ export function Faq1() {
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
               Costs vary by service and coverage. We will walk through the
-              details before your first session. No hidden fees, no surprises.
+              details before your session. No hidden fees, no surprises.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">

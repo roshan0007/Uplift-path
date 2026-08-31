@@ -15,7 +15,7 @@ export default function Page() {
     <IntakePage
       step="consent"
       title="Review And Sign Your Consent Form"
-      intro="The last step. The form sets out what stays private, what we share and with whom, and what you can expect from your Peer Coach. Once it is signed, your first session is confirmed."
+      intro="The last step. The form sets out what stays private, what we share and with whom, and what you can expect from your Peer Coach. Once it is signed, your session is confirmed."
     >
       {/* Zoho form: "Consent Form" — the longest of the four, and the reason
           the intake layout splits into two columns from `lg` up. This is the

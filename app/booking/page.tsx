@@ -14,8 +14,8 @@ export default function Page() {
   return (
     <IntakePage
       step="scheduling"
-      title="Choose A Time For Your First Session"
-      intro="Pick a slot that works with your week. First sessions run by phone or by video, so you can join from anywhere in Ohio."
+      title="Choose A Time For Your Session"
+      intro="Pick a slot that works with your week. Sessions run by phone or by video, so you can join from anywhere in Ohio."
     >
       {/* The one step that is not a Zoho form. The scheduler is interface only:
           the dates and times it offers are generated, not fetched. See the

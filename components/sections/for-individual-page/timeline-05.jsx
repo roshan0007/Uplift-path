@@ -19,11 +19,11 @@ const STEPS = [
   },
   {
     title: "Scheduling",
-    body: "You pick the time. Choose your first session from the openings our Peer Coaches have — by phone or by video, from anywhere in Ohio.",
+    body: "You pick the time. Choose your session from the openings our Peer Coaches have — by phone or by video, from anywhere in Ohio.",
   },
   {
     title: "Consent",
-    body: "You sign the consent form. It sets out what stays private, what we share and with whom, and what you can expect from your coach. Once it is signed, your first session is confirmed.",
+    body: "You sign the consent form. It sets out what stays private, what we share and with whom, and what you can expect from your coach. Once it is signed, your session is confirmed.",
   },
 ];
 
@@ -63,7 +63,7 @@ export function Timeline5() {
               How getting matched works
             </h2>
             <p className="text-medium">
-              Four steps between the first form and your first session. Each one
+              Four steps between the first form and your session. Each one
               is short, and nothing you share leaves our team.
             </p>
           </div>
