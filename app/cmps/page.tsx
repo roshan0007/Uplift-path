@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import React from "react";
 import { IntakePage } from "@/components/intake/intake-page";
-import { ZohoFormSlot } from "@/components/intake/zoho-form-slot";
+import { ZohoFormSlot } from "@/components/forms/zoho-form-slot";
 
 // Step 2 of the individual intake funnel. Funnel screens are noindexed: they
 // are mid-process, they say nothing useful to someone arriving from search, and

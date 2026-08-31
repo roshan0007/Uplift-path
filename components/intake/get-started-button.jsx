@@ -1,7 +1,10 @@
 "use client";
 
-import { IntakeShell } from "@/components/intake/intake-shell";
-import { ZohoFormSlot } from "@/components/intake/zoho-form-slot";
+import {
+  INTAKE_TITLE_CLASS,
+  IntakeShell,
+} from "@/components/intake/intake-shell";
+import { ZohoFormSlot } from "@/components/forms/zoho-form-slot";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -67,7 +70,12 @@ export function ApplicationDialog({ open, onOpenChange }) {
 // Module scope, not inline in the JSX below: a component defined during render
 // is a brand-new type every render and would remount the whole subtree — the
 // same bug the navbar's ConditionalRenderedCard comment documents.
-const DialogTitleSlot = (props) => <DialogTitle asChild {...props} />;
+// The className is what makes step 1's heading match steps 2-4 — see the note
+// on INTAKE_TITLE_CLASS. Without it DialogTitle's own `text-lg` survives the
+// Slot merge and shrinks the heading.
+const DialogTitleSlot = (props) => (
+  <DialogTitle asChild className={INTAKE_TITLE_CLASS} {...props} />
+);
 const DialogDescriptionSlot = (props) => (
   <DialogDescription asChild {...props} />
 );

@@ -21,3 +21,14 @@ export const stepIndex = (id) => INTAKE_STEPS.findIndex((s) => s.id === id);
 
 /** The step after `id`, or null if it is the last one. */
 export const nextStep = (id) => INTAKE_STEPS[stepIndex(id) + 1] ?? null;
+
+/**
+ * Where "Back" goes from `id`.
+ *
+ * The previous step's route, except from Eligibility: the step before it is the
+ * Application modal, which has no URL of its own, so back from there means back
+ * to the page the modal opens over. Step 1 itself never renders a back control
+ * — it is a modal and closing it is the way out.
+ */
+export const backHref = (id) =>
+  INTAKE_STEPS[stepIndex(id) - 1]?.href ?? "/for-individual-page";

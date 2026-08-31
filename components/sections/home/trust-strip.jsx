@@ -13,7 +13,11 @@ import { ChevronRight } from "relume-icons";
  */
 export function TrustStrip() {
   return (
-    <section className="px-[5%] pb-16 md:pb-20 lg:pb-24 scheme-1 badge-alt">
+    // Tight bottom padding on purpose. This strip is a footnote to the hero
+    // rather than a section in its own right, and the section below it opens
+    // with its own generous top padding - at the export's pb-24 the two
+    // stacked into a gap wide enough to read as a missing section.
+    <section className="px-[5%] pb-8 md:pb-10 lg:pb-12 scheme-1 badge-alt">
       <div className="container">
         {/* `id` is what the hero's scroll cue watches. The cue exists to say
             "there is more below"; once this block is on screen that is

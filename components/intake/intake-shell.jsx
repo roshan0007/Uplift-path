@@ -6,6 +6,24 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 
 /**
+ * The intake heading, as one exported string because two components have to
+ * apply it.
+ *
+ * The modal wraps this <h1> in Radix's DialogTitle with `asChild`, and Slot
+ * concatenates the two className strings rather than resolving them — so
+ * DialogTitle's own `text-lg leading-none font-semibold tracking-tight` sat
+ * alongside `text-h2` and won on stylesheet order, rendering step 1's heading
+ * visibly smaller than steps 2-4. Passing this same string to DialogTitle puts
+ * it through `cn`, whose tailwind-merge drops the losers properly.
+ *
+ * The explicit leading and tracking are the h2 token's own values. They are here
+ * only so DialogTitle's `leading-none` and `tracking-tight` have something to
+ * conflict with — twMerge cannot drop a utility that nothing competes against.
+ */
+export const INTAKE_TITLE_CLASS =
+  "mb-5 text-h2 leading-[var(--text-h2--line-height)] font-bold tracking-[var(--text-h2--letter-spacing)] md:mb-6";
+
+/**
  * The inside of an intake screen: step indicator, heading, then the form slot.
  *
  * Both surfaces render this — the Application modal (step 1) and the three
@@ -39,7 +57,7 @@ export function IntakeShell({
       <IntakeProgress current={step} className="mb-10 md:mb-12" />
       <div className="mb-10 text-center md:mb-12">
         <TitleWrapper>
-          <h1 className="mb-5 text-h2 font-bold md:mb-6">{title}</h1>
+          <h1 className={INTAKE_TITLE_CLASS}>{title}</h1>
         </TitleWrapper>
         <IntroWrapper>
           <p className="text-medium">{intro}</p>

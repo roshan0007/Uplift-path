@@ -1,15 +1,16 @@
 "use client";
 
 import { IntakeShell } from "@/components/intake/intake-shell";
+import { backHref } from "@/components/intake/intake-steps";
 import React from "react";
-import { Close } from "relume-icons";
+import { ArrowBack } from "relume-icons";
 
 /**
  * Full-height page wrapper for intake steps 2-4.
  *
  * These routes sit outside the `(site)` route group, so they render no navbar
- * and no footer — the whole viewport is the form. The only way out is the close
- * control, which returns to the page the flow started from.
+ * and no footer — the whole viewport is the form. The only navigation offered
+ * is the back control and the step indicator.
  *
  * `min-h-screen` rather than `h-screen`: the form embeds will be taller than the
  * viewport on a phone and the page has to grow to fit them.
@@ -17,7 +18,7 @@ import { Close } from "relume-icons";
 export function IntakePage({ step, title, intro, children }) {
   return (
     <section className="relative flex min-h-screen flex-col px-[5%] py-16 md:py-20 scheme-1 badge-alt">
-      <CloseControl />
+      <BackControl step={step} />
       <div className="container flex flex-1 flex-col justify-center">
         <IntakeShell step={step} title={title} intro={intro}>
           {children}
@@ -28,19 +29,23 @@ export function IntakePage({ step, title, intro, children }) {
 }
 
 /**
- * Leaving the funnel. It goes back to /for-individual-page rather than to the
- * browser's history: someone who landed on step 3 from an email link has no
- * history to go back to, and `history.back()` would strand them.
+ * Back, not a close ✕.
+ *
+ * These are pages, not the modal — there is nothing overlaid to dismiss, so a ✕
+ * was describing the wrong action. Back goes to the previous step, which is what
+ * someone who wants to change an earlier answer is actually after.
+ *
+ * It is a real link rather than `history.back()`: someone who landed on step 3
+ * from an email has no history to go back to, and the browser would strand them.
  */
-function CloseControl() {
+function BackControl({ step }) {
   return (
     <a
-      href="/for-individual-page"
-      aria-label="Close and return to For Individuals"
-      title="Close"
-      className="absolute top-6 right-[5%] z-10 inline-flex opacity-60 transition-opacity duration-200 ease-in-out hover:opacity-100 md:top-8"
+      href={backHref(step)}
+      className="absolute top-6 left-[5%] z-10 inline-flex items-center gap-1 font-medium opacity-60 transition-opacity duration-200 ease-in-out hover:opacity-100 md:top-8"
     >
-      <Close className="size-7 text-scheme-text" />
+      <ArrowBack className="size-5 text-scheme-text" />
+      Back
     </a>
   );
 }

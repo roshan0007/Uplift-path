@@ -6,7 +6,8 @@ import React from "react";
 /**
  * The empty container an intake form drops into.
  *
- * Every form in this flow is a Zoho form that is not embedded yet. Paste the
+ * Every form on this site is a Zoho form, and none of them are embedded yet:
+ * the four intake steps and the contact page all render this. Paste the
  * Zoho iframe or script as this component's children and the development
  * placeholder below disappears on its own — there is nothing to delete and no
  * flag to flip. That is the whole reason it takes `children` rather than being
@@ -14,6 +15,9 @@ import React from "react";
  *
  * The `minHeight` keeps the page from collapsing to nothing while the slot is
  * empty, and gives the embed a sensible box to land in.
+ *
+ * It lives in components/forms rather than components/intake because the
+ * contact page uses it too — it was never specific to the funnel.
  *
  * Solid 2px border and `rounded-card`, like every other card in this system. It
  * is deliberately not dashed: the brand has no dashed or dotted rules anywhere,
