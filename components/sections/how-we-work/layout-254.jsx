@@ -34,19 +34,22 @@ export function Layout254() {
                 you.
               </p>
             </div>
+            {/* Was a second "The people behind it" — an About-us line that had
+                leaked into a list of values, and one the export printed twice.
+                Replaced with a value the brand actually holds: "Unity Through
+                Collaboration" is the U in UPLIFT. */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
                 <img
                   className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/business_center.svg"
+                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/groups.svg"
+                  alt=""
                 />
               </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">
-                The people behind it
-              </h3>
+              <h3 className="mb-3 text-h5 font-bold md:mb-4">Collaboration</h3>
               <p>
-                Decades of frontline business and tech experience guide our
-                leadership.
+                We work the problem together. No one carries a decision alone,
+                and no one is left out of one.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -81,19 +84,20 @@ export function Layout254() {
               <h3 className="mb-3 text-h5 font-bold md:mb-4">Autonomy</h3>
               <p>Make decisions. Own your work. Experiment freely.</p>
             </div>
+            {/* The other half of the same duplication. "Inclusion for All" is
+                the I in UPLIFT. */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
                 <img
                   className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/business_center.svg"
+                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/diversity_3.svg"
+                  alt=""
                 />
               </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">
-                The people behind it
-              </h3>
+              <h3 className="mb-3 text-h5 font-bold md:mb-4">Inclusion</h3>
               <p>
-                Our leadership brings decades of frontline business and tech
-                experience.
+                Every life we serve, and everyone who serves them, belongs in
+                the room where the work is decided.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">

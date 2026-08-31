@@ -40,22 +40,28 @@ export function Layout365() {
                 />
               </div>
             </Card>
+            {/* The export shipped this card as a byte-identical copy of the one
+                above — same "First", same "Accountability", same sentence, same
+                image — which left the section promising three pillars and
+                showing two. This is the missing second one. Clarity is the
+                brand's own word for it; the copy is new and worth a read before
+                it goes out. */}
             <Card className="flex flex-col md:grid md:grid-cols-2">
               <div className="block flex-col justify-center p-6 md:flex">
                 <div>
-                  <p className="mb-2 font-semibold">First</p>
-                  <h3 className="mb-2 text-h5 font-bold">Accountability</h3>
+                  <p className="mb-2 font-semibold">Second</p>
+                  <h3 className="mb-2 text-h5 font-bold">Clarity</h3>
                   <p>
-                    Accountability means owning your decisions, focusing on
-                    outcomes, sharing honest feedback, and learning from
-                    mistakes together.
+                    Clarity means naming the goal, the owner and the next step,
+                    so nobody has to guess what progress looks like or who is
+                    carrying it.
                   </p>
                 </div>
               </div>
               <div className="flex aspect-[3/2] items-center justify-center">
                 <img
-                  src="/images/how-we-work-how-it-works-section-new-0.png"
-                  alt="Relume placeholder image 2"
+                  src="/images/advisory-services-about-section-new.png"
+                  alt="A hand drawing a rising line onto a chart"
                   className="size-full object-cover"
                 />
               </div>
