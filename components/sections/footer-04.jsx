@@ -30,7 +30,7 @@ export function Footer4() {
               <img
                 src="/brand/uplift-path-logo.svg"
                 alt="Uplift Path"
-                className="h-8 w-auto"
+                className="h-11 w-auto"
               />
             </a>
             {/* The seal travels with the brand on every page. It is a
@@ -41,7 +41,7 @@ export function Footer4() {
               className="inline-flex items-center gap-2"
               title="CARF accredited"
             >
-              <CarfSeal className="size-10" />
+              <CarfSeal className="size-14" />
               <span className="text-small font-semibold">CARF accredited</span>
             </a>
           </div>
@@ -62,16 +62,22 @@ export function Footer4() {
               <a href="/contact-us">Get started</a>
             </li>
           </ul>
-          {/* Left at "#" on purpose: no Facebook or LinkedIn profile URL exists
-              anywhere in the repo or the design export, and guessing one would
-              point the site at an account we cannot verify. Owner to supply the
-              two URLs, or say to drop the icons. */}
-          <div className="flex items-center justify-center gap-x-3 lg:justify-self-end">
-            <a href="#" className="inline-flex">
-              <FacebookLogo className="size-6 text-scheme-text" />
+          {/* LinkedIn is the supplied company page. Facebook is still "#":
+              no URL for it exists in the repo or the design export, and
+              guessing one would point the site at an account we cannot verify.
+              Owner to supply it, or say to drop the icon. */}
+          <div className="flex items-center justify-center gap-x-4 lg:justify-self-end">
+            <a href="#" className="inline-flex" aria-label="Facebook">
+              <FacebookLogo className="size-7 text-scheme-text" />
             </a>
-            <a href="#" className="inline-flex">
-              <LinkedinLogo className="size-6 text-scheme-text" />
+            <a
+              href="https://www.linkedin.com/in/uptech-support"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex"
+              aria-label="LinkedIn"
+            >
+              <LinkedinLogo className="size-7 text-scheme-text" />
             </a>
           </div>
         </div>
@@ -107,11 +113,8 @@ export function Footer4() {
                 Privacy Policy
               </a>
             </li>
-            {/* Left at "#" on purpose: there is no Grievance route and never
-                was one. Inventing the page or deleting the link are both
-                content decisions for the owner, not import fixes. */}
             <li>
-              <a href="#" className="underline">
+              <a href="/grievance" className="underline">
                 Grievance
               </a>
             </li>
