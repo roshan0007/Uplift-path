@@ -1,14 +1,25 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { CarfSeal } from "@/components/brand/carf-seal";
+import { CARF_PROVIDER_URL, CarfSeal } from "@/components/brand/carf-seal";
 import React from "react";
 
 export function Layout134() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container max-w-lg text-center">
-        <CarfSeal className="mx-auto mb-5 block size-24 md:mb-6" />
+        {/* The seal links to CARF's provider listing. This page makes the
+            strongest version of the claim, so it should also be the easiest
+            place to check it. */}
+        <a
+          href={CARF_PROVIDER_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="mx-auto mb-5 inline-block transition-opacity duration-200 ease-in-out hover:opacity-70 md:mb-6"
+          title="Verify our accreditation on carf.org"
+        >
+          <CarfSeal className="block size-24" />
+        </a>
         <p className="mb-3 font-semibold md:mb-4">Compliance Support</p>
         <h2 className="mb-5 text-h2 font-bold md:mb-6">
           Be ready before the audit, not because of it

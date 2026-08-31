@@ -1,6 +1,6 @@
 "use client";
 
-import { CarfSeal } from "@/components/brand/carf-seal";
+import { CARF_PROVIDER_URL, CarfSeal } from "@/components/brand/carf-seal";
 import React from "react";
 import { LinkedinLogo } from "relume-icons";
 
@@ -35,11 +35,18 @@ export function Footer4() {
             </a>
             {/* The seal travels with the brand on every page. It is a
                 third-party accreditation mark: native 1:1, colours untouched,
-                never cropped. */}
+                never cropped.
+
+                It used to link to /compliance-support, which is our own page
+                about the seal. It now goes to CARF's provider listing — the
+                record that verifies it. The footer nav above already carries
+                the internal routes; this mark's job is proof. */}
             <a
-              href="/compliance-support"
-              className="inline-flex items-center gap-2"
-              title="CARF accredited"
+              href={CARF_PROVIDER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 transition-opacity duration-200 ease-in-out hover:opacity-70"
+              title="Verify our accreditation on carf.org"
             >
               <CarfSeal className="size-14" />
               <span className="text-small font-semibold">CARF accredited</span>

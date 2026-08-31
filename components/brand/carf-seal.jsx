@@ -4,6 +4,18 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 /**
+ * Uplift Path's entry in CARF's public provider directory — the page that
+ * proves the seal rather than asserting it.
+ *
+ * Every place the seal appears links here. That is the point of an
+ * accreditation mark: it is a claim someone else stands behind, and a visitor
+ * who wants to check it should be one click from the issuer's own record, not
+ * from our page about the seal.
+ */
+export const CARF_PROVIDER_URL =
+  "https://carf.org/provider/uplift-path-inc-409426/";
+
+/**
  * The CARF "Aspire to Excellence" accreditation seal, with a slow specular
  * sweep across it.
  *

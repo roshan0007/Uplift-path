@@ -1,6 +1,6 @@
 "use client";
 
-import { CarfSeal } from "@/components/brand/carf-seal";
+import { CARF_PROVIDER_URL, CarfSeal } from "@/components/brand/carf-seal";
 import React from "react";
 import { ChevronRight } from "relume-icons";
 
@@ -29,20 +29,44 @@ export function TrustStrip() {
           id="carf-trust-strip"
           className="mx-auto flex max-w-lg flex-col items-center gap-5 border-t border-scheme-border pt-8 text-center sm:max-w-none sm:flex-row sm:justify-center sm:gap-8 sm:text-left md:pt-10"
         >
-          <CarfSeal className="size-16 md:size-20" />
+          {/* The seal itself goes to CARF's provider listing. A trust mark that
+              only links to our own page about the trust mark is circular; the
+              visitor who stops here is the one who wants it checked. */}
+          <a
+            href={CARF_PROVIDER_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"
+            title="Verify our accreditation on carf.org"
+          >
+            <CarfSeal className="size-16 md:size-20" />
+          </a>
           <div className="sm:max-w-md">
             <p className="font-semibold">CARF accredited</p>
             <p className="mt-1 text-small">
               We hold the CARF Gold Seal ourselves — the same standard we help
               behavioral health organizations reach.
             </p>
-            <a
-              href="/compliance-support"
-              className="mt-2 inline-flex items-center gap-1 text-small font-medium underline"
-            >
-              How we support compliance
-              <ChevronRight className="size-4" />
-            </a>
+            {/* Two links, two different jobs: verify the claim, or read what we
+                do with it. Kept apart so neither has to stand for both. */}
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 sm:justify-start">
+              <a
+                href={CARF_PROVIDER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-small font-medium underline transition-opacity duration-200 ease-in-out hover:opacity-70"
+              >
+                Verify on carf.org
+                <ChevronRight className="size-4" />
+              </a>
+              <a
+                href="/compliance-support"
+                className="inline-flex items-center gap-1 text-small font-medium underline transition-opacity duration-200 ease-in-out hover:opacity-70"
+              >
+                How we support compliance
+                <ChevronRight className="size-4" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
