@@ -118,22 +118,20 @@ export function ContactPanel() {
               `bg-scheme-foreground`, which on this scheme is the mint itself and
               would leave the card invisible against its own section. */}
           <Card className="bg-white p-6 md:p-8">
-            <h2 className="text-h4 font-bold">Send us a message</h2>
-            <p className="mt-3 text-small">
-              Tell us a little about what you need and who you are, and we will
-              get it to the right person.
-            </p>
+            {/* No heading above the form. The Zoho form opens with its own
+                "Contact Us" title and lead line, and a card heading on top of
+                it said the same thing twice. */}
             {/* Zoho form: "Contact Us". Not part of the intake funnel — this is
                 a separate form and there is no redirect to configure.
 
                 Border and radius are dropped because the card around it already
-                provides both. 50rem is the whole form measured at this width,
-                so nothing scrolls inside the card — unlike the intake screens
-                this page scrolls normally, and an inner scrollbar next to an
-                outer one would be one too many. */}
+                provides both. The height is the whole form measured at this
+                width, so nothing scrolls inside the card — this page scrolls
+                normally, and an inner scrollbar beside an outer one would be
+                one too many. */}
             <ZohoFormSlot
               form="contact"
-              className="mt-6 h-[50rem] rounded-none border-0"
+              className="h-[58rem] rounded-none border-0"
             />
           </Card>
         </div>

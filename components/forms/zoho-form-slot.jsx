@@ -6,11 +6,11 @@ import React from "react";
 /**
  * Every Zoho form on the site, in one place.
  *
- * Four surfaces embed a Zoho form: the three intake steps that are forms
- * (Application, Eligibility, Consent) and the contact page. Step 3 (/booking)
- * is not a form — it is the scheduler in components/booking.
+ * Five surfaces embed a Zoho form: the three intake steps that are forms
+ * (Application, Eligibility, Consent), the contact page and the grievance page.
+ * Step 3 (/booking) is not a form — it is the scheduler in components/booking.
  *
- * **All four point at `forms.zohopublic.com`, on purpose.** Consent and Contact
+ * **All of them point at `forms.zohopublic.com`, on purpose.** Consent and Contact
  * were supplied on the vanity host `forms.upliftpathwellness.com`, and that
  * hostname does not exist — it returns NXDOMAIN from the public resolvers, so
  * an iframe pointed at it renders nothing at all. The apex `upliftpathwellness.com`
@@ -35,25 +35,35 @@ import React from "react";
  * Consent has no `height` — at 5771px nothing is gained by declaring it, and
  * filling the screen is exactly what that form wants.
  *
- * To re-measure after editing a form in Zoho: open its URL on its own, and read
- * `document.querySelector('form').getBoundingClientRect().height` at a window
- * about 660px wide, which is what the frame is on a 1440px display.
+ * To re-measure after editing a form in Zoho: open its URL on its own at a
+ * window at least 780px wide — narrower than that and the browser serves the
+ * mobile layout, which is shorter and will under-measure — and take the deepest
+ * element bottom, not the <form> box. Zoho wraps the form in padding the
+ * <form> element does not account for, and measuring the box alone is what
+ * first sized the Application frame 100px short and left it scrolling.
  */
 export const ZOHO_FORMS = {
   application: {
     title: "Find the Right Peer Coach for You",
     src: "https://forms.zohopublic.com/upliftpathinc/form/UPPersonalDataSubmit/formperma/l22DiBYbUh7nw9hOoEPvFYx2znqdzsvp9z7Cp_MEKAg",
-    height: "30rem", // measured 397px
+    height: "36rem", // measured 501px
   },
   eligibility: {
     title: "CMPS",
     src: "https://forms.zohopublic.com/upliftpathinc/form/CMPS/formperma/fSKimojEfxrmY7O5CyGw-80PZAr6SzacLv0_BcGDnmw",
-    height: "36rem", // measured 500px
+    height: "38rem", // measured 546px
   },
   consent: {
     title: "Consent Form",
     src: "https://forms.zohopublic.com/upliftpathinc/form/ConsentFormclient/formperma/l1giydGIPzdtmEl0cHDHzWrOHvXcqyGQ6abxPefIru8",
     height: null, // measured 5771px — fills the screen instead
+  },
+  grievance: {
+    title: "Grievance Form",
+    src: "https://forms.zohopublic.com/upliftpathinc/form/MergedGrievanceForm/formperma/A2Z1eDlfDnhUqZhEOB0e2YXvA3dd0QJZPnzHFVdzNYY",
+    // Same reasoning as contact: an ordinary scrolling page, so the height is
+    // set at the call site rather than negotiated with a surplus.
+    height: null,
   },
   contact: {
     title: "Contact Us",
@@ -121,14 +131,18 @@ function withReferrer(src) {
  * box it was handed, and shrinks if the box is smaller. A form without one
  * fills the box outright. Either way the parent needs a definite height for the
  * shrinking half to work — a flex or grid child that stretches, which is what
- * the intake layout gives it. The contact page has no such height, and does not
- * need one: its form declares 50rem and the card grows to fit.
+ * the intake layout gives it. The contact and grievance pages have no such
+ * height and do not need one — they set an explicit height class at the call
+ * site and the card grows to fit.
  *
  * The frame is mounted client-side only. The `referrername` value comes from
  * `window.location`, which does not exist during the static export, so building
  * the URL on the server and correcting it on the client would either mismatch
  * during hydration or load the form twice. Waiting a tick costs one frame and
  * these screens are noindexed anyway — there is nothing for a crawler to miss.
+ */
+/**
+ * @param {{ form: string, className?: string }} props
  */
 export function ZohoFormSlot({ form, className = undefined }) {
   const config = ZOHO_FORMS[form];
