@@ -15,7 +15,16 @@ export function TrustStrip() {
   return (
     <section className="px-[5%] pb-16 md:pb-20 lg:pb-24 scheme-1 badge-alt">
       <div className="container">
-        <div className="mx-auto flex max-w-lg flex-col items-center gap-5 border-t border-scheme-border pt-8 text-center sm:max-w-none sm:flex-row sm:justify-center sm:gap-8 sm:text-left md:pt-10">
+        {/* `id` is what the hero's scroll cue watches. The cue exists to say
+            "there is more below"; once this block is on screen that is
+            answered, so the arrow stands down. It is on the content rather
+            than the <section> on purpose - the section's top edge sits right
+            at the fold, so observing the section would retire the arrow before
+            anything here is actually readable. */}
+        <div
+          id="carf-trust-strip"
+          className="mx-auto flex max-w-lg flex-col items-center gap-5 border-t border-scheme-border pt-8 text-center sm:max-w-none sm:flex-row sm:justify-center sm:gap-8 sm:text-left md:pt-10"
+        >
           <CarfSeal className="size-16 md:size-20" />
           <div className="sm:max-w-md">
             <p className="font-semibold">CARF accredited</p>

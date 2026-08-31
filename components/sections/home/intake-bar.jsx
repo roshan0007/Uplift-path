@@ -1,6 +1,7 @@
 "use client";
 
-import { GetStartedButton } from "@/components/intake/get-started-button";
+import { ApplicationDialog } from "@/components/intake/get-started-button";
+import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "motion/react";
 import React, { useEffect, useState } from "react";
 import { Close } from "relume-icons";
@@ -30,6 +31,7 @@ export function IntakeBar() {
   const [pastTrigger, setPastTrigger] = useState(false);
   const [atFinalCta, setAtFinalCta] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const trigger = document.getElementById("uplift-outcomes");
@@ -66,49 +68,83 @@ export function IntakeBar() {
     };
   }, []);
 
-  const visible = pastTrigger && !atFinalCta && !dismissed;
+  // `!modalOpen` is the important one. Radix blocks pointer events outside an
+  // open dialog, so a bar left on top of the full-screen Application form was
+  // not only wrong to look at - its dismiss button could not be clicked either.
+  const visible = pastTrigger && !atFinalCta && !dismissed && !modalOpen;
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 24 }}
-          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="fixed inset-x-0 bottom-0 z-[900] px-[5%] pb-4 md:pb-6"
-        >
-          <div className="container">
-            <div className="relative flex flex-col items-start gap-3 rounded-card border-2 border-scheme-border bg-scheme-background p-4 pr-11 md:flex-row md:items-center md:justify-between md:gap-8 md:p-6 md:pr-14 scheme-2 btn-dark badge-alt">
-              <div>
-                {/* Kept short deliberately. On a 375px screen this bar covers
+    <>
+      <AnimatePresence>
+        {visible && (
+          <motion.div
+            // Slides its own full height, so it reads as arriving from off the
+            // bottom edge rather than blinking into place. 450ms in on the
+            // brand easing; the exit is quicker because getting out of the way
+            // should not be something you wait for.
+            initial={{ opacity: 0, y: "110%" }}
+            animate={{ opacity: 1, y: "0%" }}
+            exit={{ opacity: 0, y: "110%" }}
+            transition={{
+              duration: 0.45,
+              ease: [0.4, 0, 0.2, 1],
+              opacity: { duration: 0.25 },
+            }}
+            // Below the dialog layer (z-50), not above it. Belt and braces with
+            // `!modalOpen`: any dialog opened from anywhere now covers this bar
+            // rather than the bar floating over it.
+            //
+            // `pointer-events-none` here with `pointer-events-auto` on the panel
+            // below. This wrapper is full-width and carries the page gutter and
+            // the bottom padding, so without it the transparent margin around
+            // the bar swallows clicks along the bottom of the viewport. It also
+            // means that if the exit animation is ever interrupted before
+            // AnimatePresence unmounts the node, what is left behind is inert
+            // rather than an invisible click trap.
+            className="pointer-events-none fixed inset-x-0 bottom-0 z-40 px-[5%] pb-4 md:pb-6"
+          >
+            <div className="pointer-events-auto container">
+              <div className="relative flex flex-col items-start gap-3 rounded-card border-2 border-scheme-border bg-scheme-background p-4 pr-11 md:flex-row md:items-center md:justify-between md:gap-8 md:p-6 md:pr-14 scheme-2 btn-dark badge-alt">
+                <div>
+                  {/* Kept short deliberately. On a 375px screen this bar covers
                     the bottom of the page, so every extra line of copy is
                     screen the visitor cannot read. */}
-                <p className="font-semibold md:text-medium">
-                  Looking for support for yourself?
-                </p>
-                <p className="mt-1 text-small">
-                  Get matched with an Uplift Peer Coach — no cost with active
-                  Ohio Medicaid.
-                </p>
-              </div>
-              <div className="shrink-0">
-                <GetStartedButton label="Get Started" variant="default" />
-              </div>
-              {/* Dismissible on purpose. A bar that follows you down the page
+                  <p className="font-semibold md:text-medium">
+                    Looking for support for yourself?
+                  </p>
+                  <p className="mt-1 text-small">
+                    Get matched with an Uplift Peer Coach — no cost with active
+                    Ohio Medicaid.
+                  </p>
+                </div>
+                <div className="shrink-0">
+                  <Button
+                    title="Get Started"
+                    onClick={() => setModalOpen(true)}
+                  >
+                    Get Started
+                  </Button>
+                </div>
+                {/* Dismissible on purpose. A bar that follows you down the page
                   with no way to close it is the thing people complain about. */}
-              <button
-                type="button"
-                onClick={() => setDismissed(true)}
-                aria-label="Dismiss"
-                className="absolute top-3 right-3 inline-flex opacity-60 transition-opacity duration-200 ease-in-out hover:opacity-100 md:top-1/2 md:right-4 md:-translate-y-1/2"
-              >
-                <Close className="size-6 text-scheme-text" />
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setDismissed(true)}
+                  aria-label="Dismiss"
+                  className="absolute top-3 right-3 inline-flex opacity-60 transition-opacity duration-200 ease-in-out hover:opacity-100 md:top-1/2 md:right-4 md:-translate-y-1/2"
+                >
+                  <Close className="size-6 text-scheme-text" />
+                </button>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Outside the AnimatePresence on purpose. The bar hides itself while the
+          modal is up, and if the Dialog lived inside the bar that exit would
+          unmount the modal the moment it opened. */}
+      <ApplicationDialog open={modalOpen} onOpenChange={setModalOpen} />
+    </>
   );
 }

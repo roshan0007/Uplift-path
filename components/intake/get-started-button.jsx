@@ -48,6 +48,22 @@ export function GetStartedButton({
   );
 }
 
+/**
+ * The same modal, controlled and with no trigger of its own.
+ *
+ * For callers that have to keep the dialog mounted independently of the thing
+ * that opens it. The homepage's sticky intake bar is the case: the bar takes
+ * itself off screen while the modal is up, and if the Dialog lived inside the
+ * bar the bar's own exit would unmount the modal it had just opened.
+ */
+export function ApplicationDialog({ open, onOpenChange }) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <ApplicationDialogContent />
+    </Dialog>
+  );
+}
+
 // Module scope, not inline in the JSX below: a component defined during render
 // is a brand-new type every render and would remount the whole subtree — the
 // same bug the navbar's ConditionalRenderedCard comment documents.

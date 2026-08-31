@@ -1,8 +1,8 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { motion } from "motion/react";
-import React from "react";
+import { AnimatePresence, motion } from "motion/react";
+import React, { useEffect, useState } from "react";
 import { ChevronRight, KeyboardArrowDown } from "relume-icons";
 
 /**
@@ -82,10 +82,14 @@ export function Header104() {
             cue the two cards read as the whole page. It is a real control, not
             decoration: it scrolls to the next section.
 
-            Static, not animated. A bouncing or pulsing arrow is the usual
-            treatment and this brand does not bounce, spring or scale anything —
-            the only movement it gets is the standard link hover, which reduces
-            opacity. */}
+            It retires as soon as the CARF strip below is on screen. The arrow
+            only ever had one thing to say - "there is more below" - and once
+            the visitor can see there is, leaving it up is just an arrow
+            pointing at something they are already looking at.
+
+            No bounce and no pulse. That is the usual treatment for a scroll
+            cue and this brand does not bounce, spring or scale anything; it
+            gets a fade and the standard link hover instead. */}
         <ScrollCue />
       </div>
     </section>
@@ -93,8 +97,20 @@ export function Header104() {
 }
 
 function ScrollCue() {
-  const handleClick = (event) => {
-    event.preventDefault();
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const carf = document.getElementById("carf-trust-strip");
+    if (!carf) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(carf);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = () => {
     const next = document.getElementById("uplift-pathways");
     if (!next) return;
     // `scrollIntoView` rather than a hash link: a hash would push a URL nobody
@@ -108,15 +124,26 @@ function ScrollCue() {
   };
 
   return (
-    <div className="mt-10 flex justify-center md:mt-12">
-      <button
-        type="button"
-        onClick={handleClick}
-        aria-label="See what we do"
-        className="inline-flex size-10 items-center justify-center opacity-60 transition-opacity duration-200 ease-in-out hover:opacity-100"
-      >
-        <KeyboardArrowDown className="size-8 text-scheme-text" />
-      </button>
+    // The row keeps its height whether or not the arrow is in it, so retiring
+    // the cue does not shift the cards above it up the page.
+    <div className="mt-10 flex h-10 justify-center md:mt-12">
+      <AnimatePresence>
+        {visible && (
+          <motion.button
+            type="button"
+            onClick={handleClick}
+            aria-label="See what we do"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            exit={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="inline-flex size-10 items-center justify-center"
+          >
+            <KeyboardArrowDown className="size-8 text-scheme-text" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
