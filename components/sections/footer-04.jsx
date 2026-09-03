@@ -4,9 +4,33 @@ import { CARF_PROVIDER_URL, CarfSeal } from "@/components/brand/carf-seal";
 import React from "react";
 import { LinkedinLogo } from "relume-icons";
 
+/**
+ * Green as of the 2026-09 Figma, which moves the brand green off the homepage
+ * CTA banner and onto the footer — so every page now ends on one green band
+ * instead of two. This is site chrome, so the change lands on every route at
+ * once; that is intended, not a homepage side effect.
+ *
+ * TEXT COLOUR IS A DELIBERATE DEPARTURE FROM THE FIGMA. The Figma sets white
+ * text on this fill. Measured, that is 1.96:1 — it fails WCAG AA for both
+ * normal and large text, and CLAUDE.md names dark-on-green as the only
+ * approved pairing for `caribbean-green`. So the fill is the Figma's green and
+ * the text is the dark neutral, which measures 10.21:1.
+ *
+ * If white text is genuinely wanted here, the fix is the fill rather than the
+ * label: swap `scheme-accent` for `scheme-deep-teal` (caribbean-green-darker,
+ * #035342), which carries white at 9.05:1 and is a real brand scheme —
+ * DESIGN.md's scheme 7, just unused by the export until now. Do not pair white
+ * with `scheme-accent`.
+ *
+ * ASSET SLOT — the Figma has a torn-paper top edge where the white page meets
+ * the green. It is a hand-drawn shape and is not in `public/svgs/` yet, so this
+ * footer currently meets the page on a straight edge. When the asset lands it
+ * belongs as a full-bleed element pinned to this footer's top edge, not as a
+ * background-image (it has to sit above the fill and below the content).
+ */
 export function Footer4() {
   return (
-    <footer className="px-[5%] py-12 md:py-18 lg:py-20 scheme-1 badge-alt">
+    <footer className="px-[5%] py-12 md:py-18 lg:py-20 scheme-accent badge-alt">
       <div className="container">
         {/* Alignment, not redesign. Three fixes to the top row:
 
