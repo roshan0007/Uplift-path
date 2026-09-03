@@ -12,12 +12,12 @@ Individual frames) are **not** done. Only the shared footer moved on them.
 |---|---|---|
 | Hero | `header-104.jsx` | New h1 with an italic clause; new sub-copy; "Where would you like to start?" moved below the cards |
 | Trust strip | `trust-strip.jsx` | Untouched |
-| Three steps | `layout-423.jsx` | **Restructured.** Three image cards → two-column text layout |
+| Three steps | `layout-423.jsx` | **Restructured.** Three image cards → three-column text layout with the lightbulb figure |
 | What Actually Changes | `layout-237.jsx` | Heading + sub-copy only; the three items were already correct |
 | Who We Work With | `layout-254.jsx` | Heading + sub-copy + all four item bodies; real alt text |
 | Testimonial | `testimonial-10.jsx` | **Untouched — see Open question below** |
 | FAQ | `faq-01.jsx` | All four Q&As replaced; refactored to a data array |
-| CTA | `cta-25.jsx` | Green → white, centred → left-aligned |
+| CTA | `cta-25.jsx` | Green → white, centred → left-aligned, envelope illustration added |
 | Footer | `footer-04.jsx` | Light → green. **Cross-site.** |
 
 ### `layout-423` lost three placeholder images
@@ -78,34 +78,83 @@ carries `.font-heading-italic`.
   `0-3-0` that beats it, painting black text on the black fill. This re-points
   the token that rule reads instead of fighting specificity.
 
-## Pending — the assets pass
+## Assets — done
 
-Nine line-art pieces are in the Figma and in neither `public/images/`,
-`public/svgs/` nor the design system's `assets/images/`. Every insertion point
-is marked `ASSET SLOT` in a comment giving the exact markup.
+All nine illustrations are in `public/images/`, renamed from Figma's layer names
+(`Rectangle 1.png`, `7.png`, `9833802_27050 1.png`) to match the existing
+convention:
 
-| # | Asset | Goes in |
-|---|---|---|
-| 1 | Hands passing an envelope | `header-104.jsx` — hero, top-left, bleeding |
-| 2 | Hands holding a wrapped gift | `header-104.jsx` — hero, top-right |
-| 3 | Hand holding a heart | `layout-423.jsx` |
-| 4 | Standing figure, lightbulb head | `layout-423.jsx` — centre column |
-| 5 | Two teal sparkle clusters | `layout-423.jsx` |
-| 6 | Two hands holding flowers | `layout-237.jsx` — above the heading |
-| 7 | Starburst mark | `layout-254.jsx` — above the heading |
-| 8 | Opened envelope, pen, sparkles | `cta-25.jsx` — right half |
-| 9 | Torn-paper top edge | `footer-04.jsx` — full-bleed at the top edge |
+| Figma export | In repo |
+|---|---|
+| `Rectangle 1.png` | `home-hero-hands-envelope.png` |
+| `Rectangle 2.png` | `home-hero-hands-gift.png` |
+| `Rectangle 5.png` | `home-steps-hand-heart.png` |
+| `7.png` | `home-steps-lightbulb.png` |
+| `hand-drawn-sparkling-star-collection 2.png` | `home-steps-sparkle-a.png` |
+| `hand-drawn-sparkling-star-collection 3.png` | `home-steps-sparkle-b.png` |
+| `Rectangle 3.png` | `home-changes-hands-flowers.png` |
+| `hand-drawn-sparkling-star-collection 4.png` | `home-audience-starburst.png` |
+| `Screenshot 2026-08-27 170613 1.png` | `home-cta-envelope.png` |
+| `9833802_27050 1.png` | `footer-torn-edge.png` (processed — see below) |
 
-Plus `playfair-display-italic-400.woff2` for `public/fonts/`.
+### Geometry was measured, not eyeballed
 
-Two layouts are deliberately one column short until their asset lands, because
-an empty grid track between two text columns reads as a missing section rather
-than as space:
+The batch exported at 2x, so each asset's native size ÷ 2 is its true size on
+the 1440 canvas. Positions were found by correlating each asset's silhouette
+against the 2x page export. Every element is now within 11px horizontally and
+0px vertically of the Figma; the residual 9–11px is the browser scrollbar,
+which the Figma canvas does not have.
 
-- `layout-423` is `lg:grid-cols-2`; the Figma is `1fr 1.1fr 1fr`.
-- `cta-25` has no grid; the Figma is two columns.
+Three findings that a by-eye pass would have got wrong:
 
-Both comments say exactly what to change.
+- The middle column of `layout-423` is the **narrowest** of the three
+  (~413 / 342 / 371), not the widest. The grid is `1.1fr 0.9fr 1fr`.
+- The lightbulb figure is **right-aligned in its track and 84px above the row's
+  vertical centre**, not centred in either axis. The lift is a `translate`: a
+  negative margin shortens the `items-center` row and drags the heading 42px
+  with it.
+- The heart and both sparkles **belong to no column**. They are anchored to the
+  section at percentages of the 1440 canvas (10%, 21.7%, 72.9%), and
+  `lg:pt-56` on the section buys the top room the Figma gives them so they do
+  not reach up into the CARF strip.
+
+### The footer asset was a watermarked stock preview
+
+`9833802_27050 1.png` had **"Torn Paper"** set in large white serif over a Lorem
+ipsum paragraph, baked into the pixels from y≈260 down. The top 250px were
+clean, so the file is cropped to those and every opaque pixel recoloured to
+`--color-caribbean-green`, discarding the stock file's own green (which was not
+a brand colour).
+
+**This needs a licensing check.** The filename is a stock-library ID pattern and
+the source was a preview render. If the project has a license, drop the clean
+download in at `public/images/footer-torn-edge.png` and neither the crop nor the
+recolour is needed. If it does not, this asset should be replaced.
+
+### Icon colours came from the file, not a guess
+
+The seven section icons are Material Symbols masked to `currentColor` (see
+`components/ui/symbol-icon.jsx`). Sampling the page export gave two exact brand
+tokens, confirmed against the user's own icon PNGs:
+
+- **first icon in each section** → `--color-caribbean-green-dark` `#06a785`
+- **every other icon** → `--color-viking-dark` `#41b19a`
+
+That one-of-four asymmetry repeats identically in both sections. It is
+reproduced as-is since both are brand tokens, but it looks like copy-paste
+drift rather than intent — worth confirming.
+
+## Still outstanding
+
+- **`playfair-display-italic-400.woff2`.** Five headings set an italic clause
+  and no italic face is self-hosted, so they render as a synthesised slant. Drop
+  the file into `public/fonts/` and uncomment block `[6]` in `globals.css`.
+- **The "Who We Work With" centre image.** The 2x page export has the speech-
+  bubble line illustration, which is what is in place
+  (`home-benefits-section.png`). A later screenshot of the live Figma showed a
+  **photograph** there instead, so the design moved after the export. If the
+  photo is current, it needs supplying — and it is a real person, so it also
+  needs a release.
 
 ## Open question — the testimonial
 

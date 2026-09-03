@@ -22,16 +22,34 @@ import { LinkedinLogo } from "relume-icons";
  * DESIGN.md's scheme 7, just unused by the export until now. Do not pair white
  * with `scheme-accent`.
  *
- * ASSET SLOT — the Figma has a torn-paper top edge where the white page meets
- * the green. It is a hand-drawn shape and is not in `public/svgs/` yet, so this
- * footer currently meets the page on a straight edge. When the asset lands it
- * belongs as a full-bleed element pinned to this footer's top edge, not as a
- * background-image (it has to sit above the fill and below the content).
+ * The torn top edge is `/images/footer-torn-edge.png`, pinned above this
+ * footer's own straight top edge. Both are the same green, so the straight
+ * edge becomes invisible and the ragged one is the boundary the visitor sees.
+ *
+ * Two things about that file worth knowing before anyone replaces it. The
+ * source Figma asset was a stock *preview* — "Torn Paper" set in large white
+ * serif over a Lorem ipsum paragraph, baked into the pixels from y≈260 down.
+ * Only the top 250px were clean, so it is cropped to those, and every opaque
+ * pixel was recoloured to `--color-caribbean-green` so the stock file's own
+ * green (which was not a brand colour) is gone. If a properly licensed clean
+ * version turns up, drop it in at the same path and the crop and recolour
+ * become unnecessary.
  */
 export function Footer4() {
   return (
-    <footer className="px-[5%] py-12 md:py-18 lg:py-20 scheme-accent badge-alt">
-      <div className="container">
+    <footer className="relative px-[5%] py-12 md:py-18 lg:py-20 scheme-accent badge-alt">
+      {/* `bottom-full` puts the strip immediately above the footer, so its
+          straight bottom butts against the footer's straight top and its
+          ragged top eats into the white section above. Decorative, and
+          `pointer-events-none` so it cannot intercept a click on whatever
+          section it overlaps. */}
+      <img
+        src="/images/footer-torn-edge.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-full block w-full select-none"
+      />
+      <div className="relative container">
         {/* Alignment, not redesign. Three fixes to the top row:
 
             1. `items-center` on the row, so all three columns share one optical

@@ -42,16 +42,44 @@ export function Layout423() {
     // `id` is the hero scroll cue's destination.
     <section
       id="uplift-pathways"
-      className="scroll-mt-20 px-[5%] pt-10 pb-16 md:pt-12 md:pb-24 lg:pt-14 lg:pb-28 scheme-1 badge-alt"
+      className="relative scroll-mt-20 px-[5%] pt-10 pb-16 md:pt-12 md:pb-24 lg:pt-56 lg:pb-28 scheme-1 badge-alt"
     >
-      <div className="container">
-        {/* Two columns for now, three in the Figma: heading, illustration,
-            steps. The middle illustration column is deliberately NOT rendered
-            as an empty track — a 1.1fr hole between the two text columns reads
-            as a missing section, which is the same trap the TrustStrip comment
-            warns about. So this is `lg:grid-cols-2` until the asset arrives,
-            and the ASSET SLOT note below says exactly what to change. */}
-        <div className="grid grid-cols-1 items-center gap-x-8 gap-y-12 lg:grid-cols-2 lg:gap-x-16">
+      {/* Three loose decoratives — the heart, and two sparkle clusters. They
+          are anchored to the section rather than nested in the grid columns,
+          because in the Figma they do not belong to any column: the heart and
+          one sparkle straddle the heading, and the other sparkle sits above
+          the steps list.
+
+          `left` is a percentage of the Figma's own 1440 canvas (144px, 312px
+          and 1050px), so they hold their relationship to the composition as
+          the viewport widens instead of drifting with a grid track. Vertical
+          offsets are measured from the same export, relative to the heading —
+          which is what `lg:pt-56` above is for: it buys the top room the Figma
+          gives them, so the heart and the upper sparkle sit inside this
+          section instead of reaching up into the CARF strip.
+
+          All three are decorative and lg-only: under 1024px there is no room
+          beside the text and they would land on top of it. */}
+      <img
+        src="/images/home-steps-hand-heart.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute top-8 left-[10%] hidden w-[161px] select-none lg:block"
+      />
+      <img
+        src="/images/home-steps-sparkle-b.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-7 left-[72.9%] hidden w-[113px] select-none lg:block"
+      />
+      <img
+        src="/images/home-steps-sparkle-a.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[155px] left-[21.7%] hidden w-[113px] select-none lg:block"
+      />
+      <div className="relative container">
+        <div className="grid grid-cols-1 items-center gap-x-8 gap-y-12 lg:grid-cols-[1.1fr_0.9fr_1fr] lg:gap-x-12">
           {/* Left-aligned, not centred — this is the one section heading in the
               page that is not centred, and it is deliberate in the Figma. */}
           <div className="max-w-md">
@@ -65,24 +93,31 @@ export function Layout423() {
             </p>
           </div>
 
-          {/* ASSET SLOT — centre illustration.
+          {/* `order-last` so a phone gets the heading and the three steps before
+              the decoration — the illustration is the least useful thing on a
+              small screen, and putting it second would push the steps below the
+              fold. It returns to the middle column from lg up.
 
-              The Figma has the standing figure with the lightbulb head between
-              the two text columns, plus a small teal sparkle cluster
-              above-right and another below-left. None of the three exist in
-              `public/images/` or the design system's `assets/images/` yet.
+              Two corrections to what a plain centred grid cell would do, both
+              measured off the Figma export: the figure sits at the right edge
+              of its track rather than centred in it (`lg:ml-auto lg:mr-0`),
+              and 84px higher than the row's vertical centre, because in the
+              Figma it starts above the heading beside it rather than aligning
+              to it.
 
-              To restore the Figma's three-column layout, change the grid above
-              to `lg:grid-cols-[1fr_1.1fr_1fr] lg:gap-x-12` and insert here:
-
-                <div className="order-last lg:order-none">
-                  <img src="/svgs/home-steps-lightbulb.svg" alt="" aria-hidden="true"
-                       className="mx-auto h-auto w-full max-w-sm" />
-                </div>
-
-              `order-last` so a phone gets both text columns before the
-              decoration. Decorative, so `alt=""` and `aria-hidden` — the three
-              steps beside it already carry the meaning. */}
+              That lift is a `translate`, not a negative margin. A margin here
+              shortens the grid row, and because the row is `items-center` that
+              moves the heading too — it dragged the whole composition 42px out
+              of place. `translate` paints the figure elsewhere without
+              touching layout, so nothing else shifts. */}
+          <div className="order-last lg:order-none">
+            <img
+              src="/images/home-steps-lightbulb.png"
+              alt=""
+              aria-hidden="true"
+              className="mx-auto h-auto w-full max-w-[204px] select-none lg:mr-0 lg:ml-auto lg:-translate-y-[84px]"
+            />
+          </div>
 
           <ol className="flex flex-col gap-6 md:gap-8">
             {STEPS.map((step) => (

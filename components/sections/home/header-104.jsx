@@ -31,8 +31,42 @@ const AUDIENCES = [
 
 export function Header104() {
   return (
-    <section className="relative px-[5%] py-12 md:py-16 lg:py-16 scheme-1 badge-alt">
-      <div className="container text-center">
+    <section className="relative overflow-hidden px-[5%] py-12 md:py-16 lg:pt-60 lg:pb-16 scheme-1 badge-alt">
+      {/* The two hand illustrations frame the heading from the top corners.
+          Sizes and offsets are measured off the 2x Figma export rather than
+          eyeballed: 474x238 flush to the left edge, 276x447 flush to the right,
+          both starting level with the top of this section. The assets carry
+          their own transparent margin, which is what keeps them from touching
+          the viewport edge even at `left-0` / `right-0`.
+
+          `overflow-hidden` is belt-and-braces — at these widths neither
+          overhangs, but a wider asset dropped in later would otherwise push
+          `document.scrollWidth` past the window and give the whole site a
+          horizontal scrollbar.
+
+          `lg:pt-60` on the section is what clears them: the Figma puts the h1
+          247px below the navbar so the art gets the top band to itself. Without
+          it the heading rides up into the illustrations.
+
+          Hidden below lg. At tablet width and under they collide with the
+          heading instead of framing it, and they carry no information — the
+          headline and the two cards are the section.
+
+          Decorative: `alt=""` and aria-hidden, and `pointer-events-none` so
+          they never swallow a click meant for the cards. */}
+      <img
+        src="/images/home-hero-hands-envelope.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-0 hidden w-[474px] select-none lg:block"
+      />
+      <img
+        src="/images/home-hero-hands-gift.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-1.5 right-0 hidden w-[276px] select-none lg:block"
+      />
+      <div className="relative container text-center">
         {/* Two lines by design, not by wrapping: the break after "Life" is in
             the Figma and holds at every width, so it is a <span> rather than a
             max-width left to chance. "Serve" is the italic. */}

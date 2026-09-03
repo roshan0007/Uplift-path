@@ -33,13 +33,7 @@ export function Cta25() {
       className="scroll-mt-20 px-[5%] py-16 md:py-24 lg:py-28 scheme-1 btn-dark btn-dark-on-light badge-alt"
     >
       <div className="container">
-        {/* Single column for now. The Figma is two — copy left, envelope right
-            — but `lg:grid-cols-2` with nothing in the second cell would pin
-            the copy into a half-width track and leave the right half blank,
-            which looks like a load failure rather than a layout. See the ASSET
-            SLOT note below for the two-line change once the illustration
-            exists. */}
-        <div>
+        <div className="grid grid-cols-1 items-center gap-x-12 gap-y-10 lg:grid-cols-2">
           <div className="max-w-md">
             {/* Two lines in the Figma, and the break is meaningful — "Ready to
                 unlock" / "Your growth plan" — so it is a <span> rather than
@@ -59,19 +53,15 @@ export function Cta25() {
             </div>
           </div>
 
-          {/* ASSET SLOT — the opened envelope with the pen and sparkles sits
-              here in the Figma, filling the right half. It is not in
-              `public/images/`, `public/svgs/` or the design system's
-              `assets/images/` yet.
-
-              When it lands, put the grid back on the wrapper above:
-                className="grid grid-cols-1 items-center gap-x-12 gap-y-10 lg:grid-cols-2"
-              and add this as its second child:
-                <img src="/svgs/home-cta-envelope.svg" alt="" aria-hidden="true"
-                     className="h-auto w-full max-w-md justify-self-end" />
-
-              Decorative — the heading and button carry the meaning, so `alt=""`
-              and `aria-hidden`. */}
+          {/* Decorative — the heading and the button carry the meaning, so no
+              alt text. `justify-self-end` pins it to the right of the section
+              as the Figma has it; on one column it centres instead. */}
+          <img
+            src="/images/home-cta-envelope.png"
+            alt=""
+            aria-hidden="true"
+            className="mx-auto h-auto w-full max-w-[462px] select-none lg:mx-0 lg:justify-self-end"
+          />
         </div>
       </div>
     </section>

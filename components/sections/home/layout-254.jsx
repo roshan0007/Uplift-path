@@ -1,5 +1,6 @@
 "use client";
 
+import { SymbolIcon } from "@/components/ui/symbol-icon";
 import React from "react";
 
 export function Layout254() {
@@ -8,6 +9,13 @@ export function Layout254() {
       <div className="container">
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
+            {/* Starburst cluster, centred above the heading. Decorative. */}
+            <img
+              src="/images/home-audience-starburst.png"
+              alt=""
+              aria-hidden="true"
+              className="mx-auto mb-4 h-auto w-full max-w-[132px] select-none"
+            />
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Who <em className="font-heading-italic">We Work</em> With
             </h2>
@@ -21,9 +29,9 @@ export function Layout254() {
           <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/psychology_alt.svg"
+                <SymbolIcon
+                  name="psychology_alt"
+                  className="size-12 text-caribbean-green-dark"
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">
@@ -37,9 +45,9 @@ export function Layout254() {
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/work.svg"
+                <SymbolIcon
+                  name="work"
+                  className="size-12 text-viking-dark"
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">
@@ -62,9 +70,9 @@ export function Layout254() {
           <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/edit.svg"
+                <SymbolIcon
+                  name="edit"
+                  className="size-12 text-viking-dark"
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">
@@ -77,9 +85,9 @@ export function Layout254() {
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/partner_reports.svg"
+                <SymbolIcon
+                  name="partner_reports"
+                  className="size-12 text-viking-dark"
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">
