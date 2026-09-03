@@ -10,7 +10,7 @@ Individual frames) are **not** done. Only the shared footer moved on them.
 
 | Section | Component | Change |
 |---|---|---|
-| Hero | `header-104.jsx` | New h1 with an italic clause; new sub-copy; "Where would you like to start?" moved below the cards |
+| Hero | `header-104.jsx` | New h1 with an italic clause; "Where would you like to start?" moved below the cards; framing illustrations. Sub-copy **kept as it was** — see below |
 | Trust strip | `trust-strip.jsx` | Untouched |
 | Three steps | `layout-423.jsx` | **Restructured.** Three image cards → three-column text layout with the lightbulb figure |
 | What Actually Changes | `layout-237.jsx` | Heading + sub-copy only; the three items were already correct |
@@ -18,7 +18,8 @@ Individual frames) are **not** done. Only the shared footer moved on them.
 | Testimonial | `testimonial-10.jsx` | **Untouched — see Open question below** |
 | FAQ | `faq-01.jsx` | All four Q&As replaced; refactored to a data array |
 | CTA | `cta-25.jsx` | Green → white, centred → left-aligned, envelope illustration added |
-| Footer | `footer-04.jsx` | Light → green. **Cross-site.** |
+| Navbar | `navbar-12.jsx` | "How We Work" added between About and Uplift Services. **Cross-site.** |
+| Footer | `footer-04.jsx` | Rebuilt as two bands: white logo lockup, torn edge, green nav + legal. **Cross-site.** |
 
 ### `layout-423` lost three placeholder images
 
@@ -41,21 +42,81 @@ sticky `IntakeBar`. The Figma puts the CTA on white and the footer on green.
 `IntakeBar` still hides itself when `#home-cta` is reached — that behaviour was
 about not covering the final call to action, not about the colour, so it stays.
 
+### The navbar was missing an item
+
+The Figma navbar reads **Home · About · How We Work · Uplift Services · Careers**.
+The code had it without "How We Work", so `/how-we-work` was reachable from the
+footer alone — and more so after the Figma redesign, which drops the three
+`/how-we-work` links the old three-step cards carried.
+
+`CLAUDE.md` had recorded the design system's own reference homepage as having
+drifted from the code on account of an "extra nav item". That was this item,
+and the reference was right. Worth correcting that note.
+
+### The footer is two bands, not one
+
+Rebuilt to the Figma rather than just recoloured:
+
+- the **logo and CARF seal moved out of the green** into a white band above the
+  tear, centred — which is also the better place for an accreditation mark,
+  since it reads against the page rather than against a brand-coloured field;
+- the "CARF accredited" text label beside the seal is gone, per the Figma;
+- the nav row is **centred** with LinkedIn positioned out at the right, rather
+  than sitting in a three-track grid;
+- the divider is **narrow and centred** (454px), not full-bleed;
+- the torn edge is **two-tone**. The Figma has a darker green shadow under the
+  tear; the first pass flattened the source's two greens into one and lost that
+  depth. They now map to `caribbean-green` and `caribbean-green-dark`.
+
+Measured against the export: divider within **1px**, nav and legal rows within
+**9px**.
+
+This is the one file carrying two scheme classes. The intent behind
+one-scheme-per-section still holds — the white band is `scheme-1` throughout,
+the green band `scheme-accent` throughout. They are two regions sharing a
+`<footer>`, not one region with two minds.
+
+### The hero sub-copy was reverted
+
+The Figma sets it to "Uplift Path helps individuals find whole-person support
+and helps organizations build stronger programs. CARF accredited. Based in
+Columbus, Ohio." That was built, then reverted on request to the previous line
+("Unlock progress and meaningful growth…"). The CARF claim it carried is in any
+case made properly by the trust strip directly below, where the seal links to
+CARF's provider listing as proof.
+
+### One asset carried a stray fragment
+
+`home-hero-hands-gift.png` came out of Figma with a **detached plant sprout** in
+its lower-left corner — a neighbouring layer caught inside the export bounds.
+It is not in the design. Removed by connected-component analysis rather than a
+blind crop, so the canvas stays 552×894 and the measured geometry still holds.
+Worth checking the other eight for the same thing if they are ever re-exported.
+
 ## Deliberate departures from the Figma
 
 Two, both flagged rather than silently applied.
 
-**1. Footer text is dark, not white.** The Figma sets white text on the green
-footer. Measured against `--color-caribbean-green` (#08d1a7) that is **1.96:1**
-— it fails WCAG AA for normal *and* large text, and `CLAUDE.md` names
-dark-on-green as the only approved pairing. The fill is the Figma's green; the
-text is the dark neutral, at **10.21:1**.
+**1. Footer text is dark, not white.** The Figma sets white text on the green.
+Measured against every green in the brand, white fails WCAG AA for body text at
+this size:
 
-If white text is genuinely wanted, fix the fill and not the label: swap
-`scheme-accent` for `scheme-deep-teal` (`--color-caribbean-green-darker`,
-#035342), which carries white at **9.05:1**. It is a real brand scheme —
-DESIGN.md's scheme 7, unused by the export until now. Never pair white with
-`scheme-accent`.
+| fill | white on it |
+|---|---|
+| `caribbean-green` `#08d1a7` | **1.96:1** |
+| `caribbean-green-dark` `#06a785` | **3.06:1** |
+| `viking-dark` `#41b19a` | **2.63:1** |
+| the Figma's own green `~#1db35a` | **2.75:1** |
+
+`CLAUDE.md` names dark-on-green as the only approved pairing, and the brief was
+to follow the brand guidelines where the Figma's colours disagree. So the fill
+is the brand green and the text is the dark neutral, at **10.21:1**.
+
+If white text is wanted, the fix is the fill and not the label: swap
+`scheme-accent` for `scheme-deep-teal` on the green band
+(`caribbean-green-darker` `#035342`), which carries white at **9.05:1** and is a
+real brand scheme — DESIGN.md's scheme 7. The torn edge would want re-toning to
+match. Never pair white with `scheme-accent`.
 
 **2. The italic headings are synthesised.** Five headings now set an italic
 clause. No italic Playfair Display face is self-hosted — every `@font-face` in

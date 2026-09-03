@@ -204,6 +204,24 @@ export function Navbar12() {
             >
               About
             </a>
+            {/* "How We Work" is in the 2026-09 Figma navbar, between About and
+                Uplift Services, and was missing from the export's nav.
+
+                CLAUDE.md had recorded the design system's own reference
+                homepage as having drifted from the code on account of an
+                "extra nav item" — this was that item, and the reference was
+                right. Worth correcting there too.
+
+                It also matters more than it used to: the homepage's three-step
+                section used to link to /how-we-work from each of its cards,
+                and the Figma redesign drops those links. Without this the
+                route is reachable from the footer alone. */}
+            <a
+              href="/how-we-work"
+              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
+            >
+              How We Work
+            </a>
             <div
               onMouseEnter={useActive.openOnDesktopDropdownMenu}
               onMouseLeave={useActive.closeOnDesktopDropdownMenu}

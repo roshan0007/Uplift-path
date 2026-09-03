@@ -76,11 +76,16 @@ export function Header104() {
             We <em className="font-heading-italic">Serve</em>
           </span>
         </h1>
+        {/* Kept as it was, against the Figma. The Figma sets this to "Uplift
+            Path helps individuals find whole-person support and helps
+            organizations build stronger programs. CARF accredited. Based in
+            Columbus, Ohio." — that was tried and reverted: it reads as a
+            pitch rather than as the hero's own line, and the CARF claim it
+            carried is already made properly by the TrustStrip directly below,
+            where the seal links to CARF's provider listing as proof. */}
         <p className="mx-auto max-w-lg text-medium">
-          Uplift Path helps individuals find whole-person support and helps
-          organizations build stronger programs.{" "}
-          <strong className="font-semibold">CARF accredited.</strong> Based in
-          Columbus, Ohio.
+          Unlock progress and meaningful growth through clarity, collaboration
+          and trusted guidance at every step.
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
