@@ -57,14 +57,25 @@ export function Footer4() {
           In the Figma the logo and the CARF seal sit above the tear on the
           white page rather than inside the green — which is also the more
           honest place for the accreditation mark, since it reads against the
-          page instead of against a brand-coloured field. */}
-      <div className="px-[5%] pt-12 pb-16 md:pt-18 md:pb-20 lg:pt-20 lg:pb-24">
-        <div className="container flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          page instead of against a brand-coloured field.
+
+          The bottom padding is a calc, not a step on the spacing scale,
+          because it has to clear the torn edge and the torn edge scales with
+          the viewport. That asset is 2880x250 drawn at the full band width, so
+          its rendered height is always width * 250/2880 = 8.68vw — 124px at
+          1440, 167px at 1920. A fixed `pb-24` (96px) was less than the tear
+          at every width above ~1100px, which is why the tear was riding up
+          over the wordmark and clipping "PATH".
+
+          The +2.5rem is the 40px the Figma leaves between the bottom of the
+          lockup and the highest point of the tear. */}
+      <div className="px-[5%] pt-12 pb-[calc(8.7vw+2.5rem)] md:pt-18 lg:pt-20">
+        <div className="container flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
           <a href="/" className="inline-flex items-center">
             <img
               src="/brand/uplift-path-logo.svg"
               alt="Uplift Path"
-              className="h-11 w-auto"
+              className="h-15 w-auto"
             />
           </a>
           {/* The seal travels with the brand on every page. Third-party
