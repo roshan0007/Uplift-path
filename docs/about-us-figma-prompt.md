@@ -84,26 +84,44 @@ sample the export for the exact token — the homepage used
 `caribbean-green-dark #06a785` and `viking-dark #41b19a`, so check rather than
 assume.
 
-## What is missing — ask, don't invent
+## Nothing is missing
 
-- **The three team headshots** (Julia Gilliam, Devyani Balladin, Martha
-  Matthews). Not supplied. The page cannot be finished without them.
-- **The Board of Advisory photo** (Regina Wooten appears with a portrait).
-- **`playfair-display-italic-400.woff2`** — still outstanding from the
-  homepage pass. Any italic heading clause renders as a synthesised slant until
-  it lands. See marker `[6]` in `globals.css`.
+Checked: the three supplied assets are the **entire** delta between the current
+page and the Figma. Everything else the design shows is already in the repo.
+
+- The three officer headshots are wired up in `team-06.jsx` as
+  `about-us-award-logos-list-section-0/1/2.jpg` — a Relume filename repurposed,
+  but the right images. Verified pixel-wise against the export.
+- The four Board of Advisory portraits are in `layout-507.jsx` as
+  `about-us-feature-section-new-0..3`.
+- All seven names, roles and biographies are already in those two components.
+
+So this is a decoration-and-copy pass, not an asset hunt. Diff the strips
+against each component and change only what moved.
+
+One thing still outstanding from the homepage pass:
+**`playfair-display-italic-400.woff2`**. Any italic heading clause renders as a
+synthesised slant until it lands — see marker `[6]` in `globals.css`.
 
 ## Raise these before building — they are not yours to decide
 
-**1. The three team headshots look AI-generated.** Uniform grey studio backdrops,
-very smooth symmetric faces, identical framing and wardrobe. They are captioned
-with real names, real job titles (Chief Compliance Officer, Chief Operating
-Officer, Chief Risk Officer) and detailed biographies. Publishing generated
-faces as a named leadership team on a CARF-accredited behavioral-health site is
-a misrepresentation problem, not a design preference. **Flag it and get an
-answer before wiring them in.** There is precedent in this repo: the homepage
-testimonial was left untouched for the same reason — see the "Open question" in
+**1. The team headshots read as AI-generated** — uniform grey backdrops, very
+smooth symmetric faces, identical framing and wardrobe. They are captioned with
+real names, real C-suite titles and detailed biographies.
+
+Note these are **already live**, so this is not a blocker on your work and you
+should not remove them. But it is worth putting in front of the user once:
+generated faces standing in for a named leadership team on a CARF-accredited
+behavioral-health site is a misrepresentation risk. Raise it, take the answer,
+move on. There is precedent for flagging rather than deciding — the homepage
+testimonial was left untouched for a related reason; see the "Open question" in
 `docs/figma-homepage-2026-09.md` and the comment at `testimonial-10.jsx:6`.
+
+**1b. The Board of Advisory portraits carry `alt="Relume placeholder image"`.**
+Four of them, in `layout-507.jsx`. These are photographs of named real people
+and the alt text is export boilerplate — a genuine accessibility defect, and
+cheap to fix while you are in the file. The homepage pass fixed the same thing
+on `layout-254.jsx`.
 
 **2. Each team member carries LinkedIn, X and Dribbble icons.** Dribbble for a
 behavioral-health COO is Relume boilerplate, and these almost certainly point at
