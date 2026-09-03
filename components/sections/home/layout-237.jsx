@@ -10,11 +10,12 @@ export function Layout237() {
         <div className="flex flex-col items-center">
           <div className="mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              Uplift Outcomes Across Your Organization
+              What Actually{" "}
+              <em className="font-heading-italic">Changes</em>
             </h2>
             <p className="text-medium">
-              Strategy, systems and growth work as one set of practices, so change
-              reaches the programs, the processes, and the people behind them.
+              Strategy, systems and people move together. A plan that never
+              reaches the day-to-day isn't a plan.
             </p>
           </div>
           <div className="grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12">

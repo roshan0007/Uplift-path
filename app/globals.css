@@ -5,7 +5,8 @@
    `.claude/skills/uplift-path-design/design-export/globals.original.css`.
    Four changes were needed to make it compile, resolve, and not break layout
    under Tailwind 4.x; they are marked [1] [2] [3] [4] below. [5] is a single
-   added keyframe that is not in the export at all. Everything else is
+   added keyframe that is not in the export at all, and [6] is the Playfair
+   Display italic face the 2026-09 Figma introduced. Everything else is
    the export verbatim - do not hand-edit the token values, they are the design
    system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
@@ -84,6 +85,29 @@
   font-display: swap;
   src: url("/fonts/playfair-display-700.woff2") format("woff2");
 }
+
+/* [6] Playfair Display Italic — the 2026-09 Figma sets several section headings
+   with an italic clause ("We *Serve*", "What Actually *Changes*", "Who *We
+   Work* With", "know *which one you're on.*").
+
+   The italic face is NOT self-hosted yet: every block above is
+   `font-style: normal`, so `font-style: italic` currently gets a *synthesised*
+   italic — the browser mechanically slants the roman. On a high-contrast
+   didone like Playfair that reads visibly wrong, because the true italic has
+   different letterforms (single-storey a, calligraphic e), not just a slant.
+
+   To fix, drop `playfair-display-italic-400.woff2` into `public/fonts/` and
+   uncomment the block below. Nothing else changes — `.font-heading-italic`
+   already carries the markup at every call site.
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/playfair-display-italic-400.woff2") format("woff2");
+}
+*/
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -687,4 +711,37 @@
   & img[src*="logo" i] {
     filter: brightness(0) invert(1);
   }
+}
+
+/* `.btn-dark` on a light scheme.
+
+   `.btn-dark` paints a default button black and labels it white. That works on
+   `scheme-accent` only because the green scheme deliberately omits the nested
+   default-button colour rule (see the comment above it). Every other scheme
+   carries that rule, and at 0-3-0 it out-specifies `.btn-dark`'s 0-2-0 white
+   label — so `.btn-dark` on `scheme-1` renders black text on a black button
+   and the label disappears.
+
+   The 2026-09 Figma moves the homepage CTA from green to white while keeping
+   its black button, so that combination now exists. This does not fight the
+   cascade or touch the primitive: it re-points the very token the nested rule
+   already reads. No new colour — white here is the same `--color-white` that
+   `.btn-dark`'s label was asking for.
+
+   Use it alongside `.btn-dark`, never instead of it: `.btn-dark` still owns
+   the black fill, the dropped ledge and the cancelled hover translate. */
+@utility btn-dark-on-light {
+  --color-scheme-btn-text: var(--color-white);
+}
+
+/* The italic clause inside a section heading. See [6] at the top of this file:
+   the italic face is not self-hosted yet, so this is a synthesised italic
+   until `playfair-display-italic-400.woff2` lands. It exists as a named
+   utility rather than a bare `italic` class precisely so that swapping it for
+   the real face is a one-line change here and not a hunt through the sections.
+
+   No font-family: h1-h6 are already bound to Playfair Display, and this brand
+   declares font-family in exactly one place. */
+@utility font-heading-italic {
+  font-style: italic;
 }

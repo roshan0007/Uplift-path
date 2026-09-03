@@ -9,12 +9,11 @@ export function Layout254() {
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              Empowering Success Across Industries
+              Who <em className="font-heading-italic">We Work</em> With
             </h2>
             <p className="text-medium">
-              We work across behavioral health, startups, education and
-              nonprofits, and the approach adapts to what each sector has to
-              answer for.
+              Four kinds of organizations, and individuals. The approach adapts
+              to what each one is accountable for.
             </p>
           </div>
         </div>
@@ -31,9 +30,9 @@ export function Layout254() {
                 Behavioral Health Consulting
               </h3>
               <p>
-                Strategic consulting for behavioral health: improving care,
-                efficiency, and compliance. We build sustainable models,
-                optimize teams, and navigate change.
+                We hold the CARF Gold Seal ourselves. We help providers build
+                service models that last, get survey-ready, and hold quality
+                steady while they grow.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -47,16 +46,16 @@ export function Layout254() {
                 Startups & Entrepreneurs
               </h3>
               <p>
-                Startup coaching to tackle business model challenges, refine
-                market positioning, and connect Founders with key networks for
-                growth.
+                Pressure-test the business model, sharpen the positioning, and
+                open doors that actually convert. For founders who need a second
+                opinion they can trust.
               </p>
             </div>
           </div>
           <div className="relative order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
             <img
               src="/images/home-benefits-section.png"
-              alt="Relume placeholder image"
+              alt="An illustration of a person sitting with two speech bubbles above them"
               className="h-auto w-full rounded-image object-cover"
             />
           </div>
@@ -72,9 +71,8 @@ export function Layout254() {
                 Educational Institutions
               </h3>
               <p>
-                Strategic advisory for education leaders to enhance operational
-                performance, boost faculty engagement, and achieve academic
-                excellence.
+                Improve operational performance and faculty engagement without
+                adding administrative weight to the people who teach.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -88,9 +86,8 @@ export function Layout254() {
                 Nonprofit Organizations
               </h3>
               <p>
-                Expert guidance to help nonprofits clarify their mission,
-                develop sustainable funding models, and maximize their community
-                impact through targeted advisory.
+                Clarify the mission on paper, diversify the funding model, and
+                evidence community impact in the language funders accept.
               </p>
             </div>
           </div>

@@ -33,17 +33,23 @@ export function Header104() {
   return (
     <section className="relative px-[5%] py-12 md:py-16 lg:py-16 scheme-1 badge-alt">
       <div className="container text-center">
+        {/* Two lines by design, not by wrapping: the break after "Life" is in
+            the Figma and holds at every width, so it is a <span> rather than a
+            max-width left to chance. "Serve" is the italic. */}
         <h1 className="mb-5 text-[1.75rem] leading-[1.2] font-bold sm:text-[2.5rem] md:mb-6 md:text-[3.25rem] lg:text-[4.5rem]">
-          Uplifting every life we serve
+          Uplifting Every Life
+          <span className="block">
+            We <em className="font-heading-italic">Serve</em>
+          </span>
         </h1>
         <p className="mx-auto max-w-lg text-medium">
-          Unlock progress and meaningful growth through clarity, collaboration
-          and trusted guidance at every step.
+          Uplift Path helps individuals find whole-person support and helps
+          organizations build stronger programs.{" "}
+          <strong className="font-semibold">CARF accredited.</strong> Based in
+          Columbus, Ohio.
         </p>
 
-        <p className="mt-8 font-semibold">Where would you like to start?</p>
-
-        <div className="mt-5 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:mt-6 md:gap-8">
+        <div className="mt-8 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
           {AUDIENCES.map((audience, index) => (
             <motion.div
               key={audience.href}
@@ -81,6 +87,12 @@ export function Header104() {
             </motion.div>
           ))}
         </div>
+
+        {/* Moved below the cards to match the Figma. It used to sit above them
+            as a lead-in; underneath, it reads as the caption on the pair the
+            visitor has just looked at, and it sits directly above the scroll
+            cue so the question and the arrow answering it are one unit. */}
+        <p className="mt-8 font-semibold">Where would you like to start?</p>
 
         {/* Scroll cue. The audience selector ends near the fold, and without a
             cue the two cards read as the whole page. It is a real control, not
@@ -130,7 +142,7 @@ function ScrollCue() {
   return (
     // The row keeps its height whether or not the arrow is in it, so retiring
     // the cue does not shift the cards above it up the page.
-    <div className="mt-10 flex h-10 justify-center md:mt-12">
+    <div className="mt-2 flex h-10 justify-center">
       <AnimatePresence>
         {visible && (
           <motion.button
