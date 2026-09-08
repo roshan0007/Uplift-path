@@ -49,9 +49,10 @@ order, and the scheme each one carries.
 - **Every section gets exactly one scheme class.** Children then read
   `--color-scheme-*` (`bg-scheme-foreground`, `text-scheme-text`,
   `border-scheme-border`). That indirection is what makes a section re-skinnable.
-  There are eight: `.scheme-light`, `.scheme-accent`, `.scheme-navy`,
+  There are nine: `.scheme-light`, `.scheme-accent`, `.scheme-navy`,
   `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`,
-  and `.scheme-jade` (v3, `#01a66e`, the footer band only).
+  `.scheme-jade` (v3, `#01a66e`, the footer band only), and
+  `.scheme-green-deep` (v3, `#05866b`, the About Us green band only).
   `.scheme-1/2/3` are aliases of the first three and are what the exported
   sections actually write. Prefer the named classes in new work; don't renumber
   anything.
@@ -76,6 +77,10 @@ order, and the scheme each one carries.
   cannot leak into the eleven `cta-25` banners on `.scheme-accent`, where white
   would be 1.96:1. Do not copy the pairing anywhere else. `globals.css` [10]
   lists the two ways back to AA if that is ever wanted.
+  `.scheme-green-deep` is **not** a second exception. The About Us frame asked
+  for white on `#06a785` (3.06:1); that was raised, and the fill was darkened
+  to `#05866b` instead, where white is 4.54:1 and passes. See `globals.css`
+  [11].
 - Cards: 2px border, `rounded-card`, no shadow. 1px hairlines for accordion
   rules, the footer divider and the nav dropdown sheet.
 - **One shadow exists in this brand: a hard `0 3px 0 0` ledge under a control,

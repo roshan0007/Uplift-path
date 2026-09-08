@@ -54,6 +54,13 @@
   /* v3. The footer band green. Greener and darker than anything on the
      Caribbean Green ramp, so it is its own hue rather than a step on one. */
   --color-jade:#01a66e;
+  /* v3 (2026-09-08 Figma About Us). The "Why Uplift Path" band. The frame
+     draws it #06a785 (--color-caribbean-green-dark) with white text, which is
+     3.06:1 and fails AA for the band's 18px SemiBold body; this is the same
+     hue held at the same saturation and dropped in value until white clears
+     4.5:1 (it lands at 4.54:1). A step between -dark and -darker on the
+     Caribbean Green ramp. Consumed only by .scheme-green-deep. */
+  --color-caribbean-green-deep:#05866b;
 
   /* ---- Black ---- */
   --color-black-lightest:#e5e5e5;

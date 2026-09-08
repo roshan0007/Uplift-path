@@ -102,3 +102,20 @@
   background-color:var(--color-scheme-background);
   color:var(--color-scheme-text);
 }
+
+/* v3 (2026-09-08 Figma About Us). The ninth scheme, carrying the "Why Uplift
+   Path" band on the About Us page and nothing else yet. Unlike .scheme-jade
+   this is NOT a contrast exception: white on #05866b is 4.54:1 and passes AA
+   for body text. It exists because the frame's own #06a785 does not (3.06:1),
+   and the decision was to keep the white and darken the fill rather than flip
+   the text to the dark neutral. */
+.scheme-green-deep{
+  --color-scheme-background:var(--color-caribbean-green-deep);
+  --color-scheme-foreground:var(--color-caribbean-green-deep);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-white);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}

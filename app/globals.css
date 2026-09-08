@@ -9,7 +9,8 @@
    Display italic face the 2026-09 Figma introduced. [7] and [8] are the two
    v3 additions the 2026-09-08 Figma homepage introduced - a pale mint palette
    step and the `hero-fade` wash that consumes it; [9] and [10] are the footer's
-   v3 green and the scheme that carries it. Everything else is
+   v3 green and the scheme that carries it; [11] is the About Us green band's
+   AA-corrected fill and `scheme-green-deep`. Everything else is
    the export verbatim - do not hand-edit the token values, they are the design
    system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
@@ -236,6 +237,26 @@
      `@utility scheme-jade`; the torn edge PNG above the band is already
      toned to it, so the two meet without a seam. */
   --color-jade: #01a66e;
+
+  /* [11] Not in the v2 export. The v3 Figma's "Why Uplift Path" band on the
+     About Us page is #06a785 (`--color-caribbean-green-dark`) with white text.
+     Measured off the reference render that pairing is 3.06:1: the 44px heading
+     clears the 3:1 large-text bar, but the band's body copy is 18px SemiBold,
+     which does not qualify for that allowance (it needs 24px, or 18.66px
+     bold), so it needs 4.5:1 and fails.
+
+     Raised, and the decision was to keep the white and darken the fill - route
+     1 of the two listed at [10], the one that costs the design least. This is
+     the same hue held at the same saturation, dropped in value until white
+     clears AA:
+
+         white on #06a785   3.06:1   the Figma's own fill, fails for body
+         white on #05866b   4.54:1   this token, passes
+
+     A step between `-dark` (#06a785) and `-darker` (#035342) on the existing
+     Caribbean Green ramp rather than a new family, since that is the hue it
+     belongs to. Consumed only by `@utility scheme-green-deep`. */
+  --color-caribbean-green-deep: #05866b;
 
   --font-weight-bold: 400;
 
@@ -775,6 +796,22 @@
 @utility font-heading-italic {
   font-style: italic;
   font-weight: 500;
+}
+
+@utility scheme-green-deep {
+  --color-scheme-background: var(--color-caribbean-green-deep);
+  --color-scheme-foreground: var(--color-caribbean-green-deep);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-white);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
 }
 
 /* [10] Not in the v2 export. The v3 Figma takes the footer band off
