@@ -68,13 +68,21 @@ order, and the scheme each one carries.
   `--font-weight-bold`, which is 400. The fix is `font-body font-[700]` at the
   call site — both classes, since `cn()` is tailwind-merge and only drops
   `font-bold` when a real font-weight utility lands beside it. Applied on
-  `/how-we-work`; the other ten `faq-01` sections still render Playfair 400.
-  See `globals.css` [13].
+  `/how-we-work` and `/for-individual-page`; the other nine `faq-01` sections
+  still render Playfair 400. See `globals.css` [13]. Its counterpart
+  `font-heading` (Playfair Display) exists for the mirror-image case: the For
+  Individual step numerals must carry the heading face but must not be headings
+  (they are decorative duplicates of the "Step N" label, so `aria-hidden` on a
+  `<p>`). See `globals.css` [15].
 - **Italic headings need `.font-heading-italic`, which is Playfair 500 italic.**
   The real italic face is self-hosted as of v3. It is registered at weight 500,
   so `font-style: italic` *without* the matching weight silently falls back to
   slanting the 400 roman — a synthesised italic that reads visibly wrong on a
   didone. The utility sets both; don't set `italic` by hand.
+- **There is one type step above `--text-h1`: `--text-display`,** 3rem rising to
+  5rem at >=992px (the Figma's 80/96 at -1%). It exists for the For Individual
+  page's "Care built around *your life*" heading and nothing else; every other
+  heading on the site tops out at `--text-h1`. See `globals.css` [14].
 - **`--font-weight-bold` is `400` on purpose.** A "bold" section heading (h2–h6)
   is therefore still regular weight — Playfair Display 400 carries the headings.
   Do not "fix" this.

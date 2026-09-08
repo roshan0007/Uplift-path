@@ -11,7 +11,9 @@
    step and the `hero-fade` wash that consumes it; [9] and [10] are the footer's
    v3 green and the scheme that carries it; [11] is the About Us green band's
    AA-corrected fill and `scheme-green-deep`; [12] is the How We Work page's
-   decorative background curve, and [13] the FAQ question face. Everything else is
+   decorative background curve, [13] the FAQ question face, [14] the display
+   heading step the For Individual page introduced, and [15] the heading-face
+   utility its step numerals need. Everything else is
    the export verbatim - do not hand-edit the token values, they are the design
    system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
@@ -282,6 +284,24 @@
 
   --font-weight-bold: 400;
 
+  /* [14] Not in the v2 export. The v3 Figma's For Individual page sets the
+     "Care built around your life" heading at 80/96 with -1% tracking - one
+     step above `--text-h1`, which tops out at 72/86.4 on this scale. No
+     existing token is 80px, so rather than bend h1 (used as the page title on
+     every route) this adds the step above it.
+
+     Generated the same way as the rest of the scale: the desktop value is the
+     frame's own 80px, the line height is the frame's 96/80 = 1.2 that h1, h2
+     and h3 all share, and the tracking is the -1% every heading token carries.
+     The base value is the mobile step, sized to sit above `--text-h1`'s
+     2.75rem by the same proportion the desktop values do; the >=992px step-up
+     lives in the `@layer theme` block below with the rest of them.
+
+     Consumed only by `components/sections/for-individual-page/layout-395.jsx`. */
+  --text-display: 3rem;
+  --text-display--line-height: 1.2;
+  --text-display--letter-spacing: -1%;
+
   --text-h1: 2.75rem;
   --text-h1--line-height: 1.2;
   --text-h1--letter-spacing: -1%;
@@ -528,6 +548,7 @@
 @layer theme {
   @media (min-width: 992px) {
     * {
+      --text-display: 5rem; /* [14] */
       --text-h1: 4.5rem;
       --text-h2: 3.25rem;
       --text-h3: 2.75rem;
@@ -964,4 +985,24 @@
    than made here. */
 @utility font-body {
   font-family: "Lexend Deca", sans-serif;
+}
+
+/* [15] The counterpart to `font-body`, and it exists for the same reason: the
+   heading face is reachable only through the base `h1-h6` rule, so an element
+   that should carry it but is not a heading has no way to ask.
+
+   The case is the For Individual page's step numerals. The frame draws them at
+   224/268.8 in Roboto 700; Roboto is not one of this brand's two faces, so they
+   are set in Playfair Display instead. They are decorative duplicates of the
+   "Step N" label beside them - `aria-hidden`, and a <p> rather than a heading,
+   because promoting them to <h3> would put four content-free headings into the
+   document outline of a page that already has a heading per step.
+
+   So, like `font-body`, the family is declared here and nowhere else, and the
+   call site composes it. Weight is not bundled in: `--font-weight-bold` is 400
+   on purpose, which is the weight Playfair carries headings at anyway, so
+   `font-bold` beside this class resolves correctly with no tailwind-merge
+   interaction of the kind documented at [13]. */
+@utility font-heading {
+  font-family: "Playfair Display", serif;
 }
