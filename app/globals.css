@@ -89,28 +89,34 @@
   src: url("/fonts/playfair-display-700.woff2") format("woff2");
 }
 
-/* [6] Playfair Display Italic — the 2026-09 Figma sets several section headings
-   with an italic clause ("We *Serve*", "What Actually *Changes*", "Who *We
-   Work* With", "know *which one you're on.*").
+/* [6] Playfair Display Italic, weight 500 — now self-hosted, which it was not
+   until the v3 pass.
 
-   The italic face is NOT self-hosted yet: every block above is
-   `font-style: normal`, so `font-style: italic` currently gets a *synthesised*
-   italic — the browser mechanically slants the roman. On a high-contrast
-   didone like Playfair that reads visibly wrong, because the true italic has
-   different letterforms (single-storey a, calligraphic e), not just a slant.
+   The 2026-09 Figma sets four section headings with an italic clause: "We
+   *Serve*", "What Actually *Changes*", "Who *We Work* With", and "know *which
+   one you're on.*". All four are the same face — `PlayfairDisplay-MediumItalic`,
+   weight 500 — which is why there is one italic block here and not a set.
 
-   To fix, drop `playfair-display-italic-400.woff2` into `public/fonts/` and
-   uncomment the block below. Nothing else changes — `.font-heading-italic`
-   already carries the markup at every call site.
+   Before this file existed, `.font-heading-italic` set `font-style: italic`
+   with no matching face loaded, so the browser *synthesised* the italic by
+   mechanically slanting the 400 roman. On a high-contrast didone that reads
+   visibly wrong: the true italic has different letterforms — single-storey a,
+   calligraphic e, narrower and more sloped bowls — not just a slant. That was
+   the reported "the italic text hasn't been copied well".
 
+   This is the Google Fonts **latin** subset (23KB), not the full face its four
+   siblings above are (~193KB each). Those came from the Relume export
+   unsubsetted; there was no reason to add 193KB for four short phrases. latin
+   covers U+0000-00FF, so every accented Latin-1 character is present. If
+   `.font-heading-italic` is ever put on Central or Eastern European text
+   (ā, ł, ż, š), that needs the latin-ext subset added alongside. */
 @font-face {
   font-family: "Playfair Display";
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   font-display: swap;
-  src: url("/fonts/playfair-display-italic-400.woff2") format("woff2");
+  src: url("/fonts/playfair-display-italic-500.woff2") format("woff2");
 }
-*/
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -762,8 +768,13 @@
 
    No font-family: h1-h6 are already bound to Playfair Display, and this brand
    declares font-family in exactly one place. */
+/* Both properties matter. `font-style: italic` alone would still miss the
+   loaded face — that face is registered at weight 500, so without the weight
+   the browser picks the 400 roman and synthesises a slant from it, which is
+   the exact bug this pass fixed. The Figma's four italic runs are all 500. */
 @utility font-heading-italic {
   font-style: italic;
+  font-weight: 500;
 }
 
 /* [10] Not in the v2 export. The v3 Figma takes the footer band off
@@ -772,23 +783,33 @@
    carrying eleven `cta-25` banners across the rest of the site and none of
    them changed.
 
-   Text stays the dark neutral, NOT the Figma's white. White on #01a66e is
-   3.14:1 - better than the 1.96:1 the brief's "never white on the green" rule
-   was written against, but still short of the 4.5:1 WCAG AA needs for the
-   14px links this band is made of. The dark neutral is 6.38:1. This is the
-   same call `footer-04.jsx` already documents, and the same escape hatch
-   applies: if white is wanted, change the fill to `scheme-deep-teal`
-   (#035342, white at 9.05:1) and re-tone the torn edge, rather than putting
-   white on this green.
+   TEXT IS WHITE HERE, AND THAT IS A KNOWN CONTRAST EXCEPTION. It was raised
+   and then explicitly asked for, to match the Figma. The numbers, so nobody
+   has to re-derive them:
 
-   Mirrors `scheme-accent` in omitting the nested default-button colour rule -
-   same reason, and this band has no buttons in it today. */
+       white   on #01a66e   3.14:1   fails WCAG AA for body text (needs 4.5:1)
+       #000a08 on #01a66e   6.38:1   passes
+
+   The band is 14px links, which do not qualify for the 3:1 large-text
+   allowance (that needs 24px, or 18.66px bold). So this is the one place in
+   the brand where CLAUDE.md's "never white on the green" is overridden by
+   decision rather than satisfied.
+
+   Two ways to get AA back, if that is ever wanted, in order of least damage
+   to the design:
+     1. Keep white, darken the fill to about #017a51 (white ~4.5:1). Same hue
+        family, visibly deeper than the Figma.
+     2. Swap the band to `scheme-deep-teal` (#035342), where white is 9.05:1.
+        The torn edge PNG would need re-toning to match either way, since its
+        bottom row has to equal the band colour exactly or a seam appears. */
 @utility scheme-jade {
   --color-scheme-background: var(--color-jade);
   --color-scheme-foreground: var(--color-jade);
-  --color-scheme-text: var(--color-neutral-darkest);
-  --color-scheme-border: var(--color-neutral-darkest);
-  --color-scheme-accent: var(--color-neutral-darkest);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-white);
+  /* Buttons keep the dark label: there are none in this band today, but if one
+     lands here it is a filled control and dark-on-green is 6.38:1. */
   --color-scheme-btn-text: var(--color-neutral-darkest);
 
   background-color: var(--color-scheme-background);

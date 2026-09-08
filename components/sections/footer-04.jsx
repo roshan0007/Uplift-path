@@ -17,24 +17,23 @@ import { LinkedinLogo } from "relume-icons";
  *
  * Site chrome, so all of this lands on every route at once. That is intended.
  *
- * TEXT COLOUR IS A DELIBERATE DEPARTURE FROM THE FIGMA, and the only one left
- * in this footer. The Figma sets white text on the green. Measured against
- * every green in the brand, white fails WCAG AA for body text at this size:
+ * TEXT ON THE GREEN IS WHITE, MATCHING THE FIGMA, AND THAT IS A KNOWN
+ * CONTRAST EXCEPTION. Earlier passes of this file used the dark neutral and
+ * argued for it; white was then explicitly asked for. The numbers:
  *
- *     caribbean-green        #08d1a7   1.96:1
- *     caribbean-green-dark   #06a785   3.06:1
- *     viking-dark            #41b19a   2.63:1
- *     the Figma's own green  ~#1db35a  2.75:1
+ *     white   on #01a66e (this band)   3.14:1   fails WCAG AA body text
+ *     #000a08 on #01a66e               6.38:1   passes
  *
- * CLAUDE.md names dark-on-green as the only approved pairing, and the brief
- * was to follow the brand guidelines where the Figma's colours disagree. So
- * the fill is the brand green and the text is the dark neutral, at 10.21:1.
+ * These are 14px links, which do not qualify for the 3:1 large-text allowance
+ * (24px, or 18.66px bold). So CLAUDE.md's "never white on the green" is
+ * overridden here by decision, not satisfied — this is the only place in the
+ * brand that is true, and `scheme-jade` exists partly so it cannot leak into
+ * the eleven `cta-25` banners still on `scheme-accent`.
  *
- * If white text is wanted, the fix is the fill and not the label: swap
- * `scheme-accent` for `scheme-deep-teal` on the green band below
- * (caribbean-green-darker #035342), which carries white at 9.05:1 and is a
- * real brand scheme — DESIGN.md's scheme 7. The torn edge would want
- * re-toning to match. Never pair white with `scheme-accent`.
+ * If AA is wanted back, `globals.css` [10] lists the two fixes: darken the
+ * fill to ~#017a51 and keep white, or move the band to `scheme-deep-teal`
+ * (white at 9.05:1). Either way the torn edge PNG needs re-toning, because its
+ * bottom row has to equal the band colour exactly or a seam shows.
  *
  * The torn edge is `/images/footer-torn-edge.png`, pinned above the green
  * band's own straight top edge; both are the same green, so the straight edge
@@ -49,25 +48,50 @@ import { LinkedinLogo } from "relume-icons";
  * them. The underlying artwork is still a stock file whose name is a
  * stock-library ID, so it wants a licensing check before launch.
  */
-const SITE_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about-us" },
-  { label: "How we work", href: "/how-we-work" },
-  { label: "Career", href: "/career" },
-  { label: "Contact", href: "/contact-us" },
-];
-
-const SERVICE_LINKS_A = [
-  { label: "For Individual", href: "/for-individual-page" },
-  { label: "For Businesses", href: "/for-business-page" },
-  { label: "AI Consultation", href: "/ai-consultation" },
-  { label: "Advisory services", href: "/advisory-services" },
-];
-
-const SERVICE_LINKS_B = [
-  { label: "Systems & Technology", href: "/systems-&-technology" },
-  { label: "Compliance Support", href: "/compliance-support" },
-  { label: "Resource Assistance", href: "/resource-assistance" },
+/**
+ * Three headed groups rather than the Figma's one heading over a two-column
+ * spill of services. The frame stacks all seven service links in the middle of
+ * the band under a single "Uplift Services", which reads as one undifferentiated
+ * block; asked to reorganise it so it reads. The content is unchanged — same
+ * thirteen destinations — regrouped by what the links actually are:
+ *
+ *   Company     the site's own pages
+ *   Start here  the two audience doors, which are this site's whole IA
+ *   Services    the five service pages
+ *
+ * "Company" and "Start here" are headings the Figma does not have. They are the
+ * one addition here; without them column one is an unlabelled list sitting
+ * beside a labelled one, which is the imbalance that made the original look
+ * wrong.
+ */
+const FOOTER_GROUPS = [
+  {
+    heading: "Company",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About", href: "/about-us" },
+      { label: "How we work", href: "/how-we-work" },
+      { label: "Career", href: "/career" },
+      { label: "Contact", href: "/contact-us" },
+    ],
+  },
+  {
+    heading: "Start here",
+    links: [
+      { label: "For Individuals", href: "/for-individual-page" },
+      { label: "For Businesses", href: "/for-business-page" },
+    ],
+  },
+  {
+    heading: "Services",
+    links: [
+      { label: "AI Consultation", href: "/ai-consultation" },
+      { label: "Advisory Services", href: "/advisory-services" },
+      { label: "Systems & Technology", href: "/systems-&-technology" },
+      { label: "Compliance Support", href: "/compliance-support" },
+      { label: "Resource Assistance", href: "/resource-assistance" },
+    ],
+  },
 ];
 
 export function Footer4() {
@@ -137,135 +161,96 @@ export function Footer4() {
           className="pointer-events-none absolute inset-x-0 bottom-full block w-full select-none"
         />
         <div className="relative container">
-          {/* The nav is centred on the band and the LinkedIn mark sits out at
-              the right, which is how the Figma has it — so the mark is taken
-              out of the flow rather than given a grid track. A three-track
-              grid would push the nav off the true centreline the moment one
-              outer column outgrew the other, which is the bug the previous
-              `1fr auto 1fr` was written to solve; absolute positioning
-              sidesteps it entirely.
-
-              It reflows into the normal flow below md, where there is no room
-              beside the nav for it. */}
-          <div className="relative flex flex-col items-center gap-y-8 md:block">
-            {/* Three columns, per the v3 Figma: the site nav, then the
-                services list, which runs across two sub-columns under one
-                heading rather than repeating the heading. Column one is all
-                semibold and the services are regular, which is the weight
-                split the Figma uses (14px Lexend Deca throughout).
-
-                Two of the Figma's labels are typos in the design file and are
-                corrected here rather than shipped: "AI Conosultatin" and
-                "Advisory  services" (double space). Every one of these
-                thirteen links resolves to a real route - this is the first
-                time the footer has reached the seven service pages at all. */}
-            <div className="grid grid-cols-2 gap-x-8 gap-y-8 text-center sm:grid-cols-3 md:mx-auto md:w-max md:gap-x-14 md:text-left">
-              <ul className="flex flex-col gap-y-[9px] text-small font-semibold">
-                {SITE_LINKS.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      className="transition-opacity duration-200 ease-in-out hover:opacity-70"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              {/* The heading sits on the first column of the pair and the
-                  second starts one row lower, level with "For Individual" -
-                  which is exactly how the Figma stacks them. */}
-              <ul className="flex flex-col gap-y-[9px] text-small">
-                <li className="font-semibold">
-                  <a
-                    href="/for-business-page"
-                    className="transition-opacity duration-200 ease-in-out hover:opacity-70"
-                  >
-                    Uplift Services
-                  </a>
-                </li>
-                {SERVICE_LINKS_A.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      className="transition-opacity duration-200 ease-in-out hover:opacity-70"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <ul className="flex flex-col gap-y-[9px] text-small sm:pt-[calc(1.3125rem+9px)]">
-                {SERVICE_LINKS_B.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      className="transition-opacity duration-200 ease-in-out hover:opacity-70"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Left-aligned and spread across the container, not centred as one
+              clump. The three link columns take equal share and the social
+              mark sits out at the end, so the band reads left-to-right like
+              the rest of the page instead of as a centred island. */}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 text-left sm:grid-cols-3 lg:grid-cols-[1fr_1fr_1fr_auto] lg:gap-x-12">
+            {FOOTER_GROUPS.map((group) => (
+              <div key={group.heading}>
+                {/* The heading is a plain <p>, not an <h*>: this band sits
+                    below the page's real heading outline on every route, and
+                    globals.css binds Playfair to h1-h6 — an <h4> here would
+                    both serif these labels and inject a heading level into
+                    every page's outline. */}
+                <p className="text-small font-semibold">{group.heading}</p>
+                <ul className="mt-4 flex flex-col gap-y-3 text-small">
+                  {group.links.map((l) => (
+                    <li key={l.href}>
+                      <a
+                        href={l.href}
+                        className="transition-opacity duration-200 ease-in-out hover:opacity-70"
+                      >
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
             {/* LinkedIn is the only social account this site has a verified URL
                 for. The Facebook mark beside it never had one — it pointed at
                 "#" from the Relume export onward — and a dead icon is worse
-                than no icon. */}
-            <a
-              href="https://www.linkedin.com/in/uptech-support"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70 md:absolute md:top-1/2 md:right-[14.8%] md:-translate-y-1/2"
-              aria-label="Uplift Path on LinkedIn"
-            >
-              <LinkedinLogo className="size-8 text-scheme-text" />
-            </a>
-          </div>
-          {/* Narrow and centred, roughly the width of the nav above it — the
-              Figma does not run this rule the full width of the band.
+                than no icon.
 
-              454px is measured off the export. Written as an arbitrary value
-              rather than `max-w-md` on purpose: this design system remaps the
-              max-w scale onto its own container tokens, so `max-w-md` here is
-              35rem/560px, not Tailwind's stock 448px. */}
-          <div className="mx-auto mt-8 h-px w-full max-w-[454px] bg-scheme-border" />
-          {/* The export had `flex-col-reverse items-start` here against
-              `md:justify-center`, so the bottom bar was left-aligned on mobile
-              and centred from 768px up, and the reversal put the copyright
-              line above the legal links on mobile only. Centred at every width
-              now, in one reading order. */}
-          <div className="flex flex-col items-center pt-6 text-small md:flex-row md:justify-center md:gap-x-6 md:pt-8">
-          {/* The export puts a <p> and four bare <a> elements directly inside this
-              <ul>, which is invalid HTML. The browser's parser rebuilds it, so the
-              server markup and the client tree disagree and React throws a
-              hydration error on every route (the navbar and footer are site
-              chrome). Each item is wrapped in an <li>; Tailwind's preflight
-              already strips list styling, so nothing about the layout changes. */}
-          <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 text-small md:grid-flow-col md:gap-x-6 md:gap-y-0">
-            <li>
-              <p>© 2026 Uplift Path Inc. All rights reserved.</p>
-            </li>
-            <li>
-              <a href="/accessibility" className="underline">
-                Accessibility
+                In the flow now rather than absolutely positioned: it is the
+                grid's fourth track, so it can no longer drift over a column
+                when one outgrows the others. */}
+            <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+              {/* Labelled like the three columns beside it, so the band reads
+                  as four deliberate columns rather than three plus a loose
+                  icon. "Follow" is a UI label, not content. */}
+              <p className="text-small font-semibold">Follow</p>
+              <a
+                href="https://www.linkedin.com/in/uptech-support"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"
+                aria-label="Uplift Path on LinkedIn"
+              >
+                <LinkedinLogo className="size-8 text-scheme-text" />
               </a>
-            </li>
-            <li>
-              <a href="/terms-of-use" className="underline">
-                Terms of service
-              </a>
-            </li>
-            <li>
-              <a href="/privacy-policy" className="underline">
-                Privacy Policy
-              </a>
-            </li>
-            <li>
-              <a href="/grievance" className="underline">
-                Grievance
-              </a>
-            </li>
+            </div>
+          </div>
+          {/* Full width of the container now. The Figma runs this rule at
+              454px, centred under a centred nav; with the columns left-aligned
+              and spread, a short centred rule floats with nothing to align to.
+              Full width is what separates the two bands. */}
+          <div className="mt-12 h-px w-full bg-scheme-border/40" />
+          {/* Copyright left, legal links right from md up; stacked and centred
+              below that. The copyright is a sibling of the <ul> rather than
+              its first <li> — it is not one of the legal links, and while it
+              sat inside the list `justify-between` could only spread all five
+              items evenly instead of splitting the two groups.
+
+              (The export originally put a bare <p> and four bare <a> elements
+              directly inside the <ul>, which is invalid HTML: the browser's
+              parser rebuilt it, the server markup and client tree disagreed,
+              and React threw a hydration error on every route because this is
+              site chrome. Hence the <li> wrappers.) */}
+          <div className="flex flex-col items-center gap-y-4 pt-6 text-small md:flex-row md:items-center md:justify-between md:gap-x-6 md:pt-8">
+            <p>© 2026 Uplift Path Inc. All rights reserved.</p>
+            <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 md:flex md:flex-row md:gap-x-6 md:gap-y-0">
+              <li>
+                <a href="/accessibility" className="underline">
+                  Accessibility
+                </a>
+              </li>
+              <li>
+                <a href="/terms-of-use" className="underline">
+                  Terms of service
+                </a>
+              </li>
+              <li>
+                <a href="/privacy-policy" className="underline">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="/grievance" className="underline">
+                  Grievance
+                </a>
+              </li>
             </ul>
           </div>
         </div>

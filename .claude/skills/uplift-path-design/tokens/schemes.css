@@ -86,15 +86,18 @@
 .logo-alt img[alt*="logo" i],.logo-alt img[src*="logo" i]{filter:brightness(0) invert(1)}
 
 /* v3 (2026-09-08 Figma). The footer band moved off .scheme-accent onto its own
-   green. Text stays the dark neutral, NOT white: white on #01a66e is 3.14:1 and
-   the band is built of 14px links, which need 4.5:1. Dark is 6.38:1. If white is
-   wanted, use .scheme-deep-teal (9.05:1) instead of putting white on this green. */
+   green, with WHITE text to match the frame. Known contrast exception, taken by
+   decision: white on #01a66e is 3.14:1 and these are 14px links, which need
+   4.5:1 (the 3:1 large-text allowance starts at 24px, or 18.66px bold). The dark
+   neutral would be 6.38:1. To get AA back either darken the fill to ~#017a51 and
+   keep white, or use .scheme-deep-teal where white is 9.05:1. Do not copy this
+   pairing onto .scheme-accent - that green is 1.96:1 against white. */
 .scheme-jade{
   --color-scheme-background:var(--color-jade);
   --color-scheme-foreground:var(--color-jade);
-  --color-scheme-text:var(--color-neutral-darkest);
-  --color-scheme-border:var(--color-neutral-darkest);
-  --color-scheme-accent:var(--color-neutral-darkest);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-white);
   --color-scheme-btn-text:var(--color-neutral-darkest);
   background-color:var(--color-scheme-background);
   color:var(--color-scheme-text);

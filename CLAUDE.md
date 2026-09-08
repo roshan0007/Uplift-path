@@ -58,6 +58,11 @@ order, and the scheme each one carries.
 - **Headings are Playfair Display; body is Lexend Deca.** Both self-hosted from
   `/fonts` via `@font-face` at the top of `globals.css`. That is the only place
   a font-family is declared — don't set one anywhere else.
+- **Italic headings need `.font-heading-italic`, which is Playfair 500 italic.**
+  The real italic face is self-hosted as of v3. It is registered at weight 500,
+  so `font-style: italic` *without* the matching weight silently falls back to
+  slanting the 400 roman — a synthesised italic that reads visibly wrong on a
+  didone. The utility sets both; don't set `italic` by hand.
 - **`--font-weight-bold` is `400` on purpose.** A "bold" section heading (h2–h6)
   is therefore still regular weight — Playfair Display 400 carries the headings.
   Do not "fix" this.
@@ -65,10 +70,12 @@ order, and the scheme each one carries.
   Dark text on green is the only approved pairing; every scheme sets
   `--color-scheme-btn-text` to the dark neutral. On the green CTA banner the
   button goes black-with-white-label via the section's `.btn-dark` class.
-  This holds for `.scheme-jade` too: the v3 Figma sets the footer's labels
-  white, but white on `#01a66e` is 3.14:1 against the 4.5:1 those 14px links
-  need, so they stay dark at 6.38:1. If white is ever wanted on a green band,
-  change the fill to `.scheme-deep-teal` (9.05:1) rather than the label.
+  **`.scheme-jade` is the one sanctioned exception**, by explicit decision: the
+  footer band carries white on `#01a66e` to match the Figma, which is 3.14:1
+  against the 4.5:1 its 14px links need. It is scoped to that one scheme so it
+  cannot leak into the eleven `cta-25` banners on `.scheme-accent`, where white
+  would be 1.96:1. Do not copy the pairing anywhere else. `globals.css` [10]
+  lists the two ways back to AA if that is ever wanted.
 - Cards: 2px border, `rounded-card`, no shadow. 1px hairlines for accordion
   rules, the footer divider and the nav dropdown sheet.
 - **One shadow exists in this brand: a hard `0 3px 0 0` ledge under a control,

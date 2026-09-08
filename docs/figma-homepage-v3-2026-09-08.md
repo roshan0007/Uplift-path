@@ -99,12 +99,6 @@ The hero measure was widened from the Figma's 839px to 856px, because Lexend
 Deca needs 846px to keep the Figma's break after "organizations" — at 839px it
 wraps to three lines and the whole hero shifts down.
 
-**White text on the footer green.** The frame sets it. White on `#01a66e` is
-**3.14:1** and that band is built of 14px links, which need 4.5:1; the dark
-neutral is **6.38:1**. This is the same call the footer already documented
-against the old green, and the same escape hatch applies — if white is wanted,
-change the fill to `.scheme-deep-teal` (9.05:1), not the label.
-
 **The testimonial's placeholder content.** The frame's carousel is a grey
 CloudFront placeholder avatar, a node named "Placeholder Logo" that renders as a
 cropped stock photo of a man in a suit, and two attributions — "Sarah Mitchell,
@@ -130,8 +124,11 @@ Added to `public/images/`:
 | `home-audience-portrait.jpg` | 130 KB | `Group 4` rendered at 2× (1014×1470), flattened on white, JPEG q88. Diffed against the reference at **mean 0.14** |
 | `footer-torn-edge.png` | 26 KB *(was 71 KB)* | Replaced. `9833802_27050 1` rendered at 2×, cropped to the 1440-wide window the frame shows, ending on the first row that is flat `#01a66e` with zero variance — so it meets the band below without a seam |
 
-No `public/videos/`: the frame contains no video fills (checked — zero `VIDEO`
-nodes and zero `videoRef`s in the whole tree).
+No `public/videos/` **yet**. The frame has no Figma *video* fills — zero `VIDEO`
+nodes and zero `videoRef`s in the whole tree — but that check was the wrong one:
+the "Who We Work With" media is a placed **GIF**, carried on a separate
+`gifRef`. See Follow-up change 5; `home-audience-portrait.jpg` is currently its
+poster frame standing in for it.
 
 ### Seven assets are now unreferenced
 
@@ -169,3 +166,105 @@ below.
 All 16 footer link targets resolve to built pages, including the seven service
 pages the footer had never reached before. `hero-fade` appears in `out/` on the
 homepage only; `scheme-jade` on every page, as intended for shared chrome.
+
+---
+
+# Follow-up changes (same branch, after first review)
+
+Five changes were asked for after the first pass.
+
+## 1. The real Playfair italic is now self-hosted
+
+**This was the "italic text hasn't been copied well" report, and it affected all
+four italic clauses** — "We *Serve*", "know *which one you're on.*", "What
+Actually *Changes*", "Who *We Work* With".
+
+The cause: `.font-heading-italic` set `font-style: italic` with **no italic face
+loaded**. Every `@font-face` in `globals.css` was `font-style: normal`, so the
+browser *synthesised* the italic by mechanically slanting the 400 roman. On a
+high-contrast didone that reads visibly wrong — the true italic has different
+letterforms (single-storey a, calligraphic e, narrower sloped bowls), not just a
+slant. `globals.css` had actually predicted this in its `[6]` note and left a
+commented-out block for it.
+
+The Figma says which face: all four runs are `PlayfairDisplay-MediumItalic`,
+**weight 500** — one face, not a set. Now installed as
+`playfair-display-italic-500.woff2` and `.font-heading-italic` sets style *and*
+weight, because the face is registered at 500 and style alone falls straight
+back to slanting the roman.
+
+Verified: "We Serve" advance is now **280.8px** against the reference's measured
+**281.0px** — a 0.2px match. With the synthesised italic it was 3.8px out.
+
+It is the Google Fonts **latin** subset (23KB) rather than the full ~193KB face
+its four siblings are. Covers U+0000-00FF, so all Latin-1 accents; Central and
+Eastern European text would need latin-ext added.
+
+## 2. "Where would you like to start?" moved above the cards
+
+A deliberate departure from the frame, which puts it underneath as a caption on
+the pair. Above, it reads as a lead-in: the question is put, then the two
+answers follow.
+
+## 3. Footer text is white
+
+Previously dark, on WCAG grounds. Raised, then explicitly asked for, so it is
+now white to match the frame. Recorded rather than silently applied — white on
+`#01a66e` is **3.14:1** and the band is 14px links, which need 4.5:1 (the 3:1
+large-text allowance starts at 24px, or 18.66px bold). The dark neutral was
+6.38:1.
+
+Scoped to `.scheme-jade` so it cannot reach the eleven `cta-25` banners still on
+`.scheme-accent`, where white would be 1.96:1. `globals.css` `[10]` carries the
+two routes back to AA: darken the fill to ~`#017a51` and keep white, or move the
+band to `.scheme-deep-teal` (white at 9.05:1). Either way the torn edge PNG
+needs re-toning, since its bottom row must equal the band colour exactly.
+
+## 4. Footer regrouped
+
+The frame stacks all seven service links in the middle of the band under a single
+"Uplift Services", which reads as one undifferentiated block. Same thirteen
+destinations, regrouped by what the links are:
+
+| Column | Links |
+|---|---|
+| Company | Home, About, How we work, Career, Contact |
+| Start here | For Individuals, For Businesses — the two audience doors, which are the site's whole IA |
+| Services | AI Consultation, Advisory Services, Systems & Technology, Compliance Support, Resource Assistance |
+| Follow | LinkedIn |
+
+Left-aligned and spread across the container instead of centred as one clump.
+The three headings and "Follow" are additions the frame does not have — without
+them column one was an unlabelled list beside a labelled one, which was the
+imbalance. The LinkedIn mark is now the grid's fourth track rather than
+absolutely positioned, so it can't drift over a column. The divider runs the full
+container width (the frame's 454px centred rule had nothing to align to once the
+columns moved left), and the bottom bar splits copyright left / legal links
+right, with the copyright lifted out of the legal `<ul>` where it was never one
+of the links.
+
+Reflows to two columns at 375px with Services and Follow below; no overflow.
+
+## 5. The "Who We Work With" media is a GIF, and it is 30 MB
+
+**It is not an image and not a Figma video fill** — which is why the first pass
+missed it. `Rectangle 9` carries both an `imageRef` (the poster frame, which is
+what got exported as `home-audience-portrait.jpg`) *and* a **`gifRef`**. My
+initial scan looked for `VIDEO`/`videoRef` and found none, because Figma stores
+placed GIFs separately.
+
+The GIF is fetchable and was extracted: **800×1422, 83 frames, 8.3s, looping,
+30.3 MB**.
+
+30 MB is not shippable, and there is no transcoder in this environment — no
+`ffmpeg` on PATH or in the usual install locations, and no `imageio-ffmpeg`,
+`av`, `cv2` or `moviepy` in the Python environment. So this one item is
+**not done**, pending a decision: supply an MP4/WebM, or approve installing a
+transcoder to convert the extracted GIF.
+
+When the file lands, the markup wants a `<video autoplay loop muted playsinline>`
+with `poster="/images/home-audience-portrait.jpg"`, and the mask rebuilt in CSS
+rather than baked into the asset: all three of `Group 4`'s rects share a **230px
+corner radius**, with the two 1px black outlines offset behind the media —
+relative to the group's origin, outline A at (0,0) 376×694, outline B at
+(135,40) 372×695, media at (29,20) 449×708, group 507×735.

@@ -74,6 +74,15 @@ export function Header104() {
           Columbus, Ohio.
         </p>
 
+        {/* Above the cards, not below. The Figma puts it underneath, where it
+            reads as a caption on the pair the visitor has just looked at; asked
+            for it as a lead-in instead, which is what it was before the v3
+            pass — the question is put, then the two answers follow. This is a
+            deliberate departure from the frame. */}
+        <p className="mt-8 font-semibold lg:mt-10 lg:text-[1.375rem] lg:leading-[1.21]">
+          Where would you like to start?
+        </p>
+
         <div className="mt-8 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
           {AUDIENCES.map((audience, index) => (
             <motion.div
@@ -112,14 +121,6 @@ export function Header104() {
             </motion.div>
           ))}
         </div>
-
-        {/* Moved below the cards to match the Figma. It used to sit above them
-            as a lead-in; underneath, it reads as the caption on the pair the
-            visitor has just looked at, and it sits directly above the scroll
-            cue so the question and the arrow answering it are one unit. */}
-        <p className="mt-8 font-semibold lg:mt-[3.4375rem] lg:text-[1.375rem] lg:leading-[1.21]">
-          Where would you like to start?
-        </p>
 
         {/* Scroll cue. The audience selector ends near the fold, and without a
             cue the two cards read as the whole page. It is a real control, not
