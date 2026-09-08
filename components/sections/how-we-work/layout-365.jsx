@@ -3,9 +3,30 @@
 import { Card } from "@/components/ui/card";
 import React from "react";
 
+/**
+ * Matched to the 2026-09-08 Figma (node 10214-103297, `Container` 10214:100184).
+ *
+ * Two changes from the v2 export:
+ *
+ * 1. The second card is **Kaizen**, not "Clarity". The export shipped this card
+ *    as a byte-identical copy of the first one - same "First", same
+ *    "Accountability", same sentence, same image - which left the section
+ *    promising three pillars and showing two. An earlier pass patched that by
+ *    writing a new pillar called "Clarity". The Figma resolves it properly:
+ *    the missing pillar is Kaizen, and the copy below is the frame's own.
+ *
+ * 2. All three illustrations are the frame's. They are line-art, not the
+ *    photographs the export used; see the import record for the sources.
+ *
+ * Geometry the frame draws, all of which the classes below reproduce: cards
+ * 2px #000a08 on white at r8 (`--radius-card`); the two small cards 640x290
+ * split 320/320 between copy and image; the tall card 608x613 with a 608x360
+ * image band under 253px of copy. Type is 28/39.2 (`text-h5`) on the small
+ * cards and 44/52.8 (`text-h3`) on the tall one, both Playfair 400.
+ */
 export function Layout365() {
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
@@ -19,7 +40,10 @@ export function Layout365() {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-6 md:gap-8">
-          <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
+          {/* The frame's two columns are 640 and 608 across the 1280
+              container with a 32px gap, not two equal halves - so the small
+              cards split 320/320 between copy and image exactly. */}
+          <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-[640fr_608fr]">
             <Card className="flex flex-col md:grid md:grid-cols-2">
               <div className="block flex-col justify-center p-6 md:flex">
                 <div>
@@ -32,36 +56,33 @@ export function Layout365() {
                   </p>
                 </div>
               </div>
-              <div className="flex aspect-[3/2] items-center justify-center">
+              {/* The frame gives the image the card's full 290px height, not a
+                  3:2 box - `min-h-0` lets it take the grid row's height on
+                  md+, and the aspect ratio only governs the stacked layout. */}
+              <div className="aspect-[320/290] min-h-0 md:aspect-auto">
                 <img
-                  src="/images/how-we-work-how-it-works-section-new-0.png"
-                  alt="Relume placeholder image 1"
+                  src="/images/how-we-work-accountability.png"
+                  alt="Two people holding up a heart cradled in a pair of hands"
                   className="size-full object-cover"
                 />
               </div>
             </Card>
-            {/* The export shipped this card as a byte-identical copy of the one
-                above — same "First", same "Accountability", same sentence, same
-                image — which left the section promising three pillars and
-                showing two. This is the missing second one. Clarity is the
-                brand's own word for it; the copy is new and worth a read before
-                it goes out. */}
             <Card className="flex flex-col md:grid md:grid-cols-2">
               <div className="block flex-col justify-center p-6 md:flex">
                 <div>
                   <p className="mb-2 font-semibold">Second</p>
-                  <h3 className="mb-2 text-h5 font-bold">Clarity</h3>
+                  <h3 className="mb-2 text-h5 font-bold">Kaizen</h3>
                   <p>
-                    Clarity means naming the goal, the owner and the next step,
-                    so nobody has to guess what progress looks like or who is
-                    carrying it.
+                    Kaizen making small, ongoing improvements, welcoming
+                    suggestions from everyone, and learning through
+                    experimentation to drive real innovation.
                   </p>
                 </div>
               </div>
-              <div className="flex aspect-[3/2] items-center justify-center">
+              <div className="aspect-[320/290] min-h-0 md:aspect-auto">
                 <img
-                  src="/images/advisory-services-about-section-new.png"
-                  alt="A hand drawing a rising line onto a chart"
+                  src="/images/how-we-work-kaizen.png"
+                  alt="A group of people turning the gears of a globe together"
                   className="size-full object-cover"
                 />
               </div>
@@ -80,11 +101,12 @@ export function Layout365() {
                   </p>
                 </div>
               </div>
-              <div className="aspect-[2/1] min-h-0">
+              {/* 608x360 in the frame. */}
+              <div className="aspect-[608/360] min-h-0">
                 <img
-                  src="/images/how-we-work-how-it-works-section-new-2.png"
-                  alt="Relume placeholder image 3"
-                  className="size-full object-cover"
+                  src="/images/how-we-work-flexibility.png"
+                  alt="A row of people presenting plans, artwork and ideas to one another"
+                  className="size-full object-cover object-bottom"
                 />
               </div>
             </Card>

@@ -62,6 +62,15 @@
      Caribbean Green ramp. Consumed only by .scheme-green-deep. */
   --color-caribbean-green-deep:#05866b;
 
+  /* v3 (2026-09-08 Figma How We Work). The decorative curve behind the foot of
+     the "What You'll Experience" section, drawn at 20% opacity - over white it
+     resolves to #d4dbd9. Nothing on the Viking or Caribbean Green ramps is
+     this colour; --color-viking-darker (#20584d) is nearest and is lighter and
+     more cyan. Named for the swatch the way Viking, Cerulean and Pickled
+     Bluewood are - #274d40 is Plantation on that list. The token holds the
+     source colour, not the composite. */
+  --color-plantation:#274d40;
+
   /* ---- Black ---- */
   --color-black-lightest:#e5e5e5;
   --color-black-lighter:#cccccc;

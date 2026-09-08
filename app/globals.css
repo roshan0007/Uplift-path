@@ -10,7 +10,8 @@
    v3 additions the 2026-09-08 Figma homepage introduced - a pale mint palette
    step and the `hero-fade` wash that consumes it; [9] and [10] are the footer's
    v3 green and the scheme that carries it; [11] is the About Us green band's
-   AA-corrected fill and `scheme-green-deep`. Everything else is
+   AA-corrected fill and `scheme-green-deep`; [12] is the How We Work page's
+   decorative background curve, and [13] the FAQ question face. Everything else is
    the export verbatim - do not hand-edit the token values, they are the design
    system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
@@ -257,6 +258,27 @@
      Caribbean Green ramp rather than a new family, since that is the hue it
      belongs to. Consumed only by `@utility scheme-green-deep`. */
   --color-caribbean-green-deep: #05866b;
+
+  /* [12] Not in the v2 export. The v3 Figma's How We Work page draws a single
+     decorative curve behind the foot of the "What You'll Experience" section
+     (`Vector 5`, 1563x749). Its fill is #274d40 at 20% opacity, and nothing on
+     the Viking or Caribbean Green ramps is this colour - `--color-viking-darker`
+     (#20584d) is the nearest and is visibly more cyan and lighter.
+
+     Named for the hue rather than hung off an existing family, the same way
+     Viking, Cerulean and Pickled Bluewood are: those are all Name-That-Color
+     swatch names, and #274d40 is Plantation on that list.
+
+     The token holds the *source* colour, not the composite. The 20% is applied
+     where the shape is drawn, so the curve stays correct over any ground -
+     over this section's white it resolves to #d4dbd9, which is what the
+     reference render measures. Consumed only by the inline curve in
+     `components/sections/how-we-work/layout-254.jsx`, which `@utility
+     experience-curve` at the foot of this file positions.
+
+     This is flat colour in a shape, not a gradient and not a texture, so it is
+     not a third exception to the two at [8] and the homepage pattern band. */
+  --color-plantation: #274d40;
 
   --font-weight-bold: 400;
 
@@ -887,4 +909,59 @@
     #fbfbfb 87.5%,
     var(--color-white) 100%
   );
+}
+
+/* [12] Positioning for the curve. The Figma vector is 1563.5x749 placed at
+   x=-5 against a 1440 frame, so it is 8.6% wider than the viewport and hangs
+   5px off the left edge - the right end of the curve runs off-canvas by
+   design.
+
+   Expressed as percentages of the viewport rather than in px so the shape
+   holds that exact relationship at every width: a fixed-px curve would keep
+   its 1563px span while the page narrowed and the visible portion would drift
+   to the flat left end. Height is left to the SVG's own viewBox, so the curve
+   cannot skew.
+
+   The shape itself is an inline <svg> in `layout-254.jsx` taking its fill from
+   `--color-plantation` at the Figma's 20%. Applied to that element; its
+   section must be `relative overflow-hidden`. */
+@utility experience-curve {
+  position: absolute;
+  left: -0.347%;
+  bottom: 0;
+  width: 108.576%;
+  pointer-events: none;
+}
+
+/* [13] Not in the v2 export. Every Figma frame in the file - all nineteen, the
+   v2 desktop set and the v3 rebuilds alike - sets the FAQ accordion question
+   in **Lexend Deca 18/27 at weight 700**. The build renders it in Playfair
+   Display at 400, on all eleven routes that carry an FAQ.
+
+   Two things combine to cause that, and neither is a mistake on its own.
+   Radix's `AccordionPrimitive.Header` renders an `<h3>`, which the base
+   `h1-h6 { font-family: "Playfair Display" }` rule at the top of this layer
+   catches; and the trigger's own `font-bold` resolves through
+   `--font-weight-bold`, which this brand deliberately pins to 400. So a
+   question that is marked bold and is not a heading comes out as neither.
+
+   Fixed by composing at the call site rather than by rewriting the primitive
+   or moving the token. It takes two classes, and the split is not cosmetic:
+
+     `font-body`   the family. Declared here, so the brand's rule that
+                   font-family appears in exactly one file still holds.
+     `font-[700]`  the weight. It has to be a real font-weight utility rather
+                   than a declaration in the utility above, because the
+                   trigger already carries `font-bold`: `cn()` is
+                   tailwind-merge, which drops the earlier class only when the
+                   later one lands in the same group. A `font-weight` buried
+                   inside `font-body` is invisible to that, and `font-bold`
+                   then wins on source order and puts the weight back to 400.
+
+   Applied so far only on `/how-we-work`, the page this was found on. The same
+   two classes belong on the other ten `faq-01` sections; that is a site-wide
+   change and is flagged in `docs/figma-how-we-work-v3-2026-09-08.md` rather
+   than made here. */
+@utility font-body {
+  font-family: "Lexend Deca", sans-serif;
 }

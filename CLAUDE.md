@@ -53,12 +53,23 @@ order, and the scheme each one carries.
   `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`,
   `.scheme-jade` (v3, `#01a66e`, the footer band only), and
   `.scheme-green-deep` (v3, `#05866b`, the About Us green band only).
+  `--color-plantation` (v3, `#274d40`) is a palette entry but **not** a scheme:
+  it is the How We Work decorative curve only, drawn at 20%. See [12].
   `.scheme-1/2/3` are aliases of the first three and are what the exported
   sections actually write. Prefer the named classes in new work; don't renumber
   anything.
 - **Headings are Playfair Display; body is Lexend Deca.** Both self-hosted from
   `/fonts` via `@font-face` at the top of `globals.css`. That is the only place
-  a font-family is declared — don't set one anywhere else.
+  a font-family is declared — don't set one anywhere else. The one utility that
+  reaches for the body face by name is `font-body`, also declared there, and it
+  exists for a specific case: **FAQ accordion questions are Lexend Deca 700 in
+  every Figma frame**, but Radix wraps the trigger in an `<h3>` (so the base
+  `h1–h6` Playfair rule catches it) and its `font-bold` resolves through
+  `--font-weight-bold`, which is 400. The fix is `font-body font-[700]` at the
+  call site — both classes, since `cn()` is tailwind-merge and only drops
+  `font-bold` when a real font-weight utility lands beside it. Applied on
+  `/how-we-work`; the other ten `faq-01` sections still render Playfair 400.
+  See `globals.css` [13].
 - **Italic headings need `.font-heading-italic`, which is Playfair 500 italic.**
   The real italic face is self-hosted as of v3. It is registered at weight 500,
   so `font-style: italic` *without* the matching weight silently falls back to
@@ -96,7 +107,9 @@ order, and the scheme each one carries.
   pattern band behind `layout-237`. Everything else is flat colour — no
   gradient in a button, a card, or behind text, and no blurred shadow ever.
   Both exceptions are documented in `globals.css` at `[8]` and in the section
-  itself; a third needs a design decision, not a precedent.
+  itself; a third needs a design decision, not a precedent. The How We Work
+  curve is **not** a third: it is flat colour in a shape, no ramp and no
+  repeat.
 
 ## Gotchas
 
