@@ -27,3 +27,28 @@
   --hover-wash-light:var(--color-white-10);
   --disabled-opacity:0.5; /* @kind other */
 }
+
+/* v3 (2026-09-08 Figma). The ONE gradient in this system's layout vocabulary:
+   a pale mint wash behind the homepage's first screen. Everything else is still
+   flat colour - see readme.md "Backgrounds".
+
+   Nine stops, not two, on purpose. The Figma fill runs #f0fffc at full alpha to
+   #d9d9d9 at zero alpha, and Figma interpolates non-premultiplied, so the grey
+   stays in the mix and the wash desaturates through a faintly grey middle before
+   reaching white. CSS interpolates premultiplied and would go straight
+   mint-to-white, missing the middle by up to 10 levels of green. These stops are
+   that ramp pre-composited over white, sampled at eighths. */
+.hero-fade{
+  background-image:linear-gradient(
+    to bottom,
+    var(--color-viking-faintest) 0%,
+    #effbf9 12.5%,
+    #eff8f6 25%,
+    #f0f6f5 37.5%,
+    #f2f6f5 50%,
+    #f4f6f6 62.5%,
+    #f7f8f8 75%,
+    #fbfbfb 87.5%,
+    var(--color-white) 100%
+  );
+}

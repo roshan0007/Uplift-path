@@ -84,3 +84,18 @@
 .btn-light{--btn-force:light /* @kind other */}
 /* Knocks a colour logo to solid white for dark sections. */
 .logo-alt img[alt*="logo" i],.logo-alt img[src*="logo" i]{filter:brightness(0) invert(1)}
+
+/* v3 (2026-09-08 Figma). The footer band moved off .scheme-accent onto its own
+   green. Text stays the dark neutral, NOT white: white on #01a66e is 3.14:1 and
+   the band is built of 14px links, which need 4.5:1. Dark is 6.38:1. If white is
+   wanted, use .scheme-deep-teal (9.05:1) instead of putting white on this green. */
+.scheme-jade{
+  --color-scheme-background:var(--color-jade);
+  --color-scheme-foreground:var(--color-jade);
+  --color-scheme-text:var(--color-neutral-darkest);
+  --color-scheme-border:var(--color-neutral-darkest);
+  --color-scheme-accent:var(--color-neutral-darkest);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}

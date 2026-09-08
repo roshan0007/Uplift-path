@@ -6,7 +6,24 @@ import React from "react";
 export function Layout237() {
   return (
     // `id` is what the sticky IntakeBar watches to decide when to appear.
-    <section id="uplift-outcomes" className="scroll-mt-20 px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // The v3 Figma puts this section on a full-bleed pale-green pattern band
+    // (`Rectangle 12`, 1440x702 starting where the hero's mint wash ends). It
+    // is a background, not content: a CSS background rather than an <img>, so
+    // it can never be tabbed to, read out, or dragged, and `bg-cover` keeps it
+    // covering the band the way the Figma's own FILL scale mode does.
+    //
+    // `bg-top` rather than the default `center`: the band is taller than the
+    // section on narrow viewports, and the pattern's density is at the top, so
+    // anchoring there keeps the composition the Figma drew instead of sliding
+    // the busiest part off-screen.
+    //
+    // The lg paddings are the Figma's own: 74px from the band's top edge to the
+    // illustration, and 53px from the last line of the third column to the
+    // band's foot.
+    <section
+      id="uplift-outcomes"
+      className="scroll-mt-20 bg-[url('/images/home-changes-pattern-band.png')] bg-cover bg-top bg-no-repeat px-[5%] py-16 md:py-24 lg:pt-[4.625rem] lg:pb-[3.3125rem] scheme-1 badge-alt"
+    >
       <div className="container">
         <div className="flex flex-col items-center">
           <div className="mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
@@ -17,7 +34,7 @@ export function Layout237() {
               src="/images/home-changes-hands-flowers.png"
               alt=""
               aria-hidden="true"
-              className="mx-auto mb-4 h-auto w-full max-w-[353px] select-none"
+              className="mx-auto mb-4 h-auto w-full max-w-[353px] select-none lg:mb-0"
             />
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               What Actually{" "}

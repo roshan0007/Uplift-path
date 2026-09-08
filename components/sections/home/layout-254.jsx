@@ -9,13 +9,9 @@ export function Layout254() {
       <div className="container">
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
-            {/* Starburst cluster, centred above the heading. Decorative. */}
-            <img
-              src="/images/home-audience-starburst.png"
-              alt=""
-              aria-hidden="true"
-              className="mx-auto mb-4 h-auto w-full max-w-[132px] select-none"
-            />
+            {/* The v3 Figma drops the starburst cluster that used to sit
+                above this heading; the section now opens on the heading
+                itself. `home-audience-starburst.png` is unreferenced. */}
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Who <em className="font-heading-italic">We Work</em> With
             </h2>
@@ -61,10 +57,21 @@ export function Layout254() {
             </div>
           </div>
           <div className="relative order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
+            {/* The v3 Figma replaces the speech-bubble line illustration with
+                a photograph in a soft rounded-oval mask, with two 1px outlined
+                rectangles offset behind it (`Group 4`). The mask, the offset
+                outlines and the photo are baked into one asset exported from
+                that group at 2x, flattened onto white - the outlines overhang
+                the photo on two sides, so reproducing them as CSS borders
+                would need two extra positioned elements to say the same
+                thing, and the hand-drawn corner radii are not a CSS radius.
+
+                Not `rounded-image`: the rounding is part of the asset. Its
+                natural width is the Figma's own 507px. */}
             <img
-              src="/images/home-benefits-section.png"
-              alt="An illustration of a person sitting with two speech bubbles above them"
-              className="h-auto w-full rounded-image object-cover"
+              src="/images/home-audience-portrait.jpg"
+              alt="A man listening during a conversation, wearing an earphone"
+              className="mx-auto h-auto w-full max-w-[507px] select-none"
             />
           </div>
           <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">

@@ -31,61 +31,47 @@ const AUDIENCES = [
 
 export function Header104() {
   return (
-    <section className="relative overflow-hidden px-[5%] py-12 md:py-16 lg:pt-60 lg:pb-16 scheme-1 badge-alt">
-      {/* The two hand illustrations frame the heading from the top corners.
-          Sizes and offsets are measured off the 2x Figma export rather than
-          eyeballed: 474x238 flush to the left edge, 276x447 flush to the right,
-          both starting level with the top of this section. The assets carry
-          their own transparent margin, which is what keeps them from touching
-          the viewport edge even at `left-0` / `right-0`.
-
-          `overflow-hidden` is belt-and-braces — at these widths neither
-          overhangs, but a wider asset dropped in later would otherwise push
-          `document.scrollWidth` past the window and give the whole site a
-          horizontal scrollbar.
-
-          `lg:pt-60` on the section is what clears them: the Figma puts the h1
-          247px below the navbar so the art gets the top band to itself. Without
-          it the heading rides up into the illustrations.
-
-          Hidden below lg. At tablet width and under they collide with the
-          heading instead of framing it, and they carry no information — the
-          headline and the two cards are the section.
-
-          Decorative: `alt=""` and aria-hidden, and `pointer-events-none` so
-          they never swallow a click meant for the cards. */}
-      <img
-        src="/images/home-hero-hands-envelope.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 hidden w-[474px] select-none lg:block"
-      />
-      <img
-        src="/images/home-hero-hands-gift.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-1.5 right-0 hidden w-[276px] select-none lg:block"
-      />
+    // `bg-transparent` because the mint wash lives on the wrapper in
+    // `app/(site)/page.tsx` and `scheme-1` would otherwise paint white over it.
+    // The scheme class stays for its text, border and accent tokens.
+    <section className="relative bg-transparent px-[5%] py-12 md:py-16 lg:pt-[3.6875rem] lg:pb-16 scheme-1 badge-alt">
+      {/* The v3 Figma drops the two framing hand illustrations the previous
+          pass had in the top corners, and with them the `lg:pt-60` that was
+          only ever there to clear them - the heading now sits 59px below the
+          navbar, which is `lg:pt-[3.6875rem]`. The assets are still in
+          `public/images/` and are used by no page. */}
       <div className="relative container text-center">
         {/* Two lines by design, not by wrapping: the break after "Life" is in
             the Figma and holds at every width, so it is a <span> rather than a
             max-width left to chance. "Serve" is the italic. */}
-        <h1 className="mb-5 text-[1.75rem] leading-[1.2] font-bold sm:text-[2.5rem] md:mb-6 md:text-[3.25rem] lg:text-[4.5rem]">
+        <h1 className="mb-5 text-[1.75rem] leading-[1.2] font-bold sm:text-[2.5rem] md:mb-6 md:text-[3.25rem] lg:mb-[0.625rem] lg:text-[4.375rem] lg:leading-[1.333]">
           Uplifting Every Life
           <span className="block">
             We <em className="font-heading-italic">Serve</em>
           </span>
         </h1>
-        {/* Kept as it was, against the Figma. The Figma sets this to "Uplift
-            Path helps individuals find whole-person support and helps
-            organizations build stronger programs. CARF accredited. Based in
-            Columbus, Ohio." — that was tried and reverted: it reads as a
-            pitch rather than as the hero's own line, and the CARF claim it
-            carried is already made properly by the TrustStrip directly below,
-            where the seal links to CARF's provider listing as proof. */}
-        <p className="mx-auto max-w-lg text-medium">
-          Unlock progress and meaningful growth through clarity, collaboration
-          and trusted guidance at every step.
+        {/* Now the Figma's own line, at its measured 22px/1.21 and 839px
+            measure. The previous pass had kept the old Relume sub-copy against
+            the Figma, on the grounds that this reads as a pitch and that the
+            CARF claim is already made properly by the TrustStrip below, where
+            the seal links to CARF's provider listing as proof. That call was
+            reversed deliberately for v3: the Figma is the source of truth for
+            this page. The duplication with the strip below is real and is the
+            design's choice - the strip is still what evidences the claim. */}
+        {/* The measure is 856px, not the Figma's 839px. That frame sets this
+            paragraph in Inter 22px, which is where the 839px comes from - but
+            the navbar in the same frame correctly specifies Lexend Deca, so
+            Inter here is an inconsistency in the design file rather than a v3
+            type change, and body copy is Lexend Deca by brand rule. Lexend
+            Deca is ~2.7% wider than Inter over this string and needs 846px to
+            keep the Figma's break after "organizations"; at 839px it wraps to
+            three lines and the whole hero shifts down. 856px holds the
+            two-line composition with a little slack. */}
+        <p className="mx-auto max-w-lg text-medium lg:max-w-[53.5rem] lg:text-[1.375rem] lg:leading-[1.21]">
+          Uplift Path helps individuals find whole-person support and helps
+          organizations build stronger programs.{" "}
+          <strong className="font-semibold">CARF accredited.</strong> Based in
+          Columbus, Ohio.
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
@@ -131,7 +117,9 @@ export function Header104() {
             as a lead-in; underneath, it reads as the caption on the pair the
             visitor has just looked at, and it sits directly above the scroll
             cue so the question and the arrow answering it are one unit. */}
-        <p className="mt-8 font-semibold">Where would you like to start?</p>
+        <p className="mt-8 font-semibold lg:mt-[3.4375rem] lg:text-[1.375rem] lg:leading-[1.21]">
+          Where would you like to start?
+        </p>
 
         {/* Scroll cue. The audience selector ends near the fold, and without a
             cue the two cards read as the whole page. It is a real control, not
@@ -181,7 +169,7 @@ function ScrollCue() {
   return (
     // The row keeps its height whether or not the arrow is in it, so retiring
     // the cue does not shift the cards above it up the page.
-    <div className="mt-2 flex h-10 justify-center">
+    <div className="mt-2 flex h-10 justify-center lg:mt-[1.375rem]">
       <AnimatePresence>
         {visible && (
           <motion.button

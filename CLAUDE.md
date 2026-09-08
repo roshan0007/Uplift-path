@@ -49,8 +49,9 @@ order, and the scheme each one carries.
 - **Every section gets exactly one scheme class.** Children then read
   `--color-scheme-*` (`bg-scheme-foreground`, `text-scheme-text`,
   `border-scheme-border`). That indirection is what makes a section re-skinnable.
-  There are seven: `.scheme-light`, `.scheme-accent`, `.scheme-navy`,
-  `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`.
+  There are eight: `.scheme-light`, `.scheme-accent`, `.scheme-navy`,
+  `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`,
+  and `.scheme-jade` (v3, `#01a66e`, the footer band only).
   `.scheme-1/2/3` are aliases of the first three and are what the exported
   sections actually write. Prefer the named classes in new work; don't renumber
   anything.
@@ -64,6 +65,10 @@ order, and the scheme each one carries.
   Dark text on green is the only approved pairing; every scheme sets
   `--color-scheme-btn-text` to the dark neutral. On the green CTA banner the
   button goes black-with-white-label via the section's `.btn-dark` class.
+  This holds for `.scheme-jade` too: the v3 Figma sets the footer's labels
+  white, but white on `#01a66e` is 3.14:1 against the 4.5:1 those 14px links
+  need, so they stay dark at 6.38:1. If white is ever wanted on a green band,
+  change the fill to `.scheme-deep-teal` (9.05:1) rather than the label.
 - Cards: 2px border, `rounded-card`, no shadow. 1px hairlines for accordion
   rules, the footer divider and the nav dropdown sheet.
 - **One shadow exists in this brand: a hard `0 3px 0 0` ledge under a control,
@@ -73,8 +78,13 @@ order, and the scheme each one carries.
 - **Buttons translate down 3px onto their ledge on hover, and the ledge goes
   away — that is what reads as the press.** Hover and press are the same state
   by design; there is no separate press treatment to add.
-- No emoji. No gradients — the brand has none. Nothing bounces, springs, or
-  scales on hover.
+- No emoji. Nothing bounces, springs, or scales on hover.
+- **Gradients and textures: two exceptions, both v3, both homepage-only.**
+  `hero-fade` (the mint wash behind the first screen) and the pale-green
+  pattern band behind `layout-237`. Everything else is flat colour — no
+  gradient in a button, a card, or behind text, and no blurred shadow ever.
+  Both exceptions are documented in `globals.css` at `[8]` and in the section
+  itself; a third needs a design decision, not a precedent.
 
 ## Gotchas
 

@@ -6,7 +6,10 @@
    Four changes were needed to make it compile, resolve, and not break layout
    under Tailwind 4.x; they are marked [1] [2] [3] [4] below. [5] is a single
    added keyframe that is not in the export at all, and [6] is the Playfair
-   Display italic face the 2026-09 Figma introduced. Everything else is
+   Display italic face the 2026-09 Figma introduced. [7] and [8] are the two
+   v3 additions the 2026-09-08 Figma homepage introduced - a pale mint palette
+   step and the `hero-fade` wash that consumes it; [9] and [10] are the footer's
+   v3 green and the scheme that carries it. Everything else is
    the export verbatim - do not hand-edit the token values, they are the design
    system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
@@ -210,6 +213,23 @@
   --color-viking-dark: #41b19a;
   --color-viking-darker: #20584d;
   --color-viking-darkest: #184239;
+
+  /* [7] Not in the v2 export. The 2026-09 (v3) Figma homepage introduces a
+     pale mint wash behind the whole first screen, and #f0fffc is lighter than
+     anything the v2 palette carries - `--color-viking-lightest` (#edfbf8) is
+     the closest and is visibly greener. Added as the faintest step of the
+     existing Viking ramp rather than as a new family, since that is the hue it
+     belongs to. Consumed only by `@utility hero-fade` at the foot of this
+     file. */
+  --color-viking-faintest: #f0fffc;
+
+  /* [9] Not in the v2 export either. The v3 Figma's footer band is #01a66e -
+     a greener, darker fill than anything on the Caribbean Green ramp
+     (`-dark` is #06a785, visibly more cyan). Named for the hue rather than
+     hung off an existing family, the way Viking and Cerulean are. Consumed by
+     `@utility scheme-jade`; the torn edge PNG above the band is already
+     toned to it, so the two meet without a seam. */
+  --color-jade: #01a66e;
 
   --font-weight-bold: 400;
 
@@ -744,4 +764,69 @@
    declares font-family in exactly one place. */
 @utility font-heading-italic {
   font-style: italic;
+}
+
+/* [10] Not in the v2 export. The v3 Figma takes the footer band off
+   `scheme-accent` (#08d1a7) and onto its own greener #01a66e. A new scheme
+   rather than a recolour of `scheme-accent`, because that scheme is still
+   carrying eleven `cta-25` banners across the rest of the site and none of
+   them changed.
+
+   Text stays the dark neutral, NOT the Figma's white. White on #01a66e is
+   3.14:1 - better than the 1.96:1 the brief's "never white on the green" rule
+   was written against, but still short of the 4.5:1 WCAG AA needs for the
+   14px links this band is made of. The dark neutral is 6.38:1. This is the
+   same call `footer-04.jsx` already documents, and the same escape hatch
+   applies: if white is wanted, change the fill to `scheme-deep-teal`
+   (#035342, white at 9.05:1) and re-tone the torn edge, rather than putting
+   white on this green.
+
+   Mirrors `scheme-accent` in omitting the nested default-button colour rule -
+   same reason, and this band has no buttons in it today. */
+@utility scheme-jade {
+  --color-scheme-background: var(--color-jade);
+  --color-scheme-foreground: var(--color-jade);
+  --color-scheme-text: var(--color-neutral-darkest);
+  --color-scheme-border: var(--color-neutral-darkest);
+  --color-scheme-accent: var(--color-neutral-darkest);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+}
+
+/* [8] Not in the v2 export, and the one place this brand has a gradient in a
+   layout. CLAUDE.md's "no gradients" rule predates the v3 homepage; the
+   2026-09-08 Figma puts a pale mint wash behind the whole first screen
+   (`Rectangle 17`, 1447x1929 starting at the navbar's bottom edge), so the
+   rule is superseded here and only here. The CARF seal's sheen keyframe is the
+   other gradient in the file and is unrelated - see [5].
+
+   Why nine stops instead of two: the Figma fill is a two-stop linear from
+   #f0fffc at full alpha down to #d9d9d9 at zero alpha. Figma interpolates
+   gradient stops with NON-premultiplied alpha, so the grey channel stays in
+   the mix the whole way down and the wash desaturates through a faintly grey
+   middle before reaching white. CSS interpolates premultiplied, where a
+   transparent stop contributes no colour at all - a literal two-stop
+   translation goes straight mint-to-white and visibly misses the middle by up
+   to 10 levels of green. These stops are that non-premultiplied ramp
+   pre-composited over white and sampled at eighths, which tracks Figma's own
+   render to within one channel step across the full 1929px.
+
+   Applied to the wrapper around the hero, the CARF strip and the three-step
+   section, which together span exactly the wash's height and end where the
+   green band below begins. */
+@utility hero-fade {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-viking-faintest) 0%,
+    #effbf9 12.5%,
+    #eff8f6 25%,
+    #f0f6f5 37.5%,
+    #f2f6f5 50%,
+    #f4f6f6 62.5%,
+    #f7f8f8 75%,
+    #fbfbfb 87.5%,
+    var(--color-white) 100%
+  );
 }

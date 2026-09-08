@@ -48,6 +48,13 @@
   --color-viking-darker:#20584d;
   --color-viking-darkest:#184239;
 
+  /* v3 (2026-09-08 Figma homepage). Faintest step of the Viking ramp, used
+     only by the homepage hero wash. */
+  --color-viking-faintest:#f0fffc;
+  /* v3. The footer band green. Greener and darker than anything on the
+     Caribbean Green ramp, so it is its own hue rather than a step on one. */
+  --color-jade:#01a66e;
+
   /* ---- Black ---- */
   --color-black-lightest:#e5e5e5;
   --color-black-lighter:#cccccc;

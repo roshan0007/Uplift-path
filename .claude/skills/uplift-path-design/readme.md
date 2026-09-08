@@ -33,6 +33,32 @@ demo-site-design-uplift-design/
 
 No Figma file, GitHub repo or slide deck was provided. The homepage screenshots in `reference/homepage/` were used to resolve places where the code and the rendered result disagree (see the H1 note under Visual Foundations).
 
+## Versions
+
+**v2 — 2026-08-28.** The Relume export described under Sources. Everything below is v2 unless a line says otherwise.
+
+**v3 — 2026-09-08.** A Figma homepage redesign (file `vbs2QJkAZE0ahMaKTa0Z46`, frame `Homepage`, node `10264-1164`, 1440x6558), pulled via the Figma REST API. It is a homepage-scoped update plus one deliberate cross-site change, not a re-skin — the type scale, spacing rhythm, radii, borders and the one-ledge shadow rule are all unchanged, and v2's h2/h4/h5 tokens already matched the new frame exactly.
+
+What v3 changed:
+
+| | Change |
+|---|---|
+| Hero | Pale mint wash (`.hero-fade`) behind the whole first screen; the two framing hand illustrations removed; sub-copy replaced with the Figma's own line at 22px |
+| Three steps | Heart and two sparkle decoratives removed; heading down to 50px on the Figma's own track proportions; step titles are Playfair 25px/**700**; the three step bodies are the only justified text on the site |
+| What Actually Changes | Now sits on a full-bleed pale-green pattern band |
+| Who We Work With | Starburst removed; the centre illustration replaced by a photograph in a hand-drawn rounded-oval mask with two offset outlines |
+| Testimonial | Restored to a carousel, but driven off a data array — controls render only when there is more than one entry |
+| Footer *(cross-site)* | Band moved from `.scheme-accent` `#08D1A7` to `.scheme-jade` `#01A66E`; torn edge re-exported in the new green; nav rebuilt from 5 links to the Figma's three columns of 13 |
+
+Two things in the v3 frame were deliberately **not** taken:
+
+- **Body type.** The frame sets the hero sub-copy and the three step bodies in Inter. The navbar and every other body run in the same frame specify Lexend Deca, so Inter is an inconsistency in the design file, not a type change. Lexend Deca stands; the hero measure was widened from the Figma's 839px to 856px so the design's two-line break survives the wider face.
+- **White text on the footer green.** The frame sets it. White on `#01A66E` is 3.14:1 and the band is 14px links, which need 4.5:1; the dark neutral is 6.38:1. See `tokens/schemes.css`.
+
+Also not taken: the frame's testimonial placeholders (a grey CloudFront avatar, a node named "Placeholder Logo", and two invented attributions), and its two footer typos ("AI Conosultatin", "Advisory  services").
+
+A caution when measuring against this frame: several blocks in it — both hero cards, the CARF strip, and the CTA illustration — are **pasted screenshots of the built site**, placed with non-uniform `STRETCH` scaling (the cards are 594x392 in the frame against a real 624x407). Their absolute y-positions therefore carry error that is not design intent. Match the designed values and the gaps between elements, not those blocks' box geometry.
+
 ## Content fundamentals
 
 **Voice.** Plain, calm, operational. It sells clarity rather than transformation. Sentences are declarative and moderate-length; the copy explains what happens and in what order, and rarely reaches for adjectives. No exclamation marks anywhere on the site.
@@ -55,13 +81,13 @@ No Figma file, GitHub repo or slide deck was provided. The homepage screenshots 
 
 ## Visual foundations
 
-**Colour.** A near-white page, black-ish text (`#000A08`, never pure black), and one loud accent: Caribbean Green `#08D1A7`. Pickled Bluewood `#2C3E50` is the dark counterweight; Cerulean and Viking (mint) are supporting tints used for washes and occasional full-bleed sections. The homepage runs almost entirely on the white scheme, then hits the green CTA banner at the bottom — that single colour block is the page's only strong colour event. Sections carry exactly one scheme class (`.scheme-light`, `.scheme-accent`, `.scheme-navy`, `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`), which sets background, text, border and accent together, and children read from `--color-scheme-*`. Never more than one dark section adjacent to another.
+**Colour.** A near-white page, black-ish text (`#000A08`, never pure black), and one loud accent: Caribbean Green `#08D1A7`. Pickled Bluewood `#2C3E50` is the dark counterweight; Cerulean and Viking (mint) are supporting tints used for washes and occasional full-bleed sections. The homepage runs almost entirely on the white scheme, then hits the green CTA banner at the bottom — that single colour block is the page's only strong colour event. Sections carry exactly one scheme class (`.scheme-light`, `.scheme-accent`, `.scheme-navy`, `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`), which sets background, text, border and accent together, and children read from `--color-scheme-*`. Never more than one dark section adjacent to another. v3 adds an eighth scheme, `.scheme-jade` (`#01A66E`), used by the footer band only, and two palette entries: `--color-viking-faintest` `#F0FFFC` for the hero wash and `--color-jade`.
 
 **Type.** Two families, split by job. Playfair Display for headings — a high-contrast serif carrying all the warmth: weight 400 for section headings h2–h6, weight 600 for the hero H1. Lexend Deca for everything else: body, nav, buttons, labels, eyebrows. Weight 400 is default; 500 on buttons, 600 on eyebrows, FAQ questions and footer nav. Note the source sets `--font-weight-bold: 400`, so a "bold" section heading is still regular weight — h2–h6 never actually bolden. The hero H1 is the exception: Playfair Display SemiBold at 4.5rem, tight (-0.02em). Type scale doubles up at 992px (h1 2.75rem → 4.5rem).
 
 **Spacing.** Every section is `padding-inline: 5%` with `padding-block` stepping 4rem → 6rem (768px) → 7rem (992px). The page shell is an 80rem centred container; heading blocks cap at 48rem; text columns at 35rem. A section heading block sits 3rem above its content (5rem at desktop), and a heading sits 1.25–1.5rem above its supporting paragraph. Grids use 2rem gaps, 3rem at desktop.
 
-**Backgrounds.** Flat colour only. No gradients anywhere — not in sections, not in buttons, not behind text. No repeating patterns, no textures, no noise. Where an image sits behind type it gets a flat 50% darkest-neutral scrim, never a directional protection gradient.
+**Backgrounds.** Flat colour, with two named v3 exceptions and no others. No gradients in buttons, in cards, or behind text; no noise. Where an image sits behind type it gets a flat 50% darkest-neutral scrim, never a directional protection gradient. The exceptions, both introduced by the 2026-09-08 homepage and both scoped to it: `.hero-fade`, a pale mint wash behind the first screen (see `tokens/effects.css` for why it is nine stops and not two), and a full-bleed pale-green **pattern** band behind the "What Actually Changes" section — the one place a repeating texture is allowed. Neither is a licence to add a third; a new gradient or texture still needs a design decision behind it.
 
 **Imagery.** Two distinct kinds. (1) Loose hand-drawn line illustrations — black ink outlines with flat Caribbean Green / dark-teal fills, figures mid-gesture, on a plain grey or white ground. These carry the conceptual sections. (2) Straight photography for hero and feature slots, warm and mid-contrast, no filter, no duotone, no grain. Both get an 8px radius; illustrations are often `object-fit: contain` on their grey ground, photos `cover`.
 

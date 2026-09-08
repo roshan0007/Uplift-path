@@ -42,48 +42,26 @@ export function Layout423() {
     // `id` is the hero scroll cue's destination.
     <section
       id="uplift-pathways"
-      className="relative scroll-mt-20 px-[5%] pt-10 pb-16 md:pt-12 md:pb-24 lg:pt-56 lg:pb-28 scheme-1 badge-alt"
+      className="relative scroll-mt-20 bg-transparent px-[5%] pt-10 pb-16 md:pt-12 md:pb-24 lg:py-28 scheme-1 badge-alt"
     >
-      {/* Three loose decoratives — the heart, and two sparkle clusters. They
-          are anchored to the section rather than nested in the grid columns,
-          because in the Figma they do not belong to any column: the heart and
-          one sparkle straddle the heading, and the other sparkle sits above
-          the steps list.
-
-          `left` is a percentage of the Figma's own 1440 canvas (144px, 312px
-          and 1050px), so they hold their relationship to the composition as
-          the viewport widens instead of drifting with a grid track. Vertical
-          offsets are measured from the same export, relative to the heading —
-          which is what `lg:pt-56` above is for: it buys the top room the Figma
-          gives them, so the heart and the upper sparkle sit inside this
-          section instead of reaching up into the CARF strip.
-
-          All three are decorative and lg-only: under 1024px there is no room
-          beside the text and they would land on top of it. */}
-      <img
-        src="/images/home-steps-hand-heart.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute top-8 left-[10%] hidden w-[161px] select-none lg:block"
-      />
-      <img
-        src="/images/home-steps-sparkle-b.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-7 left-[72.9%] hidden w-[113px] select-none lg:block"
-      />
-      <img
-        src="/images/home-steps-sparkle-a.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-[155px] left-[21.7%] hidden w-[113px] select-none lg:block"
-      />
+      {/* The 2026-09-08 Figma removes the three loose decoratives this
+          section carried - the heart and the two sparkle clusters - along with
+          the `lg:pt-56` that existed only to buy them room above the heading.
+          The top padding is back to a normal section rhythm, which is what
+          closes the 89px gap between this section's foot and the patterned
+          band below. The three assets are still in `public/images/` and are
+          now referenced by nothing. */}
       <div className="relative container">
-        <div className="grid grid-cols-1 items-center gap-x-8 gap-y-12 lg:grid-cols-[1.1fr_0.9fr_1fr] lg:gap-x-12">
+        <div className="grid grid-cols-1 items-center gap-x-8 gap-y-12 lg:grid-cols-[574fr_204fr_350fr] lg:gap-x-12">
           {/* Left-aligned, not centred — this is the one section heading in the
               page that is not centred, and it is deliberate in the Figma. */}
-          <div className="max-w-md">
-            <h2 className="mb-5 text-h2 font-bold md:mb-6">
+          {/* No `max-w-md` from lg up: the track is already the Figma's own
+              574/1128 share of the row, and capping it at 560px is what forced
+              this heading onto four lines instead of the Figma's two. The
+              50px is the Figma's too - a step below `text-h2`'s 52px, which is
+              just enough that "know which one you're on." no longer fits. */}
+          <div className="max-w-md lg:max-w-none">
+            <h2 className="mb-5 text-h2 font-bold md:mb-6 lg:text-[3.125rem] lg:leading-[1.333]">
               Three steps. You always know{" "}
               <em className="font-heading-italic">which one you're on.</em>
             </h2>
@@ -131,13 +109,29 @@ export function Layout423() {
                   className="mt-2.5 size-2 shrink-0 rounded-full bg-scheme-text"
                 />
                 <div>
-                  {/* `<p>`, not `<h3>`. These labels are Lexend Deca semibold
-                      in the Figma, and globals.css binds Playfair Display to
-                      h1-h6 and nowhere else — an <h3> here would silently
-                      serif them and stop matching the design. The enclosing
-                      <ol> carries the structure instead. */}
-                  <p className="font-semibold">{step.title}</p>
-                  <p className="mt-2 text-small">{step.body}</p>
+                  {/* `<h3>`, and it needs to be: the v3 Figma sets these
+                      labels in Playfair Display 25px/700, and globals.css
+                      binds Playfair to h1-h6 and nowhere else, so a <p> here
+                      renders them in Lexend and stops matching. (The previous
+                      pass had them as Lexend semibold, which was right for the
+                      older frame.) h3 is also the correct level under this
+                      section's h2.
+
+                      The weight is written out rather than `font-bold`,
+                      because `--font-weight-bold` is deliberately 400 in this
+                      brand - `font-bold` on a heading is regular weight. These
+                      labels are one of the few places the design asks for a
+                      genuinely heavy Playfair, and the 700 face is
+                      self-hosted. */}
+                  <h3 className="text-[1.5625rem] leading-[1.333] font-[700]">
+                    {step.title}
+                  </h3>
+                  {/* The only justified text on the page, and it is the
+                      Figma's call: all three step bodies are JUSTIFIED at
+                      18px in a 350px measure. */}
+                  <p className="mt-2 text-small lg:text-[1.125rem] lg:leading-[1.21] lg:text-justify">
+                    {step.body}
+                  </p>
                 </div>
               </li>
             ))}
