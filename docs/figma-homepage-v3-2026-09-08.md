@@ -55,11 +55,11 @@ region that does not render. Easy to build by mistake from the node list alone.
 | CARF strip | `trust-strip.jsx` | Background only — made transparent so the wash shows through. Content unchanged |
 | Three steps | `layout-423.jsx` | Heart and two sparkles removed; grid retracked to the Figma's own 574/204/350; heading to 50px so it holds two lines; step titles now Playfair 25px/**700** via `<h3>`; step bodies justified at 18px |
 | What Actually Changes | `layout-237.jsx` | Full-bleed pale-green pattern band added. Content was already correct |
-| Who We Work With | `layout-254.jsx` | Starburst removed; centre illustration replaced by the photo-in-a-drawn-oval composite |
+| Who We Work With | `layout-254.jsx` | Starburst removed; centre illustration replaced by a looping video in a stadium mask with two offset outlines — see Follow-up change 5 |
 | Testimonial | `testimonial-10.jsx` | Rebuilt as a data-driven carousel; controls render only when there is more than one entry |
 | FAQ | `faq-01.jsx` | Untouched — content already matched |
 | CTA | `cta-25.jsx` | Untouched — matched to within a few px |
-| Footer | `footer-04.jsx` | **Cross-site.** `.scheme-accent` → `.scheme-jade`; torn edge re-exported in the new green; nav rebuilt from 5 links to the Figma's three columns of 13 |
+| Footer | `footer-04.jsx` | **Cross-site.** `.scheme-accent` → `.scheme-jade` with white text; torn edge re-exported in the new green; nav rebuilt from 5 links to four headed, left-aligned columns — see Follow-up changes 3 and 4 |
 
 Confirmed with the requester before the footer was touched, since it is shared
 by every route.
@@ -121,14 +121,21 @@ Added to `public/images/`:
 | File | Size | From |
 |---|---|---|
 | `home-changes-pattern-band.png` | 314 KB | `Rectangle 12` rendered at 2× (2880×1404), flattened on white, 16-colour palette — max error 8 on a soft pattern |
-| `home-audience-portrait.jpg` | 130 KB | `Group 4` rendered at 2× (1014×1470), flattened on white, JPEG q88. Diffed against the reference at **mean 0.14** |
+| ~~`home-audience-portrait.jpg`~~ | — | `Group 4` rendered at 2×, flattened on white. Diffed against the reference at mean 0.14, but **deleted in Follow-up change 5** — the media is a video, so the mask moved to CSS and the poster was re-exported unmasked |
 | `footer-torn-edge.png` | 26 KB *(was 71 KB)* | Replaced. `9833802_27050 1` rendered at 2×, cropped to the 1440-wide window the frame shows, ending on the first row that is flat `#01a66e` with zero variance — so it meets the band below without a seam |
 
-No `public/videos/` **yet**. The frame has no Figma *video* fills — zero `VIDEO`
-nodes and zero `videoRef`s in the whole tree — but that check was the wrong one:
-the "Who We Work With" media is a placed **GIF**, carried on a separate
-`gifRef`. See Follow-up change 5; `home-audience-portrait.jpg` is currently its
-poster frame standing in for it.
+And to `public/videos/` (see Follow-up change 5 for the full account):
+
+| File | Size |
+|---|---|
+| `home-audience-montage.mp4` | 0.78 MB |
+| `home-audience-montage.webm` | 0.40 MB |
+| `home-audience-montage-poster.jpg` | 59 KB |
+
+Note for anyone auditing this frame: it has no Figma *video* fills — zero
+`VIDEO` nodes and zero `videoRef`s — and that check is the wrong one. Placed
+GIFs live on a separate `gifRef` alongside a poster `imageRef`, which is how the
+"Who We Work With" video was missed on the first pass.
 
 ### Seven assets are now unreferenced
 
@@ -245,26 +252,68 @@ of the links.
 
 Reflows to two columns at 375px with Services and Follow below; no overflow.
 
-## 5. The "Who We Work With" media is a GIF, and it is 30 MB
+## 5. "Who We Work With" is now a video
 
-**It is not an image and not a Figma video fill** — which is why the first pass
-missed it. `Rectangle 9` carries both an `imageRef` (the poster frame, which is
-what got exported as `home-audience-portrait.jpg`) *and* a **`gifRef`**. My
-initial scan looked for `VIDEO`/`videoRef` and found none, because Figma stores
-placed GIFs separately.
+**It is neither an image nor a Figma video fill** — which is why the first pass
+missed it. `Rectangle 9` carries both an `imageRef` (a poster frame, which is
+what got exported as a flat image) *and* a **`gifRef`**. My initial check looked
+for `VIDEO`/`videoRef` and found none, because Figma stores placed GIFs
+separately. The `gifRef` is fetchable from the same `/v1/files/:key/images` map.
 
-The GIF is fetchable and was extracted: **800×1422, 83 frames, 8.3s, looping,
-30.3 MB**.
+The source is **800×1422, 83 frames, 8.3s, looping, 30.3 MB** — a four-shot
+montage of people on video calls (a man in a pink tee with an earbud, a laptop
+on a boardroom table, a desk call, a woman on the phone), not the single locked
+shot the poster frame suggested.
 
-30 MB is not shippable, and there is no transcoder in this environment — no
-`ffmpeg` on PATH or in the usual install locations, and no `imageio-ffmpeg`,
-`av`, `cv2` or `moviepy` in the Python environment. So this one item is
-**not done**, pending a decision: supply an MP4/WebM, or approve installing a
-transcoder to convert the extracted GIF.
+Transcoded with `ffmpeg` 7.1 (via `imageio-ffmpeg`, installed for this — a
+Python-environment dev dependency, nothing added to the repo):
 
-When the file lands, the markup wants a `<video autoplay loop muted playsinline>`
-with `poster="/images/home-audience-portrait.jpg"`, and the mask rebuilt in CSS
-rather than baked into the asset: all three of `Group 4`'s rects share a **230px
-corner radius**, with the two 1px black outlines offset behind the media —
-relative to the group's origin, outline A at (0,0) 376×694, outline B at
-(135,40) 372×695, media at (29,20) 449×708, group 507×735.
+| | Size |
+|---|---|
+| source GIF | 28.9 MB |
+| `home-audience-montage.mp4` (H.264, yuv420p, CRF 27, faststart) | **0.78 MB** |
+| `home-audience-montage.webm` (VP9, CRF 36) | **0.40 MB** |
+| `home-audience-montage-poster.jpg` | 59 KB |
+
+Fidelity against the source GIF: mean channel error 2.98 on frame 0 and 3.03 on
+frame 40, with 0.33–0.44% of pixels over a threshold of 18 — ordinary H.264
+noise on photographic footage.
+
+### The mask is CSS now, not baked into the asset
+
+The first pass flattened `Group 4` — mask, offset outlines and photo — into one
+JPEG. A video cannot carry that, so the composition is rebuilt: an
+`aspect-[507/735]` box holding two 1px outlined siblings and the video, all
+positioned by percentages taken from the Figma's own geometry. Verified in the
+browser at 1440, every value exact:
+
+| | Figma | Rendered |
+|---|---|---|
+| group | 507 × 735 | 507 × 735 |
+| outline A | x0 y0 376×694 | x0 y0 376×694 |
+| outline B | x135 y40 372×695 | x135 y40 372×695 |
+| video | x29 y20 449×708 | x29 y20 449×708 |
+| corner radius | 230, clamped | 224.5 |
+
+`rounded-full`, not `rounded-[230px]`: Figma's 230 exceeds half the shorter side
+of all three rects, so Figma clamps it and the ends render as true semicircles —
+a stadium. `border-radius: 9999px` reproduces exactly that and stays correct as
+the composite scales, which a fixed 230px would not.
+
+The poster is the video's **own first frame at full 800×1422, unmasked**, so CSS
+crops and rounds poster and video identically and nothing shifts when playback
+starts. `object-cover` performs the same 800×1422 → 449×708 crop the frame does.
+
+`home-audience-portrait.jpg` (the baked composite) is deleted — it was added on
+this branch and is fully superseded.
+
+### Autoplay and reduced motion
+
+`autoplay loop muted playsinline`, with `muted` required for autoplay to be
+permitted and `playsInline` stopping iOS going fullscreen. An autoplaying loop
+is what `prefers-reduced-motion` exists for and no CSS can pause a video, so
+there is a small effect: under a reduce preference playback never starts and the
+poster stands, and it responds to the preference changing. `autoplay` stays on
+the element so the common case needs no JS.
+
+Checked at 375px: scales to 299×471, plays, no overflow.

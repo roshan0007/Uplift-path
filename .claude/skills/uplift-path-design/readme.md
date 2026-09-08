@@ -47,7 +47,7 @@ What v3 changed:
 | Italic headings | The real Playfair Display Medium Italic (500) is now self-hosted. It was not before, so all four italic clauses were browser-synthesised slants of the 400 roman |
 | Three steps | Heart and two sparkle decoratives removed; heading down to 50px on the Figma's own track proportions; step titles are Playfair 25px/**700**; the three step bodies are the only justified text on the site |
 | What Actually Changes | Now sits on a full-bleed pale-green pattern band |
-| Who We Work With | Starburst removed; the centre illustration replaced by a photograph in a hand-drawn rounded-oval mask with two offset outlines |
+| Who We Work With | Starburst removed; the centre illustration replaced by a **looping video** in a stadium mask with two offset 1px outlines. Figma carries it as a placed GIF on a `gifRef`, not a video fill — the node's `imageRef` is only a poster frame |
 | Testimonial | Restored to a carousel, but driven off a data array — controls render only when there is more than one entry |
 | Footer *(cross-site)* | Band moved from `.scheme-accent` `#08D1A7` to `.scheme-jade` `#01A66E` with white text; torn edge re-exported in the new green; nav rebuilt from 5 links to four headed, left-aligned columns carrying the Figma's 13 destinations |
 
@@ -91,6 +91,8 @@ A caution when measuring against this frame: several blocks in it — both hero 
 **Spacing.** Every section is `padding-inline: 5%` with `padding-block` stepping 4rem → 6rem (768px) → 7rem (992px). The page shell is an 80rem centred container; heading blocks cap at 48rem; text columns at 35rem. A section heading block sits 3rem above its content (5rem at desktop), and a heading sits 1.25–1.5rem above its supporting paragraph. Grids use 2rem gaps, 3rem at desktop.
 
 **Backgrounds.** Flat colour, with two named v3 exceptions and no others. No gradients in buttons, in cards, or behind text; no noise. Where an image sits behind type it gets a flat 50% darkest-neutral scrim, never a directional protection gradient. The exceptions, both introduced by the 2026-09-08 homepage and both scoped to it: `.hero-fade`, a pale mint wash behind the first screen (see `tokens/effects.css` for why it is nine stops and not two), and a full-bleed pale-green **pattern** band behind the "What Actually Changes" section — the one place a repeating texture is allowed. Neither is a licence to add a third; a new gradient or texture still needs a design decision behind it.
+
+**Motion imagery.** v3 introduces the first moving asset on the site: a silent, looping, autoplaying video in the homepage's "Who We Work With" mask. Self-hosted MP4 + WebM under `public/videos/`, never a GIF (the Figma source was a 30MB GIF; transcoded it is under 1MB), always with a poster frame that is the video's own first frame unmasked, and always suppressed under `prefers-reduced-motion`. Masks and outlines go in CSS, not baked into the asset.
 
 **Imagery.** Two distinct kinds. (1) Loose hand-drawn line illustrations — black ink outlines with flat Caribbean Green / dark-teal fills, figures mid-gesture, on a plain grey or white ground. These carry the conceptual sections. (2) Straight photography for hero and feature slots, warm and mid-contrast, no filter, no duotone, no grain. Both get an 8px radius; illustrations are often `object-fit: contain` on their grey ground, photos `cover`.
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { SymbolIcon } from "@/components/ui/symbol-icon";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 export function Layout254() {
   return (
@@ -57,22 +57,7 @@ export function Layout254() {
             </div>
           </div>
           <div className="relative order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
-            {/* The v3 Figma replaces the speech-bubble line illustration with
-                a photograph in a soft rounded-oval mask, with two 1px outlined
-                rectangles offset behind it (`Group 4`). The mask, the offset
-                outlines and the photo are baked into one asset exported from
-                that group at 2x, flattened onto white - the outlines overhang
-                the photo on two sides, so reproducing them as CSS borders
-                would need two extra positioned elements to say the same
-                thing, and the hand-drawn corner radii are not a CSS radius.
-
-                Not `rounded-image`: the rounding is part of the asset. Its
-                natural width is the Figma's own 507px. */}
-            <img
-              src="/images/home-audience-portrait.jpg"
-              alt="A man listening during a conversation, wearing an earphone"
-              className="mx-auto h-auto w-full max-w-[507px] select-none"
-            />
+            <AudienceMontage />
           </div>
           <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">
             <div className="flex flex-col items-center text-center">
@@ -109,5 +94,91 @@ export function Layout254() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * The centre of "Who We Work With". In the Figma this is `Group 4`: a media
+ * rect with two 1px outlined rects offset behind it, all three sharing a 230px
+ * corner radius.
+ *
+ * The media is a *video*, not a still. Figma carries it as a placed GIF — the
+ * node has an `imageRef` (a poster frame) and a separate `gifRef` — which is
+ * why an earlier pass shipped the poster as a flat image. The source GIF is
+ * 800x1422, 83 frames, 8.3s, 30.3MB; it is transcoded to MP4 + WebM at ~0.8MB
+ * and ~0.4MB. Four shots of people on video calls.
+ *
+ * `rounded-full`, not `rounded-[230px]`. Figma's 230 exceeds half the shorter
+ * side of all three rects, so Figma clamps it — the left and right ends come
+ * out as true semicircles and the shape reads as a stadium, which is what the
+ * frame renders. `border-radius: 9999px` reproduces exactly that and, unlike a
+ * fixed 230px, stays correct as the composite scales down.
+ *
+ * The mask and the outlines are CSS rather than baked into the asset, because a
+ * video cannot carry them: the outlines overhang the media on two sides, so
+ * they are two positioned siblings. Percentages are the Figma's own geometry
+ * over the 507x735 group box, so the whole composition scales as one.
+ *
+ * `object-cover` crops the 800x1422 source into the Figma's 449x708 window,
+ * which is the same crop the frame applies. The poster is the video's own first
+ * frame at full 800x1422, unmasked, so poster and video are cropped and rounded
+ * identically and nothing shifts when playback starts.
+ */
+function AudienceMontage() {
+  const videoRef = useRef(null);
+
+  // Autoplaying loops are exactly what `prefers-reduced-motion` is for. There
+  // is no CSS that pauses a video, so this is done in JS: under a reduce
+  // preference the poster stays and playback never starts. `autoPlay` is left
+  // on the element so the common case needs no JS at all.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => {
+      if (mq.matches) {
+        el.pause();
+        el.removeAttribute("autoplay");
+      } else if (el.paused) {
+        // Can reject if the browser refuses autoplay; the poster is the
+        // fallback either way, so the rejection is not an error worth raising.
+        el.play().catch(() => {});
+      }
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  return (
+    // aspect-ratio holds the group's 507x735 box so the absolutely positioned
+    // children have something to be a percentage of.
+    <div className="relative mx-auto w-full max-w-[507px] aspect-[507/735]">
+      {/* The two outlines. Decorative and behind the media. */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 h-[94.42%] w-[74.16%] rounded-full border border-scheme-border"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute top-[5.44%] left-[26.63%] h-[94.56%] w-[73.37%] rounded-full border border-scheme-border"
+      />
+      <video
+        ref={videoRef}
+        // `muted` is required for autoplay to be allowed at all, and
+        // `playsInline` stops iOS taking it fullscreen.
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        poster="/images/home-audience-montage-poster.jpg"
+        aria-label="People meeting over video calls from home offices and a boardroom"
+        className="absolute top-[2.72%] left-[5.72%] h-[96.33%] w-[88.56%] rounded-full object-cover"
+      >
+        <source src="/videos/home-audience-montage.webm" type="video/webm" />
+        <source src="/videos/home-audience-montage.mp4" type="video/mp4" />
+      </video>
+    </div>
   );
 }
