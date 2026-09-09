@@ -135,6 +135,18 @@ function withReferrer(src) {
  * height and do not need one — they set an explicit height class at the call
  * site and the card grows to fit.
  *
+ * **The outer wrapper needs a parent with a definite height. Do not mount this
+ * inside a plain block column.** `flex h-full min-h-0 items-center` is written
+ * for the intake screens, where the slot is a flex child that has been handed
+ * a height and centring the frame in the surplus is the point. Mounted in a
+ * plain block, `h-full` resolves against the *column's* height instead — so
+ * the wrapper comes out taller than the frame inside it, `items-center` splits
+ * the difference into dead space above and below, and if the wrapper starts
+ * part-way down the column it overflows the section by however far down it
+ * started. That is exactly what happened on `/grievance`: 511px of white space
+ * and 463px of overflow. Its docblock has the measurements. `/contact-us` is
+ * fine because there the slot is a grid child with a real height.
+ *
  * The frame is mounted client-side only. The `referrername` value comes from
  * `window.location`, which does not exist during the static export, so building
  * the URL on the server and correcting it on the client would either mismatch
