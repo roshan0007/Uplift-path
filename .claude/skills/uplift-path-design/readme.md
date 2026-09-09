@@ -89,7 +89,7 @@ Also not taken: the frame's testimonial placeholders (a grey CloudFront avatar, 
 | CTA | Re-skinned to the same v3 CTA as the homepage and About Us |
 | Hero | Its heading was an `<h2>`, leaving the route with no `<h1>`. Promoted; the type is unchanged |
 
-The FAQ finding is the one worth carrying off this page: **all nineteen frames in the Figma file** — the v2 desktop set and the v3 rebuilds alike — set FAQ questions in Lexend Deca 18/27 weight 700, and the build renders them in Playfair Display 400 on all eleven routes that carry an FAQ. Two causes compound: Radix's `AccordionPrimitive.Header` renders an `<h3>`, which the base `h1–h6` Playfair rule catches, and the trigger's `font-bold` resolves through `--font-weight-bold`, which this brand pins to 400 on purpose. Fixed by composing `font-body font-[700]` at the call site — two classes, because `cn()` is tailwind-merge and only drops `font-bold` when a real font-weight utility lands beside it. Applied on `/how-we-work`, `/for-individual-page`, `/for-business-page` and `/advisory-services`; the other seven are a site-wide change awaiting a decision.
+The FAQ finding is the one worth carrying off this page: **all nineteen frames in the Figma file** — the v2 desktop set and the v3 rebuilds alike — set FAQ questions in Lexend Deca 18/27 weight 700, and the build renders them in Playfair Display 400 on all eleven routes that carry an FAQ. Two causes compound: Radix's `AccordionPrimitive.Header` renders an `<h3>`, which the base `h1–h6` Playfair rule catches, and the trigger's `font-bold` resolves through `--font-weight-bold`, which this brand pins to 400 on purpose. Fixed by composing `font-body font-[700]` at the call site — two classes, because `cn()` is tailwind-merge and only drops `font-bold` when a real font-weight utility lands beside it. Applied on `/how-we-work`, `/for-individual-page`, `/for-business-page`, `/advisory-services` and `/systems-&-technology`; the other six are a site-wide change awaiting a decision.
 
 Deliberate departures on this page:
 
@@ -119,6 +119,24 @@ Two frame typos were fixed rather than reproduced, both in the hero: "for Busine
 **The Figma API was unusable on this pass and the reference render carried it.** `/v1/files/:key?ids=…&geometry=paths` — the endpoint the previous four passes relied on — now 429s alongside `/v1/files/:key/nodes` and `/v1/images`, all three with `x-figma-plan-tier: starter`, `x-figma-rate-limit-type: low` and a `Retry-After` of 322k–334k seconds (~3.8 days). That is the account quota, not a throttle, and no backoff reaches it; `/v1/me` still returns 200, so it is not auth. Only `/v1/files/:key/images` survives. Everything on this page was therefore measured off the 2x reference render, which is pixel-accurate, and the two vignettes were cut from it directly and un-composited off the white page with a min-channel alpha key (round-trips over white to a mean channel difference of 0.04). **Plan for this: the geometry endpoint should be assumed gone for the remaining frames.**
 
 **No new tokens.** Every value the frame asked for already had one: `--text-h2` 52/62.4, `--text-h4` 36/46.8, 18/27 and 16/24 body, the 1280 container, the 12px control radius. No new colour, shadow, radius or scheme, and no new gradient — the page is flat white end to end apart from the footer's jade band.
+
+**v3 — the three service pages, 2026-09-09.** Frames `AI Consultancy` (1440x4467), `Advisory Services` (1440x5229) and `System & Technology` (1440x5010), each an incremental pass onto the page that already existed. Recorded in full in `docs/figma-ai-consultation-v3-2026-09-09.md`, `docs/figma-advisory-services-v3-2026-09-09.md` and `docs/figma-systems-technology-v3-2026-09-09.md`. **No new tokens on any of the three.**
+
+The pattern across all three: every hero gained two line-art vignettes and was promoted to `<h1>`, every FAQ took the Lexend Deca 700 question face, and every CTA took the v3 re-skin. What differed was how much was broken underneath.
+
+| | The real finding |
+|---|---|
+| AI Consultation | All three service cards were **byte-identical** — one service listed three times under a standfirst promising "a full suite". The frame's three distinct cards ship. Also: five `<h1>`s on one route, icons hot-linked off jsdelivr at `@latest` and rendering black because `text-scheme-text` was set on an `<img>` |
+| Advisory Services | Three lists were **not lists** — items jammed into one `<p>` with "1." and "- " typed as literal characters, rendering as walls of text with no list semantics. Now real `<ol>`/`<ul>`. The tab set around them went too: each trigger held its own body, so all three were always visible and clicking only swapped a photo |
+| Systems & Technology | Timeline step 05 "Hand over" carried step 01's body verbatim — **and the frame carries it too**, so the frame does not fix everything |
+
+Three techniques from this batch worth reusing:
+
+- **Isolating a vignette that shares rows with text.** On both Advisory and Systems a naive bounding box swallowed the centred copy and over-reported a vignette's width by 150-230px. Measure the x-extent over only the y bands the neighbouring text leaves free, then take the y-extent within that x. Every vignette on these three pages lands at Δ0 against the frame that way.
+- **Matching a frame photo to a file already in the repo.** Centre-crop each candidate to the frame region's aspect, thumbnail both to 48x48, compare. On Advisory the correct match scored 2-18 and every wrong one 68+ — an unambiguous gap. It found that the feature card's photo was not the file the export had there, and that two files in `public/images` are the same photograph at 5x different sizes.
+- **Comparing against an RGBA file.** `Image.open(...).convert("RGB")` composites transparency onto **black**, which made a correct match read 208. Composite onto white first; the same comparison then reads 21.8.
+
+The `--color-caribbean-green-dark` `#06A785` already in the palette is what the AI Consultancy frame draws its approach icons in, so those icons are self-hosted from `/svgs` and applied as CSS masks — the treatment `how-we-work/layout-254` established, and the reason no new colour was needed.
 
 ## Content fundamentals
 
