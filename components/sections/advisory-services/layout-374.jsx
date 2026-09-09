@@ -107,11 +107,19 @@ export function Layout374() {
                 <h3 className="mb-2 text-h5 font-bold">{area.title}</h3>
                 <p>{area.body}</p>
               </div>
-              <div className="min-h-0 flex-1">
+              {/* Fixed height rather than `flex-1`, and this is what sizes the
+                  whole grid. The four small cards were letting the photo take
+                  every pixel the row gave them, so each ran to 410-434px and
+                  the feature card beside them — spanning both rows — stretched
+                  to 876px with a 614px photograph in it. Asked to bring these
+                  down. Capping the small photos at 144/160px settles the row
+                  height, the feature card follows it down, and no card is
+                  mostly image any more. */}
+              <div className="mt-auto">
                 <img
                   src={area.image}
                   alt={area.alt}
-                  className="size-full min-h-32 object-cover"
+                  className="h-36 w-full object-cover md:h-40"
                 />
               </div>
             </Card>

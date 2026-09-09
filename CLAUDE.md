@@ -62,17 +62,20 @@ order, and the scheme each one carries.
   `/fonts` via `@font-face` at the top of `globals.css`. That is the only place
   a font-family is declared — don't set one anywhere else. The one utility that
   reaches for the body face by name is `font-body`, also declared there, and it
-  exists for a specific case: **FAQ accordion questions are Lexend Deca 700 in
-  every Figma frame**, but Radix wraps the trigger in an `<h3>` (so the base
-  `h1–h6` Playfair rule catches it) and its `font-bold` resolves through
-  `--font-weight-bold`, which is 400. The fix is `font-body font-[700]` at the
-  call site — both classes, since `cn()` is tailwind-merge and only drops
-  `font-bold` when a real font-weight utility lands beside it. Applied on
-  `/how-we-work`, `/for-individual-page`, `/for-business-page`,
-  `/advisory-services`, `/systems-&-technology`, `/compliance-support`,
-  `/resource-assistance` and `/career`; the other three `faq-01` sections
-  (`about-us`, `home`, `faq-for-test`) still render Playfair 400.
-  See `globals.css` [13].
+  exists for a specific case: FAQ accordion questions. Radix wraps the trigger
+  in an `<h3>` (so the base `h1–h6` Playfair rule catches it) and its
+  `font-bold` resolves through `--font-weight-bold`, which is 400 — so a
+  question that is marked bold and is not a heading comes out as neither. Every
+  `faq-01` composes `font-body font-[400]` at the call site: both classes,
+  since `cn()` is tailwind-merge and only drops `font-bold` when a real
+  font-weight utility lands beside it.
+  **All eleven routes carry the same treatment — Lexend Deca 400 — and the
+  weight is 400 by explicit instruction, not 700.** The Figma frames all
+  specify 700, and eight routes shipped that way while `about-us`, `home` and
+  `faq-for-test` stayed on Playfair 400; that split was reported as an
+  inconsistency and the resolution asked for was consistent and *not bold*.
+  Don't "restore" 700 on one page — if it comes back it comes back on all
+  eleven at once. See `globals.css` [13].
   Its counterpart `font-heading` (Playfair Display) exists for the mirror-image
   case: the For Individual step numerals must carry the heading face but must
   not be headings (they are decorative duplicates of the "Step N" label, so

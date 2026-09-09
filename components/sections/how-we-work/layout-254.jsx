@@ -44,7 +44,7 @@ import React, { useEffect, useRef } from "react";
 function Value({ icon, title, children }) {
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="mb-5 md:mb-6">
+      <div className="mb-3 md:mb-2">
         <span
           aria-hidden="true"
           className="block size-12 bg-viking-dark"
@@ -60,7 +60,7 @@ function Value({ icon, title, children }) {
           }}
         />
       </div>
-      <h3 className="mb-3 text-h5 font-bold md:mb-4">{title}</h3>
+      <h3 className="mb-2 text-h5 font-bold md:mb-2">{title}</h3>
       <p>{children}</p>
     </div>
   );
@@ -90,7 +90,7 @@ export function Layout254() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="relative overflow-hidden px-[5%] py-10 md:py-12 lg:py-12 scheme-1 badge-alt">
       {/* The frame's `Vector 5`, verbatim: its own path in its own 1563.5x749
           box, so nothing is re-drawn by hand. Behind everything, and the
           section clips the part that runs off-canvas to the right. */}
@@ -107,7 +107,7 @@ export function Layout254() {
       </svg>
 
       <div className="relative container">
-        <div className="mb-12 md:mb-12 lg:mb-12">
+        <div className="mb-6 md:mb-8 lg:mb-8">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               What You'll Experience
@@ -119,7 +119,7 @@ export function Layout254() {
           </div>
         </div>
         <div className="grid place-items-center gap-x-8 gap-y-12 sm:grid-cols-2 md:gap-y-16 lg:grid-cols-[322fr_449fr_322fr] lg:gap-x-[7.3%]">
-          <div className="grid w-full grid-cols-1 gap-y-8 md:gap-y-16">
+          <div className="grid w-full grid-cols-1 gap-y-6 md:gap-y-5">
             <Value icon="share" title="Psychological Safety">
               Share ideas. Admit mistakes. Try imperfect solutions. We've got
               you.
@@ -136,7 +136,17 @@ export function Layout254() {
 
           {/* 449x708 at r20 in the frame. The radius is in `cqw` against the
               media's own box rather than px, so it holds its proportion as the
-              column narrows instead of creeping towards a pill. */}
+              column narrows instead of creeping towards a pill.
+
+              **Cropped to 449x540 at `lg` by decision.** The frame's 708px
+              media, plus the frame's 64px item gaps, made this section 1130px
+              tall — it could not be seen at once on any laptop, and the
+              six values it exists to present were never on screen together.
+              Asked for it to read in one view. The crop is taken through the
+              `object-cover` that was already here, so the subject stays
+              centred and nothing is squeezed; below `lg` the media is
+              full-bleed and single-column, where the frame's aspect is right
+              and the height costs nothing. */}
           <div className="@container order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
             <video
               ref={videoRef}
@@ -147,7 +157,7 @@ export function Layout254() {
               preload="metadata"
               poster="/images/how-we-work-experience-poster.jpg"
               aria-label="A woman turning with her arms outstretched under a blossoming tree against a blue sky"
-              className="aspect-[449/708] w-full rounded-[4.454cqw] border border-scheme-border object-cover"
+              className="aspect-[449/708] w-full rounded-[4.454cqw] border border-scheme-border object-cover lg:aspect-[449/540]"
             >
               <source
                 src="/videos/how-we-work-experience.webm"
@@ -160,7 +170,7 @@ export function Layout254() {
             </video>
           </div>
 
-          <div className="grid w-full grid-cols-1 gap-y-8 md:gap-y-16">
+          <div className="grid w-full grid-cols-1 gap-y-6 md:gap-y-5">
             <Value icon="experiment" title="Autonomy">
               Make decisions. Own your work. Experiment freely.
             </Value>

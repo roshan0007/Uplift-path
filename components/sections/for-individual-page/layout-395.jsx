@@ -46,21 +46,26 @@ import React, { useEffect, useRef } from "react";
  * The two outer cards are empty 1px outlines in the frame -- pure decoration,
  * so `aria-hidden`.
  */
+/**
+ * The three services. `icon` is a Material Symbol already in `/svgs`, applied
+ * as a CSS mask so the fill comes from the palette -- the treatment
+ * `how-we-work/layout-254` and `ai-consultation/layout-253` both use.
+ */
 const ITEMS = [
   {
+    icon: "groups",
     title: "Peer coaching support",
     body: "Guidance from someone who has walked a similar path.",
-    indented: false,
   },
   {
+    icon: "self_improvement",
     title: "Mental health therapy",
     body: "Build the skills to navigate life with greater resilience.",
-    indented: true,
   },
   {
+    icon: "diversity_3",
     title: "Counseling",
     body: "A steady space to untangle your thoughts and feel heard.",
-    indented: false,
   },
 ];
 
@@ -106,21 +111,51 @@ export function Layout395() {
               Professional support that adapts to your schedule and your needs.
             </p>
 
-            {/* The frame runs these down a diagonal: item 1 at the left edge,
-                item 2 indented 309px and lower, item 3 back at the left. The
-                stagger mirrors the diagonal of the card stack opposite, so it
-                is kept rather than flattened into a grid. Below lg the indent
-                is dropped -- there is no room for it and no stack to mirror. */}
-            <div className="mt-12 flex max-w-[650px] flex-col gap-y-5 md:mt-14">
+            {/* **The frame's diagonal stagger is gone, and this is a
+                departure by request.**
+
+                The frame runs these down a diagonal -- item 1 at the left
+                edge, item 2 indented 309px and lower, item 3 back at the left
+                -- on the argument that it mirrors the card stack opposite.
+                Built, it does not read that way. Each item is capped at 341px
+                inside a 650px column, so nothing shares a left edge, the three
+                headings land on three different measures, and the middle one
+                floats in open space with its body copy orphaned under it. The
+                cascade the frame draws needs the eye to follow a line; three
+                unequal text blocks at three indents just look misaligned.
+
+                So they are one list on one axis: full column measure, each item
+                on a hairline rule, an icon carrying the rank the stagger was
+                trying to imply. That is a pattern this site already has --
+                the masked-icon treatment is `layout-254`'s and `layout-253`'s
+                -- so it reads as part of the system rather than as a fourth
+                idea about how to present three things. The copy is unchanged. */}
+            <div className="mt-10 flex flex-col md:mt-12">
               {ITEMS.map((item) => (
                 <div
                   key={item.title}
-                  className={`max-w-[341px] ${item.indented ? "lg:ml-[309px]" : ""}`}
+                  className="flex items-start gap-x-5 border-t border-scheme-border py-6 last:border-b md:gap-x-6 md:py-7"
                 >
-                  <h3 className="mb-3 text-h4 font-bold md:mb-4">
-                    {item.title}
-                  </h3>
-                  <p>{item.body}</p>
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 block size-8 shrink-0 bg-caribbean-green-dark md:size-9"
+                    style={{
+                      maskImage: `url(/svgs/icon-${item.icon}.svg)`,
+                      WebkitMaskImage: `url(/svgs/icon-${item.icon}.svg)`,
+                      maskSize: "contain",
+                      WebkitMaskSize: "contain",
+                      maskRepeat: "no-repeat",
+                      WebkitMaskRepeat: "no-repeat",
+                      maskPosition: "center",
+                      WebkitMaskPosition: "center",
+                    }}
+                  />
+                  <div>
+                    <h3 className="mb-2 text-h4 font-bold md:mb-3">
+                      {item.title}
+                    </h3>
+                    <p>{item.body}</p>
+                  </div>
                 </div>
               ))}
             </div>

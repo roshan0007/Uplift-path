@@ -50,7 +50,7 @@ const FAQS = [
 
 export function Faq1() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] pt-16 pb-12 md:pt-24 md:pb-16 lg:pt-28 lg:pb-16 scheme-1 badge-alt">
       <div className="container max-w-lg">
         <div className="mb-12 text-center md:mb-18 lg:mb-20">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
@@ -61,14 +61,13 @@ export function Faq1() {
         <Accordion type="multiple">
           {FAQS.map((faq, index) => (
             <AccordionItem key={faq.q} value={`item-${index}`}>
-              <AccordionTrigger className="text-medium md:py-5">
+              <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
                 {faq.q}
               </AccordionTrigger>
               <AccordionContent className="md:pb-6">{faq.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
-        <div className="mx-auto mt-12 max-w-md text-center md:mt-18 lg:mt-20" />
       </div>
     </section>
   );

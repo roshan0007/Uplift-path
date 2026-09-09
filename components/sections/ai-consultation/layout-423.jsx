@@ -32,6 +32,14 @@ import React from "react";
  * against the render: same images, differing only by the scrim and the crop).
  * Type is 16/24 weight 600 for the label, 36/46.8 Playfair for the heading and
  * 16/24 for the body, all existing tokens.
+ *
+ * **The cards are 405x470, not the frame's 405x630 — asked for.** Three 630px
+ * cards in a row is 630px of one section spent on three photographs, and the
+ * copy sits in the bottom quarter of each with a half-metre of empty scrim
+ * above it. At 470 the type block still has its own room and the row reads as
+ * three cards rather than three posters. The photos are all portrait with
+ * their subject in the upper half, so the shorter box takes `object-top`
+ * rather than the default centre — centred, the 470 crop cut heads off.
  */
 
 const SERVICES = [
@@ -56,7 +64,7 @@ export function Layout423() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
-        <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
+        <div className="mx-auto mb-10 w-full max-w-lg text-center md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Our AI consulting and implementation services
           </h2>
@@ -69,21 +77,21 @@ export function Layout423() {
           {SERVICES.map((s) => (
             <BackgroundCard
               key={s.title}
-              className="relative flex flex-col justify-end md:aspect-[405/630]"
+              className="relative flex flex-col justify-end md:aspect-[405/470]"
             >
               {/* Decorative: the heading and body beside it carry the meaning. */}
               <img
                 src={s.image}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 size-full object-cover"
+                className="absolute inset-0 size-full object-cover object-top"
               />
               {/* The frame darkens the whole photo so the white type holds. */}
               <div className="absolute inset-0 bg-neutral-darkest/50" />
-              <div className="relative min-h-[22rem] p-6 md:min-h-0 md:p-8 flex flex-col justify-end">
+              <div className="relative min-h-[18rem] p-6 md:min-h-0 md:p-7 flex flex-col justify-end">
                 <p className="mb-2 font-semibold text-white">AI consulting</p>
                 <h3 className="text-h4 font-bold text-white">{s.title}</h3>
-                <p className="mt-5 text-white md:mt-6">{s.body}</p>
+                <p className="mt-4 text-white md:mt-5">{s.body}</p>
               </div>
             </BackgroundCard>
           ))}

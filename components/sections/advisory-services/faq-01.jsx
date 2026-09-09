@@ -18,7 +18,7 @@ import React from "react";
  */
 export function Faq1() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    <section className="px-[5%] pt-16 pb-12 md:pt-24 md:pb-16 lg:pt-28 lg:pb-16 scheme-1 badge-alt">
       <div className="container max-w-lg">
         <div className="mb-12 text-center md:mb-18 lg:mb-20">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
@@ -30,7 +30,7 @@ export function Faq1() {
         </div>
         <Accordion type="multiple">
           <AccordionItem value="item-0">
-            <AccordionTrigger className="text-medium font-body font-[700] md:py-5">
+            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
               How is advisory different from a consultant writing us a report?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -39,7 +39,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-medium font-body font-[700] md:py-5">
+            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
               We are very early. Is it too soon?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -48,7 +48,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-medium font-body font-[700] md:py-5">
+            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
               How long does an engagement run?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -57,7 +57,6 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div className="mx-auto mt-12 max-w-md text-center md:mt-18 lg:mt-20" />
       </div>
     </section>
   );

@@ -35,10 +35,32 @@ export function Layout134() {
           alt=""
           className="absolute top-[296px] left-[132px] h-[127px] w-[138.5px]"
         />
+        {/* Was `systems-hero-laptop.png`, and that file is **clipped**: the
+            artwork runs off its own left and bottom edges, so the keyboard's
+            left side has no closing outline and reads as a cut-off drawing.
+            The cause is in the import record's own method — the vignette was
+            cut from the reference render by measuring its extent over "only
+            the y bands the heading leaves free", and the part of the keyboard
+            that shares rows with the heading fell outside that box.
+
+            It cannot be re-cut: the render is not in the repo and all three
+            Figma endpoints that could re-fetch it are 429 on this account's
+            quota (verified again on this pass), so there are no source pixels
+            to recover. Reconstructing the missing strokes by hand into a
+            hand-drawn illustration was tried and looked worse than the clip.
+
+            So this is the brand's own monitor doodle instead: same illustrator,
+            same line language, same subject (a screen), complete on all four
+            edges, and already in `/images` for the AI Consultation hero. It
+            appears on two routes now, which is the cost — both are technology
+            pages and it is decorative on each. The clipped file is left in
+            place unreferenced rather than deleted, in case the render ever
+            comes back within quota. Sized to its own 291x272 at the same 0.5
+            scale the other vignettes use, and anchored where the laptop was. */}
         <img
-          src="/images/systems-hero-laptop.png"
+          src="/images/ai-consultation-hero-monitor.png"
           alt=""
-          className="absolute top-[109px] right-[85.5px] h-[178px] w-[169.5px]"
+          className="absolute top-[109px] right-[85.5px] h-[136px] w-[145.5px]"
         />
       </div>
 
