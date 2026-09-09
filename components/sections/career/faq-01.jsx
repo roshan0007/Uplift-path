@@ -8,6 +8,14 @@ import {
 } from "@/components/ui/accordion";
 import React from "react";
 
+/**
+ * Copy is identical to the 2026-09-09 Figma (frame `Career`) -- all four
+ * questions and answers, at its own 18/27 and 16/24, and the frame draws the
+ * same four rules this renders. Only the question face changed: Lexend Deca 700
+ * via `font-body font-[700]` at the call site, both classes since `cn()` is
+ * tailwind-merge. See `globals.css` [13]. Eighth of eleven `faq-01` sections to
+ * get it.
+ */
 export function Faq1() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
@@ -22,7 +30,7 @@ export function Faq1() {
         </div>
         <Accordion type="multiple">
           <AccordionItem value="item-0">
-            <AccordionTrigger className="text-medium md:py-5">
+            <AccordionTrigger className="text-medium font-body font-[700] md:py-5">
               What kinds of roles does Uplift Path typically hire for?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -33,7 +41,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-medium md:py-5">
+            <AccordionTrigger className="text-medium font-body font-[700] md:py-5">
               What core values guide how the team works together?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -44,7 +52,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-medium md:py-5">
+            <AccordionTrigger className="text-medium font-body font-[700] md:py-5">
               What learning and development opportunities are available?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -54,7 +62,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="text-medium md:py-5">
+            <AccordionTrigger className="text-medium font-body font-[700] md:py-5">
               How flexible are working hours?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
