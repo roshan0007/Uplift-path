@@ -69,8 +69,10 @@ order, and the scheme each one carries.
   call site — both classes, since `cn()` is tailwind-merge and only drops
   `font-bold` when a real font-weight utility lands beside it. Applied on
   `/how-we-work`, `/for-individual-page`, `/for-business-page`,
-  `/advisory-services` and `/systems-&-technology`; the other six `faq-01`
-  sections still render Playfair 400. See `globals.css` [13].
+  `/advisory-services`, `/systems-&-technology`, `/compliance-support`,
+  `/resource-assistance` and `/career`; the other three `faq-01` sections
+  (`about-us`, `home`, `faq-for-test`) still render Playfair 400.
+  See `globals.css` [13].
   Its counterpart `font-heading` (Playfair Display) exists for the mirror-image
   case: the For Individual step numerals must carry the heading face but must
   not be headings (they are decorative duplicates of the "Step N" label, so
