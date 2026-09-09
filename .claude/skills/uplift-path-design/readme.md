@@ -89,7 +89,7 @@ Also not taken: the frame's testimonial placeholders (a grey CloudFront avatar, 
 | CTA | Re-skinned to the same v3 CTA as the homepage and About Us |
 | Hero | Its heading was an `<h2>`, leaving the route with no `<h1>`. Promoted; the type is unchanged |
 
-The FAQ finding is the one worth carrying off this page: **all nineteen frames in the Figma file** — the v2 desktop set and the v3 rebuilds alike — set FAQ questions in Lexend Deca 18/27 weight 700, and the build renders them in Playfair Display 400 on all eleven routes that carry an FAQ. Two causes compound: Radix's `AccordionPrimitive.Header` renders an `<h3>`, which the base `h1–h6` Playfair rule catches, and the trigger's `font-bold` resolves through `--font-weight-bold`, which this brand pins to 400 on purpose. Fixed by composing `font-body font-[700]` at the call site — two classes, because `cn()` is tailwind-merge and only drops `font-bold` when a real font-weight utility lands beside it. Applied on `/how-we-work` and `/for-individual-page`; the other nine are a site-wide change awaiting a decision.
+The FAQ finding is the one worth carrying off this page: **all nineteen frames in the Figma file** — the v2 desktop set and the v3 rebuilds alike — set FAQ questions in Lexend Deca 18/27 weight 700, and the build renders them in Playfair Display 400 on all eleven routes that carry an FAQ. Two causes compound: Radix's `AccordionPrimitive.Header` renders an `<h3>`, which the base `h1–h6` Playfair rule catches, and the trigger's `font-bold` resolves through `--font-weight-bold`, which this brand pins to 400 on purpose. Fixed by composing `font-body font-[700]` at the call site — two classes, because `cn()` is tailwind-merge and only drops `font-bold` when a real font-weight utility lands beside it. Applied on `/how-we-work`, `/for-individual-page` and `/for-business-page`; the other eight are a site-wide change awaiting a decision.
 
 Deliberate departures on this page:
 
@@ -100,6 +100,25 @@ Deliberate departures on this page:
 The curve is `--color-plantation` `#274D40` at 20% opacity — flat colour in a shape, so it is **not** a third gradient/texture exception. Its path is the frame's own vector, inlined so nothing is redrawn by hand, sized in percentages of the viewport so it holds its relationship to the page at every width.
 
 A caution when measuring against this frame: several blocks in it — both hero cards, the CARF strip, and the CTA illustration — are **pasted screenshots of the built site**, placed with non-uniform `STRETCH` scaling (the cards are 594x392 in the frame against a real 624x407). Their absolute y-positions therefore carry error that is not design intent. Match the designed values and the gaps between elements, not those blocks' box geometry.
+
+**v3 — For Business, 2026-09-09.** Same file, frame `For Business`, node `10214-104878`, 1440x5203. The most *incremental* pass yet: four of the page's six sections already matched the frame, and the two that did not are ones the frame is wrong about rather than ones the build is. What changed:
+
+| | Change |
+|---|---|
+| `layout-134` Hero | Gains two decorative line-art vignettes — a target struck by arrows left, a lit bulb right. Type was already exact. Promoted from `<h2>` to `<h1>`: the route had none, the same gap How We Work and For Individual had |
+| `faq-01` | Question face corrected to Lexend Deca 700, and the "Which industries" answer replaced — see below |
+| `cta-25` | Re-skinned to the same v3 CTA as the other four pages: white rather than green, copy left-aligned, envelope illustration beside it |
+| `services-list`, `timeline-05` | **Left alone by decision.** The frame does not contain them; it contains two three-up icon grids in their place |
+
+**The frame's two icon grids were refused.** It draws "Business Consultation That Fuels Your Growth" (Expert Advice / Process To Improve / Access Tools) and "Our Simple 3-Step Consultation Process" (Submit Request / Discovery Call / Expert Guidance) where the build has `services-list` and `timeline-05`. Those two sections were written when `/business-conusltation` was merged into this page, and the merge dropped `layout-237` and `layout-237_1` — these exact two grids — as redundant. The frame predates or ignores that merge. Taking it literally would trade six real, linked service cards (the same array the navbar mega-menu renders, and the target of the `/business-conusltation` 301) for three generic icon columns, and four specific engagement steps for Relume filler. The giveaway: the frame's grid standfirst is **word-for-word** `services-list`'s own. Raised and settled before building.
+
+**The "Which industries" answer was replaced.** The frame answers it with untouched Relume boilerplate — "across all industries, from startups and SaaS ventures to retail, manufacturing, and professional services" — a claim this company cannot support and one that contradicts the CARF and behavioural-health positioning the rest of the site sells. Replaced with the answer `ui_kits/website/Chrome.jsx` already carries. The frame's other three answers and all four questions ship verbatim.
+
+Two frame typos were fixed rather than reproduced, both in the hero: "for Businesses Growth", and a body sentence running "…for founders and leaders Transform challenges…" with no full stop.
+
+**The Figma API was unusable on this pass and the reference render carried it.** `/v1/files/:key?ids=…&geometry=paths` — the endpoint the previous four passes relied on — now 429s alongside `/v1/files/:key/nodes` and `/v1/images`, all three with `x-figma-plan-tier: starter`, `x-figma-rate-limit-type: low` and a `Retry-After` of 322k–334k seconds (~3.8 days). That is the account quota, not a throttle, and no backoff reaches it; `/v1/me` still returns 200, so it is not auth. Only `/v1/files/:key/images` survives. Everything on this page was therefore measured off the 2x reference render, which is pixel-accurate, and the two vignettes were cut from it directly and un-composited off the white page with a min-channel alpha key (round-trips over white to a mean channel difference of 0.04). **Plan for this: the geometry endpoint should be assumed gone for the remaining frames.**
+
+**No new tokens.** Every value the frame asked for already had one: `--text-h2` 52/62.4, `--text-h4` 36/46.8, 18/27 and 16/24 body, the 1280 container, the 12px control radius. No new colour, shadow, radius or scheme, and no new gradient — the page is flat white end to end apart from the footer's jade band.
 
 ## Content fundamentals
 

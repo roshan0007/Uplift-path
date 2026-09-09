@@ -68,12 +68,12 @@ order, and the scheme each one carries.
   `--font-weight-bold`, which is 400. The fix is `font-body font-[700]` at the
   call site — both classes, since `cn()` is tailwind-merge and only drops
   `font-bold` when a real font-weight utility lands beside it. Applied on
-  `/how-we-work` and `/for-individual-page`; the other nine `faq-01` sections
-  still render Playfair 400. See `globals.css` [13]. Its counterpart
-  `font-heading` (Playfair Display) exists for the mirror-image case: the For
-  Individual step numerals must carry the heading face but must not be headings
-  (they are decorative duplicates of the "Step N" label, so `aria-hidden` on a
-  `<p>`). See `globals.css` [15].
+  `/how-we-work`, `/for-individual-page` and `/for-business-page`; the other
+  eight `faq-01` sections still render Playfair 400. See `globals.css` [13].
+  Its counterpart `font-heading` (Playfair Display) exists for the mirror-image
+  case: the For Individual step numerals must carry the heading face but must
+  not be headings (they are decorative duplicates of the "Step N" label, so
+  `aria-hidden` on a `<p>`). See `globals.css` [15].
 - **Italic headings need `.font-heading-italic`, which is Playfair 500 italic.**
   The real italic face is self-hosted as of v3. It is registered at weight 500,
   so `font-style: italic` *without* the matching weight silently falls back to

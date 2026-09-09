@@ -3,16 +3,62 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 
+/**
+ * The 2026-09-08 Figma (node 10214-104878) leaves the hero's type untouched --
+ * tagline 16/24 w600, heading 52/62.4 Playfair 400, body 18/27 -- and adds two
+ * decorative line-art vignettes either side of the copy: a target struck by
+ * arrows on the left, a lit bulb on the right. Same treatment as the three on
+ * `/for-individual-page`, which is this page's sibling frame.
+ *
+ * The Figma API's file-geometry and node-render endpoints are both paywalled on
+ * this account (HTTP 429, `x-figma-rate-limit-type: low`, `Retry-After` ~3.8
+ * days -- a quota, not a throttle), so unlike the previous four passes these
+ * two could not be pulled from an `imageRef`. They are cut from the 2x
+ * reference render instead, at exactly the box the frame draws them in, and
+ * un-composited off the white page with a min-channel alpha key. That key
+ * round-trips over white to a mean channel difference of 0.04, i.e. exactly.
+ *
+ * They are decorative, so `aria-hidden` and no alt text -- the heading and the
+ * body carry every bit of the meaning. `lg:` only: the frame is a 1440 desktop
+ * frame, and at tablet and below the vignettes would sit under the copy rather
+ * than beside it.
+ */
 export function Layout134() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
-      <div className="container max-w-lg text-center">
+    <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+      {/* Frame-relative, measured from the top of this section (y=72, the
+          bottom of the navbar): target at 47.5,177 316x228; bulb at 1138.5,
+          291.5 117x137.5, i.e. 184.5px in from the 1440 edge. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden select-none lg:block"
+      >
+        <img
+          src="/images/for-business-hero-target.png"
+          alt=""
+          className="absolute top-[177px] left-[47.5px] h-[228px] w-[316px]"
+        />
+        <img
+          src="/images/for-business-hero-bulb.png"
+          alt=""
+          className="absolute top-[291.5px] right-[184.5px] h-[137.5px] w-[117px]"
+        />
+      </div>
+
+      <div className="relative container max-w-lg text-center">
         <p className="mb-3 font-semibold md:mb-4">
           Uplift Solutions · For Businesses
         </p>
-        <h2 className="mb-5 text-h2 font-bold md:mb-6">
-          Consulting Services for Business Growth
-        </h2>
+        {/* The frame breaks this heading after "Services", and the break
+            carries the phrasing, so it is a <span> rather than left to the
+            container width. Promoted from <h2>: this route had no <h1> at all,
+            the same gap the How We Work and For Individual passes found.
+            The frame's own wording is "for Businesses Growth" -- a typo, and
+            the kind the brief says to fix rather than reproduce. */}
+        <h1 className="mb-5 text-h2 font-bold md:mb-6">
+          Consulting Services
+          <span className="block">for Business Growth</span>
+        </h1>
         <p className="text-medium">
           Expert guidance for founders and leaders. Transform challenges into
           opportunities with focused business consulting.
