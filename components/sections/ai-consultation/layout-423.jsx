@@ -1,36 +1,63 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { BackgroundCard } from "@/components/ui/card";
-import { AnimatePresence, motion } from "motion/react";
-import React, { useState } from "react";
-import { ChevronRight } from "relume-icons";
+import React from "react";
 
-const useRelume = () => {
-  const [hoveredFeatureIdx, setHoveredFeatureIdx] = useState(null);
-  const handleMouseEnter = (index) => () => {
-    setHoveredFeatureIdx(index);
-  };
-  const handleMouseLeave = () => {
-    setHoveredFeatureIdx(null);
-  };
-  const startAnimation = (index) => {
-    return hoveredFeatureIdx === index ? "visible" : "hidden";
-  };
-  return {
-    handleMouseEnter,
-    handleMouseLeave,
-    startAnimation,
-  };
-};
+/**
+ * Matched to the 2026-09-09 Figma (frame `AI Consultancy`), which resolves a
+ * real content bug: **the export shipped all three cards byte-identical.**
+ * Every one of them was headed "AI strategy and implementation" with the same
+ * body, so a section promising "a full suite of services" listed one service
+ * three times. This is the same Relume duplication the How We Work pass found
+ * in its three-pillar section. The frame draws each card with its own copy, and
+ * that copy is what ships here.
+ *
+ * Two behaviours the export carried are gone, both because the frame draws the
+ * cards static and because each was doing harm:
+ *
+ * - **The hover-to-expand.** The body copy and a "Learn more" link were hidden
+ *   at `lg` until the pointer entered the card, and the card grew from 50% to
+ *   70% width, squeezing its neighbours. The frame shows all three cards at
+ *   equal width with the body always visible. Content that only exists on hover
+ *   is also unreachable by keyboard and by touch.
+ * - **The links.** All three cards linked to `/how-we-work` -- three different
+ *   services pointing at one unrelated page. The frame gives them no
+ *   destination and no "Learn more" affordance, so they are no longer links.
+ *   If these services get their own routes, that is when they become links
+ *   again.
+ *
+ * Geometry the frame draws: three equal 405-wide columns across the 1280
+ * container with 32px gaps, each card 405x630 -- exactly the aspect of the
+ * three photos already in the repo, which are the frame's own photos (compared
+ * against the render: same images, differing only by the scrim and the crop).
+ * Type is 16/24 weight 600 for the label, 36/46.8 Playfair for the heading and
+ * 16/24 for the body, all existing tokens.
+ */
+
+const SERVICES = [
+  {
+    image: "/images/ai-consultation-services-section-0.png",
+    title: "AI strategy and implementation",
+    body: "We help you build a strong AI foundation with strategy, governance, and workforce-ready solutions.",
+  },
+  {
+    image: "/images/ai-consultation-services-section-1.png",
+    title: "AI Workforce Training",
+    body: "AI training ensures your team has the skills to use new tools efficiently and drive growth.",
+  },
+  {
+    image: "/images/ai-consultation-services-section-2.png",
+    title: "Custom AI Solution Development",
+    body: "Custom AI solutions for your unique challenges, including intelligent chatbots and automation tools.",
+  },
+];
 
 export function Layout423() {
-  const hoverState = useRelume();
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
-        <div className="md:mb-18 mx-auto mb-12 w-full max-w-lg text-center lg:mb-20">
-          <h2 className="text-h2 mb-5 font-bold md:mb-6">
+        <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
+          <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Our AI consulting and implementation services
           </h2>
           <p className="text-medium">
@@ -38,184 +65,28 @@ export function Layout423() {
             from concept to completion.
           </p>
         </div>
-        <div className="flex flex-col justify-between gap-6 md:gap-8 lg:flex-row">
-          <BackgroundCard
-            className="relative flex w-full flex-col overflow-hidden lg:h-full lg:w-1/2 lg:transition-all lg:duration-200 lg:hover:w-[70%]"
-            onMouseOver={hoverState.handleMouseEnter(0)}
-            onMouseLeave={hoverState.handleMouseLeave}
-          >
-            <a href="/how-we-work">
-              <div className="absolute inset-0 flex size-full flex-col items-center justify-center self-start">
-                <div className="bg-neutral-darkest/50 absolute inset-0" />
-                <img
-                  src="/images/ai-consultation-services-section-0.png"
-                  alt="Relume placeholder image 1"
-                  className="size-full object-cover"
-                />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+          {SERVICES.map((s) => (
+            <BackgroundCard
+              key={s.title}
+              className="relative flex flex-col justify-end md:aspect-[405/630]"
+            >
+              {/* Decorative: the heading and body beside it carry the meaning. */}
+              <img
+                src={s.image}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 size-full object-cover"
+              />
+              {/* The frame darkens the whole photo so the white type holds. */}
+              <div className="absolute inset-0 bg-neutral-darkest/50" />
+              <div className="relative min-h-[22rem] p-6 md:min-h-0 md:p-8 flex flex-col justify-end">
+                <p className="mb-2 font-semibold text-white">AI consulting</p>
+                <h3 className="text-h4 font-bold text-white">{s.title}</h3>
+                <p className="mt-5 text-white md:mt-6">{s.body}</p>
               </div>
-              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
-                <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
-                <div className="z-10">
-                  <p className="mb-2 font-semibold text-white">AI consulting</p>
-                  <h3 className="text-h4 font-bold text-white">
-                    AI strategy and implementation
-                  </h3>
-                  <div className="lg:hidden">
-                    <p className="mt-5 text-white md:mt-6">
-                      We help you build a strong AI foundation with strategy,
-                      governance, and workforce-ready solutions.
-                    </p>
-                  </div>
-                </div>
-                <AnimatePresence>
-                  <motion.div
-                    className="z-10 hidden lg:block lg:w-[340px]"
-                    variants={{
-                      hidden: { opacity: 0, height: 0, y: 50 },
-                      visible: { opacity: 1, height: "auto", y: 0 },
-                    }}
-                    initial="hidden"
-                    animate={hoverState.startAnimation(0)}
-                    exit="hidden"
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  >
-                    <p className="mt-5 text-white md:mt-6">
-                      We help you build a strong AI foundation with strategy,
-                      governance, and workforce-ready solutions.
-                    </p>
-                    <div className="mt-6 md:mt-8">
-                      <Button
-                        variant="link"
-                        size="link"
-                        iconRight={<ChevronRight />}
-                        className="text-white"
-                      >
-                        Learn more
-                      </Button>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </a>
-          </BackgroundCard>
-          <BackgroundCard
-            className="relative flex w-full flex-col overflow-hidden lg:h-full lg:w-1/2 lg:transition-all lg:duration-200 lg:hover:w-[70%]"
-            onMouseOver={hoverState.handleMouseEnter(1)}
-            onMouseLeave={hoverState.handleMouseLeave}
-          >
-            <a href="/how-we-work">
-              <div className="absolute inset-0 flex size-full flex-col items-center justify-center self-start">
-                <div className="bg-neutral-darkest/50 absolute inset-0" />
-                <img
-                  src="/images/ai-consultation-services-section-1.png"
-                  alt="Relume placeholder image 2"
-                  className="size-full object-cover"
-                />
-              </div>
-              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
-                <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
-                <div className="z-10">
-                  <p className="mb-2 font-semibold text-white">AI consulting</p>
-                  <h3 className="text-h4 font-bold text-white">
-                    AI strategy and implementation
-                  </h3>
-                  <div className="lg:hidden">
-                    <p className="mt-5 text-white md:mt-6">
-                      We help you build a strong AI foundation with strategy,
-                      governance, and workforce-ready solutions.
-                    </p>
-                  </div>
-                </div>
-                <AnimatePresence>
-                  <motion.div
-                    className="z-10 hidden lg:block lg:w-[340px]"
-                    variants={{
-                      hidden: { opacity: 0, height: 0, y: 50 },
-                      visible: { opacity: 1, height: "auto", y: 0 },
-                    }}
-                    initial="hidden"
-                    animate={hoverState.startAnimation(1)}
-                    exit="hidden"
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  >
-                    <p className="mt-5 text-white md:mt-6">
-                      We help you build a strong AI foundation with strategy,
-                      governance, and workforce-ready solutions.
-                    </p>
-                    <div className="mt-6 md:mt-8">
-                      <Button
-                        variant="link"
-                        size="link"
-                        iconRight={<ChevronRight />}
-                        className="text-white"
-                      >
-                        Learn more
-                      </Button>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </a>
-          </BackgroundCard>
-          <BackgroundCard
-            className="relative flex w-full flex-col overflow-hidden lg:h-full lg:w-1/2 lg:transition-all lg:duration-200 lg:hover:w-[70%]"
-            onMouseOver={hoverState.handleMouseEnter(2)}
-            onMouseLeave={hoverState.handleMouseLeave}
-          >
-            <a href="/how-we-work">
-              <div className="absolute inset-0 flex size-full flex-col items-center justify-center self-start">
-                <div className="bg-neutral-darkest/50 absolute inset-0" />
-                <img
-                  src="/images/ai-consultation-services-section-2.png"
-                  alt="Relume placeholder image 3"
-                  className="size-full object-cover"
-                />
-              </div>
-              <div className="group relative flex h-full min-h-[22rem] lg:min-h-[24rem] flex-col justify-end p-6 md:p-8">
-                <div className="lg:group-hover:bg-neutral-darkest/50 lg:absolute lg:inset-0 lg:z-0 lg:transition-all lg:duration-300" />
-                <div className="z-10">
-                  <p className="mb-2 font-semibold text-white">AI consulting</p>
-                  <h3 className="text-h4 font-bold text-white">
-                    AI strategy and implementation
-                  </h3>
-                  <div className="lg:hidden">
-                    <p className="mt-5 text-white md:mt-6">
-                      We help you build a strong AI foundation with strategy,
-                      governance, and workforce-ready solutions.
-                    </p>
-                  </div>
-                </div>
-                <AnimatePresence>
-                  <motion.div
-                    className="z-10 hidden lg:block lg:w-[340px]"
-                    variants={{
-                      hidden: { opacity: 0, height: 0, y: 50 },
-                      visible: { opacity: 1, height: "auto", y: 0 },
-                    }}
-                    initial="hidden"
-                    animate={hoverState.startAnimation(2)}
-                    exit="hidden"
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  >
-                    <p className="mt-5 text-white md:mt-6">
-                      We help you build a strong AI foundation with strategy,
-                      governance, and workforce-ready solutions.
-                    </p>
-                    <div className="mt-6 md:mt-8">
-                      <Button
-                        variant="link"
-                        size="link"
-                        iconRight={<ChevronRight />}
-                        className="text-white"
-                      >
-                        Learn more
-                      </Button>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </a>
-          </BackgroundCard>
+            </BackgroundCard>
+          ))}
         </div>
       </div>
     </section>
