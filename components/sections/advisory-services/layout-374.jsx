@@ -4,37 +4,66 @@ import { Card } from "@/components/ui/card";
 import React from "react";
 
 /**
- * The export shipped this as a feature card plus four small cards that were
- * byte-identical to each other — same eyebrow, same "Business Structuring"
- * heading, same sentence, same image, four times over. Three of them now carry
- * the advisory work this page actually describes elsewhere (the problem section
- * above and the pathway-plan tabs below).
+ * Matched to the 2026-09-09 Figma (frame `Advisory Services`).
  *
- * The small cards also lost their images. With them the section ran past a
- * single 900px screen, and four copies of one photograph was the thing that made
- * the duplication obvious in the first place. One image, on the feature card, is
- * enough for the section.
+ * The export shipped the four small cards byte-identical -- same eyebrow, same
+ * "Business Structuring" heading, same sentence, same image, four times over.
+ * An earlier pass patched that by writing three replacements from the advisory
+ * work described elsewhere on the page, and dropped the images to keep the
+ * section under a single screen. It was working without the design to hand.
+ *
+ * The frame gives its own four, and they are the original set: **the four
+ * photos already in the repo are named for exactly these cards** --
+ * `advisory-services-business-structuring.jpg`,
+ * `-growth-expansion-strategy.jpg`, `-operational-advisory.jpg` and
+ * `-growth-gap-assessment.jpg`. That naming is what settled it. The frame's
+ * copy and its images both ship, which makes the section taller than the
+ * earlier pass wanted; that trade was taken deliberately.
+ *
+ * One thing the frame asks for is **not** built: its "Growth & Gap Assessment"
+ * body ends "Free, with no obligation." That is a pricing commitment, and
+ * nothing anywhere else in the codebase offers a free service. The sentence is
+ * dropped pending confirmation; the rest of the card is the frame's.
+ *
+ * Which photo goes where was settled by matching each of the frame's five
+ * photo regions against every `advisory-services-*` file in the repo: each
+ * best match scored 2-18 against a runner-up of 68+, so none of them is a
+ * guess. The feature card's is `features-list-section-0.jpg` (the sticky-note
+ * planning table), not the file the export had there.
+ *
+ * Geometry: a four-column grid across the 1280 container, the feature card
+ * spanning two columns and two rows -- which is what the export already built
+ * and what the frame draws (feature ~612 wide, smalls ~311, gaps ~24).
+ * Type is 16 w600 eyebrows, Playfair headings, 16/24 bodies.
  */
 const FOCUS_AREAS = [
   {
-    eyebrow: "Structure",
+    eyebrow: "Focus",
     title: "Business Structuring",
-    body: "Operational clarity, so the organization runs without depending on any individual.",
+    body: "Design operational clarity so the organization runs without depending on any individual.",
+    image: "/images/advisory-services-business-structuring.jpg",
+    alt: "A desk with a laptop, a written plan and a pen",
   },
   {
-    eyebrow: "Readiness",
-    title: "Accreditation Readiness",
-    body: "Read your practice against the standard you are pursuing, then close the gaps in order.",
+    eyebrow: "Momentum",
+    title: "Growth & Expansion Strategy",
+    body: "Assess readiness before committing to growth. Ensure capacity matches delivery.",
+    image: "/images/advisory-services-growth-expansion-strategy.jpg",
+    alt: "Two colleagues talking through a growth plan at a table",
   },
   {
-    eyebrow: "Funding",
-    title: "Payer Readiness",
-    body: "Service definitions, credentialing and documentation in place before a contract depends on them.",
+    eyebrow: "Honesty",
+    title: "Operational Advisory",
+    body: "Senior-level partnership for founders on governance and succession.",
+    image: "/images/advisory-services-operational-advisory.jpg",
+    alt: "Three people in an advisory conversation in a meeting room",
   },
   {
-    eyebrow: "Growth",
-    title: "Growth Planning",
-    body: "What to add, in what order, and what your operation has to carry before you add it.",
+    eyebrow: "Stability",
+    title: "Growth & Gap Assessment",
+    body: "A structured gap analysis from current to target state.",
+    image: "/images/advisory-services-growth-gap-assessment.jpg",
+    alt: "Two colleagues reviewing an assessment on a tablet together",
   },
 ];
 
@@ -62,21 +91,29 @@ export function Layout374() {
               </p>
             </div>
             {/* `min-h-0` matters: this card spans two grid rows, so without it
-                the image's intrinsic height sets the row height and the whole
-                section grows past a screen again. */}
+                the image's intrinsic height sets the row height. */}
             <div className="min-h-0 flex-1">
               <img
-                src="/images/advisory-services-operational-advisory.jpg"
+                src="/images/advisory-services-features-list-section-0.jpg"
                 alt="An advisory team working through a programme plan around a table"
                 className="size-full min-h-40 object-cover"
               />
             </div>
           </Card>
           {FOCUS_AREAS.map((area) => (
-            <Card key={area.title} className="flex flex-col p-6">
-              <p className="mb-2 text-small font-semibold">{area.eyebrow}</p>
-              <h3 className="mb-2 text-h6 font-bold">{area.title}</h3>
-              <p>{area.body}</p>
+            <Card key={area.title} className="flex flex-col">
+              <div className="p-6">
+                <p className="mb-2 text-small font-semibold">{area.eyebrow}</p>
+                <h3 className="mb-2 text-h5 font-bold">{area.title}</h3>
+                <p>{area.body}</p>
+              </div>
+              <div className="min-h-0 flex-1">
+                <img
+                  src={area.image}
+                  alt={area.alt}
+                  className="size-full min-h-32 object-cover"
+                />
+              </div>
             </Card>
           ))}
         </div>
