@@ -9,7 +9,7 @@ export function Layout507() {
     <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
         <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-12 lg:mb-12">
-          <h1 className="mb-5 text-h2 font-bold md:mb-6">Board of Advisory</h1>
+          <h2 className="mb-5 text-h2 font-bold md:mb-6">Board of Advisory</h2>
           <p className="text-medium">
             Our advisors bring decades of cross-industry expertise to guide our
             strategic approach.
@@ -52,9 +52,9 @@ export function Layout507() {
                   <p className="mb-3 font-semibold md:mb-4">
                     Educational Leader & Administrator
                   </p>
-                  <h2 className="mb-5 text-h3 font-bold md:mb-6">
+                  <h3 className="mb-5 text-h3 font-bold md:mb-6">
                     Regina Wooten builds bridges that last
-                  </h2>
+                  </h3>
                   <p>
                     Regina Wooten is a distinguished education leader with over
                     30 years of experience shaping school environments as a
@@ -88,9 +88,9 @@ export function Layout507() {
                   <p className="mb-3 font-semibold md:mb-4">
                     Associate Dean of Residential Life - MIT
                   </p>
-                  <h2 className="mb-5 text-h3 font-bold md:mb-6">
+                  <h3 className="mb-5 text-h3 font-bold md:mb-6">
                     Tasha Coppett sees the whole picture
-                  </h2>
+                  </h3>
                   <p>
                     Tasha N. Coppett is a higher education executive with 20
                     years of experience in student services, operations, and
@@ -124,9 +124,9 @@ export function Layout507() {
                   <p className="mb-3 font-semibold md:mb-4">
                     Education Consultant
                   </p>
-                  <h2 className="mb-5 text-h3 font-bold md:mb-6">
+                  <h3 className="mb-5 text-h3 font-bold md:mb-6">
                     Teresa Guerin champions the person first
-                  </h2>
+                  </h3>
                   <p>
                     Teresa Guerin is a national and international trainer with
                     over 40 years of experience in educational leadership,
@@ -159,9 +159,9 @@ export function Layout507() {
                   <p className="mb-3 font-semibold md:mb-4">
                     Licensed Clinical Social Worker
                   </p>
-                  <h2 className="mb-5 text-h3 font-bold md:mb-6">
+                  <h3 className="mb-5 text-h3 font-bold md:mb-6">
                     Tia Glaspie turns vision into action
-                  </h2>
+                  </h3>
                   <p>
                     Tia Glaspie is a Licensed Clinical Social Worker (LCSW) and
                     Psychotherapist at LifeStance Health. She specializes in

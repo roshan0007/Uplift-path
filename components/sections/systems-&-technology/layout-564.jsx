@@ -27,8 +27,26 @@ export function Layout564() {
           className="static size-full object-contain lg:absolute lg:inset-0"
         />
       </div>
-      <div className="mx-[5%] sm:max-w-md md:justify-self-start lg:mr-[5vw] lg:ml-20">
-        <h1 className="mb-5 text-h2 font-bold md:mb-6">What we do</h1>
+      <div className="relative mx-[5%] sm:max-w-md md:justify-self-start lg:mr-[5vw] lg:ml-20">
+        {/* The frame adds a small hand-drawn sparkle above and right of the
+            heading -- 147x97, its left edge 355.5px in from the text column's
+            own left edge, sitting clear above the heading. It is anchored from
+            the left rather than the right on purpose: this section's column is
+            ~88px wider than the frame's (a pre-existing difference, and this is
+            not a section to restyle), so right-anchoring pushed the sparkle
+            that far out. Both columns start at the same place, so the left
+            offset reproduces the frame's relationship to the heading.
+            Decorative, so `aria-hidden`, and `lg:` only -- below that the
+            column is full-width and it would collide with the copy. */}
+        <img
+          src="/images/systems-whatwedo-sparkle.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-[110px] left-[355.5px] hidden h-[97px] w-[147px] select-none lg:block"
+        />
+        {/* <h2>, not <h1>: this was the route's only <h1>, on a section that is
+            not the page title. The hero heading carries it now. */}
+        <h2 className="mb-5 text-h2 font-bold md:mb-6">What we do</h2>
         <p className="mb-6 text-medium md:mb-8">
           Map and automate — We document how work really flows, then remove the
           duplicate entry and manual handoffs.

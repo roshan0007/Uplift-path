@@ -49,14 +49,46 @@ order, and the scheme each one carries.
 - **Every section gets exactly one scheme class.** Children then read
   `--color-scheme-*` (`bg-scheme-foreground`, `text-scheme-text`,
   `border-scheme-border`). That indirection is what makes a section re-skinnable.
-  There are seven: `.scheme-light`, `.scheme-accent`, `.scheme-navy`,
-  `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`.
+  There are nine: `.scheme-light`, `.scheme-accent`, `.scheme-navy`,
+  `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`,
+  `.scheme-jade` (v3, `#01a66e`, the footer band only), and
+  `.scheme-green-deep` (v3, `#05866b`, the About Us green band only).
+  `--color-plantation` (v3, `#274d40`) is a palette entry but **not** a scheme:
+  it is the How We Work decorative curve only, drawn at 20%. See [12].
   `.scheme-1/2/3` are aliases of the first three and are what the exported
   sections actually write. Prefer the named classes in new work; don't renumber
   anything.
 - **Headings are Playfair Display; body is Lexend Deca.** Both self-hosted from
   `/fonts` via `@font-face` at the top of `globals.css`. That is the only place
-  a font-family is declared — don't set one anywhere else.
+  a font-family is declared — don't set one anywhere else. The one utility that
+  reaches for the body face by name is `font-body`, also declared there, and it
+  exists for a specific case: FAQ accordion questions. Radix wraps the trigger
+  in an `<h3>` (so the base `h1–h6` Playfair rule catches it) and its
+  `font-bold` resolves through `--font-weight-bold`, which is 400 — so a
+  question that is marked bold and is not a heading comes out as neither. Every
+  `faq-01` composes `font-body font-[400]` at the call site: both classes,
+  since `cn()` is tailwind-merge and only drops `font-bold` when a real
+  font-weight utility lands beside it.
+  **All eleven routes carry the same treatment — Lexend Deca 400 — and the
+  weight is 400 by explicit instruction, not 700.** The Figma frames all
+  specify 700, and eight routes shipped that way while `about-us`, `home` and
+  `faq-for-test` stayed on Playfair 400; that split was reported as an
+  inconsistency and the resolution asked for was consistent and *not bold*.
+  Don't "restore" 700 on one page — if it comes back it comes back on all
+  eleven at once. See `globals.css` [13].
+  Its counterpart `font-heading` (Playfair Display) exists for the mirror-image
+  case: the For Individual step numerals must carry the heading face but must
+  not be headings (they are decorative duplicates of the "Step N" label, so
+  `aria-hidden` on a `<p>`). See `globals.css` [15].
+- **Italic headings need `.font-heading-italic`, which is Playfair 500 italic.**
+  The real italic face is self-hosted as of v3. It is registered at weight 500,
+  so `font-style: italic` *without* the matching weight silently falls back to
+  slanting the 400 roman — a synthesised italic that reads visibly wrong on a
+  didone. The utility sets both; don't set `italic` by hand.
+- **There is one type step above `--text-h1`: `--text-display`,** 3rem rising to
+  5rem at >=992px (the Figma's 80/96 at -1%). It exists for the For Individual
+  page's "Care built around *your life*" heading and nothing else; every other
+  heading on the site tops out at `--text-h1`. See `globals.css` [14].
 - **`--font-weight-bold` is `400` on purpose.** A "bold" section heading (h2–h6)
   is therefore still regular weight — Playfair Display 400 carries the headings.
   Do not "fix" this.
@@ -64,6 +96,16 @@ order, and the scheme each one carries.
   Dark text on green is the only approved pairing; every scheme sets
   `--color-scheme-btn-text` to the dark neutral. On the green CTA banner the
   button goes black-with-white-label via the section's `.btn-dark` class.
+  **`.scheme-jade` is the one sanctioned exception**, by explicit decision: the
+  footer band carries white on `#01a66e` to match the Figma, which is 3.14:1
+  against the 4.5:1 its 14px links need. It is scoped to that one scheme so it
+  cannot leak into the eleven `cta-25` banners on `.scheme-accent`, where white
+  would be 1.96:1. Do not copy the pairing anywhere else. `globals.css` [10]
+  lists the two ways back to AA if that is ever wanted.
+  `.scheme-green-deep` is **not** a second exception. The About Us frame asked
+  for white on `#06a785` (3.06:1); that was raised, and the fill was darkened
+  to `#05866b` instead, where white is 4.54:1 and passes. See `globals.css`
+  [11].
 - Cards: 2px border, `rounded-card`, no shadow. 1px hairlines for accordion
   rules, the footer divider and the nav dropdown sheet.
 - **One shadow exists in this brand: a hard `0 3px 0 0` ledge under a control,
@@ -73,8 +115,15 @@ order, and the scheme each one carries.
 - **Buttons translate down 3px onto their ledge on hover, and the ledge goes
   away — that is what reads as the press.** Hover and press are the same state
   by design; there is no separate press treatment to add.
-- No emoji. No gradients — the brand has none. Nothing bounces, springs, or
-  scales on hover.
+- No emoji. Nothing bounces, springs, or scales on hover.
+- **Gradients and textures: two exceptions, both v3, both homepage-only.**
+  `hero-fade` (the mint wash behind the first screen) and the pale-green
+  pattern band behind `layout-237`. Everything else is flat colour — no
+  gradient in a button, a card, or behind text, and no blurred shadow ever.
+  Both exceptions are documented in `globals.css` at `[8]` and in the section
+  itself; a third needs a design decision, not a precedent. The How We Work
+  curve is **not** a third: it is flat colour in a shape, no ramp and no
+  repeat.
 
 ## Gotchas
 

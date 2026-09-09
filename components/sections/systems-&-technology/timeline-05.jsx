@@ -101,9 +101,16 @@ export function Timeline5() {
               <div className="mt-4 ml-4 flex flex-col md:ml-12">
                 <h3 className="mb-3 text-h3 font-bold md:mb-4">05</h3>
                 <h4 className="mb-3 text-h5 font-bold md:mb-4">Hand over</h4>
+                {/* The export -- and the Figma frame -- both give this step
+                    step 01's body verbatim. Rewritten from commitments this
+                    page already makes: "the safeguards are documented at
+                    handover" (faq-01) and "Implementations fail on adoption,
+                    not technology. Your team owns it when we step back."
+                    (layout-564). No new claim is introduced. */}
                 <p>
-                  We sit with your people and document how things actually get
-                  done. The real process, not the one in the manual.
+                  We hand over the documentation and the safeguards behind the
+                  system, then step back. Implementations fail on adoption, not
+                  technology, so your team owns it before we leave.
                 </p>
               </div>
             </div>

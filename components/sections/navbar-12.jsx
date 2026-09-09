@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 // The export uses `motion.create(Card)` below but never imports Card.
 import { Card } from "@/components/ui/card";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
 
@@ -112,8 +114,25 @@ const ConditionalRenderedCard = ConditionalCard();
 
 export function Navbar12() {
   const useActive = useRelume();
+  // Homepage only. Everywhere else the page below the bar is flat white and a
+  // flat white bar is the right answer; on the homepage the page below is the
+  // `hero-fade` mint wash, which starts at full strength (#f0fffc) directly
+  // under the bar — so a white bar drew a hard horizontal seam across the top
+  // of the site. `home-nav-fade` gives the bar its own top-to-bottom ramp that
+  // lands on exactly the wash's first stop at its bottom edge, so the two read
+  // as one wash that fades in from the top of the page as well as out at the
+  // bottom of it.
+  //
+  // `usePathname` rather than a class threaded down from the page, because the
+  // navbar is mounted in `app/(site)/layout.tsx` and no page can reach it.
+  const isHome = usePathname() === "/";
   return (
-    <section className="z-[999] flex w-full items-center bg-scheme-background lg:min-h-18 lg:px-[5%] scheme-1 badge-alt">
+    <section
+      className={cn(
+        "z-[999] flex w-full items-center lg:min-h-18 lg:px-[5%] scheme-1 badge-alt",
+        isHome ? "home-nav-fade" : "bg-scheme-background",
+      )}
+    >
       <div className="size-full lg:flex lg:items-center lg:justify-between">
         {/* The logo block and the Contact block are both `lg:flex-1`, so the
             <nav> between them sits on the exact centre of the bar no matter how
@@ -203,6 +222,24 @@ export function Navbar12() {
               className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
             >
               About
+            </a>
+            {/* "How We Work" is in the 2026-09 Figma navbar, between About and
+                Uplift Services, and was missing from the export's nav.
+
+                CLAUDE.md had recorded the design system's own reference
+                homepage as having drifted from the code on account of an
+                "extra nav item" — this was that item, and the reference was
+                right. Worth correcting there too.
+
+                It also matters more than it used to: the homepage's three-step
+                section used to link to /how-we-work from each of its cards,
+                and the Figma redesign drops those links. Without this the
+                route is reachable from the footer alone. */}
+            <a
+              href="/how-we-work"
+              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
+            >
+              How We Work
             </a>
             <div
               onMouseEnter={useActive.openOnDesktopDropdownMenu}

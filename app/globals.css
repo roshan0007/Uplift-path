@@ -5,7 +5,15 @@
    `.claude/skills/uplift-path-design/design-export/globals.original.css`.
    Four changes were needed to make it compile, resolve, and not break layout
    under Tailwind 4.x; they are marked [1] [2] [3] [4] below. [5] is a single
-   added keyframe that is not in the export at all. Everything else is
+   added keyframe that is not in the export at all, and [6] is the Playfair
+   Display italic face the 2026-09 Figma introduced. [7] and [8] are the two
+   v3 additions the 2026-09-08 Figma homepage introduced - a pale mint palette
+   step and the `hero-fade` wash that consumes it; [9] and [10] are the footer's
+   v3 green and the scheme that carries it; [11] is the About Us green band's
+   AA-corrected fill and `scheme-green-deep`; [12] is the How We Work page's
+   decorative background curve, [13] the FAQ question face, [14] the display
+   heading step the For Individual page introduced, and [15] the heading-face
+   utility its step numerals need. Everything else is
    the export verbatim - do not hand-edit the token values, they are the design
    system's source of truth. Re-derive instead if the export changes.
    ========================================================================== */
@@ -83,6 +91,35 @@
   font-weight: 700;
   font-display: swap;
   src: url("/fonts/playfair-display-700.woff2") format("woff2");
+}
+
+/* [6] Playfair Display Italic, weight 500 — now self-hosted, which it was not
+   until the v3 pass.
+
+   The 2026-09 Figma sets four section headings with an italic clause: "We
+   *Serve*", "What Actually *Changes*", "Who *We Work* With", and "know *which
+   one you're on.*". All four are the same face — `PlayfairDisplay-MediumItalic`,
+   weight 500 — which is why there is one italic block here and not a set.
+
+   Before this file existed, `.font-heading-italic` set `font-style: italic`
+   with no matching face loaded, so the browser *synthesised* the italic by
+   mechanically slanting the 400 roman. On a high-contrast didone that reads
+   visibly wrong: the true italic has different letterforms — single-storey a,
+   calligraphic e, narrower and more sloped bowls — not just a slant. That was
+   the reported "the italic text hasn't been copied well".
+
+   This is the Google Fonts **latin** subset (23KB), not the full face its four
+   siblings above are (~193KB each). Those came from the Relume export
+   unsubsetted; there was no reason to add 193KB for four short phrases. latin
+   covers U+0000-00FF, so every accented Latin-1 character is present. If
+   `.font-heading-italic` is ever put on Central or Eastern European text
+   (ā, ł, ż, š), that needs the latin-ext subset added alongside. */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/playfair-display-italic-500.woff2") format("woff2");
 }
 
 @import "tailwindcss";
@@ -187,7 +224,83 @@
   --color-viking-darker: #20584d;
   --color-viking-darkest: #184239;
 
+  /* [7] Not in the v2 export. The 2026-09 (v3) Figma homepage introduces a
+     pale mint wash behind the whole first screen, and #f0fffc is lighter than
+     anything the v2 palette carries - `--color-viking-lightest` (#edfbf8) is
+     the closest and is visibly greener. Added as the faintest step of the
+     existing Viking ramp rather than as a new family, since that is the hue it
+     belongs to. Consumed only by `@utility hero-fade` at the foot of this
+     file. */
+  --color-viking-faintest: #f0fffc;
+
+  /* [9] Not in the v2 export either. The v3 Figma's footer band is #01a66e -
+     a greener, darker fill than anything on the Caribbean Green ramp
+     (`-dark` is #06a785, visibly more cyan). Named for the hue rather than
+     hung off an existing family, the way Viking and Cerulean are. Consumed by
+     `@utility scheme-jade`; the torn edge PNG above the band is already
+     toned to it, so the two meet without a seam. */
+  --color-jade: #01a66e;
+
+  /* [11] Not in the v2 export. The v3 Figma's "Why Uplift Path" band on the
+     About Us page is #06a785 (`--color-caribbean-green-dark`) with white text.
+     Measured off the reference render that pairing is 3.06:1: the 44px heading
+     clears the 3:1 large-text bar, but the band's body copy is 18px SemiBold,
+     which does not qualify for that allowance (it needs 24px, or 18.66px
+     bold), so it needs 4.5:1 and fails.
+
+     Raised, and the decision was to keep the white and darken the fill - route
+     1 of the two listed at [10], the one that costs the design least. This is
+     the same hue held at the same saturation, dropped in value until white
+     clears AA:
+
+         white on #06a785   3.06:1   the Figma's own fill, fails for body
+         white on #05866b   4.54:1   this token, passes
+
+     A step between `-dark` (#06a785) and `-darker` (#035342) on the existing
+     Caribbean Green ramp rather than a new family, since that is the hue it
+     belongs to. Consumed only by `@utility scheme-green-deep`. */
+  --color-caribbean-green-deep: #05866b;
+
+  /* [12] Not in the v2 export. The v3 Figma's How We Work page draws a single
+     decorative curve behind the foot of the "What You'll Experience" section
+     (`Vector 5`, 1563x749). Its fill is #274d40 at 20% opacity, and nothing on
+     the Viking or Caribbean Green ramps is this colour - `--color-viking-darker`
+     (#20584d) is the nearest and is visibly more cyan and lighter.
+
+     Named for the hue rather than hung off an existing family, the same way
+     Viking, Cerulean and Pickled Bluewood are: those are all Name-That-Color
+     swatch names, and #274d40 is Plantation on that list.
+
+     The token holds the *source* colour, not the composite. The 20% is applied
+     where the shape is drawn, so the curve stays correct over any ground -
+     over this section's white it resolves to #d4dbd9, which is what the
+     reference render measures. Consumed only by the inline curve in
+     `components/sections/how-we-work/layout-254.jsx`, which `@utility
+     experience-curve` at the foot of this file positions.
+
+     This is flat colour in a shape, not a gradient and not a texture, so it is
+     not a third exception to the two at [8] and the homepage pattern band. */
+  --color-plantation: #274d40;
+
   --font-weight-bold: 400;
+
+  /* [14] Not in the v2 export. The v3 Figma's For Individual page sets the
+     "Care built around your life" heading at 80/96 with -1% tracking - one
+     step above `--text-h1`, which tops out at 72/86.4 on this scale. No
+     existing token is 80px, so rather than bend h1 (used as the page title on
+     every route) this adds the step above it.
+
+     Generated the same way as the rest of the scale: the desktop value is the
+     frame's own 80px, the line height is the frame's 96/80 = 1.2 that h1, h2
+     and h3 all share, and the tracking is the -1% every heading token carries.
+     The base value is the mobile step, sized to sit above `--text-h1`'s
+     2.75rem by the same proportion the desktop values do; the >=992px step-up
+     lives in the `@layer theme` block below with the rest of them.
+
+     Consumed only by `components/sections/for-individual-page/layout-395.jsx`. */
+  --text-display: 3rem;
+  --text-display--line-height: 1.2;
+  --text-display--letter-spacing: -1%;
 
   --text-h1: 2.75rem;
   --text-h1--line-height: 1.2;
@@ -435,6 +548,7 @@
 @layer theme {
   @media (min-width: 992px) {
     * {
+      --text-display: 5rem; /* [14] */
       --text-h1: 4.5rem;
       --text-h2: 3.25rem;
       --text-h3: 2.75rem;
@@ -687,4 +801,254 @@
   & img[src*="logo" i] {
     filter: brightness(0) invert(1);
   }
+}
+
+/* `.btn-dark` on a light scheme.
+
+   `.btn-dark` paints a default button black and labels it white. That works on
+   `scheme-accent` only because the green scheme deliberately omits the nested
+   default-button colour rule (see the comment above it). Every other scheme
+   carries that rule, and at 0-3-0 it out-specifies `.btn-dark`'s 0-2-0 white
+   label — so `.btn-dark` on `scheme-1` renders black text on a black button
+   and the label disappears.
+
+   The 2026-09 Figma moves the homepage CTA from green to white while keeping
+   its black button, so that combination now exists. This does not fight the
+   cascade or touch the primitive: it re-points the very token the nested rule
+   already reads. No new colour — white here is the same `--color-white` that
+   `.btn-dark`'s label was asking for.
+
+   Use it alongside `.btn-dark`, never instead of it: `.btn-dark` still owns
+   the black fill, the dropped ledge and the cancelled hover translate. */
+@utility btn-dark-on-light {
+  --color-scheme-btn-text: var(--color-white);
+}
+
+/* The italic clause inside a section heading. See [6] at the top of this file:
+   the italic face is not self-hosted yet, so this is a synthesised italic
+   until `playfair-display-italic-400.woff2` lands. It exists as a named
+   utility rather than a bare `italic` class precisely so that swapping it for
+   the real face is a one-line change here and not a hunt through the sections.
+
+   No font-family: h1-h6 are already bound to Playfair Display, and this brand
+   declares font-family in exactly one place. */
+/* Both properties matter. `font-style: italic` alone would still miss the
+   loaded face — that face is registered at weight 500, so without the weight
+   the browser picks the 400 roman and synthesises a slant from it, which is
+   the exact bug this pass fixed. The Figma's four italic runs are all 500. */
+@utility font-heading-italic {
+  font-style: italic;
+  font-weight: 500;
+}
+
+@utility scheme-green-deep {
+  --color-scheme-background: var(--color-caribbean-green-deep);
+  --color-scheme-foreground: var(--color-caribbean-green-deep);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-white);
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+
+  & [data-slot="button"][data-variant="default"] {
+    color: var(--color-scheme-btn-text);
+  }
+}
+
+/* [10] Not in the v2 export. The v3 Figma takes the footer band off
+   `scheme-accent` (#08d1a7) and onto its own greener #01a66e. A new scheme
+   rather than a recolour of `scheme-accent`, because that scheme is still
+   carrying eleven `cta-25` banners across the rest of the site and none of
+   them changed.
+
+   TEXT IS WHITE HERE, AND THAT IS A KNOWN CONTRAST EXCEPTION. It was raised
+   and then explicitly asked for, to match the Figma. The numbers, so nobody
+   has to re-derive them:
+
+       white   on #01a66e   3.14:1   fails WCAG AA for body text (needs 4.5:1)
+       #000a08 on #01a66e   6.38:1   passes
+
+   The band is 14px links, which do not qualify for the 3:1 large-text
+   allowance (that needs 24px, or 18.66px bold). So this is the one place in
+   the brand where CLAUDE.md's "never white on the green" is overridden by
+   decision rather than satisfied.
+
+   Two ways to get AA back, if that is ever wanted, in order of least damage
+   to the design:
+     1. Keep white, darken the fill to about #017a51 (white ~4.5:1). Same hue
+        family, visibly deeper than the Figma.
+     2. Swap the band to `scheme-deep-teal` (#035342), where white is 9.05:1.
+        The torn edge PNG would need re-toning to match either way, since its
+        bottom row has to equal the band colour exactly or a seam appears. */
+@utility scheme-jade {
+  --color-scheme-background: var(--color-jade);
+  --color-scheme-foreground: var(--color-jade);
+  --color-scheme-text: var(--color-white);
+  --color-scheme-border: var(--color-white);
+  --color-scheme-accent: var(--color-white);
+  /* Buttons keep the dark label: there are none in this band today, but if one
+     lands here it is a filled control and dark-on-green is 6.38:1. */
+  --color-scheme-btn-text: var(--color-neutral-darkest);
+
+  background-color: var(--color-scheme-background);
+  color: var(--color-scheme-text);
+}
+
+/* [8] Not in the v2 export, and the one place this brand has a gradient in a
+   layout. CLAUDE.md's "no gradients" rule predates the v3 homepage; the
+   2026-09-08 Figma puts a pale mint wash behind the whole first screen
+   (`Rectangle 17`, 1447x1929 starting at the navbar's bottom edge), so the
+   rule is superseded here and only here. The CARF seal's sheen keyframe is the
+   other gradient in the file and is unrelated - see [5].
+
+   Why nine stops instead of two: the Figma fill is a two-stop linear from
+   #f0fffc at full alpha down to #d9d9d9 at zero alpha. Figma interpolates
+   gradient stops with NON-premultiplied alpha, so the grey channel stays in
+   the mix the whole way down and the wash desaturates through a faintly grey
+   middle before reaching white. CSS interpolates premultiplied, where a
+   transparent stop contributes no colour at all - a literal two-stop
+   translation goes straight mint-to-white and visibly misses the middle by up
+   to 10 levels of green. These stops are that non-premultiplied ramp
+   pre-composited over white and sampled at eighths, which tracks Figma's own
+   render to within one channel step across the full 1929px.
+
+   Applied to the wrapper around the hero, the CARF strip and the three-step
+   section, which together span exactly the wash's height and end where the
+   green band below begins. */
+@utility hero-fade {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-viking-faintest) 0%,
+    #effbf9 12.5%,
+    #eff8f6 25%,
+    #f0f6f5 37.5%,
+    #f2f6f5 50%,
+    #f4f6f6 62.5%,
+    #f7f8f8 75%,
+    #fbfbfb 87.5%,
+    var(--color-white) 100%
+  );
+}
+
+/* [8b] The navbar's half of the same wash, homepage only.
+   `hero-fade` starts at full-strength `--color-viking-faintest` immediately
+   below the navbar, so a white bar above it drew a hard horizontal seam across
+   the top of the site. This ramps the bar from white at the page's very top
+   edge to exactly the wash's own first stop at the bar's bottom edge, so the
+   mint fades in from above as well as out below and the seam is gone.
+
+   Same two colours as `hero-fade` and no new token; the midpoint is the
+   halfway mix of the two, which is what keeps the 72px ramp linear to the eye
+   rather than front-loaded. Applied by `navbar-12.jsx` when the route is `/`,
+   and nowhere else - every other page is flat white under the bar and stays
+   `bg-scheme-background`. This is not a third gradient exception: it is the
+   `[8]` hero wash finishing the job on the element above it. */
+@utility home-nav-fade {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-white) 0%,
+    #f8fffe 50%,
+    var(--color-viking-faintest) 100%
+  );
+}
+
+/* [12] Positioning for the curve. The Figma vector is 1563.5x749 placed at
+   x=-5 against a 1440 frame, so it is 8.6% wider than the viewport and hangs
+   5px off the left edge - the right end of the curve runs off-canvas by
+   design.
+
+   Expressed as percentages of the viewport rather than in px so the shape
+   holds that exact relationship at every width: a fixed-px curve would keep
+   its 1563px span while the page narrowed and the visible portion would drift
+   to the flat left end. Height is left to the SVG's own viewBox, so the curve
+   cannot skew.
+
+   The shape itself is an inline <svg> in `layout-254.jsx` taking its fill from
+   `--color-plantation` at the Figma's 20%. Applied to that element; its
+   section must be `relative overflow-hidden`. */
+@utility experience-curve {
+  position: absolute;
+  left: -0.347%;
+  bottom: 0;
+  width: 108.576%;
+  pointer-events: none;
+}
+
+/* [13] Not in the v2 export. Every Figma frame in the file - all nineteen, the
+   v2 desktop set and the v3 rebuilds alike - sets the FAQ accordion question
+   in **Lexend Deca 18/27 at weight 700**. The build renders it in Playfair
+   Display at 400, on all eleven routes that carry an FAQ.
+
+   Two things combine to cause that, and neither is a mistake on its own.
+   Radix's `AccordionPrimitive.Header` renders an `<h3>`, which the base
+   `h1-h6 { font-family: "Playfair Display" }` rule at the top of this layer
+   catches; and the trigger's own `font-bold` resolves through
+   `--font-weight-bold`, which this brand deliberately pins to 400. So a
+   question that is marked bold and is not a heading comes out as neither.
+
+   Fixed by composing at the call site rather than by rewriting the primitive
+   or moving the token. It takes two classes, and the split is not cosmetic:
+
+     `font-body`   the family. Declared here, so the brand's rule that
+                   font-family appears in exactly one file still holds.
+     `font-[700]`  the weight. It has to be a real font-weight utility rather
+                   than a declaration in the utility above, because the
+                   trigger already carries `font-bold`: `cn()` is
+                   tailwind-merge, which drops the earlier class only when the
+                   later one lands in the same group. A `font-weight` buried
+                   inside `font-body` is invisible to that, and `font-bold`
+                   then wins on source order and puts the weight back to 400.
+
+   THE WEIGHT IS NOW 400, NOT 700, ON ALL ELEVEN ROUTES. READ THIS BEFORE
+   PUTTING IT BACK.
+
+   The face above is what the Figma asks for and the reasoning holds. What
+   happened instead is that it only ever landed on eight of the eleven
+   `faq-01` sections - `/how-we-work` first, then the seven pages the later
+   passes touched - while `about-us`, `home` and `faq-for-test` stayed on
+   Playfair 400, because carrying it to those three was left as a site-wide
+   decision. So the site shipped with FAQ questions that were heavy Lexend on
+   eight routes and light Playfair on three. That inconsistency is what was
+   reported, and the instruction with it was to make them consistent **and not
+   bold**.
+
+   So all eleven now compose `font-body font-[400]`: one family, one weight,
+   every route. `font-[400]` is still a real font-weight utility for exactly
+   the tailwind-merge reason set out above - it is what drops the trigger's
+   `font-bold`, which would otherwise resolve through `--font-weight-bold` to
+   400 anyway, but only by coincidence rather than by instruction.
+
+   This is a deliberate departure from all nineteen frames, made on an explicit
+   request, and it is the whole of the departure: family, size and line height
+   are still the frames'. If 700 is ever wanted back it is a one-line change -
+   `font-[400]` to `font-[700]` in every `faq-01.jsx` under
+   `components/sections` - and it should be made on all eleven at once, which is
+   the thing that went wrong the first time.
+
+   (Do not write that path as a glob here. A `*` followed by a `/` closes this
+   comment, the rest of it parses as CSS, and the build warns.) */
+@utility font-body {
+  font-family: "Lexend Deca", sans-serif;
+}
+
+/* [15] The counterpart to `font-body`, and it exists for the same reason: the
+   heading face is reachable only through the base `h1-h6` rule, so an element
+   that should carry it but is not a heading has no way to ask.
+
+   The case is the For Individual page's step numerals. The frame draws them at
+   224/268.8 in Roboto 700; Roboto is not one of this brand's two faces, so they
+   are set in Playfair Display instead. They are decorative duplicates of the
+   "Step N" label beside them - `aria-hidden`, and a <p> rather than a heading,
+   because promoting them to <h3> would put four content-free headings into the
+   document outline of a page that already has a heading per step.
+
+   So, like `font-body`, the family is declared here and nowhere else, and the
+   call site composes it. Weight is not bundled in: `--font-weight-bold` is 400
+   on purpose, which is the weight Playfair carries headings at anyway, so
+   `font-bold` beside this class resolves correctly with no tailwind-merge
+   interaction of the kind documented at [13]. */
+@utility font-heading {
+  font-family: "Playfair Display", serif;
 }

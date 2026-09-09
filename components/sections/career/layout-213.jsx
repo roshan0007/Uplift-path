@@ -3,6 +3,13 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 
+/**
+ * Unchanged against the 2026-09-09 Figma (frame `Career`) apart from the alt
+ * text. The heading, the body word for word, the Apply button and the
+ * illustration are all the frame's, and the illustration is the file already in
+ * the repo (ink-bbox match, mean channel difference 0.1 against 51+ for every
+ * other candidate). `alt="An illustration of three hands stacked together"` now describes the drawing.
+ */
 export function Layout213() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
@@ -12,7 +19,7 @@ export function Layout213() {
             <img
               src="/images/career-feature-section-0.png"
               className="w-full rounded-image object-cover"
-              alt="Relume placeholder image"
+              alt="An illustration of three hands stacked together"
             />
           </div>
           <div className="order-1 md:order-2">

@@ -15,8 +15,20 @@ export const CONTENT = [
     text: "Need assistance?",
   },
   {
+    // The live site's wording is "If you need help completing this form or have
+    // questions about the grievance process, please contact us:" and that is
+    // what shipped here until 2026-09-10, when the Zoho embed was pulled off
+    // this page (see the route's docblock). With no form on the page, "help
+    // completing this form" points at nothing and the three contact details
+    // below it read as a footnote to something absent rather than as the way
+    // to actually file.
+    //
+    // So the clause is dropped and the rest is the source's, word for word.
+    // **Restore the sentence above verbatim when the form goes back.** This is
+    // the only line on any of the four legal pages that is not the live copy
+    // exactly, and it is temporary.
     type: "p",
-    text: "If you need help completing this form or have questions about the grievance process, please contact us:",
+    text: "To file a grievance, or if you have questions about the grievance process, please contact us:",
   },
   {
     type: "ul",
