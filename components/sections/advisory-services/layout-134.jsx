@@ -21,20 +21,46 @@ export function Layout134() {
   return (
     <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       {/* Frame-relative, measured from the top of this section (y=72): planes
-          at 101,175.5 254x308; chart at 1106,347 212.5x180. */}
+          at 101,175.5 254x308; chart at 1106,347 212.5x180.
+
+          **Anchored off the centre line, not off the viewport edges.** The
+          frame's own x offsets put the planes at 101-355 and the chart at
+          1091-1304 against a text column running 329-1097 — so at the design
+          width both vignettes already overlapped the column, and the planes
+          crossed 26px into the body copy's own box. "Most organizations stall
+          not from a lack of ideas" is a full-measure line, so they collided
+          visibly. Every width below 1440 made it worse, because the column is
+          centred and slides outward into art pinned to the edges.
+
+          `calc(50% + 416px)` is the column's own half-measure (384px, from
+          `max-w-lg`) plus a 32px gutter, so each vignette starts exactly
+          32px clear of the text at every width and can never reach it. At
+          1440 that lands the planes at 50-304 and the chart at 1136-1348.5,
+          within 1px of the frame's intent minus the collision.
+
+          `min-[1280px]:` rather than `lg:`: below 1280 the guaranteed gutter
+          pushes the planes far enough left that most of the drawing is off
+          canvas, and half a paper plane is worse than none.
+
+          Written as an arbitrary min-width and not as a breakpoint variant
+          because **this theme has no `xl`.** `globals.css` sets
+          `--breakpoint-*: initial` and then declares exactly three - sm 480,
+          md 768, lg 992 - so `xl:block` compiles to a class that no media
+          query ever matches and the element stays `display: none` at every
+          width. Worth knowing before reaching for `xl:` anywhere else. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden select-none lg:block"
+        className="pointer-events-none absolute inset-0 hidden select-none min-[1280px]:block"
       >
         <img
           src="/images/advisory-hero-planes.png"
           alt=""
-          className="absolute top-[175.5px] left-[101px] h-[308px] w-[254px]"
+          className="absolute top-[175.5px] right-[calc(50%+416px)] h-[308px] w-[254px]"
         />
         <img
           src="/images/advisory-hero-chart.png"
           alt=""
-          className="absolute top-[347px] right-[121.5px] h-[180px] w-[212.5px]"
+          className="absolute top-[347px] left-[calc(50%+416px)] h-[180px] w-[212.5px]"
         />
       </div>
 

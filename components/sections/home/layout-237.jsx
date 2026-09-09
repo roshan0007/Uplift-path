@@ -20,11 +20,22 @@ export function Layout237() {
     // The lg paddings are the Figma's own: 74px from the band's top edge to the
     // illustration, and 53px from the last line of the third column to the
     // band's foot.
+    //
+    // The pattern is knocked back behind a flat white veil at 62%. Full
+    // strength it competed with the type sitting on it — the heading, three
+    // headings and three bodies all read against it, and the section reads as
+    // a quiet band in the page rather than an illustrated one. Flat
+    // `--color-white` at an opacity, not a gradient and not a new colour, so
+    // it stays inside the brand's flat-colour rule.
+    //
+    // `isolate` + a `before` pseudo-element rather than a sibling div: the
+    // veil is presentation, so it should not exist in the DOM as content, and
+    // the container below is `relative` so it stacks above it.
     <section
       id="uplift-outcomes"
-      className="scroll-mt-20 bg-[url('/images/home-changes-pattern-band.png')] bg-cover bg-top bg-no-repeat px-[5%] py-16 md:py-24 lg:pt-[4.625rem] lg:pb-[3.3125rem] scheme-1 badge-alt"
+      className="relative isolate scroll-mt-20 bg-[url('/images/home-changes-pattern-band.png')] bg-cover bg-top bg-no-repeat px-[5%] py-16 md:py-24 lg:pt-[4.625rem] lg:pb-[3.3125rem] scheme-1 badge-alt before:absolute before:inset-0 before:bg-white/62 before:content-['']"
     >
-      <div className="container">
+      <div className="relative container">
         <div className="flex flex-col items-center">
           <div className="mb-12 w-full max-w-lg text-center md:mb-18 lg:mb-20">
             {/* Sits directly above the heading and centred on it. Decorative,

@@ -1,41 +1,78 @@
 "use client";
 
-import React from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import React, { useRef } from "react";
 
 /**
- * Re-laid out to the 2026-09-08 Figma (node 10214-103875), which replaces the
- * scroll-tracked vertical rail with numbered blocks: a hairline rule with a
- * 32px filled segment at its left, then a tagline, a 52/62.4 heading and body
- * copy, all set against an oversized numeral in the left column.
+ * The scroll-tracked vertical rail, which is the `timeline-05` this site
+ * already ships on `/systems-&-technology` and `/for-business-page`.
  *
- * ## The frame's copy is not this page's copy, by decision
+ * ## Why this is not the oversized-numeral layout any more
  *
- * The frame fills these blocks with For Business material -- "Our simple
- * 3-step consultation process", "Submit request ... through your organisation",
- * "Discovery call", "Expert guidance", "consultation expert", "tailored
- * strategies and solutions". That is sales language for the sibling audience
- * page, and this route is peer coaching, therapy and counselling for Ohio
- * Medicaid adults. The frame also mis-numbers itself: its intro block is
- * labelled "01", so its first real step reads "02".
+ * A previous pass re-laid this section out to the 2026-09-08 Figma (node
+ * 10214-103875), which draws numbered blocks: a 224px Playfair numeral in a
+ * 258px left column, a hairline progress rule, a "Step N" tagline, a 52/62.4
+ * heading and body copy. It was built faithfully and it works, but it is a
+ * *third* way of presenting an ordered list of steps on one site -- the two
+ * pages above already share the rail, and this page's four steps are the same
+ * kind of content theirs are. Asked to unify on the component the other pages
+ * use, and that is what this now is.
  *
- * So the frame supplies the layout and the page keeps its own content. The four
- * steps below are unchanged and remain the same four the intake flow walks a
- * person through -- Application (the modal on this page), Eligibility (/cmps),
- * Scheduling (/booking), Consent (/consent-form). The names must stay in sync
- * with `components/intake/intake-steps.js`, which drives the breadcrumb on
- * every one of those screens. One story, told twice.
+ * The trade is deliberate and worth naming: the numeral layout gave each step
+ * a full-width block and a 52px heading, which is more presence per step. The
+ * rail gives four steps that read as one connected sequence, and a visitor who
+ * has come from `/systems-&-technology` or `/for-business-page` meets the same
+ * component doing the same job. Consistency won.
  *
- * ## Two more departures from the frame
+ * ## What is unchanged
  *
- * - **The eight buttons are not built.** Every one of them is labelled
- *   literally "Button" -- untouched Relume placeholder, two per block. They
- *   were not in the section before, they have no destination, and the page
- *   already offers the same action in the hero, in all three tabs and in the
- *   CTA.
- * - **The numerals are Playfair Display 400, not the frame's Roboto 700.**
- *   Roboto is not one of this brand's two faces. Size, position and colour are
- *   the frame's.
+ * The heading, the standfirst and all four steps -- Application, Eligibility,
+ * Scheduling, Consent. Those names must stay in sync with
+ * `components/intake/intake-steps.js`, which drives the breadcrumb on `/cmps`,
+ * `/booking` and `/consent-form`: this section is the public description of
+ * the same flow those screens walk a person through. One story, told twice.
+ *
+ * The frame's own copy for these blocks was refused on the earlier pass and
+ * still is -- it fills them with For Business material ("Our simple 3-step
+ * consultation process", "Submit request ... through your organisation") and
+ * mis-numbers itself, labelling its intro block "01" so its first real step
+ * reads "02". Nor are its eight buttons built: every one is labelled literally
+ * "Button", they have no destination, and this page already offers the same
+ * action in the hero, in all three tabs and in the CTA.
  */
+
+/**
+ * The rail's dot. Fills in as the step it belongs to reaches the top of the
+ * viewport, which is what makes the rail read as progress rather than as
+ * decoration. Lifted unchanged from `systems-&-technology/timeline-05.jsx` so
+ * the two behave identically.
+ */
+const Circle = () => {
+  const circleRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: circleRef,
+    offset: ["end end", "end center"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0.85, 1], [0, 1]);
+
+  return (
+    <div className="absolute -ml-8 flex h-full w-8 items-start justify-center">
+      <div
+        ref={circleRef}
+        className="relative z-20 mt-9 size-3.75 rounded-full shadow-[0_0_0_8px_var(--color-scheme-background)] backdrop-blur-3xl md:mt-12"
+      >
+        <div className="absolute inset-0 rounded-full bg-scheme-text/15" />
+        <motion.div
+          className="absolute inset-0 rounded-full bg-scheme-text"
+          style={{ opacity }}
+        />
+      </div>
+    </div>
+  );
+};
+
 const STEPS = [
   {
     title: "Application",
@@ -57,58 +94,51 @@ const STEPS = [
 
 export function Timeline5() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
-      <div className="container">
-        <div className="mb-12 max-w-lg md:mb-18 lg:mb-20">
-          <h2 className="mb-5 text-h2 font-bold md:mb-6">
-            How getting matched works
-          </h2>
-          <p className="text-medium">
-            Four steps between the first form and your session. Each one is
-            short, and nothing you share leaves our team.
-          </p>
+    <section className="overflow-clip px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+      <div className="container max-w-lg">
+        <div className="mb-12 md:mb-18 lg:mb-20">
+          <div className="relative z-10 w-full max-w-lg">
+            <h2 className="mb-5 text-h2 font-bold md:mb-6">
+              How getting matched works
+            </h2>
+            <p className="text-medium">
+              Four steps between the first form and your session. Each one is
+              short, and nothing you share leaves our team.
+            </p>
+          </div>
         </div>
-
-        {/* The frame runs the numeral column 338px wide (80 to 418) against a
-            1280 container, and each block 349 tall with a 112px gap. */}
-        <div className="flex flex-col gap-y-12 md:gap-y-16">
-          {STEPS.map((step, index) => (
-            <div
-              key={step.title}
-              className="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-[258px_1fr] lg:gap-x-20"
-            >
-              {/* 224/268.8 in the frame. `leading-none` because the frame sets
-                  the numeral's box to 159px against a 268.8 line box -- it is
-                  measured cap-to-baseline, not by line height. */}
-              <p
-                aria-hidden="true"
-                className="font-heading text-[6rem] leading-none font-bold text-scheme-text lg:text-[14rem]"
-              >
-                {String(index + 1).padStart(2, "0")}
-              </p>
-
-              <div>
-                {/* Progress bar: a 2px rule at 10% black with a 32px filled
-                    segment at its left. Decorative -- the numeral already
-                    states the position. */}
-                <div
-                  aria-hidden="true"
-                  className="h-0.5 w-full bg-scheme-text/10"
-                >
-                  <div className="h-full w-8 bg-scheme-text" />
-                </div>
-                <div className="mt-8">
-                  <p className="mb-3 font-semibold md:mb-4">
-                    Step {index + 1}
-                  </p>
-                  <h3 className="mb-5 text-h2 font-bold md:mb-6">
-                    {step.title}
+        {/* The rail itself: a sticky filled segment over a 15%-black track, with
+            a background-coloured mask above and below so the line appears to
+            start and stop at the first and last step rather than at the section
+            edges. */}
+        <div className="grid w-full max-w-lg auto-cols-fr grid-cols-[max-content_1fr] items-start justify-items-center">
+          <div className="relative left-0 flex h-full w-8 flex-col items-center md:left-auto">
+            <div className="absolute z-10 h-16 w-1 bg-gradient-to-b from-scheme-background to-transparent" />
+            <div className="sticky top-0 mt-[-50vh] h-[50vh] w-[3px] bg-scheme-text" />
+            <div className="h-full w-[3px] bg-scheme-text/15" />
+            <div className="absolute bottom-0 z-0 h-16 w-1 bg-gradient-to-b from-transparent to-scheme-background" />
+            <div className="absolute top-[-50vh] h-[50vh] w-full bg-scheme-background" />
+          </div>
+          <div className="grid auto-cols-fr grid-cols-1 gap-y-8 sm:gap-12 md:gap-20">
+            {STEPS.map((step, index) => (
+              <div key={step.title} className="relative">
+                <Circle />
+                <div className="mt-4 ml-4 flex flex-col md:ml-12">
+                  {/* The numeral is an <h3> and the step name an <h4> on the
+                      two pages this comes from, so it is the same here. The
+                      numeral is content, not decoration: it is the only thing
+                      that states the order. */}
+                  <h3 className="mb-3 text-h3 font-bold md:mb-4">
+                    {String(index + 1).padStart(2, "0")}
                   </h3>
-                  <p className="text-medium">{step.body}</p>
+                  <h4 className="mb-3 text-h5 font-bold md:mb-4">
+                    {step.title}
+                  </h4>
+                  <p>{step.body}</p>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

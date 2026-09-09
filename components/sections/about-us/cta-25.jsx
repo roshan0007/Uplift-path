@@ -24,7 +24,7 @@ import React from "react";
  */
 export function Cta25() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 btn-dark btn-dark-on-light badge-alt">
+    <section className="px-[5%] pt-12 pb-16 md:pt-14 md:pb-24 lg:pt-16 lg:pb-28 scheme-1 btn-dark btn-dark-on-light badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 items-center gap-x-12 gap-y-10 lg:grid-cols-2">
           <div className="max-w-md">
@@ -53,7 +53,7 @@ export function Cta25() {
             src="/images/home-cta-envelope.png"
             alt=""
             aria-hidden="true"
-            className="mx-auto h-auto w-full max-w-[462px] select-none lg:mx-0 lg:justify-self-end"
+            className="mx-auto h-auto w-full max-w-[400px] select-none lg:mx-0 lg:justify-self-end"
           />
         </div>
       </div>

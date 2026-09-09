@@ -1,7 +1,9 @@
 "use client";
 
+import { CARF_PROVIDER_URL, CarfSeal } from "@/components/brand/carf-seal";
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { ChevronRight } from "relume-icons";
 
 /**
  * Matched to the 2026-09-09 Figma (frame `Compliance Support`, 1440x4527).
@@ -23,6 +25,11 @@ import React from "react";
  * says we hold the seal, and the seal itself still renders in the footer
  * lockup on all 20 routes and in the homepage trust strip. Flagged in the
  * import record rather than treated as an oversight.
+ *
+ * **The seal is back below the hero copy, as a card, by later request** -- see
+ * the comment on that block. That is a different element in a different place,
+ * not a reversal of the line above: the frame's gap above the tagline is still
+ * empty.
  */
 export function Layout134() {
   return (
@@ -58,6 +65,55 @@ export function Layout134() {
           <Button asChild title="Book a discovery call" variant="secondary">
             <a href="/contact-us">Book a discovery call</a>
           </Button>
+        </div>
+
+        {/* The seal, back on this page and given weight — asked for.
+            The note above records why the frame's own bare seal above the
+            tagline was dropped: the frame draws nothing in that gap. This is
+            not that element. It is a card, below the hero copy, and it exists
+            because this is the one route on the site whose entire subject is
+            accreditation and it was the one route showing the mark only in the
+            footer lockup every other route also has.
+
+            Built on the brand's card rule — 2px border, `rounded-card`, no
+            shadow — and on the homepage trust strip's structure: the mark
+            links to CARF's own provider record, not to this page, because an
+            accreditation mark's job is to be checkable. Second link dropped:
+            "how we support compliance" is the page it is standing on.
+
+            The seal renders at its native 1:1 with its colours untouched and
+            clear space of its own, per CARF's usage rules and the brand doc's
+            logo guidance. `size-20`/`size-24` is the largest it appears
+            anywhere on the site, which is the point of it being here. */}
+        <div className="mt-10 flex justify-center md:mt-12">
+          <div className="flex max-w-md flex-col items-center gap-5 rounded-card border-2 border-scheme-border p-6 text-center sm:max-w-lg sm:flex-row sm:gap-6 sm:p-8 sm:text-left">
+            <a
+              href={CARF_PROVIDER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex shrink-0 transition-opacity duration-200 ease-in-out hover:opacity-70"
+              title="Verify our accreditation on carf.org"
+            >
+              <CarfSeal className="size-20 md:size-24" />
+            </a>
+            <div>
+              <p className="font-semibold">CARF accredited — Gold Seal</p>
+              <p className="mt-1 text-small">
+                An independent accreditor surveyed our own programs on-site
+                against national quality standards. When we help you get
+                survey-ready, we have been through it ourselves.
+              </p>
+              <a
+                href={CARF_PROVIDER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 inline-flex items-center gap-1 text-small font-medium underline transition-opacity duration-200 ease-in-out hover:opacity-70"
+              >
+                Verify on carf.org
+                <ChevronRight className="size-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

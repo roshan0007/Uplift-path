@@ -932,6 +932,28 @@
   );
 }
 
+/* [8b] The navbar's half of the same wash, homepage only.
+   `hero-fade` starts at full-strength `--color-viking-faintest` immediately
+   below the navbar, so a white bar above it drew a hard horizontal seam across
+   the top of the site. This ramps the bar from white at the page's very top
+   edge to exactly the wash's own first stop at the bar's bottom edge, so the
+   mint fades in from above as well as out below and the seam is gone.
+
+   Same two colours as `hero-fade` and no new token; the midpoint is the
+   halfway mix of the two, which is what keeps the 72px ramp linear to the eye
+   rather than front-loaded. Applied by `navbar-12.jsx` when the route is `/`,
+   and nowhere else - every other page is flat white under the bar and stays
+   `bg-scheme-background`. This is not a third gradient exception: it is the
+   `[8]` hero wash finishing the job on the element above it. */
+@utility home-nav-fade {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-white) 0%,
+    #f8fffe 50%,
+    var(--color-viking-faintest) 100%
+  );
+}
+
 /* [12] Positioning for the curve. The Figma vector is 1563.5x749 placed at
    x=-5 against a 1440 frame, so it is 8.6% wider than the viewport and hangs
    5px off the left edge - the right end of the curve runs off-canvas by
@@ -979,10 +1001,34 @@
                    inside `font-body` is invisible to that, and `font-bold`
                    then wins on source order and puts the weight back to 400.
 
-   Applied so far only on `/how-we-work`, the page this was found on. The same
-   two classes belong on the other ten `faq-01` sections; that is a site-wide
-   change and is flagged in `docs/figma-how-we-work-v3-2026-09-08.md` rather
-   than made here. */
+   THE WEIGHT IS NOW 400, NOT 700, ON ALL ELEVEN ROUTES. READ THIS BEFORE
+   PUTTING IT BACK.
+
+   The face above is what the Figma asks for and the reasoning holds. What
+   happened instead is that it only ever landed on eight of the eleven
+   `faq-01` sections - `/how-we-work` first, then the seven pages the later
+   passes touched - while `about-us`, `home` and `faq-for-test` stayed on
+   Playfair 400, because carrying it to those three was left as a site-wide
+   decision. So the site shipped with FAQ questions that were heavy Lexend on
+   eight routes and light Playfair on three. That inconsistency is what was
+   reported, and the instruction with it was to make them consistent **and not
+   bold**.
+
+   So all eleven now compose `font-body font-[400]`: one family, one weight,
+   every route. `font-[400]` is still a real font-weight utility for exactly
+   the tailwind-merge reason set out above - it is what drops the trigger's
+   `font-bold`, which would otherwise resolve through `--font-weight-bold` to
+   400 anyway, but only by coincidence rather than by instruction.
+
+   This is a deliberate departure from all nineteen frames, made on an explicit
+   request, and it is the whole of the departure: family, size and line height
+   are still the frames'. If 700 is ever wanted back it is a one-line change -
+   `font-[400]` to `font-[700]` in every `faq-01.jsx` under
+   `components/sections` - and it should be made on all eleven at once, which is
+   the thing that went wrong the first time.
+
+   (Do not write that path as a glob here. A `*` followed by a `/` closes this
+   comment, the rest of it parses as CSS, and the build warns.) */
 @utility font-body {
   font-family: "Lexend Deca", sans-serif;
 }

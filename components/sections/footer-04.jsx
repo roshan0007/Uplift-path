@@ -64,6 +64,17 @@ import { LinkedinLogo } from "relume-icons";
  * beside a labelled one, which is the imbalance that made the original look
  * wrong.
  */
+/**
+ * The fourth column: "Get in touch". Added because the band was three link
+ * columns and a lone LinkedIn icon out on the right, which read as three
+ * columns plus a loose glyph rather than four deliberate ones — and because
+ * "Start here" has only two links, so the left half of the band was two full
+ * columns beside a short one with nothing to balance it.
+ *
+ * The content is not invented. Address, email and phone are the same three
+ * facts `contact-us/contact-panel.jsx` already publishes, and the social mark
+ * moves in under them rather than standing on its own.
+ */
 const FOOTER_GROUPS = [
   {
     heading: "Company",
@@ -113,7 +124,7 @@ export function Footer4() {
 
           The +2.5rem is the 40px the Figma leaves between the bottom of the
           lockup and the highest point of the tear. */}
-      <div className="px-[5%] pt-12 pb-[calc(11.85vw+2.5rem)] md:pt-18 lg:pt-20">
+      <div className="px-[5%] pt-10 pb-[calc(11.85vw+1.5rem)] md:pt-12 lg:pt-14">
         <div className="container flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
           <a href="/" className="inline-flex items-center">
             <img
@@ -148,7 +159,7 @@ export function Footer4() {
           took this band off `scheme-accent` (#08d1a7) - see the note at the top
           of this file about why the text on it is still dark and not the
           Figma's white. */}
-      <div className="relative px-[5%] pt-14 pb-10 md:pt-16 md:pb-12 scheme-jade">
+      <div className="relative px-[5%] pt-12 pb-8 md:pt-14 md:pb-10 scheme-jade">
         {/* `bottom-full` puts the strip immediately above this band, so its
             straight bottom butts against the band's straight top and its
             ragged top eats up into the white above. Decorative, and
@@ -165,7 +176,7 @@ export function Footer4() {
               clump. The three link columns take equal share and the social
               mark sits out at the end, so the band reads left-to-right like
               the rest of the page instead of as a centred island. */}
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 text-left sm:grid-cols-3 lg:grid-cols-[1fr_1fr_1fr_auto] lg:gap-x-12">
+          <div className="grid grid-cols-2 items-start gap-x-8 gap-y-10 text-left sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-12">
             {FOOTER_GROUPS.map((group) => (
               <div key={group.heading}>
                 {/* The heading is a plain <p>, not an <h*>: this band sits
@@ -188,27 +199,51 @@ export function Footer4() {
                 </ul>
               </div>
             ))}
-            {/* LinkedIn is the only social account this site has a verified URL
+            {/* The fourth column. It is what balances the band: three lists of
+                5 / 2 / 5 links left a short middle column and an empty right
+                third, and the social mark had a whole track to itself for one
+                glyph.
+
+                LinkedIn is the only social account this site has a verified URL
                 for. The Facebook mark beside it never had one — it pointed at
                 "#" from the Relume export onward — and a dead icon is worse
-                than no icon.
-
-                In the flow now rather than absolutely positioned: it is the
-                grid's fourth track, so it can no longer drift over a column
-                when one outgrows the others. */}
+                than no icon. It sits under the contact details now rather than
+                standing as a column of its own. */}
             <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-              {/* Labelled like the three columns beside it, so the band reads
-                  as four deliberate columns rather than three plus a loose
-                  icon. "Follow" is a UI label, not content. */}
-              <p className="text-small font-semibold">Follow</p>
+              <p className="text-small font-semibold">Get in touch</p>
+              <ul className="mt-4 flex flex-col gap-y-3 text-small">
+                <li>
+                  <a
+                    href="mailto:info@upliftpathinc.com"
+                    className="transition-opacity duration-200 ease-in-out hover:opacity-70"
+                  >
+                    info@upliftpathinc.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="tel:+15132994553"
+                    className="transition-opacity duration-200 ease-in-out hover:opacity-70"
+                  >
+                    (513) 299-4553
+                  </a>
+                </li>
+                {/* Not a link: the map lives on /contact-us, which the Company
+                    column already reaches. */}
+                <li>
+                  20 E Broad St, Suite 225
+                  <br />
+                  Columbus, OH 43215
+                </li>
+              </ul>
               <a
                 href="https://www.linkedin.com/in/uptech-support"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"
+                className="mt-5 inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"
                 aria-label="Uplift Path on LinkedIn"
               >
-                <LinkedinLogo className="size-8 text-scheme-text" />
+                <LinkedinLogo className="size-7 text-scheme-text" />
               </a>
             </div>
           </div>
@@ -216,7 +251,7 @@ export function Footer4() {
               454px, centred under a centred nav; with the columns left-aligned
               and spread, a short centred rule floats with nothing to align to.
               Full width is what separates the two bands. */}
-          <div className="mt-12 h-px w-full bg-scheme-border/40" />
+          <div className="mt-10 h-px w-full bg-scheme-border/40" />
           {/* Copyright left, legal links right from md up; stacked and centred
               below that. The copyright is a sibling of the <ul> rather than
               its first <li> — it is not one of the legal links, and while it
@@ -228,7 +263,7 @@ export function Footer4() {
               parser rebuilt it, the server markup and client tree disagreed,
               and React threw a hydration error on every route because this is
               site chrome. Hence the <li> wrappers.) */}
-          <div className="flex flex-col items-center gap-y-4 pt-6 text-small md:flex-row md:items-center md:justify-between md:gap-x-6 md:pt-8">
+          <div className="flex flex-col items-center gap-y-4 pt-5 text-small md:flex-row md:items-center md:justify-between md:gap-x-6 md:pt-6">
             <p>© 2026 Uplift Path Inc. All rights reserved.</p>
             <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 md:flex md:flex-row md:gap-x-6 md:gap-y-0">
               <li>
