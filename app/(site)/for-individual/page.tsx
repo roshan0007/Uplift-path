@@ -10,6 +10,9 @@ import { Cta25 } from "@/components/sections/for-individual-page/cta-25";
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/for-individual",
+  },
   title: {
     absolute: "Telehealth Peer Support for Adults in Ohio | Uplift Path",
   },

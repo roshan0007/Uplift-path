@@ -5,6 +5,9 @@ import { ContactPanel } from "@/components/sections/contact-us/contact-panel";
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/contact-us",
+  },
   title: {
     absolute: "Contact Uplift Path | Behavioral Health Consulting, Ohio",
   },

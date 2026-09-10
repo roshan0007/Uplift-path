@@ -8,6 +8,9 @@ import { Cta25 } from "@/components/sections/resource-assistance/cta-25";
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/resource-assistance",
+  },
   title: {
     absolute: "Grant Writing & Medicaid Enrollment Support Ohio | Uplift Path",
   },

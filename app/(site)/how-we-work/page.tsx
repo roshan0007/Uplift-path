@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import React from "react";
 import { Layout134 } from "@/components/sections/how-we-work/layout-134";
 import { Layout365 } from "@/components/sections/how-we-work/layout-365";
 import { Layout254 } from "@/components/sections/how-we-work/layout-254";
 import { Faq1 } from "@/components/sections/how-we-work/faq-01";
 import { Cta25 } from "@/components/sections/how-we-work/cta-25";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/how-we-work",
+  },
+};
 
 export default function Page() {
   return (

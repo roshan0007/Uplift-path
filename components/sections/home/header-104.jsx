@@ -16,14 +16,14 @@ const AUDIENCES = [
   {
     title: "For Businesses",
     description: "Consulting services for business growth.",
-    href: "/for-business-page",
+    href: "/for-business",
     image: "/images/home-audience-for-business.png",
     alt: "An illustration of someone meeting their team over a video call",
   },
   {
     title: "For Individuals",
     description: "Peer coaching, mental health therapy and counseling.",
-    href: "/for-individual-page",
+    href: "/for-individual",
     image: "/images/home-audience-for-individual.png",
     alt: "An illustration of two people reaching through their screens to embrace",
   },

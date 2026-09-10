@@ -4,9 +4,21 @@
 #
 # /business-conusltation was merged into /for-business-page on 2026-08-31. The
 # old URL is indexed, so it keeps a permanent redirect rather than 404ing.
-/business-conusltation /for-business-page 301
+/business-conusltation /for-business 301
 
 # /advisory--services carried a Relume typo (double hyphen) in the slug. Renamed
 # to /advisory-services on 2026-08-31; the old URL is indexed, so it keeps a
 # permanent redirect.
 /advisory--services /advisory-services 301
+
+# Slug renames requested in the SEO workbook's `URL List` tab (2026-09-11).
+# These four only ever existed on the staging workers.dev host, which is
+# noindexed, so no search equity rides on them — but the URLs have been shared
+# for review, so they redirect rather than 404.
+#
+# /systems-&-technology is the one that was a real defect: an ampersand in a
+# path URL-encodes to %26, which is how the auditors found it.
+/for-business-page /for-business 301
+/for-individual-page /for-individual 301
+/systems-&-technology /systems-technology 301
+/career /careers 301

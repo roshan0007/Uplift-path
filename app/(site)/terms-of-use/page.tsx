@@ -10,6 +10,9 @@ import {
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/terms-of-use",
+  },
   title: {
     absolute: "Uplift Path Inc. Terms of Use and Website Policies",
   },
