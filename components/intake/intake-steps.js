@@ -6,7 +6,7 @@
  * If a name changes here it changes there too — the page promises a journey and
  * the funnel has to be the one it promised.
  *
- * Step 1 has no `href`: it is a modal over /for-individual-page, so the URL does
+ * Step 1 has no `href`: it is a modal over /for-individual, so the URL does
  * not change when it opens. Steps 2-4 are real routes, all noindexed.
  */
 export const INTAKE_STEPS = [
@@ -31,4 +31,4 @@ export const nextStep = (id) => INTAKE_STEPS[stepIndex(id) + 1] ?? null;
  * — it is a modal and closing it is the way out.
  */
 export const backHref = (id) =>
-  INTAKE_STEPS[stepIndex(id) - 1]?.href ?? "/for-individual-page";
+  INTAKE_STEPS[stepIndex(id) - 1]?.href ?? "/for-individual";

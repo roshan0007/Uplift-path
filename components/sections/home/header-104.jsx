@@ -9,7 +9,7 @@ import { ChevronRight, KeyboardArrowDown } from "relume-icons";
  * The two audiences are the whole information architecture of this site, so the
  * hero asks the visitor which one they are instead of making them read the nav.
  * Two cards, not three: "individual / couple / team" was floated, but only
- * /for-business-page and /for-individual-page exist — a third card would be a
+ * /for-business and /for-individual exist — a third card would be a
  * dead link.
  */
 const AUDIENCES = [

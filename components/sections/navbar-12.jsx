@@ -11,7 +11,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
 
 // The two service arrays and `iconUrl` moved to `lib/services.js` when the
-// merged /for-business-page started rendering the same six services as cards.
+// merged /for-business started rendering the same six services as cards.
 // The nav and that page now read one array, so they cannot drift apart.
 import {
   BUSINESS_SERVICES,
