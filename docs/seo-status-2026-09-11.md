@@ -60,19 +60,20 @@ Nothing below is blocked by anything above except where stated.
       /careers               -> /careers          (unchanged)
       /business-consultation -> /for-business
       /grievance-form        -> /grievance
-      /our-culture           -> RETIRED, needs a decision (see below)
+      /our-culture           -> /how-we-work      (settled, in _redirects)
 
       **Blocked on**: a full URL inventory of the old site. `GSC Indexing
       Status` lists only 7 indexed pages and `Website Content` 11 — neither is
       likely to be complete. Ask for a crawl export or the old sitemap.
       Without this, every one of those links 404s on cutover.
 
-- [ ] **Decide what `/our-culture` becomes.** It is indexed on the old site and
-      has a written title/description in the page-table, but the vendor's own
-      `URL List` omits it, so their intent is that it goes away. It therefore
-      needs *either* a page here *or* a 301 to the nearest equivalent
-      (`/careers` is the closest — it already carries Core Values and Why
-      Uplift Path). Currently it would 404.
+- [x] ~~**Decide what `/our-culture` becomes.**~~ **Resolved 2026-09-11:** it is
+      this site's `/how-we-work` — same page, different slug. The sections there
+      are the three culture pillars and the six core values, and the page's own
+      copy opens "Our culture is built on three core pillars". Its title and
+      description from the page-table are applied, and `/our-culture` now 301s
+      to `/how-we-work`. This also means the page-table is fully applied: 16 of
+      16 rows, with nothing left unmapped.
 
 - [ ] **`Speakable` / `WebPage` and the rest of the schema tab.** Unblocked now
       that slugs are frozen. Remap to our routes, `@id`s to the real domain,
@@ -83,6 +84,12 @@ Nothing below is blocked by anything above except where stated.
 
 ### P1
 
+- [ ] **Title/H1 mismatch on `/how-we-work`.** The title now reads "Our Culture
+      at Uplift Path" while the H1 is "A clear path to better outcomes starts
+      here" and the nav calls it "How We Work". The vendor wrote that title for
+      a page literally named Our Culture. Not wrong enough to block anything,
+      but the three names should probably be reconciled — a copy decision, not
+      a dev one.
 - [ ] **Open Graph + Twitter tags.** Absent site-wide. `og:description` and
       `og:image` called out specifically. Needs an OG image asset designed.
 - [ ] **Image alt text.** Flagged site-wide. `Images List` tab has 43 rows;
@@ -120,7 +127,7 @@ be marked off on their side.
 
 ## Launch sequence
 
-1. Get the old-site URL inventory; build the 301 map; settle `/our-culture`.
+1. Get the old-site URL inventory; build the 301 map.
 2. Schema, OG tags, alt text.
 3. `NEXT_PUBLIC_INDEXABLE=true npm run build` — the only step that makes the
    site indexable. **Do not run it before DNS cutover**, or staging competes
