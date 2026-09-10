@@ -62,7 +62,15 @@ export function Testimonial10() {
   }, [api]);
 
   return (
-    <section className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`. Layout254 -> Testimonial10 -> Faq1 ->
+    // Cta25 were four consecutive white sections with no border or scheme
+    // change between them: 2,671px of the 6,095px page with no section
+    // boundary at all. This brand has exactly two depth cues, a scheme change
+    // and the button ledge, so the remedy is the scheme - never a texture or a
+    // blurred shadow. Cta25's white is a documented deliberate reversal and is
+    // left alone; this is the section in the run with no cards or borders of
+    // its own, so the swap is one class.
+    <section className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
         <Carousel
           setApi={setApi}
@@ -116,8 +124,12 @@ export function Testimonial10() {
                       onClick={() => api && api.scrollTo(index)}
                       aria-label={`Show testimonial ${index + 1} of ${TESTIMONIALS.length}`}
                       aria-current={current === index}
-                      className={`relative mx-[3px] inline-block size-2 rounded-full ${
-                        current === index ? "bg-scheme-text" : "bg-scheme-text/20"
+                      // Active state carries shape as well as fill: the dots
+                      // were `size-2` either way and differed only in opacity.
+                      className={`relative mx-[3px] inline-block h-2 rounded-full ${
+                        current === index
+                          ? "w-6 bg-scheme-text"
+                          : "w-2 bg-scheme-text/20"
                       }`}
                     />
                   ))}
