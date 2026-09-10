@@ -9,21 +9,21 @@ import { ChevronRight, KeyboardArrowDown } from "relume-icons";
  * The two audiences are the whole information architecture of this site, so the
  * hero asks the visitor which one they are instead of making them read the nav.
  * Two cards, not three: "individual / couple / team" was floated, but only
- * /for-business-page and /for-individual-page exist — a third card would be a
+ * /for-business and /for-individual exist — a third card would be a
  * dead link.
  */
 const AUDIENCES = [
   {
     title: "For Businesses",
     description: "Consulting services for business growth.",
-    href: "/for-business-page",
+    href: "/for-business",
     image: "/images/home-audience-for-business.png",
     alt: "An illustration of someone meeting their team over a video call",
   },
   {
     title: "For Individuals",
     description: "Peer coaching, mental health therapy and counseling.",
-    href: "/for-individual-page",
+    href: "/for-individual",
     image: "/images/home-audience-for-individual.png",
     alt: "An illustration of two people reaching through their screens to embrace",
   },

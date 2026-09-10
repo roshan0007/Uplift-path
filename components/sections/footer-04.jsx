@@ -82,15 +82,15 @@ const FOOTER_GROUPS = [
       { label: "Home", href: "/" },
       { label: "About", href: "/about-us" },
       { label: "How we work", href: "/how-we-work" },
-      { label: "Career", href: "/career" },
+      { label: "Career", href: "/careers" },
       { label: "Contact", href: "/contact-us" },
     ],
   },
   {
     heading: "Start here",
     links: [
-      { label: "For Individuals", href: "/for-individual-page" },
-      { label: "For Businesses", href: "/for-business-page" },
+      { label: "For Individuals", href: "/for-individual" },
+      { label: "For Businesses", href: "/for-business" },
     ],
   },
   {
@@ -98,7 +98,7 @@ const FOOTER_GROUPS = [
     links: [
       { label: "AI Consultation", href: "/ai-consultation" },
       { label: "Advisory Services", href: "/advisory-services" },
-      { label: "Systems & Technology", href: "/systems-&-technology" },
+      { label: "Systems & Technology", href: "/systems-technology" },
       { label: "Compliance Support", href: "/compliance-support" },
       { label: "Resource Assistance", href: "/resource-assistance" },
     ],

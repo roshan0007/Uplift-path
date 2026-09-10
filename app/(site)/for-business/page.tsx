@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import React from "react";
 import { Layout134 } from "@/components/sections/for-business-page/layout-134";
 import { ServicesList } from "@/components/sections/for-business-page/services-list";
@@ -5,6 +6,19 @@ import { Layout613 } from "@/components/sections/for-business-page/layout-613";
 import { Timeline5 } from "@/components/sections/for-business-page/timeline-05";
 import { Faq1 } from "@/components/sections/for-business-page/faq-01";
 import { Cta25 } from "@/components/sections/for-business-page/cta-25";
+
+// `absolute` because these titles already carry the brand: the root layout's
+// "%s | Uplift Path" template would otherwise append it twice.
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/for-business",
+  },
+  title: {
+    absolute: "Behavioral Health Business Consulting Ohio | Uplift Path",
+  },
+  description:
+    "Uplift Path advises behavioral health organizations on operations, program development, and business structuring. Let's map out what your organization needs.",
+};
 
 /**
  * The merged business page. `/business-conusltation` used to be a second,

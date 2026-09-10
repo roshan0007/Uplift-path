@@ -7,10 +7,17 @@ import {
   UPDATED,
 } from "@/components/sections/legal/accessibility.content";
 
+// `absolute` because these titles already carry the brand: the root layout's
+// "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
-  title: "Accessibility",
+  alternates: {
+    canonical: "/accessibility",
+  },
+  title: {
+    absolute: "Uplift Path Inc. Accessibility Statement and Ongoing Plan",
+  },
   description:
-    "Uplift Path Inc.'s accessibility statement — our WCAG 2.1 AA commitment, the features we provide, and how to report a barrier.",
+    "This Accessibility Statement explains how Uplift Path Inc. supports WCAG 2.1 AA standards and how to report an accessibility barrier on this site.",
 };
 
 /**

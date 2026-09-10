@@ -11,7 +11,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
 
 // The two service arrays and `iconUrl` moved to `lib/services.js` when the
-// merged /for-business-page started rendering the same six services as cards.
+// merged /for-business started rendering the same six services as cards.
 // The nav and that page now read one array, so they cannot drift apart.
 import {
   BUSINESS_SERVICES,
@@ -323,7 +323,7 @@ export function Navbar12() {
                   <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.34fr] lg:gap-8">
                     <div>
                       <a
-                        href="/for-business-page"
+                        href="/for-business"
                         className="mb-3 block text-medium leading-[1.3] font-semibold"
                       >
                         For Businesses
@@ -346,7 +346,7 @@ export function Navbar12() {
                         anywhere, so a dashed one would read as foreign. */}
                     <div className="lg:border-l lg:border-scheme-border lg:pl-8">
                       <a
-                        href="/for-individual-page"
+                        href="/for-individual"
                         className="mb-3 block text-medium leading-[1.3] font-semibold"
                       >
                         For Individuals
@@ -362,7 +362,7 @@ export function Navbar12() {
               </AnimatePresence>
             </div>
             <a
-              href="/career"
+              href="/careers"
               className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
             >
               Careers

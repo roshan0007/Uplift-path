@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { INDEXABLE, SITE_URL } from '@/lib/site'
 import './globals.css'
 
 /**
@@ -15,6 +16,18 @@ import './globals.css'
  */
 
 export const metadata: Metadata = {
+  /**
+   * Canonicals and the sitemap resolve against this, so every page can declare
+   * its canonical as a bare path and still emit an absolute production URL.
+   */
+  metadataBase: new URL(SITE_URL),
+  /**
+   * Site-wide noindex until `NEXT_PUBLIC_INDEXABLE=true` is passed to the
+   * build. This is the second half of the staging lock — `app/robots.ts` is the
+   * first. Individual pages that must stay hidden after launch (the two Relume
+   * scratch pages) set their own `robots` and are unaffected by this.
+   */
+  ...(INDEXABLE ? {} : { robots: { index: false, follow: false } }),
   title: {
     default: 'Uplift Path — Uplifting Every Life We Serve',
     template: '%s | Uplift Path',
