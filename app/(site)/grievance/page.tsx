@@ -7,10 +7,14 @@ import {
   UPDATED,
 } from "@/components/sections/legal/grievance.content";
 
+// `absolute` because these titles already carry the brand: the root layout's
+// "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
-  title: "Grievance Form",
+  title: {
+    absolute: "Grievance Form for Client Feedback | Uplift Path Inc.",
+  },
   description:
-    "File a grievance with Uplift Path Inc. All grievances are handled with fairness and confidentiality, and filing one will not affect your services.",
+    "Use this form to file a grievance or complaint with Uplift Path Inc. We review every submission and respond as part of our client rights process.",
 };
 
 /**

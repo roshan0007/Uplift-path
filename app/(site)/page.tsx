@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import React from "react";
 import { Header104 } from "@/components/sections/home/header-104";
 import { TrustStrip } from "@/components/sections/home/trust-strip";
@@ -8,6 +9,16 @@ import { Testimonial10 } from "@/components/sections/home/testimonial-10";
 import { Faq1 } from "@/components/sections/home/faq-01";
 import { Cta25 } from "@/components/sections/home/cta-25";
 import { IntakeBar } from "@/components/sections/home/intake-bar";
+
+// `absolute` because these titles already carry the brand: the root layout's
+// "%s | Uplift Path" template would otherwise append it twice.
+export const metadata: Metadata = {
+  title: {
+    absolute: "Behavioral Health Consulting Columbus, OH | Uplift Path",
+  },
+  description:
+    "Uplift Path provides CARF-accredited behavioral health consulting for Ohio organizations. Talk to our team about strategy, operations, and program development.",
+};
 
 export default function Page() {
   return (

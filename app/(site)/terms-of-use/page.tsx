@@ -7,10 +7,14 @@ import {
   UPDATED,
 } from "@/components/sections/legal/terms-of-use.content";
 
+// `absolute` because these titles already carry the brand: the root layout's
+// "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
-  title: "Terms of Use",
+  title: {
+    absolute: "Uplift Path Inc. Terms of Use and Website Policies",
+  },
   description:
-    "The terms governing your access to and use of the Uplift Path Inc. website.",
+    "These Terms of Use govern your use of the Uplift Path Inc. website. They cover eligibility, permitted use, account rules, and current service availability.",
 };
 
 /**

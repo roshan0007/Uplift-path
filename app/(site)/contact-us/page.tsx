@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import React from "react";
 import { ContactPanel } from "@/components/sections/contact-us/contact-panel";
 
+// `absolute` because these titles already carry the brand: the root layout's
+// "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
-  title: "Contact",
+  title: {
+    absolute: "Contact Uplift Path | Behavioral Health Consulting, Ohio",
+  },
   description:
-    "Get in touch with Uplift Path Inc. — Columbus, Ohio. Tell us where you are and what is in the way.",
+    "Reach Uplift Path for behavioral health and business consulting based in Columbus, Ohio. Send a message and a member of our team will follow up soon.",
 };
 
 /**

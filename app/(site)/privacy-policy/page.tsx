@@ -7,10 +7,14 @@ import {
   UPDATED,
 } from "@/components/sections/legal/privacy-policy.content";
 
+// `absolute` because these titles already carry the brand: the root layout's
+// "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: {
+    absolute: "Uplift Path Inc. Privacy Policy and Data Practices",
+  },
   description:
-    "How Uplift Path Inc. collects, uses, discloses and safeguards information collected through this website, and how that differs from PHI under HIPAA.",
+    "This Privacy Policy explains how Uplift Path Inc. collects, uses, and protects your information. It covers general website data and PHI under HIPAA.",
 };
 
 /**
