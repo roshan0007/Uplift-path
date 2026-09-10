@@ -59,12 +59,20 @@ export function Layout237() {
           <div className="grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
             <div className="flex w-full flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
+                {/* `text-viking-dark` like the other two. This one was
+                    `text-caribbean-green-dark`, which put one of three
+                    otherwise-identical parallel cards in a different hue and
+                    implied a distinction the content does not have. */}
                 <SymbolIcon
                   name="step"
-                  className="size-12 text-caribbean-green-dark"
+                  className="size-12 text-viking-dark"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">
+              {/* `mb-2 md:mb-3`, not the icon block's `mb-5 md:mb-6`: the
+                  heading belongs to the paragraph under it. At 24px above and
+                  24px below it read as floating between the icon and the body
+                  instead. */}
+              <h3 className="mb-2 text-h4 font-bold md:mb-3">
                 Uplift Strategy
               </h3>
               <p>
@@ -79,7 +87,7 @@ export function Layout237() {
                   className="size-12 text-viking-dark"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">Uplift Systems</h3>
+              <h3 className="mb-2 text-h4 font-bold md:mb-3">Uplift Systems</h3>
               <p>
                 Build coordinated policies, training, and data to make pathways
                 simple and improvable.
@@ -92,7 +100,7 @@ export function Layout237() {
                   className="size-12 text-viking-dark"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6">Uplift Growth</h3>
+              <h3 className="mb-2 text-h4 font-bold md:mb-3">Uplift Growth</h3>
               <p>
                 To impact 100K lives by uplifting the individuals, businesses,
                 and communities we serve by 2036.

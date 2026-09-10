@@ -34,7 +34,7 @@ export function Header104() {
     // `bg-transparent` because the mint wash lives on the wrapper in
     // `app/(site)/page.tsx` and `scheme-1` would otherwise paint white over it.
     // The scheme class stays for its text, border and accent tokens.
-    <section className="relative bg-transparent px-[5%] py-12 md:py-16 lg:pt-[3.6875rem] lg:pb-16 scheme-1 badge-alt">
+    <section className="relative bg-transparent px-[5%] py-12 md:py-16 lg:pt-[3.6875rem] lg:pb-10 scheme-1 badge-alt">
       {/* The v3 Figma drops the two framing hand illustrations the previous
           pass had in the top corners, and with them the `lg:pt-60` that was
           only ever there to clear them - the heading now sits 59px below the
@@ -44,7 +44,29 @@ export function Header104() {
         {/* Two lines by design, not by wrapping: the break after "Life" is in
             the Figma and holds at every width, so it is a <span> rather than a
             max-width left to chance. "Serve" is the italic. */}
-        <h1 className="mb-5 text-[1.75rem] leading-[1.2] font-bold sm:text-[2.5rem] md:mb-6 md:text-[3.25rem] lg:mb-[0.625rem] lg:text-[4.375rem] lg:leading-[1.333]">
+        {/* The lg step is the Figma's 70px. The three below it are not the
+            frame's - they were 28/40/52px, which put the page title *below*
+            every section h2 (40px on mobile, 50 at lg) and made the h1 the
+            fourth-largest heading on the page at the width most visitors
+            arrive on. Weight cannot recover it, because `--font-weight-bold`
+            is 400 here. The ladder is now monotone and clears `text-h2` at
+            every breakpoint: 44 -> 52 -> 60 -> 70.
+
+            The `lg:leading-[1.333]` is also gone, so the whole ladder runs on
+            `leading-[1.2]` - which is `--text-h1`'s own line height. 1.333 on
+            a 70px didone is the wrong direction: large type wants tighter
+            leading, not looser, and the two-line composition is held by the
+            <span>, not by the leading. Worth 19px of the fold, too.
+
+            `text-balance` is what makes 44px survive a 338px measure: the
+            frame's two-line break is a 1440px composition and cannot hold at
+            a size that beats the h2 on a phone, so "Uplifting Every Life"
+            wraps — balanced into "Uplifting" / "Every Life" rather than left
+            to orphan "Life" on a line of its own. The <span> still holds
+            "We Serve", and from sm up the whole string fits on one line
+            again, so the frame's own two-line composition is untouched at the
+            widths the frame specifies. */}
+        <h1 className="mb-5 text-balance text-[2.75rem] leading-[1.2] font-bold sm:text-[3.25rem] md:mb-6 md:text-[3.75rem] lg:mb-[0.625rem] lg:text-[4.375rem]">
           Uplifting Every Life
           <span className="block">
             We <em className="font-heading-italic">Serve</em>
@@ -79,11 +101,11 @@ export function Header104() {
             for it as a lead-in instead, which is what it was before the v3
             pass — the question is put, then the two answers follow. This is a
             deliberate departure from the frame. */}
-        <p className="mt-8 font-semibold lg:mt-10 lg:text-[1.375rem] lg:leading-[1.21]">
+        <p className="mt-6 font-semibold lg:mt-6 lg:text-[1.375rem] lg:leading-[1.21]">
           Where would you like to start?
         </p>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
+        <div className="mt-6 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
           {AUDIENCES.map((audience, index) => (
             <motion.div
               key={audience.href}
@@ -170,7 +192,7 @@ function ScrollCue() {
   return (
     // The row keeps its height whether or not the arrow is in it, so retiring
     // the cue does not shift the cards above it up the page.
-    <div className="mt-2 flex h-10 justify-center lg:mt-[1.375rem]">
+    <div className="mt-2 flex h-10 justify-center lg:mt-2">
       <AnimatePresence>
         {visible && (
           <motion.button

@@ -65,7 +65,14 @@ export function Faq1() {
         <Accordion type="multiple">
           {FAQS.map((faq, index) => (
             <AccordionItem key={faq.q} value={`item-${index}`}>
-              <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+              {/* `font-body font-[400]` is the site-wide ruling (see the
+                  CLAUDE.md note - all eleven routes, not bold, deliberately).
+                  But at `text-medium` the question came out identical to its
+                  own answer in family, size, weight and colour, with only the
+                  chevron to separate them. Weight is not available as the
+                  differentiator in this brand, so it has to be size: one token
+                  step up, ruling intact. */}
+              <AccordionTrigger className="text-large font-body font-[400] md:py-5">
                 {faq.q}
               </AccordionTrigger>
               <AccordionContent className="md:pb-6">{faq.a}</AccordionContent>

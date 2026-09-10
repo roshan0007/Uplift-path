@@ -37,6 +37,14 @@ export const CARF_PROVIDER_URL =
  * The mark itself is never modified: no recolouring, no cropping, no stretch.
  * It renders at its native 1:1 and the sweep is a sibling overlay on top of it.
  *
+ * The file is 288x288, which is 3x the largest place it is drawn (`size-24`,
+ * 96px, on compliance-support; the other two uses are 80px and 64px). It was
+ * 900x900 / 516KB, and `next/image` optimization is off under
+ * `output: "export"`, so every route shipped the full file twice - once for
+ * this <img> and once more for the mask below. 3x covers DPR-3 at the largest
+ * size with headroom; if the seal is ever drawn larger than 96px, re-export
+ * rather than upscaling this one.
+ *
  * `motion-reduce:hidden` removes the overlay entirely under
  * `prefers-reduced-motion: reduce` — not just the animation. Pausing it would
  * leave a static white band frozen across the seal, which is worse than no
@@ -52,8 +60,8 @@ export function CarfSeal({ className = undefined }) {
       <img
         src="/brand/CARF.webp"
         alt="CARF accredited — Aspire to Excellence seal"
-        width={900}
-        height={900}
+        width={288}
+        height={288}
         className="size-full"
       />
       {/* The mask lives on this wrapper and the animation on the child, so the

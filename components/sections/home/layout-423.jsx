@@ -122,14 +122,28 @@ export function Layout423() {
                       brand - `font-bold` on a heading is regular weight. These
                       labels are one of the few places the design asks for a
                       genuinely heavy Playfair, and the 700 face is
-                      self-hosted. */}
-                  <h3 className="text-[1.5625rem] leading-[1.333] font-[700]">
+                      self-hosted.
+
+                      The size is `text-h5` (20px / 28px at 992px) rather than
+                      the frame's flat 25px. A hard-coded step does not answer
+                      the breakpoint, so at 1440px 25px collapsed toward the
+                      body copy while the h2 beside it stepped 40 -> 50, and on
+                      mobile it out-ranked the 20px hero card titles. 28px at
+                      lg is 3px off the frame and is the deliberate trade for
+                      being on the scale. */}
+                  <h3 className="text-h5 leading-[1.333] font-[700]">
                     {step.title}
                   </h3>
-                  {/* The only justified text on the page, and it is the
-                      Figma's call: all three step bodies are JUSTIFIED at
-                      18px in a 350px measure. */}
-                  <p className="mt-2 text-small lg:text-[1.125rem] lg:leading-[1.21] lg:text-justify">
+                  {/* The Figma justifies all three step bodies at 18px, but
+                      the measure it justifies them in is 350px - 35 characters,
+                      half the 45-75 readable band - which tears word-space
+                      rivers through every line. Justification dropped, and with
+                      it the `lg:leading-[1.21]`: body copy wants the token's
+                      1.5, not tighter. `text-medium` is 16px on mobile rising
+                      to the Figma's own 18px at lg, which also gets these three
+                      paragraphs off `text-small` - that token is 12px below
+                      992px and identical there to `--text-regular`. */}
+                  <p className="mt-2 text-medium">
                     {step.body}
                   </p>
                 </div>
