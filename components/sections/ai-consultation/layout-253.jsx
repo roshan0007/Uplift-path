@@ -50,7 +50,11 @@ function Approach({ icon, title, children }) {
           }}
         />
       </div>
-      <h3 className="mb-5 text-h4 font-bold md:mb-6">{title}</h3>
+      {/* `mb-2 md:mb-3`, not the icon block's own `mb-5 md:mb-6`. The heading
+          belongs to the paragraph under it, but at an equal 20/24px above and
+          below it read as floating between the icon and the body rather than
+          grouped with either. Same fix as home/layout-237. */}
+      <h3 className="mb-2 text-h4 font-bold md:mb-3">{title}</h3>
       <p>{children}</p>
     </div>
   );

@@ -66,7 +66,21 @@ export function Layout134() {
 
       <div className="relative container max-w-lg text-center">
         <p className="mb-3 font-semibold md:mb-4">Systems & Technology</p>
-        <h1 className="mb-5 text-h2 font-bold md:mb-6">
+        {/* `text-h1`, not `text-h2`. Every section heading on this route is
+            `text-h2` -- 40px at 375, 52px at 1440 -- and so was the page
+            title, which made the h1 the joint-largest heading rather than the
+            largest. Weight cannot recover the rank here: `--font-weight-bold`
+            is 400 on purpose, so size is the only signal available. One token
+            step up is 44px / 72px, which clears every h2 at both widths. The
+            lg step is 20px over the frame's 52, and that is the deliberate
+            trade -- the frame giving the h1 and the h2 the same size is
+            exactly the finding. Same resolution as the homepage h1.
+
+    `text-balance` is what makes 44px survive a 338px measure: these
+    titles run to three and four lines on a phone at the new size, and
+    without it the last line orphans a single word. It is inert on the
+    one-line titles and at lg, so it only acts where the wrap is real. */}
+        <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
           Technology should remove work, not add it
         </h1>
         <p className="text-medium">

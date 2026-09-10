@@ -71,7 +71,21 @@ export function LegalPage({
     <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-1 badge-alt">
       <div className="container grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-16">
         <header className="lg:sticky lg:top-24 lg:self-start">
-          <h1 className="text-h2 font-bold">{title}</h1>
+          {/* `text-h1`, not `text-h2`. Every section heading on this route is
+              `text-h2` -- 40px at 375, 52px at 1440 -- and so was the page
+              title, which made the h1 the joint-largest heading rather than the
+              largest. Weight cannot recover the rank here: `--font-weight-bold`
+              is 400 on purpose, so size is the only signal available. One token
+              step up is 44px / 72px, which clears every h2 at both widths. The
+              lg step is 20px over the frame's 52, and that is the deliberate
+              trade -- the frame giving the h1 and the h2 the same size is
+              exactly the finding. Same resolution as the homepage h1.
+
+    `text-balance` is what makes 44px survive a 338px measure: these
+    titles run to three and four lines on a phone at the new size, and
+    without it the last line orphans a single word. It is inert on the
+    one-line titles and at lg, so it only acts where the wrap is real. */}
+          <h1 className="text-balance text-h1 font-bold">{title}</h1>
           {updated && (
             <p className="mt-4 text-small text-scheme-text/60">
               Last updated {updated}

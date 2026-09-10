@@ -90,7 +90,15 @@ export function Layout254() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-[5%] py-10 md:py-12 lg:py-12 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`.
+    // /how-we-work ran five consecutive white sections. One break in the middle
+    // is enough: white white MINT white white.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    <section className="relative overflow-hidden px-[5%] py-10 md:py-12 lg:py-12 scheme-mint badge-alt">
       {/* The frame's `Vector 5`, verbatim: its own path in its own 1563.5x749
           box, so nothing is re-drawn by hand. Behind everything, and the
           section clips the part that runs off-canvas to the right. */}
