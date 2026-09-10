@@ -10,9 +10,16 @@ import React from "react";
  * portrait one, offset `ml-[30%]`. The frame draws a single line-art vignette
  * instead -- a figure thinking, with a lightbulb in the thought bubble --
  * 310x293 at the frame's own scale, in keeping with every other illustration on
- * this page. Cut from the 2x reference render and un-composited off white with
- * a min-channel alpha key. `career-feature-section-2.png` and
- * `career-feature-section-3.jpg` are left unreferenced; see the import record.
+ * this page. `career-feature-section-2.png` and `career-feature-section-3.jpg`
+ * are left unreferenced; see the import record.
+ *
+ * The art was replaced 2026-09-10. The first cut was taken straight off the 2x
+ * reference render and un-composited off white with a min-channel alpha key,
+ * which trimmed the bounding box to the ink -- 620x586 with the figure's back
+ * touching the right edge, so the drawing read as cropped at every width. The
+ * client supplied the original 500x500 asset, which carries its own margin;
+ * nothing is clipped now, at the cost of the figure rendering a little
+ * smaller inside the same 310px box.
  *
  * Copy is the frame's, word for word. Two things about it are noted in the
  * import record rather than changed here: the frame sets the body justified,

@@ -17,6 +17,13 @@ import React from "react";
  *
  * 2. All three illustrations are the frame's. They are line-art, not the
  *    photographs the export used; see the import record for the sources.
+ *    `how-we-work-flexibility.png` was re-supplied by the client on
+ *    2026-09-10: the cut taken off the reference render had been upscaled to
+ *    1216x720 and quantised to a 256-colour palette, which on line art at this
+ *    size showed as soft, broken strokes, and its crop clipped the figures'
+ *    feet and the ground curve they stand on. The replacement is the original
+ *    500x500 RGB asset -- smaller, but sharp at the 604px the card draws it,
+ *    and whole.
  *
  * Geometry the frame draws, all of which the classes below reproduce: cards
  * 2px #000a08 on white at r8 (`--radius-card`); the two small cards 640x290

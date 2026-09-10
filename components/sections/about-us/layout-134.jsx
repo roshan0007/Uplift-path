@@ -95,9 +95,13 @@ export function Layout134() {
  * The bottom-left tile is a *video*, not a still. Figma carries it the same way
  * the homepage's montage is carried — an `imageRef` that is only a poster frame
  * plus a separate `gifRef` — so checking for a video node finds nothing. Source
- * GIF is 800x450, 104 frames at 10fps (10.4s), 17.2MB; transcoded to MP4 and
- * WebM at ~0.48MB each. The poster is the video's own first frame, so nothing
- * shifts when playback starts.
+ * GIF is 800x450, 82 frames at 10fps (8.2s), 16.6MB; transcoded to MP4 (x264
+ * crf 28) and WebM (VP9 crf 40) at 0.70/0.52MB. The poster is the video's own
+ * first frame, so nothing shifts when playback starts.
+ *
+ * Replaced 2026-09-10 with a longer cut supplied by the client: it opens on the
+ * same sunset frame the poster already carries and then cuts to a second shot
+ * of four people celebrating outdoors, so the `aria-label` describes both.
  *
  * Radii are in `cqw` against the collage's own container, not px. The frame's
  * 71/80/68px are drawn against a 639px box; as px they would stay put while the
@@ -157,7 +161,7 @@ function HeroCollage() {
         playsInline
         preload="metadata"
         poster="/images/about-hero-moment-poster.jpg"
-        aria-label="A woman laughing in low evening sunlight"
+        aria-label="A woman laughing in low evening sunlight, then four people celebrating together outdoors"
         className="absolute top-[47.16%] left-0 h-[52.84%] w-[46.64%] rounded-tr-[11.11cqw] rounded-bl-[12.52cqw] object-cover"
       >
         <source src="/videos/about-hero-moment.webm" type="video/webm" />

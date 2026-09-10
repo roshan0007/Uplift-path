@@ -15,6 +15,16 @@ import React from "react";
  * and the centred copy share a row, so a naive bounding box swallowed the text.
  * They were measured over the four horizontal bands the hero leaves text-free.
  *
+ * It swallowed some anyway: `advisory-hero-planes.png` shipped with the left
+ * stem of the heading's "S" and the "M" of "Most organizations" baked into its
+ * right edge, plus a stray speck of the body copy. Because the vignette is
+ * anchored 32px clear of the text column, those glyphs rendered as a second,
+ * detached "S" and "M" floating to the left of the real ones. Erased from the
+ * PNG on 2026-09-10 -- everything at x>=430 above y=330, which is empty of
+ * plane geometry (the lower plane's tip only enters that band at y=404), plus
+ * the speck. The two planes themselves are untouched, so the positioning
+ * below still holds.
+ *
  * Promoted from <h2> to <h1> -- the route had no <h1> at all.
  */
 export function Layout134() {
