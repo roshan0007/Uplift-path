@@ -74,7 +74,8 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-0.jpg"
                     className="size-full rounded-image object-cover"
-                    alt="Relume placeholder image"
+                    alt=""
+                    aria-hidden="true"
                   />
                 </div>
               </div>
@@ -110,7 +111,8 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-1.jpg"
                     className="size-full rounded-image object-cover"
-                    alt="Relume placeholder image"
+                    alt=""
+                    aria-hidden="true"
                   />
                 </div>
               </div>
@@ -145,7 +147,8 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-2.png"
                     className="size-full rounded-image object-cover"
-                    alt="Relume placeholder image"
+                    alt=""
+                    aria-hidden="true"
                   />
                 </div>
               </div>
@@ -179,7 +182,8 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-3.jpg"
                     className="size-full rounded-image object-cover"
-                    alt="Relume placeholder image"
+                    alt=""
+                    aria-hidden="true"
                   />
                 </div>
               </div>

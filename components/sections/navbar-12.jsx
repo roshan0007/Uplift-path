@@ -78,6 +78,8 @@ const useRelume = () => {
   const animateDropdownMenu = isDropdownOpen ? "open" : "close";
   const animateDropdownMenuIcon = isDropdownOpen ? "rotated" : "initial";
   return {
+    isMobileMenuOpen,
+    isDropdownOpen,
     toggleMobileMenu,
     openOnDesktopDropdownMenu,
     closeOnDesktopDropdownMenu,
@@ -145,7 +147,14 @@ export function Navbar12() {
               className="h-8 w-auto"
             />
           </a>
+          {/* The three bars are decorative <span>s, so without an explicit
+              name this button is announced as an unlabelled "button" — and on
+              mobile it is the only way into the site's navigation. */}
           <button
+            type="button"
+            aria-label={useActive.isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={useActive.isMobileMenuOpen}
+            aria-controls="navbar-mobile-menu"
             className="-mr-2 flex size-12 flex-col items-center justify-center lg:hidden"
             onClick={useActive.toggleMobileMenu}
           >
@@ -200,6 +209,7 @@ export function Navbar12() {
             takes over above 992px so the desktop nav is unaffected. The two
             custom properties are kept as the documented override hook. */}
         <motion.div
+          id="navbar-mobile-menu"
           variants={{
             open: { height: "auto" },
             close: { height: 0 },
@@ -245,8 +255,17 @@ export function Navbar12() {
               onMouseEnter={useActive.openOnDesktopDropdownMenu}
               onMouseLeave={useActive.closeOnDesktopDropdownMenu}
             >
-              <p
-                role="button"
+              {/* A real <button>, not the export's `<p role="button">`. A <p>
+                  is not focusable whatever role it claims, and the sheet is
+                  `display: none` when closed, so its links are out of the tab
+                  order too — between them that left the seven service pages
+                  with no keyboard path from the navbar on any route. The click
+                  handler toggles at both breakpoints, so Enter/Space opens the
+                  sheet on desktop exactly as hover does. */}
+              <button
+                type="button"
+                aria-expanded={useActive.isDropdownOpen}
+                aria-haspopup="true"
                 className="flex w-full items-center justify-between gap-2 py-3 text-left text-base lg:flex-none lg:justify-start lg:px-4 lg:py-2"
                 onClick={useActive.openOnMobileDropdownMenu}
               >
@@ -261,7 +280,7 @@ export function Navbar12() {
                 >
                   <KeyboardArrowDown className="text-scheme-text" />
                 </motion.span>
-              </p>
+              </button>
               <AnimatePresence>
                 {/* Nothing between this sheet and <body> is positioned, so it
                     resolves against the page: `top-18` puts it exactly on the

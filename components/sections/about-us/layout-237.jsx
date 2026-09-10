@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { SymbolIcon } from "@/components/ui/symbol-icon";
+
 export function Layout237() {
   return (
     <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-1 badge-alt">
@@ -18,9 +20,9 @@ export function Layout237() {
           <div className="grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
             <div className="flex w-full flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
+                <SymbolIcon
+                  name="diversity_2"
                   className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/diversity_2.svg"
                 />
               </div>
               {/* Two lines' worth of height whether the heading takes one or
@@ -36,10 +38,7 @@ export function Layout237() {
             </div>
             <div className="flex w-full flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/map.svg"
-                />
+                <SymbolIcon name="map" className="size-12 text-scheme-text" />
               </div>
               <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
                 Pathways with Clarity
@@ -48,9 +47,9 @@ export function Layout237() {
             </div>
             <div className="flex w-full flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
+                <SymbolIcon
+                  name="leaderboard"
                   className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/leaderboard.svg"
                 />
               </div>
               <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
@@ -60,9 +59,9 @@ export function Layout237() {
             </div>
             <div className="flex w-full flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
+                <SymbolIcon
+                  name="all_inclusive"
                   className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/all_inclusive.svg"
                 />
               </div>
               <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
@@ -72,21 +71,23 @@ export function Layout237() {
             </div>
             <div className="flex w-full flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
+                <SymbolIcon
+                  name="support"
                   className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/support.svg"
                 />
               </div>
-              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">Foster Hope</h3>
+              <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">
+                Foster Hope
+              </h3>
               <p>
                 Unlock true potential through strength-based, holistic support.
               </p>
             </div>
             <div className="flex w-full flex-col items-center text-center">
               <div className="mb-5 md:mb-6">
-                <img
+                <SymbolIcon
+                  name="security"
                   className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/security.svg"
                 />
               </div>
               <h3 className="mb-5 text-h4 font-bold md:mb-6 md:min-h-[2lh]">

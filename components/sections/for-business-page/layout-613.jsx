@@ -25,7 +25,8 @@ export function Layout613() {
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-0.png"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>
@@ -46,7 +47,8 @@ export function Layout613() {
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-1.png"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>
@@ -69,7 +71,8 @@ export function Layout613() {
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-2.png"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>
@@ -90,7 +93,8 @@ export function Layout613() {
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-3.jpg"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>

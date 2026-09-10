@@ -36,11 +36,14 @@ export function Cta25() {
         <div className="grid grid-cols-1 items-center gap-x-12 gap-y-10 lg:grid-cols-2">
           <div className="max-w-md">
             {/* Two lines in the Figma, and the break is meaningful — "Ready to
-                unlock" / "Your growth plan" — so it is a <span> rather than
-                left to the container width. */}
+                unlock" / "your growth plan?" — so it is a <span> rather than
+                left to the container width. The Figma capitalises the "Y",
+                which is a mid-sentence capital in what is one sentence across
+                two lines; lowercase, with the question mark the sentence was
+                missing. */}
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Ready to unlock
-              <span className="block">Your growth plan</span>
+              <span className="block">your growth plan?</span>
             </h2>
             <p className="text-medium">
               Book your discovery call for personalized, actionable strategies

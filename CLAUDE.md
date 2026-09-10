@@ -149,5 +149,8 @@ order, and the scheme each one carries.
 - `faq-for-test` and `page-20` are Relume scratch pages that exist on the live
   site. They still build, but carry `robots: { index: false }` and are out of the
   nav. See `docs/import-v2-report.md`.
-- Every nav and footer link is still `href="#"`, exactly as Relume exported it.
-  Wiring them is a real outstanding task, not an oversight in a given section.
+- The nav and footer links are wired — this note used to say every one of them
+  was still `href="#"` as Relume exported it, and that is no longer true. The
+  only surviving placeholders are the three social icons on the About Us team
+  cards (`components/sections/about-us/team-06.jsx`), which still need real
+  profile URLs.

@@ -56,7 +56,11 @@ export function Faq1() {
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-medium">Find answers to your questions about us.</p>
+          {/* Was "Find answers to your questions about us." — the Relume
+              default, which says nothing the heading above it has not. */}
+          <p className="text-medium">
+            The four things people ask us most, before anything else.
+          </p>
         </div>
         <Accordion type="multiple">
           {FAQS.map((faq, index) => (

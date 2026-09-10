@@ -11,8 +11,16 @@ import { cn } from "@/lib/utils";
  * for the CTA button on green .scheme-accent banners", and Relume's own render
  * (design-export/screenshots/08-take-away-new.png) shows it black with white
  * label and no ledge. Restored to that.
+ *
+ * Second deviation, also deliberate: the export shipped `focus-visible:outline-none`
+ * with nothing replacing it, so no button anywhere on the site showed a keyboard
+ * focus indicator. The design system's "no focus ring" rule is scoped to inputs
+ * and select triggers, not to buttons. The ring is drawn in `--color-scheme-text`
+ * so it takes its colour from the section it sits in and therefore contrasts with
+ * the background it is offset onto, on all nine schemes — a fixed colour would
+ * disappear on either the light or the dark ones.
  */
-const buttonVariants = cva("inline-flex items-center justify-center gap-3 rounded-button whitespace-nowrap transition-all duration-200 ease-in-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50", {
+const buttonVariants = cva("inline-flex items-center justify-center gap-3 rounded-button whitespace-nowrap transition-all duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-scheme-text)] disabled:pointer-events-none disabled:opacity-50", {
     variants: {
         variant: {
             default: "border-2 border-caribbean-green-dark bg-caribbean-green font-medium text-scheme-btn-text shadow-[0_3px_0_0_var(--color-caribbean-green-dark)] hover:translate-y-[3px] hover:shadow-none btn-light:border-neutral-lighter btn-light:bg-white btn-light:text-neutral-darkest btn-light:shadow-[0_3px_0_0_var(--color-neutral-lighter)] btn-light:hover:shadow-none btn-dark:border-neutral-darkest btn-dark:bg-neutral-darkest btn-dark:text-white btn-dark:shadow-none btn-dark:hover:translate-y-0",
