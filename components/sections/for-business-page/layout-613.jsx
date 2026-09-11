@@ -7,9 +7,18 @@ export function Layout613() {
     // `id` added when /business-conusltation was merged in: this section is
     // where that page's content landed, so the navbar's "Business
     // Consultation" entry and the service card both deep-link to it.
+    // `scheme-mint`, not `scheme-1`.
+    // /for-business ran six consecutive white sections top to bottom. Tinting
+    // this one and faq-01 gives white white MINT white MINT white -- no run
+    // longer than two.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
     <section
       id="business-consulting"
-      className="scroll-mt-20 px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt"
+      className="scroll-mt-20 px-[5%] py-16 md:py-20 lg:py-20 scheme-mint badge-alt"
     >
       <div className="container">
         <div className="mb-12 max-w-lg md:mb-12 lg:mb-12">

@@ -62,7 +62,15 @@ const SERVICES = [
 
 export function Layout423() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`.
+    // See the note in layout-01: second of the two breaks in /ai-consultation's
+    // white run.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
         <div className="mx-auto mb-10 w-full max-w-lg text-center md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">

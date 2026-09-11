@@ -69,7 +69,15 @@ const FOCUS_AREAS = [
 
 export function Layout374() {
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`.
+    // /advisory-services ran six consecutive white sections. This one and
+    // faq-01 give white white MINT white MINT white.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-mint badge-alt">
       <div className="container">
         <div className="mb-8 md:mb-10">
           <div className="mx-auto max-w-lg text-center">

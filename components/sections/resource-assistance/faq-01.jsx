@@ -17,7 +17,15 @@ import React from "react";
  */
 export function Faq1() {
   return (
-    <section className="px-[5%] pt-16 pb-12 md:pt-24 md:pb-16 lg:pt-28 lg:pb-16 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`.
+    // /resource-assistance ran four consecutive white sections. One break here
+    // gives white white MINT white.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    <section className="px-[5%] pt-16 pb-12 md:pt-24 md:pb-16 lg:pt-28 lg:pb-16 scheme-mint badge-alt">
       <div className="container max-w-lg">
         <div className="mb-12 text-center md:mb-18 lg:mb-20">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
@@ -29,7 +37,15 @@ export function Faq1() {
         </div>
         <Accordion type="multiple">
           <AccordionItem value="item-0">
-            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+            {/* `text-large`, not `text-medium`, on every trigger in this list.
+                `font-body font-[400]` is the site-wide ruling (CLAUDE.md: all
+                eleven routes, not bold, deliberately) and is untouched -- but at
+                `text-medium` the question came out identical to its own answer in
+                family, size, weight and colour, with only the chevron to tell them
+                apart. Weight is not available as the differentiator in this brand,
+                so it has to be size: one token step up, ruling intact. Same
+                resolution as home/faq-01. */}
+            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
               Can you guarantee funding?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -38,7 +54,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
               Do you write the grant or do we?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -46,7 +62,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
               We are small. Is this worth it?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

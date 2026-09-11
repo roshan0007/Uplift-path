@@ -74,7 +74,16 @@ function TeamMember({ member }) {
 
 export function Team6() {
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`.
+    // /about-us runs white white GREEN white white white white white. The three
+    // after the green band were an unbroken run; this section and faq-01 break
+    // it into white white GREEN MINT white white MINT white.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-mint badge-alt">
       <div className="container">
         <div className="mx-auto mb-12 max-w-lg text-center md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">Our team</h2>

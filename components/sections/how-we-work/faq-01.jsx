@@ -36,7 +36,15 @@ export function Faq1() {
         </div>
         <Accordion type="multiple">
           <AccordionItem value="item-0">
-            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+            {/* `text-large`, not `text-medium`, on every trigger in this list.
+                `font-body font-[400]` is the site-wide ruling (CLAUDE.md: all
+                eleven routes, not bold, deliberately) and is untouched -- but at
+                `text-medium` the question came out identical to its own answer in
+                family, size, weight and colour, with only the chevron to tell them
+                apart. Weight is not available as the differentiator in this brand,
+                so it has to be size: one token step up, ruling intact. Same
+                resolution as home/faq-01. */}
+            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
               What makes Uplift’s company culture unique?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -46,7 +54,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
               How does Uplift foster professional growth and learning?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -56,7 +64,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
               What values are most important at Uplift?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -66,7 +74,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="text-medium font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
               How does Uplift handle feedback and communication?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

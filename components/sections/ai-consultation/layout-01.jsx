@@ -24,7 +24,16 @@ import React from "react";
  */
 export function Layout1() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`.
+    // /ai-consultation ran five consecutive white sections and has no faq-01 to
+    // break them with. This one and layout-423 alternate it: white MINT white
+    // MINT white.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 lg:gap-x-20">
           <div>
