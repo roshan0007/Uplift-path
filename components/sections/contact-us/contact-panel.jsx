@@ -77,19 +77,32 @@ export function ContactPanel() {
             {/* Label in the gutter, value beside it. A definition list is what
                 this actually is, and the hairline rules are the same 1px the
                 footer divider and the accordion use. */}
-            <dl className="mt-8 border-t border-scheme-border md:mt-10">
+            {/* `mt-12` (48px), not `mt-8 md:mt-10`. The rows inside this list
+                are 32px apart (`py-4` top and bottom), so a 32px gap above it
+                made the lead paragraph, the contact block and the map read as
+                one evenly spaced column instead of three groups. The gap around
+                a group has to beat the gap inside it. */}
+            <dl className="mt-12 border-t border-scheme-border">
               <DetailRow label="Email">
+                {/* `-my-3 inline-block py-3` makes the hit area 44px (20px of
+                    text plus 12px each side) without moving anything: the
+                    negative margin gives back exactly what the padding takes.
+                    The row's `py-4` was on the row, not the anchor, so none of
+                    it was clickable and this was a 20px target. */}
                 <a
                   href="mailto:info@upliftpathinc.com"
-                  className="transition-opacity duration-200 ease-in-out hover:opacity-70"
+                  className="-my-3 inline-block py-3 transition-opacity duration-200 ease-in-out hover:opacity-70"
                 >
                   info@upliftpathinc.com
                 </a>
               </DetailRow>
               <DetailRow label="Phone">
+                {/* Same 44px treatment. This one is a `tel:` link whose only
+                    real audience is a phone, and it was the smallest target on
+                    the page. */}
                 <a
                   href="tel:+15132994553"
-                  className="transition-opacity duration-200 ease-in-out hover:opacity-70"
+                  className="-my-3 inline-block py-3 transition-opacity duration-200 ease-in-out hover:opacity-70"
                 >
                   +1 (513) 299-4553
                 </a>
@@ -108,7 +121,8 @@ export function ContactPanel() {
             {/* A 10rem strip, not the half-page embed this replaces. The map is
                 orientation — it says "downtown Columbus", and anyone actually
                 travelling there uses the link beneath it. */}
-            <div className="mt-8 overflow-hidden rounded-image border-2 border-scheme-border">
+            {/* `mt-12` to match the gap above the list - same grouping fix. */}
+            <div className="mt-12 overflow-hidden rounded-image border-2 border-scheme-border">
               <iframe
                 src={MAP_EMBED}
                 title="Map showing Uplift Path Inc. at 20 E Broad Street, Suite 225, Columbus, OH"
@@ -121,7 +135,16 @@ export function ContactPanel() {
               href={MAP_LINK}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 inline-flex items-center gap-1 font-medium underline transition-opacity duration-200 ease-in-out hover:opacity-70"
+              /* `mt-1.5 ... py-2.5` is a 44px target that keeps the 16px
+                 visual gap under the map (6px margin + 10px padding), and
+                 `font-medium` is gone. At weight 500 plus an underline this
+                 was the heaviest non-eyebrow text in the column - louder than
+                 the email and phone links it is supplementary to. Weight is
+                 not available as emphasis in this brand anyway
+                 (`--font-weight-bold` is 400), so a stray 500 on a tertiary
+                 link reads as the loudest thing on the page. The underline and
+                 the chevron are already the affordance. */
+              className="mt-1.5 inline-flex items-center gap-1 py-2.5 underline transition-opacity duration-200 ease-in-out hover:opacity-70"
             >
               Get directions
               <ChevronRight className="size-5 text-scheme-text" />
@@ -139,13 +162,57 @@ export function ContactPanel() {
                 a separate form and there is no redirect to configure.
 
                 Border and radius are dropped because the card around it already
-                provides both. The height is the whole form measured at this
-                width, so nothing scrolls inside the card — this page scrolls
-                normally, and an inner scrollbar beside an outer one would be
-                one too many. */}
+                provides both. Nothing scrolls inside the card — this page
+                scrolls normally, and an inner scrollbar beside an outer one
+                would be one too many.
+
+                **The height has to be a ladder, not a constant.** It was a flat
+                `h-[58rem]` (928px) described as "the whole form measured at this
+                width", and that was true at one width only. The form is a fixed
+                set of fields reflowing in whatever column it is given, so its
+                height is a curve against that column, measured:
+
+                  column  236   286   312   373   460   528   589   610
+                  height 1241  1130  1073  1016   958   900   869   870
+
+                At 928px the Submit button — the one control this page exists to
+                reach — was BELOW the frame's bottom edge at every width up to
+                about 480px: 202px below it at 375, 313px at 320. Reachable only
+                by scrolling inside a cross-origin iframe, which is the exact
+                thing the paragraph above says we are avoiding.
+
+                The column is not monotonic with the viewport, which is why the
+                `lg` step goes back UP. Below 992 the card is full-width and the
+                column only widens (610px at 768). At 992 the grid becomes
+                `0.85fr_1fr` and the form column snaps back to 373px — narrower
+                than it was at `md` — then widens again to 589px by 1440. So the
+                ladder is 78 / 64 / 55 / 64 rem, each step sized off the
+                NARROWEST viewport in its own range plus a few px of slack:
+
+                  base   320-479   worst 236px wide -> 1241  -> 78rem = 1248
+                  sm     480-767   worst 384px wide -> ~1010 -> 64rem = 1024
+                  md     768-991   worst 610px wide ->  870  -> 55rem =  880
+                  lg     992-1199  worst 373px wide -> 1016  -> 64rem = 1024
+                  1200-1279        worst 474px wide -> ~952  -> 60rem =  960
+                  1280-1399        worst 513px wide -> ~910  -> 58rem =  928
+                  1400+            column caps 589  ->  869  -> 55rem =  880
+
+                The top three are arbitrary `min-[...]` variants rather than
+                breakpoints because this project defines only sm/md/lg (480/
+                768/992) and has no `xl`. They are needed because the container
+                keeps widening past `lg` until it caps at 1400px, and a single
+                `lg` value sized for the 992 worst case would leave ~155px of
+                dead white inside a 2px bordered card at 1440 — worse than the
+                59px the flat value had. These are one-off steps tracing a
+                measured curve, not new breakpoints for the design system.
+
+                Every step is the narrowest viewport in its own range plus a
+                little slack, so the Submit button is inside the frame at every
+                width and the worst dead space is ~50px instead of 313px of
+                clipping. Re-measure if the Zoho form's fields ever change. */}
             <ZohoFormSlot
               form="contact"
-              className="h-[58rem] rounded-none border-0"
+              className="h-[78rem] sm:h-[64rem] md:h-[55rem] lg:h-[64rem] min-[1200px]:h-[60rem] min-[1280px]:h-[58rem] min-[1400px]:h-[55rem] rounded-none border-0"
             />
           </Card>
         </div>
