@@ -18,6 +18,15 @@ import React from "react";
  * one section they actually came for. The left column sticks as the body
  * scrolls, so the jump list is always in reach.
  *
+ * The left column is 25rem, not the 18rem it started at. "Accessibility" set
+ * in Playfair at the lg `--text-h1` step is 391px wide and cannot be broken, so
+ * an 18rem (288px) track could not contain it: the word overhung its column by
+ * 103px and ran straight through the body text beside it. Measured at 1440.
+ * 25rem clears the longest word on any of the four pages with room to spare,
+ * and the body column still exceeds its 45rem measure at every width from lg
+ * up. Reducing the h1 instead is not available -- it is one step above the h2s
+ * on the same page for a reason, documented on the element below.
+ *
  * The measure is capped at 45rem. The design system puts text columns at 35rem
  * and heading blocks at 48rem; policy prose sits between the two — narrower
  * than a heading block, but tight enough that a 90-character legal sentence
@@ -69,7 +78,7 @@ export function LegalPage({
 
   return (
     <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-1 badge-alt">
-      <div className="container grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-16">
+      <div className="container grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] lg:gap-16">
         <header className="lg:sticky lg:top-24 lg:self-start">
           {/* `text-h1`, not `text-h2`. Every section heading on this route is
               `text-h2` -- 40px at 375, 52px at 1440 -- and so was the page

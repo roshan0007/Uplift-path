@@ -1,5 +1,14 @@
 "use client";
 
+/**
+ * The four advisor bios were one run-on paragraph each: the intro, then the
+ * words "Key Expertise:" mid-sentence, then three labelled items separated by
+ * nothing but full stops. Reported as unreadable against the legacy site, which
+ * breaks the same copy into a labelled heading and a bulleted list. That is the
+ * change -- the structure the copy always had, marked up. No words were added,
+ * removed or rewritten, and no class on the section was touched.
+ */
+
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
@@ -61,14 +70,26 @@ export function Layout507() {
                     teacher, administrator, and principal. Known for her
                     collaborative leadership, she champions equity and
                     meaningful learning experiences for both students and staff.
-                    Key Expertise: School Improvement: Served as Principal and
-                    School Improvement Chair, driving impactful initiatives and
-                    strengthening community engagement. Program Leadership:
-                    Extensive background leading dropout prevention programs and
-                    serving on Accreditation Teams. Education: Holds a B.A. from
-                    UNC–Chapel Hill and an M.A. in School Administration from
-                    UNC Wilmington.
                   </p>
+                  <p className="mt-5 font-semibold md:mt-6">Key Expertise</p>
+                  <ul className="mt-2 list-disc space-y-2 pl-5">
+                    <li>
+                      <span className="font-semibold">School Improvement:</span>{" "}
+                      Served as Principal and School Improvement Chair, driving
+                      impactful initiatives and strengthening community
+                      engagement.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Program Leadership:</span>{" "}
+                      Extensive background leading dropout prevention programs
+                      and serving on Accreditation Teams.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Education:</span> Holds a
+                      B.A. from UNC–Chapel Hill and an M.A. in School
+                      Administration from UNC Wilmington.
+                    </li>
+                  </ul>
                 </div>
                 <div className="aspect-[4/3] w-full">
                   <img
@@ -97,15 +118,28 @@ export function Layout507() {
                     years of experience in student services, operations, and
                     admissions. She currently serves at the Massachusetts
                     Institute of Technology (MIT) as Associate Dean of
-                    Residential Life and Director of Strategic Initiatives. Key
-                    Expertise: Strategic Operations: Leads residential strategy,
-                    housing, and orientation processes for large university
-                    communities. Global Experience: Previously held leadership
-                    roles at Brown University, Georgia State University, and
-                    King’s College London. Credentials: Holds an MBA in Global
-                    Management and is completing a Master of Legal Studies at
-                    Cornell University.
+                    Residential Life and Director of Strategic Initiatives.
                   </p>
+                  <p className="mt-5 font-semibold md:mt-6">Key Expertise</p>
+                  <ul className="mt-2 list-disc space-y-2 pl-5">
+                    <li>
+                      <span className="font-semibold">
+                        Strategic Operations:
+                      </span>{" "}
+                      Leads residential strategy, housing, and orientation
+                      processes for large university communities.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Global Experience:</span>{" "}
+                      Previously held leadership roles at Brown University,
+                      Georgia State University, and King’s College London.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Credentials:</span> Holds
+                      an MBA in Global Management and is completing a Master of
+                      Legal Studies at Cornell University.
+                    </li>
+                  </ul>
                 </div>
                 <div className="aspect-[4/3] w-full">
                   <img
@@ -134,14 +168,28 @@ export function Layout507() {
                     over 40 years of experience in educational leadership,
                     ranging from classroom instruction to serving as a secondary
                     principal. She delivers dynamic, hands-on training across
-                    the U.S. and the Bahamas. Key Expertise: Excellence in
-                    Education: Led schools to achieve "Blue Ribbon School of
-                    Excellence" and "New American High School" designations.
-                    Proven Outcomes: Delivered three consecutive years of 100%
-                    passing rates on state Algebra exams. Specialization: Expert
-                    in research-based instructional strategies, literacy
-                    facilitation, and school improvement.
+                    the U.S. and the Bahamas.
                   </p>
+                  <p className="mt-5 font-semibold md:mt-6">Key Expertise</p>
+                  <ul className="mt-2 list-disc space-y-2 pl-5">
+                    <li>
+                      <span className="font-semibold">
+                        Excellence in Education:
+                      </span>{" "}
+                      Led schools to achieve “Blue Ribbon School of Excellence”
+                      and “New American High School” designations.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Proven Outcomes:</span>{" "}
+                      Delivered three consecutive years of 100% passing rates on
+                      state Algebra exams.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Specialization:</span>{" "}
+                      Expert in research-based instructional strategies,
+                      literacy facilitation, and school improvement.
+                    </li>
+                  </ul>
                 </div>
                 <div className="aspect-[4/3] w-full">
                   <img
@@ -170,13 +218,26 @@ export function Layout507() {
                     Psychotherapist at LifeStance Health. She specializes in
                     providing trauma-focused and solution-focused therapy to
                     clients navigating anxiety, depression, and life
-                    transitions. Key Expertise: Clinical Focus: Expert in CBT,
-                    trauma-informed care, and multidisciplinary collaboration.
-                    Background: extensive experience in High Fidelity Wraparound
-                    facilitation and foster care support. Credentials: Holds a
-                    Doctor of Social Work (University of Kentucky, 2025) and a
-                    Master of Social Work (Johnson C. Smith University).
+                    transitions.
                   </p>
+                  <p className="mt-5 font-semibold md:mt-6">Key Expertise</p>
+                  <ul className="mt-2 list-disc space-y-2 pl-5">
+                    <li>
+                      <span className="font-semibold">Clinical Focus:</span>{" "}
+                      Expert in CBT, trauma-informed care, and multidisciplinary
+                      collaboration.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Background:</span>{" "}
+                      Extensive experience in High Fidelity Wraparound
+                      facilitation and foster care support.
+                    </li>
+                    <li>
+                      <span className="font-semibold">Credentials:</span> Holds
+                      a Doctor of Social Work (University of Kentucky, 2025) and
+                      a Master of Social Work (Johnson C. Smith University).
+                    </li>
+                  </ul>
                 </div>
                 <div className="aspect-[4/3] w-full">
                   <img

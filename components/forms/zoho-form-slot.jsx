@@ -60,7 +60,9 @@ export const ZOHO_FORMS = {
   },
   grievance: {
     title: "Grievance Form",
-    src: "https://forms.zohopublic.com/upliftpathinc/form/MergedGrievanceForm/formperma/A2Z1eDlfDnhUqZhEOB0e2YXvA3dd0QJZPnzHFVdzNYY",
+    // Supplied 2026-09-12 as the embed to use. It replaces the older
+    // MergedGrievanceForm permalink, which is the form the legacy site shows.
+    src: "https://forms.zohopublic.com/upliftpathinc/form/UpliftPathIncFileaGrievanceCommon/formperma/ErifxOSERbgnlJ0_-YeahMAIBoThr0xo1I420vC-img",
     // Same reasoning as contact: an ordinary scrolling page, so the height is
     // set at the call site rather than negotiated with a surplus.
     height: null,

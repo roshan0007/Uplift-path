@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { DribbbleLogo, LinkedinLogo, XLogo } from "relume-icons";
+import { LinkedinLogo } from "relume-icons";
 
 /**
  * Height fix only. The three member blocks were identical markup repeated three
@@ -14,18 +14,21 @@ const MEMBERS = [
   {
     name: "Julia Gilliam",
     role: "Chief Compliance Officer",
+    linkedin: "https://www.linkedin.com/in/juliadgilliam/",
     image: "/images/about-us-award-logos-list-section-0.jpg",
     bio: "Julia is a trauma-informed social worker with 9 years of experience in behavioral health, addiction recovery, and mental health services. She specializes in mentoring professionals, managing recovery programs, and creating supportive environments for diverse clients, including survivors of human trafficking and K-8 students. Julia is committed to fostering resilience and positive change in every community served.",
   },
   {
     name: "Devyani Balladin",
     role: "Chief Operating Officer",
+    linkedin: "https://www.linkedin.com/in/devyaniballadin/",
     image: "/images/about-us-award-logos-list-section-1.jpg",
     bio: "Devyani Balladin, COO of Uplift Path Inc., brings 20+ years of leadership across business, behavioral health, education, and nonprofits. Known for people-centered solutions, she strengthens teams, streamlines operations, and drives growth. Her behavioral health expertise fosters strategic clarity and sustainable change, aligning strategy, culture, and resources for measurable impact.",
   },
   {
     name: "Martha Matthews",
     role: "Chief Risk Officer",
+    linkedin: "https://www.linkedin.com/in/marthamatthewsCROCCO/",
     image: "/images/about-us-award-logos-list-section-2.jpg",
     bio: "Martha brings over 20 years of expertise in enterprise risk management and governance, guiding strategic operations for financial, healthcare, and other enterprises. A former Board member of the National Society of Compliance Professionals and recipient of a U.S. Senate Leadership Gavel, her leadership strengthens Uplift’s commitment to responsible growth and compliant innovation.",
   },
@@ -57,15 +60,19 @@ function TeamMember({ member }) {
       >
         {expanded ? "Read less" : "Read more"}
       </button>
+      {/* LinkedIn only. The export shipped three icons per member -- LinkedIn,
+          X and Dribbble -- all pointing at "#". Only the LinkedIn profiles
+          exist, and an X/Dribbble icon for a compliance officer was Relume
+          filler rather than a real account, so the two dead ones are gone
+          instead of being wired to a placeholder. */}
       <div className="mt-5 grid grid-flow-col grid-cols-[max-content] gap-3.5 self-center md:mt-6">
-        <a href="#">
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label={`${member.name} on LinkedIn`}
+        >
           <LinkedinLogo className="size-6 text-scheme-text" />
-        </a>
-        <a href="#">
-          <XLogo className="size-6 p-0.5 text-scheme-text" />
-        </a>
-        <a href="#">
-          <DribbbleLogo className="size-6 text-scheme-text" />
         </a>
       </div>
     </div>
