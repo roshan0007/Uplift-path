@@ -52,12 +52,12 @@ export function ServicesList() {
                 <div className="mt-4">
                   <Button
                     asChild
-                    title="Learn more"
+                    title="Learn More"
                     variant="link"
                     size="link"
                     iconRight={<ChevronRight className="text-scheme-text" />}
                   >
-                    <a href={service.href}>Learn more</a>
+                    <a href={service.href}>Learn More</a>
                   </Button>
                 </div>
               </div>

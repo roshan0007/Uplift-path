@@ -19,6 +19,48 @@ import {
   iconUrl,
 } from "@/lib/services";
 
+/**
+ * The top-level nav links.
+ *
+ * QA filed three findings against these that are really one: the links had no
+ * hover feedback at all, no indication of which page you are on, and sat at
+ * regular weight while the mega-menu's own items were `font-semibold` — so the
+ * submenu read as the more important of the two.
+ *
+ * All three are answered here. The weight goes up to `font-semibold` (the
+ * submenu labels come down to `font-medium` in `MenuItem`, which restores the
+ * hierarchy), and hover is the site's existing idiom — `hover:opacity-70`,
+ * the same transition the footer links, the CARF strip and the social mark
+ * already use. Nothing moves, scales or changes colour, per the brand's "no
+ * bounce" rule.
+ *
+ * The current page is marked with a 2px underline in the scheme text colour
+ * rather than a weight or colour change: weight is already carrying the
+ * menu/submenu distinction, and the nav sits on the homepage's mint wash as
+ * well as flat white, so a background swatch would need two treatments. 2px
+ * is the brand's border width. `aria-current="page"` carries the same fact to
+ * assistive tech, which is what actually fixes it for keyboard and screen
+ * reader users.
+ */
+const NavLink = ({ href, children }) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  return (
+    <a
+      href={href}
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        "block py-3 text-base font-semibold transition-opacity duration-200 ease-in-out hover:opacity-70 lg:px-4 lg:py-2 lg:first:pt-2",
+        "first:pt-7",
+        isActive &&
+          "underline decoration-2 underline-offset-[6px] hover:opacity-100",
+      )}
+    >
+      {children}
+    </a>
+  );
+};
+
 const MenuItem = ({ item }) => (
   <a href={item.href} className="flex items-start gap-x-3 text-base">
     <img
@@ -27,7 +69,7 @@ const MenuItem = ({ item }) => (
       alt=""
     />
     <div className="flex grow flex-col">
-      <p className="font-semibold">{item.label}</p>
+      <p className="font-medium">{item.label}</p>
       {/* `short`, not `description`. The full descriptions run to two lines
           each at this column width, and six of those stacked made the sheet a
           third taller than it needed to be. The long form still runs on the
@@ -221,18 +263,8 @@ export function Navbar12() {
           className="overflow-auto px-[5%] lg:contents lg:h-auto! lg:items-center lg:overflow-visible lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
         >
           <nav className="lg:flex lg:items-center">
-            <a
-              href="/"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              Home
-            </a>
-            <a
-              href="/about-us"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              About
-            </a>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/about-us">About</NavLink>
             {/* "How We Work" is in the 2026-09 Figma navbar, between About and
                 Uplift Services, and was missing from the export's nav.
 
@@ -245,12 +277,7 @@ export function Navbar12() {
                 section used to link to /how-we-work from each of its cards,
                 and the Figma redesign drops those links. Without this the
                 route is reachable from the footer alone. */}
-            <a
-              href="/how-we-work"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              How We Work
-            </a>
+            <NavLink href="/how-we-work">How We Work</NavLink>
             <div
               onMouseEnter={useActive.openOnDesktopDropdownMenu}
               onMouseLeave={useActive.closeOnDesktopDropdownMenu}
@@ -266,7 +293,7 @@ export function Navbar12() {
                 type="button"
                 aria-expanded={useActive.isDropdownOpen}
                 aria-haspopup="true"
-                className="flex w-full items-center justify-between gap-2 py-3 text-left text-base lg:flex-none lg:justify-start lg:px-4 lg:py-2"
+                className="flex w-full items-center justify-between gap-2 py-3 text-left text-base font-semibold transition-opacity duration-200 ease-in-out hover:opacity-70 lg:flex-none lg:justify-start lg:px-4 lg:py-2"
                 onClick={useActive.openOnMobileDropdownMenu}
               >
                 Uplift Services
@@ -361,12 +388,7 @@ export function Navbar12() {
                 </ConditionalRenderedCard>
               </AnimatePresence>
             </div>
-            <a
-              href="/careers"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              Careers
-            </a>
+            <NavLink href="/careers">Careers</NavLink>
           </nav>
           <div className="my-6 flex flex-col gap-4 lg:my-0 lg:flex-1 lg:flex-row lg:items-center lg:justify-end">
             <Button asChild title="Contact" size="sm">

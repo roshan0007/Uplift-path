@@ -74,8 +74,7 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-0.jpg"
                     className="size-full rounded-image object-cover"
-                    alt=""
-                    aria-hidden="true"
+                    alt="Portrait of Regina Wooten"
                   />
                 </div>
               </div>
@@ -111,8 +110,7 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-1.jpg"
                     className="size-full rounded-image object-cover"
-                    alt=""
-                    aria-hidden="true"
+                    alt="Portrait of Tasha Coppett"
                   />
                 </div>
               </div>
@@ -147,8 +145,7 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-2.png"
                     className="size-full rounded-image object-cover"
-                    alt=""
-                    aria-hidden="true"
+                    alt="Portrait of Teresa Guerin"
                   />
                 </div>
               </div>
@@ -182,8 +179,7 @@ export function Layout507() {
                   <img
                     src="/images/about-us-feature-section-new-3.jpg"
                     className="size-full rounded-image object-cover"
-                    alt=""
-                    aria-hidden="true"
+                    alt="Portrait of Tia Glaspie"
                   />
                 </div>
               </div>

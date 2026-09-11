@@ -124,7 +124,14 @@ export function Footer4() {
 
           The +2.5rem is the 40px the Figma leaves between the bottom of the
           lockup and the highest point of the tear. */}
-      <div className="px-[5%] pt-10 pb-[calc(11.85vw+1.5rem)] md:pt-12 lg:pt-14">
+      {/* Top padding trimmed from 40/48/56. The section above this band is a
+          `cta-25` carrying the full section rhythm (`lg:pb-28`, 112px), and
+          that landed on top of the band's own 56px for a 170px void between
+          the CTA's last line and the wordmark at 1440 — QA filed it as
+          excessive spacing above the logo lockup. This band is chrome rather
+          than a section, so its own padding is the half that gives; the CTA's
+          bottom rhythm is left alone. */}
+      <div className="px-[5%] pt-4 pb-[calc(11.85vw+1.5rem)] md:pt-6 lg:pt-8">
         <div className="container flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
           <a href="/" className="inline-flex items-center">
             <img
@@ -228,12 +235,25 @@ export function Footer4() {
                     (513) 299-4553
                   </a>
                 </li>
-                {/* Not a link: the map lives on /contact-us, which the Company
-                    column already reaches. */}
+                {/* Linked to Google Maps, alongside the map on /contact-us.
+                    An address in a "Get in touch" list is an action, and the
+                    action people take with one is look it up — QA raised it
+                    reading as inert text next to two live controls. Opens in a
+                    new tab because it leaves the site; `address` so the
+                    semantics match what it is. */}
                 <li>
-                  20 E Broad St, Suite 225
-                  <br />
-                  Columbus, OH 43215
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=20+E+Broad+St+Suite+225+Columbus+OH+43215"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition-opacity duration-200 ease-in-out hover:opacity-70"
+                  >
+                    <address className="not-italic">
+                      20 E Broad St, Suite 225
+                      <br />
+                      Columbus, OH 43215
+                    </address>
+                  </a>
                 </li>
               </ul>
               <a
@@ -264,7 +284,15 @@ export function Footer4() {
               and React threw a hydration error on every route because this is
               site chrome. Hence the <li> wrappers.) */}
           <div className="flex flex-col items-center gap-y-4 pt-5 text-small md:flex-row md:items-center md:justify-between md:gap-x-6 md:pt-6">
-            <p>© 2026 Uplift Path Inc. All rights reserved.</p>
+            {/* The brand name in the copyright line is the conventional
+                home link, and QA asked for it. */}
+            <p>
+              ©{" "}
+              <a href="/" className="hover:underline">
+                2026 Uplift Path Inc.
+              </a>{" "}
+              All rights reserved.
+            </p>
             <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 md:flex md:flex-row md:gap-x-6 md:gap-y-0">
               <li>
                 <a href="/accessibility" className="underline">
@@ -273,7 +301,7 @@ export function Footer4() {
               </li>
               <li>
                 <a href="/terms-of-use" className="underline">
-                  Terms of service
+                  Terms of Service
                 </a>
               </li>
               <li>
