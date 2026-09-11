@@ -31,7 +31,18 @@ const Circle = () => {
 
 export function Timeline5() {
   return (
-    <section className="overflow-clip px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // `scheme-mint`, not `scheme-1`.
+    // /systems-technology's five sections were one unbroken white column, and
+    // the break used to sit on layout-564 ("What we do"). That section is back
+    // to white by request - the mint band is wanted everywhere else on the site
+    // but not there - so the break moves here instead of disappearing. The page
+    // now runs white white MINT white white: layout-564 is white as asked, and
+    // no run reaches three.
+    // This brand has exactly two depth cues - a scheme change and the button
+    // ledge - so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. cta-25's white is a documented deliberate
+    // reversal and is left alone.
+    <section className="overflow-clip px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container max-w-lg">
         <div className="mb-12 md:mb-18 lg:mb-20">
           <div className="relative z-10 w-full max-w-lg">

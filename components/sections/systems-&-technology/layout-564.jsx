@@ -4,15 +4,7 @@ import React from "react";
 
 export function Layout564() {
   return (
-    // `scheme-mint`, not `scheme-1`.
-    // /systems-technology ran five consecutive white sections. This one and
-    // faq-01 alternate it: white MINT white MINT white.
-    // This brand has exactly two depth cues -- a scheme change and the button
-    // ledge -- so the remedy for a same-background run is the scheme, never a
-    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
-    // used this way on home/testimonial-10; cta-25's white is a documented
-    // deliberate reversal and is left alone everywhere.
-    <section className="grid grid-cols-1 items-center gap-y-16 pt-16 md:pt-24 lg:grid-cols-2 lg:pt-0 scheme-mint badge-alt">
+    <section className="grid grid-cols-1 items-center gap-y-16 pt-16 md:pt-24 lg:grid-cols-2 lg:pt-0 scheme-1 badge-alt">
       <div className="relative order-last size-full overflow-hidden lg:order-first lg:min-h-[32rem]">
         {/* `object-contain`, not cover. This is a line illustration of a
             standing figure on a transparent ground — tall and narrow inside a
