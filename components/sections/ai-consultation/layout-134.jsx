@@ -68,10 +68,10 @@ export function Layout134() {
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
           <Button
             asChild
-            title="Book your AI strategy session"
+            title="Book Your AI Strategy Session"
             variant="secondary"
           >
-            <a href="/contact-us">Book your AI strategy session</a>
+            <a href="/contact-us">Book Your AI Strategy Session</a>
           </Button>
         </div>
       </div>

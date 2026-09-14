@@ -5,7 +5,14 @@ import React from "react";
 export function Layout564() {
   return (
     <section className="grid grid-cols-1 items-center gap-y-16 pt-16 md:pt-24 lg:grid-cols-2 lg:pt-0 scheme-1 badge-alt">
-      <div className="relative order-last size-full overflow-hidden lg:order-first lg:min-h-[32rem]">
+      {/* Below `lg` this column is full-width with no height of its own, so an
+          `h-auto` image took width 100% and returned its own 998x1846 ratio —
+          753x1393 at the 768px breakpoint, a figure taller than the viewport.
+          QA filed it as the image overflowing the screen. The explicit heights
+          give `object-contain` a box to fit the whole figure inside; above
+          `lg` the image goes absolute and `min-h-[32rem]` takes over again, so
+          the desktop composition is untouched. */}
+      <div className="relative order-last h-80 w-full overflow-hidden md:h-[26rem] lg:order-first lg:h-full lg:min-h-[32rem]">
         {/* `object-contain`, not cover. This is a line illustration of a
             standing figure on a transparent ground — tall and narrow inside a
             wide half-page column — so cover had to crop it hard to fill, and

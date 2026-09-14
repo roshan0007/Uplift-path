@@ -75,13 +75,13 @@ export function Layout359() {
               </p>
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-4 md:mt-8">
-              <Button asChild title="Explore opportunities" variant="secondary">
+              <Button asChild title="Explore Opportunities" variant="secondary">
                 <a
                   href="https://openings.upliftpathwellness.com/jobs/Careers"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Explore opportunities
+                  Explore Opportunities
                 </a>
               </Button>
             </div>
