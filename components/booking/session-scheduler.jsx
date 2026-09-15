@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { withCaseId } from "@/lib/case-id";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { ChevronLeft, ChevronRight } from "relume-icons";
@@ -31,7 +32,14 @@ import { ChevronLeft, ChevronRight } from "relume-icons";
  * forty-two ledges in a grid would be noise.
  */
 
-/** Where the confirm control goes. Step 4 of the funnel. */
+/**
+ * Where the confirm control goes. Step 4 of the funnel.
+ *
+ * The case id is appended at render — this screen is the one hop in the funnel
+ * that is not a Zoho redirect, so it is the one hop that has to carry the id
+ * forward itself. It used to link here flat, which is why step 4 arrived with
+ * no `caseid` at all rather than an empty one.
+ */
 const NEXT_STEP_HREF = "/consent-form";
 
 /** How far ahead the calendar will let anyone look. */
@@ -138,6 +146,13 @@ export function SessionScheduler() {
   }, []);
 
   if (!today || !viewMonth) return <SchedulerFrame />;
+
+  // Safe to read the URL here, and only here: everything above this line runs
+  // during the static render too, and `withCaseId` reads `window.location`.
+  // Past the early return we are necessarily after mount — `today` is only ever
+  // set in an effect — so this matches what the server rendered (nothing) and
+  // hydration has nothing to disagree about.
+  const nextStepHref = withCaseId(NEXT_STEP_HREF);
 
   const monthStart = viewMonth;
   const firstWeekday = monthStart.getDay();
@@ -274,7 +289,7 @@ export function SessionScheduler() {
             onConfirm above for what this becomes when Zoho Bookings is wired. */}
         {ready ? (
           <Button asChild title="Confirm time">
-            <a href={NEXT_STEP_HREF}>Confirm Time</a>
+            <a href={nextStepHref}>Confirm Time</a>
           </Button>
         ) : (
           <Button title="Confirm time" disabled>

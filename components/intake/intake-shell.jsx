@@ -1,6 +1,7 @@
 "use client";
 
 import { IntakeProgress } from "@/components/intake/intake-progress";
+import { stepIllustration } from "@/components/intake/intake-steps";
 import React from "react";
 
 /**
@@ -61,6 +62,8 @@ export function IntakeShell({
   TitleWrapper = React.Fragment,
   IntroWrapper = React.Fragment,
 }) {
+  const illustration = stepIllustration(step);
+
   return (
     <>
       {/* The step bar. `relative` so `leading` can sit at the content edge
@@ -73,7 +76,46 @@ export function IntakeShell({
       </header>
 
       <div className="container grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] gap-6 pb-6 md:gap-8 md:pb-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-14 lg:pb-10">
-        <div className="text-center lg:self-center lg:text-left">
+        <div className="relative text-center lg:self-center lg:text-left">
+          {/* Decorative: it restates the heading directly under it, so it is
+              hidden from the accessibility tree rather than described twice.
+              It only appears from `md` up -- on a phone the step bar, heading
+              and intro already reach the form's 24rem floor, and another mark
+              above them is what pushes the form off the screen.
+
+              The four PNGs are trimmed to the mark itself. They arrived with
+              different amounts of transparent padding around the artwork (the
+              exclamation carried 118px of it on the left, the magnifier 47),
+              which meant a height utility sized four different marks to four
+              different real heights, and a left edge put each glyph at a
+              different indent from the heading. Trimmed, the box is the mark:
+              `h-` means what it says and the left edges line up.
+
+              10.5rem is the frames' own height -- all four sit in the same
+              vertical band there, so the height is uniform and the differing
+              widths are just the shapes.
+
+              At `lg` it hangs above the text rather than sitting in the flow
+              above it, which is what the frames draw: the thing centred in the
+              column is the heading and intro, and the mark rises out of the
+              space over them (its top lands about level with the top of the
+              form). In the flow it would push the text down by half its own
+              height -- 100px at this size -- and the heading reads visibly low.
+
+              The height guard is what makes hanging safe. Out of flow the mark
+              claims space the column never reserved, so below roughly 760px of
+              viewport there is no longer room for it between the centred text
+              and the step bar. Under that it drops back into the flow, where it
+              takes its own space honestly and the text moves down instead of
+              the mark riding over the step bar. */}
+          {illustration && (
+            <img
+              src={illustration}
+              alt=""
+              aria-hidden="true"
+              className="mx-auto mb-6 hidden h-28 w-auto select-none md:block lg:mx-0 lg:mb-8 lg:h-[10.5rem] lg:[@media(min-height:760px)]:absolute lg:[@media(min-height:760px)]:bottom-full lg:[@media(min-height:760px)]:left-0 lg:[@media(min-height:760px)]:mb-8"
+            />
+          )}
           <TitleWrapper>
             <h1 className={INTAKE_TITLE_CLASS}>{title}</h1>
           </TitleWrapper>
