@@ -16,6 +16,25 @@ export const INTAKE_STEPS = [
   { id: "consent", label: "Consent", href: "/consent-form" },
 ];
 
+/**
+ * The illustration that sits above each step's heading, one per step, in the
+ * same hand-drawn set the rest of the site uses.
+ *
+ * Decorative only -- each one restates the heading it sits above (a magnifier
+ * over "Find the right Peer Coach", a question mark over "Choose a time"), so
+ * they are rendered `aria-hidden` with an empty alt and carry no meaning a
+ * screen reader would be missing.
+ */
+export const STEP_ILLUSTRATIONS = {
+  application: "/images/intake-application-magnifier.png",
+  eligibility: "/images/intake-eligibility-alert.png",
+  scheduling: "/images/intake-scheduling-question.png",
+  consent: "/images/intake-consent-cursor.png",
+};
+
+/** The illustration for `id`, or null if the step has none. */
+export const stepIllustration = (id) => STEP_ILLUSTRATIONS[id] ?? null;
+
 /** Index of a step id, or -1. */
 export const stepIndex = (id) => INTAKE_STEPS.findIndex((s) => s.id === id);
 

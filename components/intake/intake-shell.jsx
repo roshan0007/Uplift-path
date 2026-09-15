@@ -1,6 +1,7 @@
 "use client";
 
 import { IntakeProgress } from "@/components/intake/intake-progress";
+import { stepIllustration } from "@/components/intake/intake-steps";
 import React from "react";
 
 /**
@@ -61,6 +62,8 @@ export function IntakeShell({
   TitleWrapper = React.Fragment,
   IntroWrapper = React.Fragment,
 }) {
+  const illustration = stepIllustration(step);
+
   return (
     <>
       {/* The step bar. `relative` so `leading` can sit at the content edge
@@ -74,6 +77,19 @@ export function IntakeShell({
 
       <div className="container grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] gap-6 pb-6 md:gap-8 md:pb-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-14 lg:pb-10">
         <div className="text-center lg:self-center lg:text-left">
+          {/* Decorative: it restates the heading directly under it, so it is
+              hidden from the accessibility tree rather than described twice.
+              It only appears from `md` up -- on a phone the step bar, heading
+              and intro already reach the form's 24rem floor, and another 96px
+              above them is what pushes the form off the screen. */}
+          {illustration && (
+            <img
+              src={illustration}
+              alt=""
+              aria-hidden="true"
+              className="mx-auto mb-5 hidden h-20 w-auto select-none md:block md:h-24 lg:mx-0"
+            />
+          )}
           <TitleWrapper>
             <h1 className={INTAKE_TITLE_CLASS}>{title}</h1>
           </TitleWrapper>
