@@ -80,14 +80,26 @@ export function IntakeShell({
           {/* Decorative: it restates the heading directly under it, so it is
               hidden from the accessibility tree rather than described twice.
               It only appears from `md` up -- on a phone the step bar, heading
-              and intro already reach the form's 24rem floor, and another 96px
-              above them is what pushes the form off the screen. */}
+              and intro already reach the form's 24rem floor, and another mark
+              above them is what pushes the form off the screen.
+
+              The four PNGs are trimmed to the mark itself. They arrived with
+              different amounts of transparent padding around the artwork (the
+              exclamation carried 118px of it on the left, the magnifier 47),
+              which meant a height utility sized four different marks to four
+              different real heights, and a left edge put each glyph at a
+              different indent from the heading. Trimmed, the box is the mark:
+              `h-` means what it says and the left edges line up.
+
+              10.5rem is the frames' own height -- all four sit in the same
+              vertical band there, so the height is uniform and the differing
+              widths are just the shapes. */}
           {illustration && (
             <img
               src={illustration}
               alt=""
               aria-hidden="true"
-              className="mx-auto mb-5 hidden h-20 w-auto select-none md:block md:h-24 lg:mx-0"
+              className="mx-auto mb-6 hidden h-28 w-auto select-none md:block lg:mx-0 lg:mb-8 lg:h-[10.5rem]"
             />
           )}
           <TitleWrapper>
