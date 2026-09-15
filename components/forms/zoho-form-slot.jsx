@@ -79,12 +79,23 @@ export const ZOHO_FORMS = {
     title: "Consent Form",
     src: "https://forms.zohopublic.com/upliftpathinc/form/ConsentFormclient/formperma/l1giydGIPzdtmEl0cHDHzWrOHvXcqyGQ6abxPefIru8",
     height: null, // measured 5771px — fills the screen instead
-    // Two of them. `SingleLine10` is the plain hidden field and takes the
-    // prefill; `SingleLine11` is a Search field — a lookup into another form —
-    // and did not, when the URL parameter was tried against it directly. It is
-    // listed anyway: sending it costs nothing, and if that lookup is what pulls
-    // the client's record into the consent form it needs configuring on the
-    // Zoho side, at which point this already sends it the value.
+    // Two of them, and they do different jobs. `SingleLine10` is a plain
+    // hidden field: it records the id on the submission and nothing else.
+    // `SingleLine11` is a **Search field** — it looks the case id up in Zoho
+    // CRM and prefills the client's name and date of birth from the record it
+    // finds, which is why the consent form knows who you are before you type.
+    //
+    // That lookup is also the one thing here that can fail visibly. Given an id
+    // with no matching CRM record, the whole form is replaced by Zoho's "An
+    // error occurred. Please contact the form administrator." — not a blank
+    // form, the entire step. Verified both ways: `SingleLine11=UPW-228` (a real
+    // case) prefills; `SingleLine11=UPW-999999` errors; `SingleLine10` alone
+    // loads fine either way.
+    //
+    // So the failure mode to watch is a client reaching step 4 before their
+    // CRM record exists. Nothing on this side can detect it — the frame is
+    // cross-origin and we cannot see what it rendered — so if it needs to fail
+    // softly, that is a setting on the Search field in Zoho, not a change here.
     caseIdFields: ["SingleLine10", "SingleLine11"],
   },
   grievance: {
