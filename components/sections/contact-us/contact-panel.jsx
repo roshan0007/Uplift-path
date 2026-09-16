@@ -3,7 +3,6 @@
 import { ZohoFormSlot } from "@/components/forms/zoho-form-slot";
 import { Card } from "@/components/ui/card";
 import React from "react";
-import { ChevronRight } from "relume-icons";
 
 /**
  * The contact page.
@@ -30,6 +29,10 @@ import { ChevronRight } from "relume-icons";
  * 3. The form is the only white surface. On the mint ground it is the one thing
  *    that steps forward, which is the whole hierarchy of the page in one move.
  *
+ * There is deliberately no map or directions link. Uplift Path does not see
+ * clients face to face, so an embedded pin invited a visit that cannot happen.
+ * The address stays as a mailing and registration detail only.
+ *
  * The details below are the real ones and are the only place they appear on the
  * site. If they change, they change here.
  */
@@ -38,13 +41,6 @@ const ADDRESS_LINES = [
   "20 E Broad Street, Suite 225",
   "Columbus, OH 43215",
 ];
-
-// One query string, two uses: the embedded map and the directions link. Derived
-// from the same value so the pin and the link can never point at different
-// places.
-const MAP_QUERY = "20 E Broad St Suite 225, Columbus, OH 43215";
-const MAP_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`;
-const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 
 export function ContactPanel() {
   return (
@@ -79,9 +75,9 @@ export function ContactPanel() {
                 footer divider and the accordion use. */}
             {/* `mt-12` (48px), not `mt-8 md:mt-10`. The rows inside this list
                 are 32px apart (`py-4` top and bottom), so a 32px gap above it
-                made the lead paragraph, the contact block and the map read as
-                one evenly spaced column instead of three groups. The gap around
-                a group has to beat the gap inside it. */}
+                made the lead paragraph and the contact block read as one evenly
+                spaced column instead of two groups. The gap around a group has
+                to beat the gap inside it. */}
             <dl className="mt-12 border-t border-scheme-border">
               <DetailRow label="Email">
                 {/* `-my-3 inline-block py-3` makes the hit area 44px (20px of
@@ -117,38 +113,6 @@ export function ContactPanel() {
                 </address>
               </DetailRow>
             </dl>
-
-            {/* A 10rem strip, not the half-page embed this replaces. The map is
-                orientation — it says "downtown Columbus", and anyone actually
-                travelling there uses the link beneath it. */}
-            {/* `mt-12` to match the gap above the list - same grouping fix. */}
-            <div className="mt-12 overflow-hidden rounded-image border-2 border-scheme-border">
-              <iframe
-                src={MAP_EMBED}
-                title="Map showing Uplift Path Inc. at 20 E Broad Street, Suite 225, Columbus, OH"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="block h-40 w-full border-0"
-              />
-            </div>
-            <a
-              href={MAP_LINK}
-              target="_blank"
-              rel="noreferrer"
-              /* `mt-1.5 ... py-2.5` is a 44px target that keeps the 16px
-                 visual gap under the map (6px margin + 10px padding), and
-                 `font-medium` is gone. At weight 500 plus an underline this
-                 was the heaviest non-eyebrow text in the column - louder than
-                 the email and phone links it is supplementary to. Weight is
-                 not available as emphasis in this brand anyway
-                 (`--font-weight-bold` is 400), so a stray 500 on a tertiary
-                 link reads as the loudest thing on the page. The underline and
-                 the chevron are already the affordance. */
-              className="mt-1.5 inline-flex items-center gap-1 py-2.5 underline transition-opacity duration-200 ease-in-out hover:opacity-70"
-            >
-              Get directions
-              <ChevronRight className="size-5 text-scheme-text" />
-            </a>
           </div>
 
           {/* The one white surface on the page. `bg-white` rather than
