@@ -38,6 +38,33 @@ export const metadata: Metadata = {
     icon: [{ url: '/brand/uplift-path-icon.svg', type: 'image/svg+xml' }],
     apple: '/apple-icon.png',
   },
+  /**
+   * The share card. One image for the whole site: a branded 1200x630 PNG, the
+   * size Facebook, LinkedIn and Slack all want and the one X reads as a large
+   * summary card. Per-page `openGraph` blocks inherit everything they don't
+   * override, so a page that wants its own title still gets this image for
+   * free — and pages that want their own art only have to set `images`.
+   *
+   * `url` is left off on purpose: `metadataBase` plus each page's canonical
+   * already resolve the absolute URL, and hard-coding one here would stamp the
+   * homepage's address onto every page's card.
+   */
+  openGraph: {
+    type: 'website',
+    siteName: 'Uplift Path',
+    locale: 'en_US',
+    images: [
+      {
+        url: '/brand/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Uplift Path — Uplifting Every Life We Serve. Whole-person support for individuals, stronger programs for organizations. CARF Accredited, Columbus, Ohio.',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export const viewport: Viewport = {
