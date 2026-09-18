@@ -101,6 +101,7 @@ const FOOTER_GROUPS = [
       { label: "Systems & Technology", href: "/systems-technology" },
       { label: "Compliance Support", href: "/compliance-support" },
       { label: "Resource Assistance", href: "/resource-assistance" },
+      { label: "Marketing", href: "/marketing" },
     ],
   },
 ];
