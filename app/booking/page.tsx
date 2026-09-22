@@ -17,10 +17,9 @@ export default function Page() {
       title="Choose A Time For Your Session"
       intro="Pick a slot that works with your week. Sessions run by phone or by video, so you can join from anywhere in Ohio."
     >
-      {/* The one step that is not a Zoho form. The scheduler is interface only:
-          the dates and times it offers are generated, not fetched. See the
-          header comment in session-scheduler.jsx for the two functions that
-          get replaced when Zoho Bookings is wired up. */}
+      {/* The one step that is not a Zoho form. Times come from, and bookings
+          go to, Zoho Bookings via the uplift-api Worker — see
+          lib/booking-api.js. */}
       <SessionScheduler />
     </IntakePage>
   );
