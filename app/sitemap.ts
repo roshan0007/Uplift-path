@@ -29,6 +29,7 @@ const ROUTES = [
   "/ai-consultation",
   "/compliance-support",
   "/resource-assistance",
+  "/marketing",
   "/systems-technology",
   "/careers",
   "/contact-us",

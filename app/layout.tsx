@@ -18,7 +18,8 @@ import './globals.css'
 export const metadata: Metadata = {
   /**
    * Canonicals and the sitemap resolve against this, so every page can declare
-   * its canonical as a bare path and still emit an absolute production URL.
+   * its canonical as a bare path and still emit an absolute URL — on the
+   * production domain for an indexable build, on workers.dev for a staging one.
    */
   metadataBase: new URL(SITE_URL),
   /**
@@ -37,6 +38,40 @@ export const metadata: Metadata = {
   icons: {
     icon: [{ url: '/brand/uplift-path-icon.svg', type: 'image/svg+xml' }],
     apple: '/apple-icon.png',
+  },
+  /**
+   * The share card. One image for the whole site: a branded 1200x630 PNG, the
+   * size Facebook, LinkedIn and Slack all want and the one X reads as a large
+   * summary card. Per-page `openGraph` blocks inherit everything they don't
+   * override, so a page that wants its own title still gets this image for
+   * free — and pages that want their own art only have to set `images`.
+   *
+   * `url` is left off on purpose: `metadataBase` plus each page's canonical
+   * already resolve the absolute URL, and hard-coding one here would stamp the
+   * homepage's address onto every page's card.
+   *
+   * The image is written absolute anyway, rather than left to `metadataBase`
+   * to resolve. Next would resolve it to the same string; spelling it out is
+   * what makes it visible that this URL is fetched by a scraper the moment
+   * someone pastes a link, and so has to name the host actually serving the
+   * build. `SITE_URL` is that host on both staging and production — see
+   * `lib/site.ts`, where being wrong about it cost us the first share.
+   */
+  openGraph: {
+    type: 'website',
+    siteName: 'Uplift Path',
+    locale: 'en_US',
+    images: [
+      {
+        url: `${SITE_URL}/brand/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Uplift Path — Uplifting Every Life We Serve. Whole-person support for individuals, stronger programs for organizations. CARF Accredited, Columbus, Ohio.',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
   },
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
+import { ZohoFormSlot } from "@/components/forms/zoho-form-slot";
 import { LegalPage } from "@/components/sections/legal/legal-page";
 import {
   CONTENT,
@@ -26,20 +27,15 @@ export const metadata: Metadata = {
  * export. The live site does have one, with its own Zoho form, and this is it:
  * the same copy, in this brand.
  *
- * ## THE ZOHO FORM IS DELIBERATELY NOT RENDERED
+ * ## THE ZOHO FORM
  *
- * Removed 2026-09-10 on request — the embed was not attached properly and the
- * page is to stay blank below the copy until it is. Nothing else was changed to
- * accommodate that: the copy, the layout and the section padding are as they
- * were, so putting the form back is putting one element back.
+ * It was removed on 2026-09-10 because the embed was not attached properly, and
+ * restored on 2026-09-12: the legacy site has a grievance form and this one did
+ * not, which was reported as a gap. It is the same Merged Grievance Form the
+ * legacy site serves, from the `grievance` entry in ZOHO_FORMS.
  *
- * To restore it:
- *
- *     import { ZohoFormSlot } from "@/components/forms/zoho-form-slot";
- *
- *     <ZohoFormSlot form="grievance" className="mt-10 md:mt-12" />
- *
- * **Do not restore the `h-[50rem]` it used to carry, and read this first.**
+ * **It carries no height, and must not be given `h-[50rem]` back. Read this
+ * first.**
  * That class is what produced the 511px of dead white space between the
  * "Hours:" line and the form, and 463px of page overflow underneath it.
  *
@@ -61,5 +57,23 @@ export const metadata: Metadata = {
  * docblock says the contact and grievance pages should do.
  */
 export default function Page() {
-  return <LegalPage title={TITLE} updated={UPDATED} content={CONTENT} />;
+  return (
+    <LegalPage title={TITLE} updated={UPDATED} content={CONTENT}>
+      {/* The height is on this wrapper, not on the slot. ZohoFormSlot's own
+          outer box is `flex h-full items-center`, which needs a parent with a
+          definite height -- mounted straight into this column, which is a plain
+          block, `h-full` resolved against the column instead and split the
+          difference into dead space above and below the frame. Measured 486px
+          of it before this wrapper existed.
+
+          165rem is the form's own height (2529px at 375 and 2538px at 760 --
+          it barely reflows) plus slack for the extra lines Zoho adds when a
+          required field comes back with an error. Drawn at full height so the
+          page scrolls once rather than the reader scrolling inside a frame.
+          Re-measure if the form's fields change; see zoho-form-slot.jsx. */}
+      <div className="mt-10 h-[165rem] md:mt-12">
+        <ZohoFormSlot form="grievance" />
+      </div>
+    </LegalPage>
+  );
 }

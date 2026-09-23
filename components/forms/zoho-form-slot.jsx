@@ -1,5 +1,6 @@
 "use client";
 
+import { withCaseIdPrefill } from "@/lib/case-id";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -35,6 +36,26 @@ import React from "react";
  * Consent has no `height` — at 5771px nothing is gained by declaring it, and
  * filling the screen is exactly what that form wants.
  *
+ * ## About `caseIdFields`
+ *
+ * The Zoho **field link names** of that form's hidden "Case ID" field(s), which
+ * the funnel's case id is prefilled into from the page URL. They are not the
+ * field titles — every one of these is titled "Case ID" in the builder — and
+ * they are per-form. Read them off the form's own markup, where the field
+ * carries `linkname="..."`, and expect them to look arbitrary: the eligibility
+ * form's is `SingleLine`, the consent form's are `SingleLine10` and
+ * `SingleLine11`.
+ *
+ * Getting this wrong is quiet rather than loud. Zoho ignores a query parameter
+ * that does not name a field, the hidden mandatory field stays empty, it does
+ * not block submission, and the first sign of trouble is the *next* step
+ * receiving `?caseid=` with nothing after it — because that form's redirect
+ * merges the field we failed to fill.
+ *
+ * Application has none: it is where the id is minted. Its redirect merges
+ * `${zf:UniqueId}`, a Zoho system value, which is why step 1 always worked
+ * while every step after it did not.
+ *
  * To re-measure after editing a form in Zoho: open its URL on its own at a
  * window at least 780px wide — narrower than that and the browser serves the
  * mobile layout, which is shorter and will under-measure — and take the deepest
@@ -52,15 +73,25 @@ export const ZOHO_FORMS = {
     title: "CMPS",
     src: "https://forms.zohopublic.com/upliftpathinc/form/CMPS/formperma/fSKimojEfxrmY7O5CyGw-80PZAr6SzacLv0_BcGDnmw",
     height: "38rem", // measured 546px
+    caseIdFields: ["SingleLine"],
   },
   consent: {
     title: "Consent Form",
     src: "https://forms.zohopublic.com/upliftpathinc/form/ConsentFormclient/formperma/l1giydGIPzdtmEl0cHDHzWrOHvXcqyGQ6abxPefIru8",
     height: null, // measured 5771px — fills the screen instead
+    // Two of them. `SingleLine10` is the plain hidden field and takes the
+    // prefill; `SingleLine11` is a Search field — a lookup into another form —
+    // and did not, when the URL parameter was tried against it directly. It is
+    // listed anyway: sending it costs nothing, and if that lookup is what pulls
+    // the client's record into the consent form it needs configuring on the
+    // Zoho side, at which point this already sends it the value.
+    caseIdFields: ["SingleLine10", "SingleLine11"],
   },
   grievance: {
     title: "Grievance Form",
-    src: "https://forms.zohopublic.com/upliftpathinc/form/MergedGrievanceForm/formperma/A2Z1eDlfDnhUqZhEOB0e2YXvA3dd0QJZPnzHFVdzNYY",
+    // Supplied 2026-09-12 as the embed to use. It replaces the older
+    // MergedGrievanceForm permalink, which is the form the legacy site shows.
+    src: "https://forms.zohopublic.com/upliftpathinc/form/UpliftPathIncFileaGrievanceCommon/formperma/ErifxOSERbgnlJ0_-YeahMAIBoThr0xo1I420vC-img",
     // Same reasoning as contact: an ordinary scrolling page, so the height is
     // set at the call site rather than negotiated with a surplus.
     height: null,
@@ -160,8 +191,11 @@ export function ZohoFormSlot({ form, className = undefined }) {
   const config = ZOHO_FORMS[form];
   const [src, setSrc] = React.useState(null);
 
+  // Both of these read `window.location`, so both belong here rather than in
+  // render — see the note on client-side mounting below.
   React.useEffect(() => {
-    if (config) setSrc(withReferrer(config.src));
+    if (config)
+      setSrc(withCaseIdPrefill(withReferrer(config.src), config.caseIdFields));
   }, [config]);
 
   const height = config?.height ?? null;
