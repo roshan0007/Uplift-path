@@ -5,15 +5,12 @@ import React from "react";
 import { LinkedinLogo } from "relume-icons";
 
 /**
- * Two bands, per the 2026-09 Figma: a white band carrying the logo lockup,
- * then a torn paper edge, then the green band with the nav and the legal row.
+ * A torn paper edge, then the green band carrying the logo and CARF seal, the
+ * nav and the legal row. The 2026-09 Figma puts the logo and seal on a white
+ * band above the tear; they were moved into the green band on 2026-09-23.
  *
- * That split is why this file carries two scheme classes rather than one. The
- * usual rule is one scheme per section, and the intent behind it — a region's
- * colours all resolve from a single scheme — still holds here: the white band
- * is `scheme-1` throughout and the green band is `scheme-accent` throughout.
- * They are two regions that happen to share a `<footer>`, not one region with
- * two minds.
+ * The `<footer>` itself stays `scheme-1` so the strip the tear sits in reads
+ * as page white; the green band is `scheme-jade` throughout.
  *
  * Site chrome, so all of this lands on every route at once. That is intended.
  *
@@ -56,19 +53,19 @@ import { LinkedinLogo } from "relume-icons";
  * thirteen destinations — regrouped by what the links actually are:
  *
  *   Company     the site's own pages
- *   Start here  the two audience doors, which are this site's whole IA
+ *   Start Here  the two audience doors, which are this site's whole IA
  *   Services    the five service pages
  *
- * "Company" and "Start here" are headings the Figma does not have. They are the
+ * "Company" and "Start Here" are headings the Figma does not have. They are the
  * one addition here; without them column one is an unlabelled list sitting
  * beside a labelled one, which is the imbalance that made the original look
  * wrong.
  */
 /**
- * The fourth column: "Get in touch". Added because the band was three link
+ * The fourth column: "Get in Touch". Added because the band was three link
  * columns and a lone LinkedIn icon out on the right, which read as three
  * columns plus a loose glyph rather than four deliberate ones — and because
- * "Start here" has only two links, so the left half of the band was two full
+ * "Start Here" has only two links, so the left half of the band was two full
  * columns beside a short one with nothing to balance it.
  *
  * The content is not invented. Address, email and phone are the same three
@@ -81,13 +78,13 @@ const FOOTER_GROUPS = [
     links: [
       { label: "Home", href: "/" },
       { label: "About", href: "/about-us" },
-      { label: "How we work", href: "/how-we-work" },
+      { label: "How We Work", href: "/how-we-work" },
       { label: "Career", href: "/careers" },
       { label: "Contact", href: "/contact-us" },
     ],
   },
   {
-    heading: "Start here",
+    heading: "Start Here",
     links: [
       { label: "For Individuals", href: "/for-individual" },
       { label: "For Businesses", href: "/for-business" },
@@ -132,42 +129,19 @@ export function Footer4() {
           excessive spacing above the logo lockup. This band is chrome rather
           than a section, so its own padding is the half that gives; the CTA's
           bottom rhythm is left alone. */}
-      <div className="px-[5%] pt-4 pb-[calc(11.85vw+1.5rem)] md:pt-6 lg:pt-8">
-        <div className="container flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-          <a href="/" className="inline-flex items-center">
-            <img
-              src="/brand/uplift-path-logo.svg"
-              alt="Uplift Path"
-              className="h-15 w-auto"
-            />
-          </a>
-          {/* The seal travels with the brand on every page. Third-party
-              accreditation mark: native 1:1, colours untouched, never cropped.
+      {/* The logo and seal used to sit on their own white band above the
+          tear, per the Figma. They moved into the green band's first column
+          (2026-09-23, asked for as a try), so the band above is now empty.
+          Its space is kept as the green band's top margin, because the torn
+          edge still needs somewhere to go: the asset is 2880x341 drawn full
+          width, so it is always 11.84vw tall, and without the margin it
+          would ride up over the CTA above. The margin is the tear's height
+          plus the 1.5rem gap the white band used to leave below the CTA. */}
 
-              It goes to CARF's provider listing rather than to
-              /compliance-support — our own page about the seal. The nav below
-              carries the internal routes; this mark's job is proof.
-
-              The "CARF accredited" text label that used to sit beside it is
-              gone, per the Figma: the seal is legible on white at this size
-              and the word is already on the homepage's trust strip. */}
-          <a
-            href={CARF_PROVIDER_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center transition-opacity duration-200 ease-in-out hover:opacity-70"
-            title="Verify our accreditation on carf.org"
-          >
-            <CarfSeal className="size-16" />
-          </a>
-        </div>
-      </div>
-
-      {/* Band two: the green. `scheme-jade` (#01a66e) as of the v3 Figma, which
+      {/* The green band. `scheme-jade` (#01a66e) as of the v3 Figma, which
           took this band off `scheme-accent` (#08d1a7) - see the note at the top
-          of this file about why the text on it is still dark and not the
-          Figma's white. */}
-      <div className="relative px-[5%] pt-12 pb-8 md:pt-14 md:pb-10 scheme-jade">
+          of this file about why the text on it is white. */}
+      <div className="relative mt-[calc(11.85vw+1.5rem)] px-[5%] pt-12 pb-8 md:pt-14 md:pb-10 scheme-jade">
         {/* `bottom-full` puts the strip immediately above this band, so its
             straight bottom butts against the band's straight top and its
             ragged top eats up into the white above. Decorative, and
@@ -184,7 +158,39 @@ export function Footer4() {
               clump. The three link columns take equal share and the social
               mark sits out at the end, so the band reads left-to-right like
               the rest of the page instead of as a centred island. */}
-          <div className="grid grid-cols-2 items-start gap-x-8 gap-y-10 text-left sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-12">
+          <div className="grid grid-cols-2 items-start gap-x-8 gap-y-10 text-left sm:grid-cols-3 lg:grid-cols-[1.3fr_repeat(4,1fr)] lg:gap-x-12">
+            {/* The brand column: logo, then the seal under it. A full-width
+                row above the link columns below `lg`, the first of five
+                columns from `lg` up.
+
+                The logo is knocked out to solid white by `.logo-alt`, the
+                brand's treatment for dark bands: the full-colour mark is teal
+                on teal-green here and all but disappears. The seal stays in
+                its own colours. It is a third-party accreditation mark,
+                native 1:1, never recoloured or cropped, and its gold reads
+                against the green.
+
+                The seal links to CARF's provider listing rather than to
+                /compliance-support, our own page about it. The links beside it
+                cover the internal routes; the seal's job is proof. */}
+            <div className="col-span-2 flex items-center gap-x-8 sm:col-span-3 lg:col-span-1 lg:flex-col lg:items-start lg:gap-y-6">
+              <a href="/" className="inline-flex logo-alt">
+                <img
+                  src="/brand/uplift-path-logo.svg"
+                  alt="Uplift Path"
+                  className="h-12 w-auto"
+                />
+              </a>
+              <a
+                href={CARF_PROVIDER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"
+                title="Verify our accreditation on carf.org"
+              >
+                <CarfSeal className="size-16" />
+              </a>
+            </div>
             {FOOTER_GROUPS.map((group) => (
               <div key={group.heading}>
                 {/* The heading is a plain <p>, not an <h*>: this band sits
@@ -218,7 +224,7 @@ export function Footer4() {
                 than no icon. It sits under the contact details now rather than
                 standing as a column of its own. */}
             <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-              <p className="text-small font-semibold">Get in touch</p>
+              <p className="text-small font-semibold">Get in Touch</p>
               <ul className="mt-4 flex flex-col gap-y-3 text-small">
                 <li>
                   <a
@@ -237,7 +243,7 @@ export function Footer4() {
                   </a>
                 </li>
                 {/* Linked to Google Maps, alongside the map on /contact-us.
-                    An address in a "Get in touch" list is an action, and the
+                    An address in a "Get in Touch" list is an action, and the
                     action people take with one is look it up — QA raised it
                     reading as inert text next to two live controls. Opens in a
                     new tab because it leaves the site; `address` so the
