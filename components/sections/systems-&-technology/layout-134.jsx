@@ -14,7 +14,7 @@ import React from "react";
  * the y bands those rows leave free.
  *
  * Promoted from <h2> to <h1>. The route's only <h1> was on `layout-564`'s
- * "What we do", which is not the page title.
+ * "What We Do", which is not the page title.
  *
  * The body's first sentence is dropped. The frame opens it "Technology should
  * remove work, not add it." -- the heading, repeated verbatim two lines below
@@ -81,7 +81,7 @@ export function Layout134() {
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-          Technology should remove work, not add it
+          Technology Should Remove Work, Not Add It
         </h1>
         <p className="text-medium">
           We map your operations, then build systems that give your people

@@ -62,7 +62,7 @@ export function Layout507() {
                     Educational Leader & Administrator
                   </p>
                   <h3 className="mb-5 text-h3 font-bold md:mb-6">
-                    Regina Wooten builds bridges that last
+                    Regina Wooten Builds Bridges That Last
                   </h3>
                   <p>
                     Regina Wooten is a distinguished education leader with over

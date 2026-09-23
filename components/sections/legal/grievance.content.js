@@ -12,7 +12,7 @@ export const CONTENT = [
   },
   {
     type: "h",
-    text: "Need assistance?",
+    text: "Need Assistance?",
   },
   {
     // The live site's wording is "If you need help completing this form or have

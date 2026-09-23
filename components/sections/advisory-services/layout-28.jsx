@@ -8,7 +8,7 @@ import React from "react";
  *
  * **The lists were not lists.** All three blocks had their items jammed into a
  * single `<p>` with the markers typed as literal characters -- "1. Submit a
- * request — Tell us... 2. Discovery call — We listen..." and "- A written
+ * request — Tell us... 2. Discovery Call — We listen..." and "- A written
  * Pathway Plan... - Organisational structure...". They rendered as unbroken
  * walls of text with stray hyphens and digits in the middle of sentences, and
  * carried no list semantics for a screen reader. They are a real `<ol>` and two
@@ -23,7 +23,7 @@ import React from "react";
  * illustration.
  *
  * The media is the frame's own line-art figure. The frame draws the block's
- * left rule against "How it works" only, which is the active-tab border showing
+ * left rule against "How It Works" only, which is the active-tab border showing
  * through in what is otherwise a screenshot of this component; the rule is kept
  * on all three blocks so it reads as a deliberate device rather than a state.
  *
@@ -33,17 +33,17 @@ import React from "react";
 
 const BLOCKS = [
   {
-    title: "How it works",
+    title: "How It Works",
     ordered: true,
     items: [
       "Submit a request — Tell us where you are and what is in the way.",
-      "Discovery call — We listen before we advise. No pitch deck.",
+      "Discovery Call — We listen before we advise. No pitch deck.",
       "Your pathway plan — A written plan with priorities, owners and timelines.",
       "Measurable progress — Agreed milestones, reviewed on a set cadence.",
     ],
   },
   {
-    title: "What you get",
+    title: "What You Get",
     ordered: false,
     items: [
       "A written Pathway Plan with sequenced priorities and named owners",

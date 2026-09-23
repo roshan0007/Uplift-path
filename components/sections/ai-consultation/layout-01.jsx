@@ -47,7 +47,7 @@ export function Layout1() {
               real-world productivity and profitability.
             </p>
             <p className="mt-6 text-medium">
-              We provide end-to-end AI consulting and implementation services
+              We provide end-to-end AI Consulting and implementation services
               designed to make your workforce more efficient, productive, and
               prepared for the future.
             </p>

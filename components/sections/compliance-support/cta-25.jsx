@@ -29,8 +29,8 @@ export function Cta25() {
                 "Ready to unlock" / "Your growth plan" -- so it is a <span>
                 rather than left to the container width. */}
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              Ready to unlock
-              <span className="block">Your growth plan</span>
+              Ready to Unlock
+              <span className="block">Your Growth Plan</span>
             </h2>
             <p className="text-medium">
               Book your discovery call for personalized, actionable strategies

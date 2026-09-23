@@ -27,7 +27,7 @@ export function FirstEngagement() {
                 rather than forced with a <span> — unlike cta-25's, this one
                 carries no meaning. */}
             <h2 className="mb-5 text-balance text-h2 font-bold md:mb-6">
-              What the first engagement looks like
+              What the First Engagement Looks Like
             </h2>
             <p className="text-medium">
               A marketing review. We look at your website, your search presence,

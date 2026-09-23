@@ -29,7 +29,7 @@ import React from "react";
  *    at is already one click away. Nothing invented.
  *
  * The pane 1 illustration is the frame's own -- a tin-can telephone strung
- * between two rooftops, which is a far better fit for "By phone" than the stock
+ * between two rooftops, which is a far better fit for "By Phone" than the stock
  * photo the export used. The frame's panes 2 and 3 carry the grey Relume
  * placeholder (a single shared `imageRef`, 1000x1000, the picture-frame glyph),
  * so the real illustrations already in the repo are kept instead.
@@ -41,7 +41,7 @@ export function Layout504() {
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              Meet from anywhere in Ohio
+              Meet From Anywhere in Ohio
             </h2>
             <p className="text-medium">
               Good support should not be limited by geography. We bring the
@@ -55,19 +55,19 @@ export function Layout504() {
               value="tab-one"
               className="rounded-none border-0 border-b bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
             >
-              By phone
+              By Phone
             </TabsTrigger>
             <TabsTrigger
               value="tab-two"
               className="rounded-none border-0 border-b bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
             >
-              By video
+              By Video
             </TabsTrigger>
             <TabsTrigger
               value="tab-three"
               className="rounded-none border-0 border-b bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
             >
-              On your schedule
+              On Your Schedule
             </TabsTrigger>
           </TabsList>
 
@@ -87,7 +87,7 @@ export function Layout504() {
               </div>
               <div className="p-6 md:p-8 lg:p-12">
                 <h3 className="mb-5 text-h3 font-bold md:mb-6">
-                  A steady voice on the other end of the line
+                  A Steady Voice on the Other End of the Line
                 </h3>
                 <p>
                   Sometimes a screen feels like too much. A phone call keeps it
@@ -95,7 +95,7 @@ export function Layout504() {
                 </p>
                 <div className="mt-6 flex items-center gap-x-4 md:mt-8">
                   {/* Opens the intake Application modal (step 1). */}
-                  <GetStartedButton label="Get started" />
+                  <GetStartedButton label="Get Started" />
                 </div>
               </div>
             </Card>
@@ -124,7 +124,7 @@ export function Layout504() {
                 </p>
                 <div className="mt-6 flex items-center gap-x-4 md:mt-8">
                   {/* Opens the intake Application modal (step 1). */}
-                  <GetStartedButton label="Get started" />
+                  <GetStartedButton label="Get Started" />
                 </div>
               </div>
             </Card>
@@ -154,7 +154,7 @@ export function Layout504() {
                 </p>
                 <div className="mt-6 flex items-center gap-x-4 md:mt-8">
                   {/* Opens the intake Application modal (step 1). */}
-                  <GetStartedButton label="Get started" />
+                  <GetStartedButton label="Get Started" />
                 </div>
               </div>
             </Card>

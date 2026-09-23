@@ -23,7 +23,7 @@ import React from "react";
  *    Relume headline for a product this company does not sell, on a hiring
  *    page, above a body that is real and is about how the team works
  *    internally. A defect the frame does not fix, so it was rewritten rather
- *    than shipped: **"The way we work on the inside"**. It asserts nothing the
+ *    than shipped: **"The Way We Work on the Inside"**. It asserts nothing the
  *    body does not already say and introduces no new claim, but it is the only
  *    copy on this page that was written rather than transcribed, so it is
  *    called out in the import record and is worth a read in review.
@@ -66,7 +66,7 @@ export function Layout359() {
             <div>
               <p className="mb-2 text-small font-semibold">Operations</p>
               <h3 className="mb-5 text-h3 font-bold md:mb-6">
-                The way we work on the inside
+                The Way We Work on the Inside
               </h3>
               <p>
                 We built our internal systems the same way we advise clients.

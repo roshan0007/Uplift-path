@@ -46,7 +46,7 @@ export function Header01() {
           <div className="max-w-lg lg:max-w-none">
             <p className="mb-3 font-semibold md:mb-4">Marketing</p>
             <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-              Marketing for behavioral health organizations.
+              Marketing for Behavioral Health Organizations.
             </h1>
             <p className="text-medium">
               Most marketing agencies have never read a HIPAA marketing rule or
@@ -57,8 +57,8 @@ export function Header01() {
             <div className="mt-6 flex items-center gap-x-4 md:mt-8">
               {/* `variant="secondary"` — the outlined button the frame draws,
                   and the same treatment every other service hero uses. */}
-              <Button asChild title="Book a marketing review" variant="secondary">
-                <a href="/contact-us">Book a marketing review</a>
+              <Button asChild title="Book a Marketing Review" variant="secondary">
+                <a href="/contact-us">Book a Marketing Review</a>
               </Button>
             </div>
           </div>

@@ -53,7 +53,7 @@ export function Layout564() {
         />
         {/* <h2>, not <h1>: this was the route's only <h1>, on a section that is
             not the page title. The hero heading carries it now. */}
-        <h2 className="mb-5 text-h2 font-bold md:mb-6">What we do</h2>
+        <h2 className="mb-5 text-h2 font-bold md:mb-6">What We Do</h2>
         <p className="mb-6 text-medium md:mb-8">
           Map and automate — We document how work really flows, then remove the
           duplicate entry and manual handoffs.

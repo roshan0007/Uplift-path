@@ -25,35 +25,35 @@ import React from "react";
 const CAPABILITIES = [
   {
     icon: "target",
-    title: "Positioning & messaging",
+    title: "Positioning & Messaging",
     body: "One clear sentence about what you do, who you serve and why you're different — then used in the same words on your website, your intake scripts and your referral conversations. Most organizations we meet describe themselves three different ways in three places.",
     // Left column, top.
     place: "lg:col-start-1 lg:row-start-1",
   },
   {
     icon: "search_insights",
-    title: "Local search & paid advertising",
+    title: "Local Search & Paid Advertising",
     body: "Google Business Profile, service-area pages and paid campaigns measured against cost per inquiry, not impressions. Every campaign is scoped against the rules ad platforms apply to health advertisers, so nothing is rejected or pulled a week after it launches.",
     // Right column, top.
     place: "lg:col-start-3 lg:row-start-1",
   },
   {
     icon: "groups",
-    title: "Referral & community outreach",
+    title: "Referral & Community Outreach",
     body: "In behavioral health most admissions come from a person, not an ad. We build the referral list, the one-page leave-behind and the follow-up rhythm that keeps your name on it, so that referrals arrive steadily instead of whenever someone happens to remember you.",
     // Left column, bottom.
     place: "lg:col-start-1 lg:row-start-2",
   },
   {
     icon: "design_services",
-    title: "Website & content",
+    title: "Website & Content",
     body: "Pages built around the two people who actually arrive: someone looking for help, and a referral partner checking that you're credible. Both should find their answer quickly without having to call first, and know what to do next when they're ready to act on it.",
     // Right column, bottom.
     place: "lg:col-start-3 lg:row-start-2",
   },
   {
     icon: "encrypted_add",
-    title: "Compliance-safe marketing review",
+    title: "Compliance-Safe Marketing Review",
     body: "We audit everything you already publish: testimonials, outcome claims, photography, intake forms and tracking pixels. You get back a written list of what to keep, what to reword and what to take down today, with the reason for each one given in plain language.",
     // Centred beneath the illustration.
     place: "lg:col-start-2 lg:row-start-3",
@@ -99,7 +99,7 @@ export function WhatWeDo() {
         <div className="grid grid-cols-1 gap-x-12 gap-y-12 md:gap-y-16 lg:grid-cols-3 lg:gap-x-16">
           <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
             <h2 className="mb-8 text-center text-h2 font-bold md:mb-10">
-              What we do
+              What We Do
             </h2>
             {/* Decorative — the five capabilities beside it carry the meaning. */}
             <img

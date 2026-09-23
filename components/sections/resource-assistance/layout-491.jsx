@@ -22,7 +22,7 @@ import React from "react";
  * Two structural fixes come with it:
  *
  * - **The headings were `<h2>` inside the section's own `<h1>`.** This section
- *   held the route's only `<h1>` ("What do you need?"), which is not the page
+ *   held the route's only `<h1>` ("What Do You Need?"), which is not the page
  *   title; the hero has it now, and these three are `<h3>` under this section's
  *   `<h2>`.
  * - **"You get:" is its own paragraph**, as the frame sets it. The export ran
@@ -55,7 +55,7 @@ export function Layout491() {
     <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
         <div className="mx-auto mb-12 max-w-lg text-center md:mb-12 lg:mb-12">
-          <h2 className="mb-5 text-h2 font-bold md:mb-6">What do you need?</h2>
+          <h2 className="mb-5 text-h2 font-bold md:mb-6">What Do You Need?</h2>
           <p className="text-medium">
             We do not offer advice from a distance. We sit at the table with you
             and look at the hard facts.
@@ -72,7 +72,7 @@ export function Layout491() {
               afterwards.
             </Resource>
             <Resource
-              title="Payer enrolment and credentialing"
+              title="Payer Enrolment and Credentialing"
               youGet="a credentialing tracker with every renewal date."
             >
               Medicaid enrolment, managed care contracting and provider

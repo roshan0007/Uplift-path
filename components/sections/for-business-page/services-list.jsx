@@ -25,7 +25,7 @@ export function ServicesList() {
       <div className="container">
         <div className="mx-auto mb-10 w-full max-w-lg text-center md:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
-            Everything under one roof
+            Everything Under One Roof
           </h2>
           <p className="text-medium">
             We help organizations set clear goals, streamline workflows, and

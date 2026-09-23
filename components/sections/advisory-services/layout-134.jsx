@@ -91,7 +91,7 @@ export function Layout134() {
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-          Strategy that is built with you, not handed to you
+          Strategy That Is Built With You, Not Handed to You
         </h1>
         <p className="text-medium">
           Most organizations stall not from a lack of ideas, but from a lack of

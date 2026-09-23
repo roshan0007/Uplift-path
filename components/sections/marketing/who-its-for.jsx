@@ -31,7 +31,7 @@ export function WhoItsFor() {
       <div className="container">
         <div className="mx-auto max-w-lg text-center">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
-            Who it&rsquo;s for
+            Who It&rsquo;s For
           </h2>
           <ul className="flex flex-wrap justify-center gap-x-2 gap-y-1 text-medium">
             {AUDIENCES.map((audience) => (

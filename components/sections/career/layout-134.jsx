@@ -48,7 +48,7 @@ export function Layout134() {
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
             <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-              Thrive and grow along your unique uplift path.
+              Thrive and Grow Along Your Unique Uplift Path.
             </h1>
             <p className="text-medium">
               Join a team designing strategies that create measurable, lasting

@@ -101,8 +101,8 @@ export function LegalPage({
             </p>
           )}
           {sections.length > 2 && (
-            <nav aria-label="On this page" className="mt-8 hidden lg:block">
-              <p className="mb-4 text-small font-semibold">On this page</p>
+            <nav aria-label="On This Page" className="mt-8 hidden lg:block">
+              <p className="mb-4 text-small font-semibold">On This Page</p>
               {/* A hairline rule down the list, which is the treatment the
                   footer divider and the accordion already use. The 1px is
                   deliberate — a 2px border here would read as a card edge. */}

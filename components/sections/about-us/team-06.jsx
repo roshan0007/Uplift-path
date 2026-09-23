@@ -58,7 +58,7 @@ function TeamMember({ member }) {
         aria-expanded={expanded}
         className="mt-2 self-center text-small font-medium underline"
       >
-        {expanded ? "Read less" : "Read more"}
+        {expanded ? "Read Less" : "Read More"}
       </button>
       {/* LinkedIn only. The export shipped three icons per member -- LinkedIn,
           X and Dribbble -- all pointing at "#". Only the LinkedIn profiles
@@ -93,7 +93,7 @@ export function Team6() {
     <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-mint badge-alt">
       <div className="container">
         <div className="mx-auto mb-12 max-w-lg text-center md:mb-12 lg:mb-12">
-          <h2 className="mb-5 text-h2 font-bold md:mb-6">Our team</h2>
+          <h2 className="mb-5 text-h2 font-bold md:mb-6">Our Team</h2>
           <p className="text-medium">The people behind the work.</p>
         </div>
         <div className="grid grid-cols-1 items-start justify-center gap-x-8 gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12">

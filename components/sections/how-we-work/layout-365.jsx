@@ -38,7 +38,7 @@ export function Layout365() {
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              Three simple steps
+              Three Simple Steps
             </h2>
             <p className="text-medium">
               Our culture is built on three core pillars that guide how we show

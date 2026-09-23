@@ -92,7 +92,7 @@ export function Header104() {
         <p className="mx-auto max-w-lg text-medium lg:max-w-[53.5rem] lg:text-[1.375rem] lg:leading-[1.21]">
           Uplift Path helps individuals find whole-person support and helps
           organizations build stronger programs.{" "}
-          <strong className="font-semibold">CARF accredited.</strong> Based in
+          <strong className="font-semibold">CARF Accredited.</strong> Based in
           Columbus, Ohio.
         </p>
 
@@ -102,7 +102,7 @@ export function Header104() {
             pass — the question is put, then the two answers follow. This is a
             deliberate departure from the frame. */}
         <p className="mt-6 font-semibold lg:mt-6 lg:text-[1.375rem] lg:leading-[1.21]">
-          Where would you like to start?
+          Where Would You Like to Start?
         </p>
 
         <div className="mt-6 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
@@ -134,7 +134,7 @@ export function Header104() {
                     <h2 className="text-h5 font-bold">{audience.title}</h2>
                     <p className="mt-2">{audience.description}</p>
                     <span className="mt-3 inline-flex items-center gap-1 font-medium">
-                      Start here
+                      Start Here
                       <ChevronRight className="size-5" />
                     </span>
                   </div>

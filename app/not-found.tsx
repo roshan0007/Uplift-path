@@ -22,7 +22,7 @@ export default function NotFound() {
       <Navbar12 />
       <StatusPanel
         eyebrow="Error 404"
-        title="We can't find that page"
+        title="We Can't Find That Page"
         actions={[
           { label: "Return to Home Page", href: "/" },
           { label: "Contact Us", href: "/contact-us", variant: "secondary" },
