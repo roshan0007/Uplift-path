@@ -81,13 +81,13 @@ const FOOTER_GROUPS = [
     links: [
       { label: "Home", href: "/" },
       { label: "About", href: "/about-us" },
-      { label: "How we work", href: "/how-we-work" },
+      { label: "How We Work", href: "/how-we-work" },
       { label: "Career", href: "/careers" },
       { label: "Contact", href: "/contact-us" },
     ],
   },
   {
-    heading: "Start here",
+    heading: "Start Here",
     links: [
       { label: "For Individuals", href: "/for-individual" },
       { label: "For Businesses", href: "/for-business" },
@@ -218,7 +218,7 @@ export function Footer4() {
                 than no icon. It sits under the contact details now rather than
                 standing as a column of its own. */}
             <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-              <p className="text-small font-semibold">Get in touch</p>
+              <p className="text-small font-semibold">Get in Touch</p>
               <ul className="mt-4 flex flex-col gap-y-3 text-small">
                 <li>
                   <a
