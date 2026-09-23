@@ -62,8 +62,8 @@ export function Layout423() {
               just enough that "know which one you're on." no longer fits. */}
           <div className="max-w-md lg:max-w-none">
             <h2 className="mb-5 text-h2 font-bold md:mb-6 lg:text-[3.125rem] lg:leading-[1.333]">
-              Three steps. You always know{" "}
-              <em className="font-heading-italic">which one you're on.</em>
+              Three Steps. You Always Know{" "}
+              <em className="font-heading-italic">Which One You're On.</em>
             </h2>
             <p className="text-medium">
               Every engagement follows the same path, whether you're one person

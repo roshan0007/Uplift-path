@@ -115,10 +115,10 @@ export function Layout395() {
                 weight 500, and `font-style: italic` without the matching weight
                 silently synthesises a slanted roman. */}
             <h2 className="text-display font-bold">
-              Care built
+              Care Built
               <span className="block">
-                around{" "}
-                <span className="font-heading-italic">your life</span>
+                Around{" "}
+                <span className="font-heading-italic">Your Life</span>
               </span>
             </h2>
             <p className="mt-5 text-medium md:mt-6">

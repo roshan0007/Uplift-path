@@ -99,7 +99,7 @@ export function Timeline5() {
         <div className="mb-12 md:mb-18 lg:mb-20">
           <div className="relative z-10 w-full max-w-lg">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              How getting matched works
+              How Getting Matched Works
             </h2>
             <p className="text-medium">
               Four steps between the first form and your session. Each one is

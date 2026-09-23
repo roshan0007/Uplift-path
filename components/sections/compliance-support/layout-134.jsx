@@ -69,15 +69,15 @@ export function Layout134() {
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-          Be ready before the audit, not because of it
+          Be Ready Before the Audit, Not Because of It
         </h1>
         <p className="text-medium">
           We hold the CARF Gold Seal ourselves. We have been through this as an
           organisation, not only advised on it.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button asChild title="Book a discovery call" variant="secondary">
-            <a href="/contact-us">Book a discovery call</a>
+          <Button asChild title="Book a Discovery Call" variant="secondary">
+            <a href="/contact-us">Book a Discovery Call</a>
           </Button>
         </div>
 
@@ -111,7 +111,7 @@ export function Layout134() {
               <CarfSeal className="size-20 md:size-24" />
             </a>
             <div>
-              <p className="font-semibold">CARF accredited — Gold Seal</p>
+              <p className="font-semibold">CARF Accredited — Gold Seal</p>
               <p className="mt-1 text-small">
                 An independent accreditor surveyed our own programs on-site
                 against national quality standards. When we help you get

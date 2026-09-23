@@ -32,7 +32,7 @@ export function Layout213() {
             />
           </div>
           <div className="order-1 md:order-2">
-            <h2 className="mb-5 text-h2 font-bold md:mb-6">Who we are</h2>
+            <h2 className="mb-5 text-h2 font-bold md:mb-6">Who We Are</h2>
             <p className="text-medium">
               We chose the name "Uplift Path" because our mission is to elevate
               businesses at every stage, every day. The word “uplift” embodies

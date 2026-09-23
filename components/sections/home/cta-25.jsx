@@ -42,8 +42,8 @@ export function Cta25() {
                 two lines; lowercase, with the question mark the sentence was
                 missing. */}
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              Ready to unlock
-              <span className="block">your growth plan?</span>
+              Ready to Unlock
+              <span className="block">Your Growth Plan?</span>
             </h2>
             <p className="text-medium">
               Book your discovery call for personalized, actionable strategies

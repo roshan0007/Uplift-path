@@ -42,7 +42,7 @@ export function TrustStrip() {
             <CarfSeal className="size-16 md:size-20" />
           </a>
           <div className="sm:max-w-md">
-            <p className="font-semibold">CARF accredited</p>
+            <p className="font-semibold">CARF Accredited</p>
             <p className="mt-1 text-small">
               We hold the CARF Gold Seal ourselves — the same standard we help
               behavioral health organizations reach.
@@ -63,7 +63,7 @@ export function TrustStrip() {
                 href="/compliance-support"
                 className="inline-flex items-center gap-1 text-small font-medium underline transition-opacity duration-200 ease-in-out hover:opacity-70"
               >
-                How we support compliance
+                How We Support Compliance
                 <ChevronRight className="size-4" />
               </a>
             </div>

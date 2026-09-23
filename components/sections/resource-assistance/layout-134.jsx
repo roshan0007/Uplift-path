@@ -56,7 +56,7 @@ export function Layout134() {
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-          You should not have to fund it, or build it, alone
+          You Should Not Have to Fund It, or Build It, Alone
         </h1>
         <p className="text-medium">
           The funding is available, the right staff are in place, and strong
@@ -64,8 +64,8 @@ export function Layout134() {
           directly to these vital resources.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button asChild title="Book a discovery call" variant="secondary">
-            <a href="/contact-us">Book a discovery call</a>
+          <Button asChild title="Book a Discovery Call" variant="secondary">
+            <a href="/contact-us">Book a Discovery Call</a>
           </Button>
         </div>
       </div>

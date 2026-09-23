@@ -6,7 +6,7 @@ import React from "react";
 /**
  * Matched to the 2026-09-09 Figma (frame `AI Consultancy`), which resolves a
  * real content bug: **the export shipped all three cards byte-identical.**
- * Every one of them was headed "AI strategy and implementation" with the same
+ * Every one of them was headed "AI Strategy and Implementation" with the same
  * body, so a section promising "a full suite of services" listed one service
  * three times. This is the same Relume duplication the How We Work pass found
  * in its three-pillar section. The frame draws each card with its own copy, and
@@ -45,7 +45,7 @@ import React from "react";
 const SERVICES = [
   {
     image: "/images/ai-consultation-services-section-0.png",
-    title: "AI strategy and implementation",
+    title: "AI Strategy and Implementation",
     body: "We help you build a strong AI foundation with strategy, governance, and workforce-ready solutions.",
   },
   {
@@ -74,7 +74,7 @@ export function Layout423() {
       <div className="container">
         <div className="mx-auto mb-10 w-full max-w-lg text-center md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
-            Our AI consulting and implementation services
+            Our AI Consulting and Implementation Services
           </h2>
           <p className="text-medium">
             We offer a full suite of services to guide your AI transformation
@@ -97,7 +97,7 @@ export function Layout423() {
               {/* The frame darkens the whole photo so the white type holds. */}
               <div className="absolute inset-0 bg-neutral-darkest/50" />
               <div className="relative min-h-[18rem] p-6 md:min-h-0 md:p-7 flex flex-col justify-end">
-                <p className="mb-2 font-semibold text-white">AI consulting</p>
+                <p className="mb-2 font-semibold text-white">AI Consulting</p>
                 <h3 className="text-h4 font-bold text-white">{s.title}</h3>
                 <p className="mt-4 text-white md:mt-5">{s.body}</p>
               </div>

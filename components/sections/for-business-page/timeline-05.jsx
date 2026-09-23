@@ -8,7 +8,7 @@ import React, { useRef } from "react";
 // Relume filler the old layout-486 carried.
 const STEPS = [
   {
-    title: "Discovery call",
+    title: "Discovery Call",
     body: "You describe what is not working — the bottleneck, the audit coming up, the growth you cannot staff for. We tell you plainly whether this is work we are the right people for.",
   },
   {
@@ -20,7 +20,7 @@ const STEPS = [
     body: "Together we set the goals, the sequence, and the measures. You leave with a Pathway Plan naming what changes first, who owns it, and how you will know it worked.",
   },
   {
-    title: "Support through delivery",
+    title: "Support Through Delivery",
     body: "We stay on while the plan is built — systems, documentation, training — and step back once your team is running it without us.",
   },
 ];
@@ -58,7 +58,7 @@ export function Timeline5() {
         <div className="mb-12 md:mb-18 lg:mb-20">
           <div className="relative z-10 w-full max-w-lg">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              How an engagement works
+              How an Engagement Works
             </h2>
             <p className="text-medium">
               Four steps from the first call to the point where your team runs

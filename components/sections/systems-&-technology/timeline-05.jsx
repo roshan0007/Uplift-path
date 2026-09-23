@@ -33,7 +33,7 @@ export function Timeline5() {
   return (
     // `scheme-mint`, not `scheme-1`.
     // /systems-technology's five sections were one unbroken white column, and
-    // the break used to sit on layout-564 ("What we do"). That section is back
+    // the break used to sit on layout-564 ("What We Do"). That section is back
     // to white by request - the mint band is wanted everywhere else on the site
     // but not there - so the break moves here instead of disappearing. The page
     // now runs white white MINT white white: layout-564 is white as asked, and
@@ -46,7 +46,7 @@ export function Timeline5() {
       <div className="container max-w-lg">
         <div className="mb-12 md:mb-18 lg:mb-20">
           <div className="relative z-10 w-full max-w-lg">
-            <h2 className="mb-5 text-h2 font-bold md:mb-6">How we work</h2>
+            <h2 className="mb-5 text-h2 font-bold md:mb-6">How We Work</h2>
             <p className="text-medium">
               Operations keep running throughout. Quick wins land in phase one.
             </p>
@@ -88,7 +88,7 @@ export function Timeline5() {
               <div className="mt-4 ml-4 flex flex-col md:ml-12">
                 <h3 className="mb-3 text-h3 font-bold md:mb-4">03</h3>
                 <h4 className="mb-3 text-h5 font-bold md:mb-4">
-                  Build in phases
+                  Build in Phases
                 </h4>
                 <p>
                   We set up your existing stack to do the heavy lifting. Most of

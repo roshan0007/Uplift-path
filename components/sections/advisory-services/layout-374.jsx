@@ -81,7 +81,7 @@ export function Layout374() {
       <div className="container">
         <div className="mb-8 md:mb-10">
           <div className="mx-auto max-w-lg text-center">
-            <h2 className="text-h2 font-bold">What we do</h2>
+            <h2 className="text-h2 font-bold">What We Do</h2>
           </div>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">

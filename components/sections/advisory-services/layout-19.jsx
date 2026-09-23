@@ -22,7 +22,7 @@ export function Layout19() {
         <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 lg:gap-x-20">
           <div>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
-              The problem we solve
+              The Problem We Solve
             </h2>
             <p className="mb-5 text-medium md:mb-6">
               You know where you want the organisation to go. What you do not

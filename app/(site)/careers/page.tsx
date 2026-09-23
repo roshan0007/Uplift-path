@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "Uplift Path hires for behavioral health and consulting roles based in Columbus, Ohio. Learn about our team, our values, and what it's like to work here.",
 };
 
-// Section order is the 2026-09-09 Figma's (frame `Career`): hero, Who we are,
+// Section order is the 2026-09-09 Figma's (frame `Career`): hero, Who We Are,
 // Our Core Values, Growth Acceleration, Why Uplift Path, FAQ, CTA. The export
 // had Core Values last before the FAQ and ran 359 before 469.
 export default function Page() {

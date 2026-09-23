@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
@@ -19,6 +18,38 @@ import {
   iconUrl,
 } from "@/lib/services";
 
+/**
+ * The top-level nav links.
+ *
+ * Regular weight and no hover effect, by instruction from the 2026-09-21 QA
+ * review: the whole navbar — links, the Uplift Services trigger, the
+ * mega-menu headings and items — is one weight. The only motion left in the
+ * navbar is the Uplift Services sheet's 200ms fade and its chevron, asked for
+ * separately. Don't reintroduce `font-semibold` or other transitions here
+ * without that being reversed.
+ *
+ * The current page is marked with a 2px underline in the scheme text colour.
+ * 2px is the brand's border width. `aria-current="page"` carries the same
+ * fact to assistive tech.
+ */
+const NavLink = ({ href, children }) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  return (
+    <a
+      href={href}
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        "block py-3 text-base lg:px-4 lg:py-2 lg:first:pt-2",
+        "first:pt-7",
+        isActive && "underline decoration-2 underline-offset-[6px]",
+      )}
+    >
+      {children}
+    </a>
+  );
+};
+
 const MenuItem = ({ item }) => (
   <a href={item.href} className="flex items-start gap-x-3 text-base">
     <img
@@ -27,7 +58,7 @@ const MenuItem = ({ item }) => (
       alt=""
     />
     <div className="flex grow flex-col">
-      <p className="font-semibold">{item.label}</p>
+      <p>{item.label}</p>
       {/* `short`, not `description`. The full descriptions run to two lines
           each at this column width, and six of those stacked made the sheet a
           third taller than it needed to be. The long form still runs on the
@@ -71,12 +102,6 @@ const useRelume = () => {
     clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => setIsDropdownOpen(false), 300);
   };
-  const animateMobileMenu = isMobileMenuOpen ? "open" : "close";
-  const animateMobileMenuButtonSpan = isMobileMenuOpen
-    ? ["open", "rotatePhase"]
-    : "closed";
-  const animateDropdownMenu = isDropdownOpen ? "open" : "close";
-  const animateDropdownMenuIcon = isDropdownOpen ? "rotated" : "initial";
   return {
     isMobileMenuOpen,
     isDropdownOpen,
@@ -84,35 +109,23 @@ const useRelume = () => {
     openOnDesktopDropdownMenu,
     closeOnDesktopDropdownMenu,
     openOnMobileDropdownMenu,
-    animateMobileMenu,
-    animateMobileMenuButtonSpan,
-    animateDropdownMenu,
-    animateDropdownMenuIcon,
   };
 };
 
-const ConditionalCard = () => {
-  const Component = ({ children, ...props }) => {
-    // `initializeWithValue: false` is required, not cosmetic. This hook otherwise
-    // reads matchMedia during the first client render, so below 992px the server
-    // renders the desktop <Card> and the client's first render wants a <nav> --
-    // different element, hydration error on every route. With it, both agree and
-    // the swap happens in a layout effect, before paint.
-    const isMobile = useMediaQuery("(max-width: 991px)", {
-      initializeWithValue: false,
-    });
-    const MotionCard = isMobile ? motion.nav : motion.create(Card);
-    return React.createElement(MotionCard, props, children);
-  };
-  return Component;
+// The mega-menu sheet: a bordered <Card> on desktop, a plain <nav> inside the
+// mobile menu. Defined at module scope — minting it inside the component body
+// makes a new component type every render and remounts the whole sheet.
+const ConditionalRenderedCard = ({ children, ...props }) => {
+  // `initializeWithValue: false` is required, not cosmetic. This hook otherwise
+  // reads matchMedia during the first client render, so below 992px the server
+  // renders the desktop <Card> and the client's first render wants a <nav> --
+  // different element, hydration error on every route. With it, both agree and
+  // the swap happens in a layout effect, before paint.
+  const isMobile = useMediaQuery("(max-width: 991px)", {
+    initializeWithValue: false,
+  });
+  return React.createElement(isMobile ? "nav" : Card, props, children);
 };
-
-// Created once at module scope. The export called ConditionalCard() inside the
-// component body, which minted a brand-new component type on every render and
-// remounted the whole dropdown subtree each time - which in turn reset the
-// navbar's Motion components to their initial variant, so nothing in the navbar
-// ever animated (the mobile menu could not open).
-const ConditionalRenderedCard = ConditionalCard();
 
 export function Navbar12() {
   const useActive = useRelume();
@@ -158,81 +171,43 @@ export function Navbar12() {
             className="-mr-2 flex size-12 flex-col items-center justify-center lg:hidden"
             onClick={useActive.toggleMobileMenu}
           >
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-scheme-text"
-              animate={useActive.animateMobileMenuButtonSpan}
-              variants={{
-                open: { translateY: 8, transition: { delay: 0.1 } },
-                rotatePhase: { rotate: -45, transition: { delay: 0.2 } },
-                closed: {
-                  translateY: 0,
-                  rotate: 0,
-                  transition: { duration: 0.2 },
-                },
-              }}
+            {/* Bars snap to an X with no transition. Tailwind v4's translate
+                and rotate utilities write separate properties, so they
+                compose. */}
+            <span
+              className={cn(
+                "my-[3px] h-0.5 w-6 bg-scheme-text",
+                useActive.isMobileMenuOpen && "translate-y-2 -rotate-45",
+              )}
             />
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-scheme-text"
-              animate={useActive.animateMobileMenu}
-              variants={{
-                open: { width: 0, transition: { duration: 0.1 } },
-                // Keyed "close", not "closed": this span is driven by
-                // animateMobileMenu, which yields "open" | "close". The export
-                // wrote "closed" here, so nothing matched on the way back and the
-                // middle bar stayed collapsed after the first open.
-                close: {
-                  width: "1.5rem",
-                  transition: { delay: 0.3, duration: 0.2 },
-                },
-              }}
+            <span
+              className={cn(
+                "my-[3px] h-0.5 w-6 bg-scheme-text",
+                useActive.isMobileMenuOpen && "w-0",
+              )}
             />
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-scheme-text"
-              animate={useActive.animateMobileMenuButtonSpan}
-              variants={{
-                open: { translateY: -8, transition: { delay: 0.1 } },
-                rotatePhase: { rotate: 45, transition: { delay: 0.2 } },
-                closed: {
-                  translateY: 0,
-                  rotate: 0,
-                  transition: { duration: 0.2 },
-                },
-              }}
+            <span
+              className={cn(
+                "my-[3px] h-0.5 w-6 bg-scheme-text",
+                useActive.isMobileMenuOpen && "-translate-y-2 rotate-45",
+              )}
             />
           </button>
         </div>
-        {/* The export animated this height between two `var(...)` strings, relying
-            on `lg:[--height-*:auto]` to keep the desktop nav visible. Motion
-            cannot animate a var() to a var(), so it wrote nothing at all and the
-            mobile menu never opened - it is dead on the live site today too. The
-            variants are numeric now, which Motion can animate, and `lg:h-auto!`
-            takes over above 992px so the desktop nav is unaffected. The two
-            custom properties are kept as the documented override hook. */}
-        <motion.div
+        {/* Shown or hidden outright below 992px, no height animation.
+            `display: none` when closed also takes its links out of the tab
+            order. `lg:contents` overrides `hidden`, so the desktop nav is
+            unaffected. */}
+        <div
           id="navbar-mobile-menu"
-          variants={{
-            open: { height: "auto" },
-            close: { height: 0 },
-          }}
-          initial="close"
-          exit="close"
-          animate={useActive.animateMobileMenu}
-          transition={{ duration: 0.4 }}
-          className="overflow-auto px-[5%] lg:contents lg:h-auto! lg:items-center lg:overflow-visible lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
+          className={cn(
+            "overflow-auto px-[5%] lg:contents lg:items-center lg:overflow-visible lg:px-0",
+            !useActive.isMobileMenuOpen && "hidden",
+          )}
         >
           <nav className="lg:flex lg:items-center">
-            <a
-              href="/"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              Home
-            </a>
-            <a
-              href="/about-us"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              About
-            </a>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/about-us">About</NavLink>
             {/* "How We Work" is in the 2026-09 Figma navbar, between About and
                 Uplift Services, and was missing from the export's nav.
 
@@ -245,12 +220,7 @@ export function Navbar12() {
                 section used to link to /how-we-work from each of its cards,
                 and the Figma redesign drops those links. Without this the
                 route is reachable from the footer alone. */}
-            <a
-              href="/how-we-work"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              How We Work
-            </a>
+            <NavLink href="/how-we-work">How We Work</NavLink>
             <div
               onMouseEnter={useActive.openOnDesktopDropdownMenu}
               onMouseLeave={useActive.closeOnDesktopDropdownMenu}
@@ -270,45 +240,23 @@ export function Navbar12() {
                 onClick={useActive.openOnMobileDropdownMenu}
               >
                 Uplift Services
-                <motion.span
-                  variants={{
-                    rotated: { rotate: 180 },
-                    initial: { rotate: 0 },
-                  }}
-                  animate={useActive.animateDropdownMenuIcon}
-                  transition={{ duration: 0.3 }}
+                {/* Turns to point up while the sheet is open, on the same
+                    200ms as the sheet's fade so the two move together. */}
+                <span
+                  className={cn(
+                    "transition-[rotate] duration-200 ease-in-out",
+                    useActive.isDropdownOpen && "rotate-180",
+                  )}
                 >
                   <KeyboardArrowDown className="text-scheme-text" />
-                </motion.span>
+                </span>
               </button>
-              <AnimatePresence>
-                {/* Nothing between this sheet and <body> is positioned, so it
-                    resolves against the page: `top-18` puts it exactly on the
-                    navbar's 72px bottom edge and `left-1/2` centres it. The
-                    export right-anchored it with `right-[186px]`, which pinned
-                    it under the Contact button. `-translate-x-1/2` is a Tailwind
-                    v4 utility and writes the `translate` property, not
-                    `transform`, so it composes with Motion's translateY on `y`
-                    instead of being overwritten by it. */}
-                <ConditionalRenderedCard
-                  variants={{
-                    open: {
-                      visibility: "visible",
-                      opacity: "var(--opacity-open, 100%)",
-                      y: 0,
-                      display: "block",
-                    },
-                    close: {
-                      visibility: "hidden",
-                      opacity: "var(--opacity-close, 0)",
-                      y: "var(--y-close, 0%)",
-                      display: "none",
-                    },
-                  }}
-                  animate={useActive.animateDropdownMenu}
-                  initial="close"
-                  exit="close"
-                  transition={{ duration: 0.2 }}
+              {/* Nothing between this sheet and <body> is positioned, so it
+                  resolves against the page: `top-18` puts it exactly on the
+                  navbar's 72px bottom edge and `left-1/2` centres it. The
+                  export right-anchored it with `right-[186px]`, which pinned
+                  it under the Contact button. */}
+              <ConditionalRenderedCard
                   // The trigger's box ends at y 56 but the sheet starts at 72,
                   // so those 16px belonged to neither and crossing them fired
                   // mouseleave. This invisible strip spans the gap and is part
@@ -318,13 +266,25 @@ export function Navbar12() {
                   // never intercepts a click on them. `lg:overflow-visible`
                   // is required: the Card primitive ships `overflow-hidden`,
                   // which clips the strip away entirely.
-                  className="bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:overflow-visible lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%] lg:before:absolute lg:before:inset-x-0 lg:before:-top-4 lg:before:h-4 lg:before:content-['']"
+                  className={cn(
+                    "bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:overflow-visible lg:border lg:border-scheme-border lg:p-6 lg:before:absolute lg:before:inset-x-0 lg:before:-top-4 lg:before:h-4 lg:before:content-['']",
+                    // Desktop only: a 200ms fade in and out, and nothing else —
+                    // no slide, no scale. The sheet stays `display: block` there
+                    // and toggles opacity plus visibility, so it can transition
+                    // and its links still leave the tab order when closed
+                    // (visibility flips at the end of the fade on the way out).
+                    // Below 992px it sits in the mobile menu's flow and snaps.
+                    "lg:transition-[opacity,visibility] lg:duration-200 lg:ease-in-out",
+                    useActive.isDropdownOpen
+                      ? "block lg:visible lg:opacity-100"
+                      : "hidden lg:invisible lg:block lg:opacity-0",
+                  )}
                 >
                   <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.34fr] lg:gap-8">
                     <div>
                       <a
                         href="/for-business"
-                        className="mb-3 block text-medium leading-[1.3] font-semibold"
+                        className="mb-3 block text-medium leading-[1.3]"
                       >
                         For Businesses
                       </a>
@@ -347,7 +307,7 @@ export function Navbar12() {
                     <div className="lg:border-l lg:border-scheme-border lg:pl-8">
                       <a
                         href="/for-individual"
-                        className="mb-3 block text-medium leading-[1.3] font-semibold"
+                        className="mb-3 block text-medium leading-[1.3]"
                       >
                         For Individuals
                       </a>
@@ -359,21 +319,15 @@ export function Navbar12() {
                     </div>
                   </div>
                 </ConditionalRenderedCard>
-              </AnimatePresence>
             </div>
-            <a
-              href="/careers"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              Careers
-            </a>
+            <NavLink href="/careers">Careers</NavLink>
           </nav>
           <div className="my-6 flex flex-col gap-4 lg:my-0 lg:flex-1 lg:flex-row lg:items-center lg:justify-end">
             <Button asChild title="Contact" size="sm">
               <a href="/contact-us">Contact</a>
             </Button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

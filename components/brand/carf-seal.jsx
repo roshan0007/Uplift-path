@@ -59,7 +59,7 @@ export function CarfSeal({ className = undefined }) {
     >
       <img
         src="/brand/CARF.webp"
-        alt="CARF accredited — Aspire to Excellence seal"
+        alt="CARF Accredited — Aspire to Excellence seal"
         width={288}
         height={288}
         className="size-full"

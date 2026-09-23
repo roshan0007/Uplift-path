@@ -80,18 +80,17 @@ export function Layout134() {
               </p>
             </div>
             <div className="mt-8 flex items-center gap-x-4 md:mt-10">
-              {/* `secondary` is the right shape — transparent fill, 2px border,
-                  3px ledge — but it is drawn in the dark neutral. The frame
-                  strokes this one in Caribbean Green (#08d1a7, sampled off the
-                  reference render at both the border and the ledge), so the two
-                  colours are overridden and nothing else about the variant is
-                  touched. */}
-              <Button
-                asChild
-                title="Get Started"
-                variant="secondary"
-                className="border-caribbean-green shadow-[0_3px_0_0_var(--color-caribbean-green)]"
-              >
+              {/* Plain `secondary`, no colour override.
+                  It used to carry `border-caribbean-green` and a matching green
+                  ledge, sampled off the About Us frame. That made it the only
+                  green-stroked button on the site — /how-we-work renders the
+                  same hero button in the dark neutral, and QA filed the pair
+                  side by side as a button-consistency defect. One frame's
+                  sampled stroke is not worth eleven routes disagreeing, so this
+                  goes back to the variant everything else uses. If the green
+                  stroke is wanted it needs to become a real variant applied
+                  everywhere, not a one-off here. */}
+              <Button asChild title="Get Started" variant="secondary">
                 <a href="/contact-us">Get Started</a>
               </Button>
             </div>

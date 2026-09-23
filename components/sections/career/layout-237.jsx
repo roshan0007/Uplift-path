@@ -17,7 +17,7 @@ import React from "react";
  * `@material-symbols/svg-500@0.38.0`.
  *
  * The section moves up the page: the frame puts Core Values directly after
- * "Who we are" and before "Growth Acceleration", where the export had it last
+ * "Who We Are" and before "Growth Acceleration", where the export had it last
  * before the FAQ. Reordered in `app/(site)/career/page.tsx`.
  */
 

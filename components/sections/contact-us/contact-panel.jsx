@@ -63,7 +63,7 @@ export function ContactPanel() {
     titles run to three and four lines on a phone at the new size, and
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
-            <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">Start here</h1>
+            <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">Start Here</h1>
             <p className="text-medium">
               Whether you are an organization looking for consulting or an
               individual looking for support, this is the place to begin. We read
