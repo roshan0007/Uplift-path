@@ -10,7 +10,7 @@ import React, { useEffect, useRef } from "react";
  * on the left, and a diagonal stack of three tall rounded cards on the right,
  * the middle one a video.
  *
- * The three items keep the export's copy, which the frame keeps verbatim too.
+ * The items' copy is the client's, not the export's -- see `ITEMS`.
  *
  * ## The media is a video, and only the `gifRef` says so
  *
@@ -47,25 +47,31 @@ import React, { useEffect, useRef } from "react";
  * so `aria-hidden`.
  */
 /**
- * The three services. `icon` is a Material Symbol already in `/svgs`, applied
+ * The services. `icon` is a Material Symbol already in `/svgs`, applied
  * as a CSS mask so the fill comes from the palette -- the treatment
  * `how-we-work/layout-254` and `ai-consultation/layout-253` both use.
+ *
+ * The copy is the client's, verbatim (2026-09-23 preview feedback): two
+ * services, not three -- therapy and counseling are one offering, delivered by
+ * licensed clinicians, and each line of `body` is its own sentence.
  */
 const ITEMS = [
   {
     icon: "groups",
-    title: "Peer coaching support",
-    body: "Guidance from someone who has walked a similar path.",
+    title: "Peer Coaching Support",
+    body: [
+      "Guidance from someone who has walked a similar path.",
+      "Support building the skills to navigate life with greater resilience.",
+      "A steady reliable space to untangle your thoughts and feel heard.",
+    ],
   },
   {
     icon: "self_improvement",
-    title: "Mental health therapy",
-    body: "Build the skills to navigate life with greater resilience.",
-  },
-  {
-    icon: "diversity_3",
-    title: "Counseling",
-    body: "A steady space to untangle your thoughts and feel heard.",
+    title: "Mental Health Therapy & Counseling",
+    body: [
+      "Professional support from licensed clinicians.",
+      "Help identifying, mapping out & addressing what has kept you stuck.",
+    ],
   },
 ];
 
@@ -162,7 +168,9 @@ export function Layout395() {
                     <h3 className="mb-2 text-h4 font-bold md:mb-3">
                       {item.title}
                     </h3>
-                    <p>{item.body}</p>
+                    {item.body.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
                   </div>
                 </div>
               ))}
