@@ -286,13 +286,29 @@ export function Footer4() {
               site chrome. Hence the <li> wrappers.) */}
           <div className="flex flex-col items-center gap-y-4 pt-5 text-small md:flex-row md:items-center md:justify-between md:gap-x-6 md:pt-6">
             {/* The brand name in the copyright line is the conventional
-                home link, and QA asked for it. */}
+                home link, and QA asked for it.
+
+                The Magnific credit is a licence condition, not decoration: the
+                2D illustrations come from Magnific (formerly Freepik), whose
+                free licence requires a visible "Designed by Magnific" line
+                linking to magnific.com. The footer is the placement their
+                guidance allows when a credit can't sit beside each image. Drop
+                it only if every asset is confirmed as a Premium download. */}
             <p>
               ©{" "}
               <a href="/" className="hover:underline">
                 2026 Uplift Path Inc.
               </a>{" "}
-              All rights reserved.
+              All rights reserved. Illustrations designed by{" "}
+              <a
+                href="https://www.magnific.com"
+                target="_blank"
+                rel="noreferrer"
+                className="underline"
+              >
+                Magnific
+              </a>
+              .
             </p>
             <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 md:flex md:flex-row md:gap-x-6 md:gap-y-0">
               <li>
