@@ -21,11 +21,12 @@ import {
 /**
  * The top-level nav links.
  *
- * Regular weight, no hover effect and no animation, by instruction from the
- * 2026-09-21 QA review: the whole navbar — links, the Uplift Services
- * trigger, the mega-menu headings and items — is one weight, and nothing in
- * it fades, slides or rotates. Don't reintroduce `font-semibold` or a
- * transition here without that being reversed.
+ * Regular weight and no hover effect, by instruction from the 2026-09-21 QA
+ * review: the whole navbar — links, the Uplift Services trigger, the
+ * mega-menu headings and items — is one weight. The only motion left in the
+ * navbar is the Uplift Services sheet's 200ms fade and its chevron, asked for
+ * separately. Don't reintroduce `font-semibold` or other transitions here
+ * without that being reversed.
  *
  * The current page is marked with a 2px underline in the scheme text colour.
  * 2px is the brand's border width. `aria-current="page"` carries the same
@@ -239,9 +240,14 @@ export function Navbar12() {
                 onClick={useActive.openOnMobileDropdownMenu}
               >
                 Uplift Services
-                {/* Flips to point up while the sheet is open — a state
-                    indicator, not an animation, so it snaps. */}
-                <span className={cn(useActive.isDropdownOpen && "rotate-180")}>
+                {/* Turns to point up while the sheet is open, on the same
+                    200ms as the sheet's fade so the two move together. */}
+                <span
+                  className={cn(
+                    "transition-[rotate] duration-200 ease-in-out",
+                    useActive.isDropdownOpen && "rotate-180",
+                  )}
+                >
                   <KeyboardArrowDown className="text-scheme-text" />
                 </span>
               </button>
@@ -262,7 +268,16 @@ export function Navbar12() {
                   // which clips the strip away entirely.
                   className={cn(
                     "bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:overflow-visible lg:border lg:border-scheme-border lg:p-6 lg:before:absolute lg:before:inset-x-0 lg:before:-top-4 lg:before:h-4 lg:before:content-['']",
-                    useActive.isDropdownOpen ? "block" : "hidden",
+                    // Desktop only: a 200ms fade in and out, and nothing else —
+                    // no slide, no scale. The sheet stays `display: block` there
+                    // and toggles opacity plus visibility, so it can transition
+                    // and its links still leave the tab order when closed
+                    // (visibility flips at the end of the fade on the way out).
+                    // Below 992px it sits in the mobile menu's flow and snaps.
+                    "lg:transition-[opacity,visibility] lg:duration-200 lg:ease-in-out",
+                    useActive.isDropdownOpen
+                      ? "block lg:visible lg:opacity-100"
+                      : "hidden lg:invisible lg:block lg:opacity-0",
                   )}
                 >
                   <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.34fr] lg:gap-8">
