@@ -273,33 +273,36 @@ export function Footer4() {
               and spread, a short centred rule floats with nothing to align to.
               Full width is what separates the two bands. */}
           <div className="mt-10 h-px w-full bg-scheme-border/40" />
-          {/* Copyright left, legal links right from md up; stacked and centred
-              below that. The copyright is a sibling of the <ul> rather than
-              its first <li> — it is not one of the legal links, and while it
-              sat inside the list `justify-between` could only spread all five
-              items evenly instead of splitting the two groups.
+          {/* Three groups from lg up: legal links left, copyright centred,
+              illustration credit right. `1fr auto 1fr` keeps the copyright on
+              the true centre line however wide the two outer groups are. Below
+              lg the three stack centred — at md the row doesn't fit on one
+              line. The copyright is a sibling of the <ul> rather than its
+              first <li> because it is not one of the legal links.
 
               (The export originally put a bare <p> and four bare <a> elements
               directly inside the <ul>, which is invalid HTML: the browser's
               parser rebuilt it, the server markup and client tree disagreed,
               and React threw a hydration error on every route because this is
               site chrome. Hence the <li> wrappers.) */}
-          <div className="flex flex-col items-center gap-y-4 pt-5 text-small md:flex-row md:items-center md:justify-between md:gap-x-6 md:pt-6">
+          <div className="flex flex-col items-center gap-y-4 pt-5 text-center text-small md:pt-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-x-8">
             {/* The brand name in the copyright line is the conventional
-                home link, and QA asked for it.
-
-                The Magnific credit is a licence condition, not decoration: the
-                2D illustrations come from Magnific (formerly Freepik), whose
-                free licence requires a visible "Designed by Magnific" line
-                linking to magnific.com. The footer is the placement their
-                guidance allows when a credit can't sit beside each image. Drop
-                it only if every asset is confirmed as a Premium download. */}
-            <p>
+                home link, and QA asked for it. */}
+            <p className="lg:col-start-2 lg:row-start-1">
               ©{" "}
               <a href="/" className="hover:underline">
                 2026 Uplift Path Inc.
               </a>{" "}
-              All rights reserved. Illustrations designed by{" "}
+              All rights reserved.
+            </p>
+            {/* The Magnific credit is a licence condition, not decoration: the
+                2D illustrations come from Magnific (formerly Freepik), whose
+                free licence requires a visible credit linking to magnific.com.
+                The footer is the placement their guidance allows when a credit
+                can't sit beside each image. Drop it only if every asset is
+                confirmed as a Premium download. */}
+            <p className="lg:col-start-3 lg:row-start-1 lg:justify-self-end lg:text-right">
+              Illustrations by{" "}
               <a
                 href="https://www.magnific.com"
                 target="_blank"
@@ -310,7 +313,7 @@ export function Footer4() {
               </a>
               .
             </p>
-            <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 md:flex md:flex-row md:gap-x-6 md:gap-y-0">
+            <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 md:flex md:flex-row md:gap-x-6 md:gap-y-0 lg:col-start-1 lg:row-start-1 lg:justify-self-start">
               <li>
                 <a href="/accessibility" className="underline">
                   Accessibility
