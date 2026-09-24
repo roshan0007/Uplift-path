@@ -35,8 +35,10 @@ import React from "react";
  * so the real illustrations already in the repo are kept instead.
  */
 export function Layout504() {
+  // `lg:pt-6`: the 2026-09-24 frame starts this heading ~24px under the
+  // hero's photo strip, which is flush with the bottom of that section.
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-20 lg:pt-6 lg:pb-20 scheme-1 badge-alt">
       <div className="container">
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">

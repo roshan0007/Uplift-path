@@ -4,56 +4,52 @@ import { GetStartedButton } from "@/components/intake/get-started-button";
 import React from "react";
 
 /**
- * The 2026-09-08 Figma (node 10214-103875) leaves the hero's type untouched --
- * tagline 16/24 w600, heading 52/62.4 Playfair 400 at -0.52, body 18/27, button
- * 140x44 -- and adds three decorative line-art vignettes around it: a heart
- * being handed over on the left, a flower on the right, and a wrapped gift
- * below the button.
+ * The 2026-09-24 For Individual frame keeps the hero's type as it was --
+ * tagline 16/24 w600, heading Playfair 400, body 18/27, button 140x44 -- and
+ * replaces the three line-art vignettes with a collage of ten photographs:
+ * a strip of seven under the button, plus a column of three flush to the
+ * right edge that climbs up beside the copy.
  *
- * All three are crops of one 4096x2731 sheet (`18880313_v911-a-01-b`), placed
- * in the frame with non-uniform STRETCH scaling. Rather than ship the sheet and
- * fight `object-position`, each crop was cut at its own `imageTransform` matrix
- * and exported at exactly 2x the box the frame draws it in, so each file is
- * already the right shape and needs no fitting.
+ * Every box below is the frame's own, in 1440-frame px, measured from the top
+ * of the strip (frame y=417 below the navbar, 19px above the button's bottom
+ * edge -- the button sits between columns, so they never touch). Each file was
+ * delivered at exactly 2x its box with its corners already rounded, including
+ * the square edge where a photo bleeds off the page, so none of them needs a
+ * radius or `object-fit` here.
  *
- * They are decorative, so `aria-hidden` and no alt text -- the heading and the
- * body carry every bit of the meaning. `lg:` only: the frame is a 1440 desktop
- * frame, and at tablet and below the vignettes would sit under the copy rather
- * than beside it. The section clips them so the right-hand pair, which the
- * frame runs 17px past the page edge, creates no horizontal scroll.
+ * The strip scales with the viewport: `x`/`w` are a share of 1440, `y`/`h` a
+ * share of the strip's 298px height, and the strip keeps that 1440:298 aspect.
+ * The right column's top photo runs 319px (scaled) above the strip, so above
+ * 1440 the section's top padding grows by the same amount -- `22.153vw - 207px`
+ * is 7rem at 1440 -- and that photo stays 98px under the navbar at any width
+ * rather than sliding up under it.
+ *
+ * Decorative, so `aria-hidden` and no alt text -- the heading and body carry
+ * the meaning. `lg:` only, as the vignettes were: at tablet and below the
+ * strip would shrink to thumbnails and the right column would sit on the copy.
  */
-export function Layout134() {
-  // `lg:pb-52` rather than the standard `lg:py-28`: the gift vignette runs to
-  // y=655 in the frame, 150px below where the button's own bottom padding would
-  // end the section, and `overflow-hidden` would otherwise slice it. The extra
-  // depth is the frame's own -- it leaves the hero 735px tall.
-  return (
-    <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:pt-28 lg:pb-52 scheme-1 badge-alt">
-      {/* Frame-relative, measured from the top of this section (y=72, the
-          bottom of the navbar): heart at 0,0 358x333; flower at 1031,0
-          426x333, i.e. 17px past the 1440 edge; gift at 888,411 421x172. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden select-none lg:block"
-      >
-        <img
-          src="/images/for-individual-hero-heart.png"
-          alt=""
-          className="absolute top-0 left-0 h-[333px] w-[358px]"
-        />
-        <img
-          src="/images/for-individual-hero-flower.png"
-          alt=""
-          className="absolute top-0 -right-[17px] h-[333px] w-[426px]"
-        />
-        <img
-          src="/images/for-individual-hero-gift.png"
-          alt=""
-          className="absolute top-[411px] right-[131px] h-[172px] w-[421px]"
-        />
-      </div>
+const PHOTOS = [
+  { src: "01-resting", x: 0, y: 125, w: 169, h: 173 },
+  { src: "02-couple", x: 185, y: 56, w: 136, h: 139 },
+  { src: "03-desk", x: 185, y: 210, w: 136, h: 88 },
+  { src: "04-sofa", x: 336, y: 0, w: 136, h: 139 },
+  { src: "05-headache", x: 332, y: 159, w: 136, h: 139 },
+  { src: "06-embrace", x: 490, y: 56, w: 231, h: 242 },
+  { src: "07-hands", x: 743, y: 107, w: 465, h: 191 },
+  { src: "08-window", x: 1232, y: -319, w: 208, h: 271 },
+  { src: "09-knees", x: 1232, y: -28, w: 208, h: 205 },
+  { src: "10-phone", x: 1232, y: 195, w: 208, h: 103 },
+];
 
-      <div className="relative container max-w-lg text-center">
+export function Layout134() {
+  // `lg:pb-0`: the strip is the bottom of the section, and the frame starts
+  // the next heading straight under it.
+  return (
+    <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:pt-[max(7rem,calc(22.153vw-207px))] lg:pb-0 scheme-1 badge-alt">
+      {/* The right column starts at 85.6% of the width, so between 992 and
+          ~1150 the 48rem measure would run the paragraph under its top photo.
+          `71vw - 48px` keeps the copy clear of it and meets 48rem at 1150. */}
+      <div className="relative container max-w-lg text-center lg:max-w-[min(48rem,calc(71vw-48px))]">
         <p className="mb-3 font-semibold md:mb-4">Ohio Residents:</p>
         {/* The frame carries a literal newline in this string --
             "Individualized Support / for Ohio Adults" -- and left to the
@@ -88,6 +84,28 @@ export function Layout134() {
               rather than the Peer Coach matching flow. */}
           <GetStartedButton label="Get Started" />
         </div>
+      </div>
+
+      {/* Full-bleed: -5.5556% of the 90%-wide content box cancels the
+          section's 5% gutter on each side. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none relative -mx-[5.5556%] hidden aspect-[1440/298] select-none lg:-mt-[19px] lg:block"
+      >
+        {PHOTOS.map(({ src, x, y, w, h }) => (
+          <img
+            key={src}
+            src={`/images/for-individual-hero-${src}.png`}
+            alt=""
+            className="absolute"
+            style={{
+              left: `${(x / 1440) * 100}%`,
+              top: `${(y / 298) * 100}%`,
+              width: `${(w / 1440) * 100}%`,
+              height: `${(h / 298) * 100}%`,
+            }}
+          />
+        ))}
       </div>
     </section>
   );
