@@ -21,9 +21,10 @@ import React from "react";
  *
  * 1. **The collage sits inside the page gutter, not flush to the edges.** The
  *    frame bleeds the left photo and the right column off the page; on a real
- *    screen that read as cut off. The strip now spans the section's 5% gutter
- *    -- the same edges as the navbar logo and Contact button -- and the four
- *    photos that bled had their square side rounded to match their others.
+ *    screen that read as cut off. The strip now stops 2.5% short of each edge
+ *    -- half the section's 5% gutter, which read as too much margin -- and the
+ *    four photos that bled had their square side rounded to match their
+ *    others.
  * 2. **The whole collage fits on the first screen.** The strip keeps the
  *    frame's 1440:298 shape (`x`/`w` a share of 1440, `y`/`h` a share of 298)
  *    but its width is also capped by the viewport *height*, so the photos plus
@@ -100,24 +101,28 @@ export function Layout134() {
         </div>
       </div>
 
+      {/* -2.7778% of the 90%-wide content box is 2.5% of the page: the strip
+          reaches halfway into the gutter on each side. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none relative mx-auto hidden aspect-[1440/298] w-full max-w-[min(108rem,max(52.5rem,calc(483.2vh-2643px)))] select-none lg:-mt-5 lg:block"
+        className="pointer-events-none -mx-[2.7778%] hidden select-none lg:-mt-5 lg:block"
       >
-        {PHOTOS.map(({ src, x, y, w, h }) => (
-          <img
-            key={src}
-            src={`/images/for-individual-hero-${src}.png`}
-            alt=""
-            className="absolute"
-            style={{
-              left: `${(x / 1440) * 100}%`,
-              top: `${(y / 298) * 100}%`,
-              width: `${(w / 1440) * 100}%`,
-              height: `${(h / 298) * 100}%`,
-            }}
-          />
-        ))}
+        <div className="relative mx-auto aspect-[1440/298] w-full max-w-[min(108rem,max(52.5rem,calc(483.2vh-2643px)))]">
+          {PHOTOS.map(({ src, x, y, w, h }) => (
+            <img
+              key={src}
+              src={`/images/for-individual-hero-${src}.png`}
+              alt=""
+              className="absolute"
+              style={{
+                left: `${(x / 1440) * 100}%`,
+                top: `${(y / 298) * 100}%`,
+                width: `${(w / 1440) * 100}%`,
+                height: `${(h / 298) * 100}%`,
+              }}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
