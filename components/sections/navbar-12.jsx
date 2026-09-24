@@ -26,8 +26,10 @@ import { BUSINESS_SERVICES, INDIVIDUAL_SERVICES } from "@/lib/services";
  * without that being reversed.
  *
  * One hover state was asked for since (2026-09-24): a mega-menu item's icon,
- * and only its icon, turns brand green (`MenuItem` below). The label and
- * description stay as they are, and it is a colour swap, not a transition.
+ * and only its icon, turns brand green -- `caribbean-green-dark`, since the
+ * full-strength green read too bright on the white sheet (`MenuItem` below).
+ * The label and description stay as they are, and it is a colour swap, not a
+ * transition.
  *
  * The current page is marked with a 2px underline in the scheme text colour.
  * 2px is the brand's border width. `aria-current="page"` carries the same
@@ -59,7 +61,7 @@ const MenuItem = ({ item }) => (
   <a href={item.href} className="group flex items-start gap-x-3 text-base">
     <SymbolIcon
       name={item.icon}
-      className="size-6 shrink-0 text-scheme-text group-hover:text-caribbean-green group-focus-visible:text-caribbean-green"
+      className="size-6 shrink-0 text-scheme-text group-hover:text-caribbean-green-dark group-focus-visible:text-caribbean-green-dark"
     />
     <div className="flex grow flex-col">
       <p>{item.label}</p>
