@@ -12,7 +12,8 @@ import React from "react";
  *
  * Every box below is the frame's own, in 1440-frame px, measured from the top
  * of the strip (frame y=417 below the navbar, 19px above the button's bottom
- * edge -- the button sits between columns, so they never touch). Each file was
+ * edge -- the button sits between columns, so they never touch; the overlap
+ * is built as 20px, the nearest step on the spacing scale). Each file was
  * delivered at exactly 2x its box with its corners already rounded, including
  * the square edge where a photo bleeds off the page, so none of them needs a
  * radius or `object-fit` here.
@@ -21,8 +22,10 @@ import React from "react";
  * share of the strip's 298px height, and the strip keeps that 1440:298 aspect.
  * The right column's top photo runs 319px (scaled) above the strip, so above
  * 1440 the section's top padding grows by the same amount -- `22.153vw - 207px`
- * is 7rem at 1440 -- and that photo stays 98px under the navbar at any width
- * rather than sliding up under it.
+ * is 7rem at 1440 -- and that photo keeps its distance under the navbar at
+ * any width rather than sliding up under it. The frame puts it 98px down; here
+ * it is 152px, level with the top of the h1, because the h1 is set a token
+ * step larger than the frame (see below) and pushes the strip down with it.
  *
  * Decorative, so `aria-hidden` and no alt text -- the heading and body carry
  * the meaning. `lg:` only, as the vignettes were: at tablet and below the
@@ -46,10 +49,7 @@ export function Layout134() {
   // the next heading straight under it.
   return (
     <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:pt-[max(7rem,calc(22.153vw-207px))] lg:pb-0 scheme-1 badge-alt">
-      {/* The right column starts at 85.6% of the width, so between 992 and
-          ~1150 the 48rem measure would run the paragraph under its top photo.
-          `71vw - 48px` keeps the copy clear of it and meets 48rem at 1150. */}
-      <div className="relative container max-w-lg text-center lg:max-w-[min(48rem,calc(71vw-48px))]">
+      <div className="relative container max-w-lg text-center">
         <p className="mb-3 font-semibold md:mb-4">Ohio Residents:</p>
         {/* The frame carries a literal newline in this string --
             "Individualized Support / for Ohio Adults" -- and left to the
@@ -73,7 +73,12 @@ export function Layout134() {
           Individualized Support
           <span className="block">for Ohio Adults</span>
         </h1>
-        <p className="text-medium">
+        {/* `max-w-md` on the paragraph alone, not the container: at 48rem
+            the lines ran ~84 characters, and at 992 they reached under the
+            right column's top photo. Narrowing the container instead also
+            split the h1 onto three lines up to ~1087px. `text-pretty` stops
+            the phone wrap ending on a single word. */}
+        <p className="mx-auto max-w-md text-pretty text-medium">
           Get no-cost Personalized Supportive Services from a dedicated Uplift
           Peer Coach to help you move toward your goals. Available for adults
           18+ with active Ohio Medicaid.
@@ -90,7 +95,7 @@ export function Layout134() {
           section's 5% gutter on each side. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none relative -mx-[5.5556%] hidden aspect-[1440/298] select-none lg:-mt-[19px] lg:block"
+        className="pointer-events-none relative -mx-[5.5556%] hidden aspect-[1440/298] select-none lg:-mt-5 lg:block"
       >
         {PHOTOS.map(({ src, x, y, w, h }) => (
           <img

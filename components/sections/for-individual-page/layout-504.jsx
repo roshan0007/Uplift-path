@@ -35,10 +35,12 @@ import React from "react";
  * so the real illustrations already in the repo are kept instead.
  */
 export function Layout504() {
-  // `lg:pt-6`: the 2026-09-24 frame starts this heading ~24px under the
-  // hero's photo strip, which is flush with the bottom of that section.
+  // `lg:pt-12`: the 2026-09-24 frame starts this heading ~24px under the
+  // hero's photo strip, which is flush with the bottom of that section. At 24
+  // it sat as far from the photos as from its own paragraph and read as their
+  // caption, so it gets twice the heading-to-paragraph gap instead.
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:pt-6 lg:pb-20 scheme-1 badge-alt">
+    <section className="px-[5%] py-16 md:py-20 lg:pt-12 lg:pb-20 scheme-1 badge-alt">
       <div className="container">
         <div className="mb-12 md:mb-12 lg:mb-12">
           <div className="mx-auto max-w-lg text-center">
