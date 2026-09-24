@@ -1,6 +1,6 @@
 # Uplift Path — website
 
-The Uplift Path marketing site: Next.js 16 (App Router) + Tailwind v4, exported as
+The Uplift Path site: Next.js 16 (App Router) + Tailwind v4, exported as
 a static site to `out/` and served by Cloudflare Workers.
 
 Every visual decision lives in the design skill at
