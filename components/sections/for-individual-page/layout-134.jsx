@@ -7,25 +7,33 @@ import React from "react";
  * The 2026-09-24 For Individual frame keeps the hero's type as it was --
  * tagline 16/24 w600, heading Playfair 400, body 18/27, button 140x44 -- and
  * replaces the three line-art vignettes with a collage of ten photographs:
- * a strip of seven under the button, plus a column of three flush to the
- * right edge that climbs up beside the copy.
+ * a strip of seven under the button, plus a column of three at the right
+ * end that climbs up beside the copy.
  *
  * Every box below is the frame's own, in 1440-frame px, measured from the top
  * of the strip (frame y=417 below the navbar, 19px above the button's bottom
  * edge -- the button sits between columns, so they never touch; the overlap
  * is built as 20px, the nearest step on the spacing scale). Each file was
- * delivered at exactly 2x its box with its corners already rounded, including
- * the square edge where a photo bleeds off the page, so none of them needs a
- * radius or `object-fit` here.
+ * delivered at exactly 2x its box with its corners already rounded, so none
+ * of them needs a radius or `object-fit` here.
  *
- * The strip scales with the viewport: `x`/`w` are a share of 1440, `y`/`h` a
- * share of the strip's 298px height, and the strip keeps that 1440:298 aspect.
- * The right column's top photo runs 319px (scaled) above the strip, so above
- * 1440 the section's top padding grows by the same amount -- `22.153vw - 207px`
- * is 7rem at 1440 -- and that photo keeps its distance under the navbar at
- * any width rather than sliding up under it. The frame puts it 98px down; here
- * it is 152px, level with the top of the h1, because the h1 is set a token
- * step larger than the frame (see below) and pushes the strip down with it.
+ * Two departures from the frame, both from review in the browser:
+ *
+ * 1. **The collage sits inside the page gutter, not flush to the edges.** The
+ *    frame bleeds the left photo and the right column off the page; on a real
+ *    screen that read as cut off. The strip now spans the section's 5% gutter
+ *    -- the same edges as the navbar logo and Contact button -- and the four
+ *    photos that bled had their square side rounded to match their others.
+ * 2. **The whole collage fits on the first screen.** The strip keeps the
+ *    frame's 1440:298 shape (`x`/`w` a share of 1440, `y`/`h` a share of 298)
+ *    but its width is also capped by the viewport *height*, so the photos plus
+ *    48px of white under them land above the fold rather than half under it.
+ *    `483.2vh - 2643px` is that cap: the copy above the strip is ~363px from
+ *    the section top at lg, so the strip may be `100vh - 72 (nav) - 64 (pt) -
+ *    363 - 48` tall, times 1440/298 for the width. It never goes below 52.5rem,
+ *    under which the paragraph would reach the right column, and never above
+ *    108rem, past which the right column would climb into the navbar. When
+ *    the cap binds, the strip is centred and the side margins grow.
  *
  * Decorative, so `aria-hidden` and no alt text -- the heading and body carry
  * the meaning. `lg:` only, as the vignettes were: at tablet and below the
@@ -45,10 +53,11 @@ const PHOTOS = [
 ];
 
 export function Layout134() {
-  // `lg:pb-0`: the strip is the bottom of the section, and the frame starts
-  // the next heading straight under it.
+  // `lg:pt-16`, not 7rem, is what leaves room for the collage on the first
+  // screen. `lg:pb-16` plus the next section's `lg:pt-12` puts 112px -- the
+  // standard section rhythm -- between the photos and the next heading.
   return (
-    <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:pt-[max(7rem,calc(22.153vw-207px))] lg:pb-0 scheme-1 badge-alt">
+    <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:pt-16 lg:pb-16 scheme-1 badge-alt">
       <div className="relative container max-w-lg text-center">
         <p className="mb-3 font-semibold md:mb-4">Ohio Residents:</p>
         {/* The frame carries a literal newline in this string --
@@ -91,11 +100,9 @@ export function Layout134() {
         </div>
       </div>
 
-      {/* Full-bleed: -5.5556% of the 90%-wide content box cancels the
-          section's 5% gutter on each side. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none relative -mx-[5.5556%] hidden aspect-[1440/298] select-none lg:-mt-5 lg:block"
+        className="pointer-events-none relative mx-auto hidden aspect-[1440/298] w-full max-w-[min(108rem,max(52.5rem,calc(483.2vh-2643px)))] select-none lg:-mt-5 lg:block"
       >
         {PHOTOS.map(({ src, x, y, w, h }) => (
           <img
