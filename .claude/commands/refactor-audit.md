@@ -15,6 +15,9 @@ Wait for it to finish, then in this response:
   decision).
 - List the fails in fix order, one line each, with the file each lands in.
 - Name the DECISION items separately — those need a design call, not a fix.
-- Confirm the report file (`refactor-audit-<page>-<date>.md`) at the repo root
+- Confirm the report file (`docs/agent-reports/refactor-audit-<page>-<date>.md`)
   and link it.
+- Every report is kept in the repo under `docs/agent-reports/`. If the agent
+  handed the report back in chat instead of writing the file, save its
+  hand-back there verbatim yourself, under the same file name, and link it.
 - Do not start fixing anything unless explicitly asked.

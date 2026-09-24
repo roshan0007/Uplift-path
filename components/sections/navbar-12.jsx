@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 // The export uses `motion.create(Card)` below but never imports Card.
 import { Card } from "@/components/ui/card";
+import { SymbolIcon } from "@/components/ui/symbol-icon";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -12,11 +13,7 @@ import { KeyboardArrowDown } from "relume-icons";
 // The two service arrays and `iconUrl` moved to `lib/services.js` when the
 // merged /for-business started rendering the same six services as cards.
 // The nav and that page now read one array, so they cannot drift apart.
-import {
-  BUSINESS_SERVICES,
-  INDIVIDUAL_SERVICES,
-  iconUrl,
-} from "@/lib/services";
+import { BUSINESS_SERVICES, INDIVIDUAL_SERVICES } from "@/lib/services";
 
 /**
  * The top-level nav links.
@@ -27,6 +24,12 @@ import {
  * navbar is the Uplift Services sheet's 200ms fade and its chevron, asked for
  * separately. Don't reintroduce `font-semibold` or other transitions here
  * without that being reversed.
+ *
+ * One hover state was asked for since (2026-09-24): a mega-menu item's icon,
+ * and only its icon, turns brand green -- `caribbean-green-dark`, since the
+ * full-strength green read too bright on the white sheet (`MenuItem` below).
+ * The label and description stay as they are, and it is a colour swap, not a
+ * transition.
  *
  * The current page is marked with a 2px underline in the scheme text colour.
  * 2px is the brand's border width. `aria-current="page"` carries the same
@@ -50,12 +53,15 @@ const NavLink = ({ href, children }) => {
   );
 };
 
+// `SymbolIcon`, not the export's `<img>`: an `<img>` paints the SVG's own
+// black and cannot take a colour, so the hover had nothing to change. The mask
+// primitive paints `currentColor`, which lets the icon alone go brand green on
+// hover -- and on keyboard focus, so the cue isn't pointer-only.
 const MenuItem = ({ item }) => (
-  <a href={item.href} className="flex items-start gap-x-3 text-base">
-    <img
-      className="size-6 shrink-0 text-scheme-text"
-      src={iconUrl(item.icon)}
-      alt=""
+  <a href={item.href} className="group flex items-start gap-x-3 text-base">
+    <SymbolIcon
+      name={item.icon}
+      className="size-6 shrink-0 text-scheme-text group-hover:text-caribbean-green-dark group-focus-visible:text-caribbean-green-dark"
     />
     <div className="flex grow flex-col">
       <p>{item.label}</p>

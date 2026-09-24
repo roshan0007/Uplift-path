@@ -45,7 +45,7 @@ Non-negotiables for how you work:
   links; `seo-auditor` owns the heading outline and meta tags. Note a wrong
   heading *size*; never renumber one.
 
-Write the report to `refactor-audit-<page>-<date>.md` at the repo root in the
+Write the report to `docs/agent-reports/refactor-audit-<page>-<date>.md` in the
 format the skill specifies, then return: the verdict sentence, the counts
 (pass / fail / override / decision), the top three fails, and the report path.
 Lead with the verdict — it gets read by someone who wants one page at a time

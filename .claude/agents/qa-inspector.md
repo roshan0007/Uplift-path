@@ -137,7 +137,7 @@ Do one more pass across your own notes, not the site:
 
 ## Report
 
-Write `qa-report-<YYYY-MM-DD>.md` at the repo root. Structure:
+Write `docs/agent-reports/qa-report-<page-or-scope>-<YYYY-MM-DD>.md`. Structure:
 
 1. **Broken** — actually fails a visitor: console errors, 404s, broken
    images, dead links that look like they should work, unusable mobile
