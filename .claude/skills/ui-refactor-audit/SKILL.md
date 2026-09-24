@@ -114,7 +114,7 @@ For every check, record one of: PASS · FAIL · OVERRIDE · N/A · DECISION.
 
 ### 4. Report
 
-Write `refactor-audit-<page>-<date>.md` at the repo root, in the format below.
+Write `docs/agent-reports/refactor-audit-<page>-<date>.md`, in the format below.
 
 ## Scope — refactor, not redesign
 

@@ -12,6 +12,9 @@ grepping the codebase.
 Wait for it to finish, then in this response:
 - Show the summary counts it reports (broken / fake-or-placeholder / design /
   reused / expiring).
-- Confirm the report file (`qa-report-<date>.md`) was written at the repo
-  root and link it.
+- Confirm the report file (`docs/agent-reports/qa-report-<scope>-<date>.md`) was
+  written and link it.
+- Every report is kept in the repo under `docs/agent-reports/`. If the agent
+  handed the report back in chat instead of writing the file, save its
+  hand-back there verbatim yourself, under the same file name, and link it.
 - Do not start fixing anything from the report unless explicitly asked to.

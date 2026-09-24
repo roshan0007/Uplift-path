@@ -16,6 +16,9 @@ Wait for it to finish, then in this response:
 - Call out anything it marked **blocked on a decision** — production domain,
   trailing-slash convention, final slugs — since those need a human answer
   before the rest can be fixed.
-- Confirm the report file (`seo-report-<date>.md`) was written at the repo
-  root and link it.
+- Confirm the report file (`docs/agent-reports/seo-report-<date>.md`) was written
+  and link it.
+- Every report is kept in the repo under `docs/agent-reports/`. If the agent
+  handed the report back in chat instead of writing the file, save its
+  hand-back there verbatim yourself, under the same file name, and link it.
 - Do not start fixing anything from the report unless explicitly asked to.

@@ -35,6 +35,10 @@ order, and the scheme each one carries.
 - `hooks/`, `lib/utils.ts` — `useMediaQuery`, `cn`
 - `public/images/`, `public/fonts/`, `public/logo/`, `public/svgs/`, `public/brand/`
 - `docs/` — reports and import records
+- `docs/agent-reports/` — **every** report from the audit agents (`qa-inspector`,
+  `seo-auditor`, `ui-refactor-auditor`), indexed in its README. If an agent
+  hands its report back in chat instead of writing the file, save it there
+  verbatim and add a row to the index.
 
 ## Rules
 
