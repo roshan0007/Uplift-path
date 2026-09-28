@@ -267,7 +267,7 @@ export function Footer4() {
                 </li>
               </ul>
               <a
-                href="https://www.linkedin.com/in/uptech-support"
+                href="https://www.linkedin.com/company/uplift-path-inc"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-5 inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"
