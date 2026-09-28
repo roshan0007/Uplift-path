@@ -315,8 +315,17 @@ export function SessionScheduler() {
           </div>
         </div>
 
-        {/* That day's times */}
-        <div className="border-t-2 border-scheme-border p-5 md:min-h-0 md:overflow-y-auto md:border-t-0 md:border-l-2 md:p-6">
+        {/* That day's times.
+
+            From md the column is `relative` and its content `absolute
+            inset-0`, so it contributes no height to the grid row: the month
+            decides how tall the card is, and a day with thirty open slots
+            scrolls inside that box instead of stretching the card down the
+            page (2026-09-29). The date heading stays put above the scroll.
+            On one column there is no month beside it to take a height from,
+            so the list caps itself at `max-h-72` and scrolls. */}
+        <div className="border-t-2 border-scheme-border md:relative md:min-h-0 md:border-t-0 md:border-l-2">
+          <div className="flex flex-col p-5 md:absolute md:inset-0 md:p-6">
           <p className="font-semibold">
             {selectedDate ? shortDateFormatter.format(selectedDate) : "Times"}
           </p>
@@ -324,9 +333,9 @@ export function SessionScheduler() {
             Eastern Time (ET)
           </p>
 
-          <div aria-live="polite">
+          <div aria-live="polite" className="flex min-h-0 flex-1 flex-col">
             {times.length > 0 ? (
-              <div className="mt-4 flex flex-col gap-2">
+              <div className="mt-4 flex max-h-72 min-h-0 flex-col gap-2 overflow-y-auto overscroll-contain md:max-h-none md:flex-1">
                 {times.map((slot) => (
                   <TimeCell
                     key={slot.time}
@@ -356,6 +365,7 @@ export function SessionScheduler() {
                 Try again
               </button>
             )}
+          </div>
           </div>
         </div>
       </div>
