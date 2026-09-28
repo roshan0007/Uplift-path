@@ -107,16 +107,15 @@ export function Timeline5() {
             </p>
           </div>
         </div>
-        {/* The rail itself: a sticky filled segment over a 15%-black track, with
-            a background-coloured mask above and below so the line appears to
-            start and stop at the first and last step rather than at the section
-            edges. */}
+        {/* The rail itself: a sticky filled segment over a 15%-black track,
+            with a background-coloured mask above it. The fade ramps that used
+            to sit at both ends were removed 2026-09-29, with the For Business
+            and Systems & Technology rails: the brand allows two gradients,
+            both on the homepage, so the rail now ends square. */}
         <div className="grid w-full max-w-lg auto-cols-fr grid-cols-[max-content_1fr] items-start justify-items-center">
           <div className="relative left-0 flex h-full w-8 flex-col items-center md:left-auto">
-            <div className="absolute z-10 h-16 w-1 bg-gradient-to-b from-scheme-background to-transparent" />
             <div className="sticky top-0 mt-[-50vh] h-[50vh] w-[3px] bg-scheme-text" />
             <div className="h-full w-[3px] bg-scheme-text/15" />
-            <div className="absolute bottom-0 z-0 h-16 w-1 bg-gradient-to-b from-transparent to-scheme-background" />
             <div className="absolute top-[-50vh] h-[50vh] w-full bg-scheme-background" />
           </div>
           <div className="grid auto-cols-fr grid-cols-1 gap-y-8 sm:gap-12 md:gap-20">
@@ -134,7 +133,9 @@ export function Timeline5() {
                   <h4 className="mb-3 text-h5 font-bold md:mb-4">
                     {step.title}
                   </h4>
-                  <p>{step.body}</p>
+                  {/* 2026-09-29: capped at ~70 characters a line, as on
+                      For Business. */}
+                  <p className="max-w-md">{step.body}</p>
                 </div>
               </div>
             ))}

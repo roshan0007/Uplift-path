@@ -56,7 +56,8 @@ export function Layout491() {
       <div className="container">
         <div className="mx-auto mb-12 max-w-lg text-center md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">What Do You Need?</h2>
-          <p className="text-medium">
+          {/* `max-w-md` (2026-09-29): at 991 this was one 96-character line. */}
+          <p className="mx-auto max-w-md text-medium">
             We do not offer advice from a distance. We sit at the table with you
             and look at the hard facts.
           </p>

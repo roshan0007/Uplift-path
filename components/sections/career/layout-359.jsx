@@ -37,7 +37,10 @@ export function Layout359() {
     <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
         <div className="mb-12 md:mb-12 lg:mb-12">
-          <div className="mx-auto max-w-2xl text-center">
+          {/* `max-w-lg`, not `max-w-2xl` (2026-09-29): this system defines no
+              `2xl` container, so the old class did nothing and the intro ran
+              the full 1280px. */}
+          <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Why Uplift Path — Hear from Our Team
             </h2>
@@ -57,7 +60,7 @@ export function Layout359() {
           <div className="flex items-center justify-center">
             <img
               src="/images/contact-us-illustration.png"
-              className="size-full object-contain"
+              className="w-full max-w-md object-contain"
               alt=""
               aria-hidden="true"
             />

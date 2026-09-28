@@ -51,7 +51,10 @@ export function Layout237() {
               What Actually{" "}
               <em className="font-heading-italic">Changes</em>
             </h2>
-            <p className="text-medium">
+            {/* `max-w-md` (2026-09-29): the heading keeps the wrapper's
+                768px, but a centred lead-in at that width ran ~88 characters a
+                line at 1440 and ~98 at 991. */}
+            <p className="mx-auto max-w-md text-medium">
               Strategy, systems and people move together. A plan that never
               reaches the day-to-day isn't a plan.
             </p>

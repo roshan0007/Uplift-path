@@ -136,8 +136,10 @@ export function Layout395() {
 
 
           {/* 606x887 bounding box: three 522x824 cards at (0,0), (49,32) and
-              (84,63). Everything below is that box in percentages. */}
-          <div className="@container relative mx-auto aspect-[606/887] w-full max-w-[606px] lg:col-start-2 lg:row-span-2 lg:row-start-1">
+              (84,63). Everything below is that box in percentages. Capped at
+              `max-w-xs` below 992 (2026-09-29): on one column the full box was
+              taller than a tablet screen. */}
+          <div className="@container relative mx-auto aspect-[606/887] w-full max-w-xs lg:max-w-[606px] lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <div
               aria-hidden="true"
               className="absolute top-0 left-0 h-[92.897%] w-[86.139%] rounded-[14.191cqw] border border-scheme-border"

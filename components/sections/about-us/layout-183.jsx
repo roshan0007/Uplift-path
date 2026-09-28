@@ -34,15 +34,20 @@ import React from "react";
 export function Layout183() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-green-deep badge-alt">
-      <div className="container max-w-lg text-center">
+      {/* `max-w-md`, not `max-w-lg` (2026-09-29): the centred copy ran 85
+          characters a line at 1440 and 96 at 991. */}
+      <div className="container max-w-md text-center">
         {/* Playfair 700, not the brand's usual 400. `--font-weight-bold` is 400
             on purpose across the site, so `font-bold` would render this at
             regular weight; the frame sets a genuine 700 here and the 700 face
             is self-hosted. Same treatment as the homepage's step titles. */}
         <h2 className="text-h3 font-[700]">Why Uplift Path</h2>
         {/* SemiBold body, which is the frame's own weight for this block — it
-            is a pull-quote of sorts rather than running text. */}
-        <div className="mt-5 space-y-6 text-medium font-semibold md:mt-6">
+            is a pull-quote of sorts rather than running text.
+            Left-aligned below md (2026-09-29): centred, it was nine lines on
+            a phone with no fixed edge to return to. The heading stays
+            centred. */}
+        <div className="mt-5 space-y-6 text-left text-medium font-semibold md:mt-6 md:text-center">
           <p>
             These values aren’t just words on a page—they’re the foundation of
             everything we do at Uplift Path. They reflect what our clients, our

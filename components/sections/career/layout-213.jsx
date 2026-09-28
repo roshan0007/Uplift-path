@@ -23,16 +23,22 @@ export function Layout213() {
     // deliberate reversal and is left alone everywhere.
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
-        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 lg:gap-x-20">
-          <div className="order-2 md:order-1">
+        {/* Three children, not two (2026-09-29): heading, image, then the
+            paragraph and button, so phones read text -> media -> text instead
+            of all the text before one lone picture. The md: placement keeps
+            desktop as before, image left and copy right. */}
+        <div className="grid grid-cols-1 items-center gap-y-12 md:grid-cols-2 md:gap-x-12 md:gap-y-0 lg:gap-x-20">
+          <h2 className="mb-5 text-h2 font-bold md:col-start-2 md:row-start-1 md:mb-6 md:self-end">
+            Who We Are
+          </h2>
+          <div className="md:col-start-1 md:row-span-2 md:row-start-1">
             <img
               src="/images/career-feature-section-0.png"
               className="w-full rounded-image object-cover"
               alt="An illustration of three hands stacked together"
             />
           </div>
-          <div className="order-1 md:order-2">
-            <h2 className="mb-5 text-h2 font-bold md:mb-6">Who We Are</h2>
+          <div className="md:col-start-2 md:row-start-2 md:self-start">
             <p className="text-medium">
               We chose the name "Uplift Path" because our mission is to elevate
               businesses at every stage, every day. The word “uplift” embodies

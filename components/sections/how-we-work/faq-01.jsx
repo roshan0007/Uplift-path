@@ -30,7 +30,9 @@ export function Faq1() {
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-medium">
+          {/* `max-w-md` (2026-09-29): a centred lead-in at the wrapper's 768px ran
+              85-102 characters a line; the heading keeps the wider box. */}
+          <p className="mx-auto max-w-md text-medium">
             Find answers to your questions about us.
           </p>
         </div>
@@ -43,8 +45,12 @@ export function Faq1() {
                 family, size, weight and colour, with only the chevron to tell them
                 apart. Weight is not available as the differentiator in this brand,
                 so it has to be size: one token step up, ruling intact. Same
-                resolution as home/faq-01. */}
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+                resolution as home/faq-01.
+
+                `text-left` (2026-09-29): the trigger is a <button>, whose
+                text-align is never reset, so a wrapped question centred its
+                second line. */}
+            <AccordionTrigger className="text-large text-left font-body font-[400] md:py-5">
               What makes Uplift’s company culture unique?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -54,7 +60,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large text-left font-body font-[400] md:py-5">
               How does Uplift foster professional growth and learning?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -64,7 +70,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large text-left font-body font-[400] md:py-5">
               What values are most important at Uplift?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -74,7 +80,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-large text-left font-body font-[400] md:py-5">
               How does Uplift handle feedback and communication?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

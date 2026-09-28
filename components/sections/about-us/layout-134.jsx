@@ -12,15 +12,22 @@ import React, { useEffect, useRef } from "react";
  *
  * The grid is the frame's own geometry over its 1280px container. The left cell
  * is 663px and the collage is 639px right-aligned inside it, which lands the
- * collage's left edge at x=104 and its right edge at x=743; the 63px gap then
- * puts the text column at x=806, all exactly as the frame has them.
+ * collage's left edge at x=104 and its right edge at x=743; the gap then
+ * puts the text column at x=806, as the frame has them. The frame's gap is
+ * 63px; it is `gap-x-16` (64px) since 2026-09-29, one pixel off the frame and
+ * back on the spacing scale.
+ *
+ * Below lg the collage is `order-last` (2026-09-29). Stacked first, at 991px
+ * it was 564px of photos that pushed the h1 to y=804, so the opening screen
+ * had no page title. Now the title and copy lead, and the collage closes the
+ * hero before the next section opens on text again.
  */
 export function Layout134() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:pt-24 lg:pb-44 scheme-1 badge-alt">
       <div className="container">
-        <div className="grid grid-cols-1 items-start gap-x-[63px] gap-y-12 lg:grid-cols-[663fr_554fr]">
-          <div className="lg:ml-auto lg:w-full">
+        <div className="grid grid-cols-1 items-start gap-x-16 gap-y-12 lg:grid-cols-[663fr_554fr]">
+          <div className="order-last lg:order-none lg:ml-auto lg:w-full">
             <HeroCollage />
           </div>
 
@@ -61,8 +68,11 @@ export function Layout134() {
                 page width and justifying a ~330px measure tears rivers of white
                 space through it — at 375px "Uplift Path unlocks true growth
                 for" spreads across the line. Ragged right is the correct
-                setting at that measure. */}
-            <div className="space-y-6 text-medium lg:text-justify">
+                setting at that measure.
+
+                `max-w-md` below lg (2026-09-29): in the single column at 991px
+                the two paragraphs ran ~114 characters a line. */}
+            <div className="max-w-md space-y-6 text-medium lg:max-w-none lg:text-justify">
               <p>
                 Uplift Path unlocks true growth for Founders, and organizations
                 by designing clear, sustainable pathways to progress. Our

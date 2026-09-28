@@ -15,7 +15,10 @@ export function Layout254() {
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Who <em className="font-heading-italic">We Work</em> With
             </h2>
-            <p className="text-medium">
+            {/* `max-w-md` (2026-09-29): the heading keeps the wrapper's
+                768px, but a centred lead-in at that width ran ~88 characters a
+                line at 1440 and ~98 at 991. */}
+            <p className="mx-auto max-w-md text-medium">
               Four kinds of organizations, and individuals. The approach adapts
               to what each one is accountable for.
             </p>
@@ -27,7 +30,7 @@ export function Layout254() {
               <div className="mb-5 md:mb-6">
                 <SymbolIcon
                   name="psychology_alt"
-                  className="size-12 text-caribbean-green-dark"
+                  className="size-12 text-viking-dark"
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">

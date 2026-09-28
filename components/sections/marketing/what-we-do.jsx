@@ -110,7 +110,13 @@ export function WhatWeDo() {
             />
           </div>
           {CAPABILITIES.map((capability) => (
-            <div key={capability.title} className={capability.place}>
+            // `mx-auto w-full max-w-md` (2026-09-29): on one column (768-991)
+            // each body ran the full 842px at 87 characters. Inert at 375 and
+            // in the lg cells, which are both narrower than 560px.
+            <div
+              key={capability.title}
+              className={`mx-auto w-full max-w-md ${capability.place}`}
+            >
               <Capability icon={capability.icon} title={capability.title}>
                 {capability.body}
               </Capability>

@@ -25,20 +25,29 @@ export function Layout134() {
   return (
     <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       {/* Frame-relative, measured from the top of this section (y=72): notepad
-          at 112,173.5 165.5x154; monitor at 1167.5,331 145.5x136. */}
+          at 112,173.5 165.5x154; monitor at 1167.5,331 145.5x136.
+
+          Anchored off the centre line, not the viewport edges (2026-09-29),
+          the same fix as advisory-services/layout-134, whose comment has the
+          full reasoning. Pinned to the edges from lg, the centred text column
+          slid out under them: at 1024 the notepad sat 111px into the H1 and
+          the monitor 122px into the body copy. `calc(50% + 416px)` is the
+          column's half-measure (384px) plus a 32px gutter, so neither can
+          reach the text at any width, and below 1280 there is no room left
+          to show them at all. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden select-none lg:block"
+        className="pointer-events-none absolute inset-0 hidden select-none min-[1280px]:block"
       >
         <img
           src="/images/ai-consultation-hero-notepad.png"
           alt=""
-          className="absolute top-[173.5px] left-[112px] h-[154px] w-[165.5px]"
+          className="absolute top-[173.5px] right-[calc(50%+416px)] h-[154px] w-[165.5px]"
         />
         <img
           src="/images/ai-consultation-hero-monitor.png"
           alt=""
-          className="absolute top-[331px] right-[127px] h-[136px] w-[145.5px]"
+          className="absolute top-[331px] left-[calc(50%+416px)] h-[136px] w-[145.5px]"
         />
       </div>
 

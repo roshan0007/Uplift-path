@@ -19,35 +19,46 @@ export function Layout507() {
       <div className="container">
         <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">Board of Advisory</h2>
-          <p className="text-medium">
+          {/* `max-w-md` (2026-09-29): the centred lead-in ran ~88 characters a
+              line in the 768px wrapper; the heading keeps that width. */}
+          <p className="mx-auto max-w-md text-medium">
             Our advisors bring decades of cross-industry expertise to guide our
             strategic approach.
           </p>
         </div>
         <Card className="relative grid auto-cols-fr grid-cols-1 gap-x-12 lg:gap-x-0">
+          {/* Active tab is semibold (2026-09-29). `bg-scheme-foreground` is
+              white on `.scheme-light`, the same as the background, so on a
+              phone the selected advisor had no cue at all; weight is a
+              non-colour one, and 600 is not pinned the way `font-bold` is.
+
+              Each panel's portrait is `order-first` below md, so a phone reads
+              portrait then bio, as the team cards above do, instead of nine
+              lines of text and then a lone picture. From md it is the second
+              column again. */}
           <Tabs defaultValue="tab-2">
             <TabsList className="flex-col group-data-[slot=card-flat]:border-0 md:flex-row">
               <TabsTrigger
                 value="tab-2"
-                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent"
+                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent data-[state=active]:font-semibold"
               >
                 Regina Wooten
               </TabsTrigger>
               <TabsTrigger
                 value="tab-3"
-                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent"
+                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent data-[state=active]:font-semibold"
               >
                 Tasha Coppett
               </TabsTrigger>
               <TabsTrigger
                 value="tab-4"
-                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent"
+                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent data-[state=active]:font-semibold"
               >
                 Teresa Guerin
               </TabsTrigger>
               <TabsTrigger
                 value="tab-5"
-                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent"
+                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent data-[state=active]:font-semibold"
               >
                 Tia Glaspie
               </TabsTrigger>
@@ -91,7 +102,7 @@ export function Layout507() {
                     </li>
                   </ul>
                 </div>
-                <div className="aspect-[4/3] w-full">
+                <div className="order-first aspect-[4/3] w-full md:order-none">
                   <img
                     src="/images/about-us-feature-section-new-0.jpg"
                     className="size-full rounded-image object-cover"
@@ -140,7 +151,7 @@ export function Layout507() {
                     </li>
                   </ul>
                 </div>
-                <div className="aspect-[4/3] w-full">
+                <div className="order-first aspect-[4/3] w-full md:order-none">
                   <img
                     src="/images/about-us-feature-section-new-1.jpg"
                     className="size-full rounded-image object-cover"
@@ -189,7 +200,7 @@ export function Layout507() {
                     </li>
                   </ul>
                 </div>
-                <div className="aspect-[4/3] w-full">
+                <div className="order-first aspect-[4/3] w-full md:order-none">
                   <img
                     src="/images/about-us-feature-section-new-2.png"
                     className="size-full rounded-image object-cover"
@@ -236,7 +247,7 @@ export function Layout507() {
                     </li>
                   </ul>
                 </div>
-                <div className="aspect-[4/3] w-full">
+                <div className="order-first aspect-[4/3] w-full md:order-none">
                   <img
                     src="/images/about-us-feature-section-new-3.jpg"
                     className="size-full rounded-image object-cover"

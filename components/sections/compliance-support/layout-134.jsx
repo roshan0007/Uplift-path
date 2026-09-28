@@ -35,20 +35,30 @@ export function Layout134() {
   return (
     <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       {/* Frame-relative, measured from the top of this section (y=72):
-          letter at 84,299.5 237.5x222; globe at 1167,153 156.5x153. */}
+          letter at 84,299.5 237.5x222; globe at 1167,153 156.5x153.
+
+          Anchored off the centre line, not the viewport edges (2026-09-29),
+          the same fix as advisory-services/layout-134, whose comment has the
+          full reasoning. Pinned to the edges from lg, the centred text column
+          slid out under them: at 1024 the letter sat 185px into the H1 and
+          the globe 136px. `calc(50% + 416px)` is the column's half-measure
+          (384px) plus a 32px gutter, so neither can reach the text at any
+          width, and below 1280 there is no room left to show them. At 1280
+          the letter's left edge runs off canvas, the trade Advisory accepted
+          for its planes. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden select-none lg:block"
+        className="pointer-events-none absolute inset-0 hidden select-none min-[1280px]:block"
       >
         <img
           src="/images/compliance-hero-letter.png"
           alt=""
-          className="absolute top-[299.5px] left-[84px] h-[222px] w-[237.5px]"
+          className="absolute top-[299.5px] right-[calc(50%+416px)] h-[222px] w-[237.5px]"
         />
         <img
           src="/images/compliance-hero-globe.png"
           alt=""
-          className="absolute top-[153px] right-[116.5px] h-[153px] w-[156.5px]"
+          className="absolute top-[153px] left-[calc(50%+416px)] h-[153px] w-[156.5px]"
         />
       </div>
 
@@ -98,9 +108,17 @@ export function Layout134() {
             The seal renders at its native 1:1 with its colours untouched and
             clear space of its own, per CARF's usage rules and the brand doc's
             logo guidance. `size-20`/`size-24` is the largest it appears
-            anywhere on the site, which is the point of it being here. */}
+            anywhere on the site, which is the point of it being here.
+
+            Left-aligned on a phone too (2026-09-29): stacked and centred, the
+            14px body ran five centred lines. The seal now sits left above the
+            copy; the row from `sm` up is unchanged. The link's `py-3` (was
+            `mt-3`) makes it a 45px tap target; `-mb-3` lets the extra 12px
+            below sit in the card's own padding, so the card and the hero
+            keep their height. It also drops `font-medium`, the heaviest
+            weight in the card on its least important line. */}
         <div className="mt-10 flex justify-center md:mt-12">
-          <div className="flex max-w-md flex-col items-center gap-5 rounded-card border-2 border-scheme-border p-6 text-center sm:max-w-lg sm:flex-row sm:gap-6 sm:p-8 sm:text-left">
+          <div className="flex max-w-md flex-col items-start gap-5 rounded-card border-2 border-scheme-border p-6 text-left sm:max-w-lg sm:flex-row sm:items-center sm:gap-6 sm:p-8">
             <a
               href={CARF_PROVIDER_URL}
               target="_blank"
@@ -121,7 +139,7 @@ export function Layout134() {
                 href={CARF_PROVIDER_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-small font-medium underline transition-opacity duration-200 ease-in-out hover:opacity-70"
+                className="-mb-3 inline-flex items-center gap-1 py-3 text-small underline transition-opacity duration-200 ease-in-out hover:opacity-70"
               >
                 Verify on carf.org
                 <ChevronRight className="size-4" />

@@ -8,8 +8,8 @@ import React from "react";
  *
  * Built as a real `<ul>` rather than one paragraph of middot-separated text.
  * The frame draws four discrete items and a screen reader should hear four,
- * not one run-on sentence; the middots are restored as decorative `::before`
- * separators via `before:` utilities so the rendered line is the frame's.
+ * not one run-on sentence. The frame's middots were `::before` separators
+ * until 2026-09-29; see the note on the list.
  *
  * **The frame's closing sentence is deliberately not built.** It reads "CLIENT
  * TO CONFIRM whether you take non-healthcare clients here — if yes, say so; if
@@ -33,17 +33,13 @@ export function WhoItsFor() {
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Who It&rsquo;s For
           </h2>
-          <ul className="flex flex-wrap justify-center gap-x-2 gap-y-1 text-medium">
+          {/* One centred line per audience (2026-09-29). The middots are
+              gone: the four items total ~1,360px against a 768px list, so it
+              wrapped at every width and each wrapped line began with a
+              separator that separated nothing. */}
+          <ul className="flex flex-col items-center gap-y-1 text-medium">
             {AUDIENCES.map((audience) => (
-              <li
-                key={audience}
-                // The separator is decorative and generated, so it never
-                // reaches the accessibility tree and never trails the last
-                // item.
-                className="before:mr-2 before:content-['·'] first:before:hidden first:before:content-none"
-              >
-                {audience}
-              </li>
+              <li key={audience}>{audience}</li>
             ))}
           </ul>
         </div>

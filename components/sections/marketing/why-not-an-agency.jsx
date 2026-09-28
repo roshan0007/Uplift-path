@@ -23,7 +23,10 @@ export function WhyNotAnAgency() {
           <h2 className="mb-5 text-balance text-h2 font-bold md:mb-6">
             Why This Isn&rsquo;t a General Marketing Agency
           </h2>
-          <p className="text-medium">
+          {/* `max-w-md text-left` (2026-09-29): centred across 768px this ran
+              4 lines at 83 characters, 8 ragged lines on a phone. Capped and
+              left-aligned under the centred h2 it reads as the argument it is. */}
+          <p className="mx-auto max-w-md text-left text-medium">
             We hold the CARF Gold Seal for our own programs. Our Chief
             Compliance Officer is a licensed social worker. Our Chief Risk
             Officer spent twenty years in governance. So we start where most

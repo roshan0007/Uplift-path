@@ -58,7 +58,9 @@ export function Layout134() {
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
           You Should Not Have to Fund It, or Build It, Alone
         </h1>
-        <p className="text-medium">
+        {/* `max-w-md` (2026-09-29): the container is sized for the h1, and
+            at that width this ran 85 characters a line. 560px is about 62. */}
+        <p className="mx-auto max-w-md text-medium">
           The funding is available, the right staff are in place, and strong
           partners are ready to collaborate. Our proven expertise connects you
           directly to these vital resources.

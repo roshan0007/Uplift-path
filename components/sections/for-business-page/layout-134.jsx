@@ -19,9 +19,10 @@ import React from "react";
  * round-trips over white to a mean channel difference of 0.04, i.e. exactly.
  *
  * They are decorative, so `aria-hidden` and no alt text -- the heading and the
- * body carry every bit of the meaning. `lg:` only: the frame is a 1440 desktop
- * frame, and at tablet and below the vignettes would sit under the copy rather
- * than beside it.
+ * body carry every bit of the meaning. `min-[90rem]:` only (was `lg:` until
+ * 2026-09-29): the positions are 1440-frame px pinned to the page edges while
+ * the copy is centred, so below 1440 the drawings slide under the h1 -- measured
+ * through both h1 lines at 992 and 1280. There is no `xl` step to use instead.
  */
 export function Layout134() {
   return (
@@ -31,7 +32,7 @@ export function Layout134() {
           291.5 117x137.5, i.e. 184.5px in from the 1440 edge. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden select-none lg:block"
+        className="pointer-events-none absolute inset-0 hidden select-none min-[90rem]:block"
       >
         <img
           src="/images/for-business-hero-target.png"
