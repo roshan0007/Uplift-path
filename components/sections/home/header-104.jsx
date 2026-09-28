@@ -22,7 +22,7 @@ const AUDIENCES = [
   },
   {
     title: "For Individuals",
-    description: "Peer coaching, mental health therapy and counseling.",
+    description: "Peer coaching and connections to community resources.",
     href: "/for-individual",
     image: "/images/home-audience-for-individual.png",
     alt: "An illustration of two people reaching through their screens to embrace",

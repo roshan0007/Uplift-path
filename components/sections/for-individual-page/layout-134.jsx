@@ -89,7 +89,7 @@ export function Layout134() {
             split the h1 onto three lines up to ~1087px. `text-pretty` stops
             the phone wrap ending on a single word. */}
         <p className="mx-auto max-w-md text-pretty text-medium">
-          Get no-cost Personalized Supportive Services from a dedicated Uplift
+          Get Personalized Supportive Services from a dedicated Uplift
           Peer Coach to help you move toward your goals. Available for adults
           18+ with active Ohio Medicaid.
         </p>

@@ -52,8 +52,12 @@ import React, { useEffect, useRef } from "react";
  * `how-we-work/layout-254` and `ai-consultation/layout-253` both use.
  *
  * The copy is the client's, verbatim (2026-09-23 preview feedback): two
- * services, not three -- therapy and counseling are one offering, delivered by
- * licensed clinicians, and each line of `body` is its own sentence.
+ * services, not three, and each line of `body` is its own sentence.
+ *
+ * The second item was "Mental Health Therapy & Counseling" until the client's
+ * 2026-09-29 review: per Ohio law, a site that states Uplift's CARF status may
+ * not offer therapy directly. It is now framed as a connection to community
+ * resources, which is the client's replacement wording. Don't restore it.
  */
 const ITEMS = [
   {
@@ -67,10 +71,10 @@ const ITEMS = [
   },
   {
     icon: "self_improvement",
-    title: "Mental Health Therapy & Counseling",
+    title: "Connections to Community Resources",
     body: [
-      "Professional support from licensed clinicians.",
-      "Help identifying, mapping out & addressing what has kept you stuck.",
+      "Mental health therapy & counseling.",
+      "Local resource mapping to help meet basic needs.",
     ],
   },
 ];
@@ -122,7 +126,7 @@ export function Layout395() {
               </span>
             </h2>
             <p className="mt-5 text-medium md:mt-6">
-              Professional support that adapts to your schedule and your needs.
+              Professional support with flexible scheduling to meet your needs.
             </p>
 
             {/* **The frame's diagonal stagger is gone, and this is a
