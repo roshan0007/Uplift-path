@@ -184,7 +184,11 @@ export function Footer4() {
               clump. The three link columns take equal share and the social
               mark sits out at the end, so the band reads left-to-right like
               the rest of the page instead of as a centred island. */}
-          <div className="grid grid-cols-2 items-start gap-x-8 gap-y-10 text-left sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-12">
+          {/* Phones: the right track is `max-content` so the email address
+              (the widest thing in the band, ~159px) never breaks or pokes into
+              the page gutter, and the left track takes the rest, which still
+              holds "Systems & Technology" on one line at 360px. */}
+          <div className="grid grid-cols-[minmax(0,1fr)_max-content] items-start gap-x-4 gap-y-10 text-left sm:grid-cols-3 sm:gap-x-8 lg:grid-cols-4 lg:gap-x-12">
             {FOOTER_GROUPS.map((group) => (
               <div key={group.heading}>
                 {/* The heading is a plain <p>, not an <h*>: this band sits
@@ -217,7 +221,12 @@ export function Footer4() {
                 "#" from the Relume export onward — and a dead icon is worse
                 than no icon. It sits under the contact details now rather than
                 standing as a column of its own. */}
-            <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+            {/* No `col-span-2` on phones: spanning both columns left Services
+                alone on its row with the right half empty. As a plain cell it
+                sits beside Services, so the band is an even 2x2 (2026-09-29).
+                From sm (three columns) it takes the full row under the three
+                lists, and from lg it is the fourth column. */}
+            <div className="sm:col-span-3 lg:col-span-1">
               <p className="text-small font-semibold">Get in Touch</p>
               <ul className="mt-4 flex flex-col gap-y-3 text-small">
                 <li>
@@ -258,7 +267,7 @@ export function Footer4() {
                 </li>
               </ul>
               <a
-                href="https://www.linkedin.com/in/uptech-support"
+                href="https://www.linkedin.com/company/uplift-path-inc"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-5 inline-flex transition-opacity duration-200 ease-in-out hover:opacity-70"

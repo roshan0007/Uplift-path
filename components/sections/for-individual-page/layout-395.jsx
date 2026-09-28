@@ -52,8 +52,12 @@ import React, { useEffect, useRef } from "react";
  * `how-we-work/layout-254` and `ai-consultation/layout-253` both use.
  *
  * The copy is the client's, verbatim (2026-09-23 preview feedback): two
- * services, not three -- therapy and counseling are one offering, delivered by
- * licensed clinicians, and each line of `body` is its own sentence.
+ * services, not three, and each line of `body` is its own sentence.
+ *
+ * The second item was "Mental Health Therapy & Counseling" until the client's
+ * 2026-09-29 review: per Ohio law, a site that states Uplift's CARF status may
+ * not offer therapy directly. It is now framed as a connection to community
+ * resources, which is the client's replacement wording. Don't restore it.
  */
 const ITEMS = [
   {
@@ -67,10 +71,10 @@ const ITEMS = [
   },
   {
     icon: "self_improvement",
-    title: "Mental Health Therapy & Counseling",
+    title: "Connections to Community Resources",
     body: [
-      "Professional support from licensed clinicians.",
-      "Help identifying, mapping out & addressing what has kept you stuck.",
+      "Mental health therapy & counseling.",
+      "Local resource mapping to help meet basic needs.",
     ],
   },
 ];
@@ -106,8 +110,12 @@ export function Layout395() {
     // deliberate reversal and is left alone everywhere.
     <section className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
-        <div className="grid grid-cols-1 items-center gap-x-12 gap-y-16 lg:grid-cols-2">
-          <div>
+        {/* Three children so a phone reads text, video, text: the heading,
+            the card stack, then the two services (2026-09-29). From lg up the
+            heading and the list stack in the left column (`self-end` /
+            `self-start`, no row gap) and the stack spans both rows. */}
+        <div className="grid grid-cols-1 items-center gap-x-12 gap-y-16 lg:grid-cols-2 lg:gap-y-0">
+          <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
             {/* The frame breaks this as "Care built / around your life" and
                 italicises the last two words, so the break is a <span> rather
                 than left to the container width. `.font-heading-italic` is the
@@ -122,9 +130,42 @@ export function Layout395() {
               </span>
             </h2>
             <p className="mt-5 text-medium md:mt-6">
-              Professional support that adapts to your schedule and your needs.
+              Professional support with flexible scheduling to meet your needs.
             </p>
+          </div>
 
+
+          {/* 606x887 bounding box: three 522x824 cards at (0,0), (49,32) and
+              (84,63). Everything below is that box in percentages. */}
+          <div className="@container relative mx-auto aspect-[606/887] w-full max-w-[606px] lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <div
+              aria-hidden="true"
+              className="absolute top-0 left-0 h-[92.897%] w-[86.139%] rounded-[14.191cqw] border border-scheme-border"
+            />
+            <div className="absolute top-[3.608%] left-[8.086%] h-[92.897%] w-[86.139%]">
+              <video
+                ref={videoRef}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                poster="/images/for-individual-care-poster.jpg"
+                aria-label="A montage of five moments outdoors: someone photographing a sunset over the water as pelicans glide past, a hand holding a yellow flower in a green field, a woman blowing bubbles in golden light, a woman resting back on a swing, and a woman laughing with clouds painted around her eyes"
+                className="size-full rounded-[14.191cqw] object-cover"
+              >
+                <source
+                  src="/videos/for-individual-care.webm"
+                  type="video/webm"
+                />
+                <source src="/videos/for-individual-care.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute top-[7.103%] left-[13.861%] h-[92.897%] w-[86.139%] rounded-[14.191cqw] border border-scheme-border"
+            />
+          </div>
             {/* **The frame's diagonal stagger is gone, and this is a
                 departure by request.**
 
@@ -144,7 +185,7 @@ export function Layout395() {
                 the masked-icon treatment is `layout-254`'s and `layout-253`'s
                 -- so it reads as part of the system rather than as a fourth
                 idea about how to present three things. The copy is unchanged. */}
-            <div className="mt-10 flex flex-col md:mt-12">
+            <div className="flex flex-col lg:col-start-1 lg:row-start-2 lg:mt-12 lg:self-start">
               {ITEMS.map((item) => (
                 <div
                   key={item.title}
@@ -175,39 +216,6 @@ export function Layout395() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* 606x887 bounding box: three 522x824 cards at (0,0), (49,32) and
-              (84,63). Everything below is that box in percentages. */}
-          <div className="@container relative mx-auto aspect-[606/887] w-full max-w-[606px]">
-            <div
-              aria-hidden="true"
-              className="absolute top-0 left-0 h-[92.897%] w-[86.139%] rounded-[14.191cqw] border border-scheme-border"
-            />
-            <div className="absolute top-[3.608%] left-[8.086%] h-[92.897%] w-[86.139%]">
-              <video
-                ref={videoRef}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                poster="/images/for-individual-care-poster.jpg"
-                aria-label="A montage of five moments outdoors: someone photographing a sunset over the water as pelicans glide past, a hand holding a yellow flower in a green field, a woman blowing bubbles in golden light, a woman resting back on a swing, and a woman laughing with clouds painted around her eyes"
-                className="size-full rounded-[14.191cqw] object-cover"
-              >
-                <source
-                  src="/videos/for-individual-care.webm"
-                  type="video/webm"
-                />
-                <source src="/videos/for-individual-care.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div
-              aria-hidden="true"
-              className="absolute top-[7.103%] left-[13.861%] h-[92.897%] w-[86.139%] rounded-[14.191cqw] border border-scheme-border"
-            />
-          </div>
         </div>
       </div>
     </section>

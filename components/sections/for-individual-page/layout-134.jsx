@@ -80,7 +80,7 @@ export function Layout134() {
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-          Individualized Support
+          Individualized Support{" "}
           <span className="block">for Ohio Adults</span>
         </h1>
         {/* `max-w-md` on the paragraph alone, not the container: at 48rem
@@ -89,7 +89,7 @@ export function Layout134() {
             split the h1 onto three lines up to ~1087px. `text-pretty` stops
             the phone wrap ending on a single word. */}
         <p className="mx-auto max-w-md text-pretty text-medium">
-          Get no-cost Personalized Supportive Services from a dedicated Uplift
+          Get Personalized Supportive Services from a dedicated Uplift
           Peer Coach to help you move toward your goals. Available for adults
           18+ with active Ohio Medicaid.
         </p>

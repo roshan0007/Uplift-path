@@ -15,9 +15,11 @@ instead, the session that ran it saves the hand-back here verbatim.
 | 2026-09-10 | ui-refactor-auditor | `/` | [refactor-audit-homepage-2026-09-10.md](refactor-audit-homepage-2026-09-10.md) |
 | 2026-09-11 | ui-refactor-auditor | `/contact-us` | [refactor-audit-contact-us-2026-09-11.md](refactor-audit-contact-us-2026-09-11.md) |
 | 2026-09-24 | ui-refactor-auditor | `/for-individual` hero (PR #16) | [refactor-audit-for-individual-hero-2026-09-24.md](refactor-audit-for-individual-hero-2026-09-24.md) |
+| 2026-09-29 | seo-auditor | Whole site, 14-point launch checklist, production (`NEXT_PUBLIC_INDEXABLE=true`) build | [seo-audit-launch-2026-09-29.md](seo-audit-launch-2026-09-29.md) |
+| 2026-09-29 | qa-inspector | All 22 public routes + 404, desktop and mobile, launch readiness | [qa-report-launch-2026-09-29.md](qa-report-launch-2026-09-29.md) |
 
-No `seo-auditor` run has produced a report yet. `docs/seo-status-2026-09-11.md`
-is a status note written by hand, not agent output.
+`docs/seo-status-2026-09-11.md` is a status note written by hand, not agent
+output. The first `seo-auditor` report is the 2026-09-29 launch audit above.
 
 On 2026-09-11, audits of eleven other routes were started and then stopped
 before they finished, so there are no reports for them. Those routes are

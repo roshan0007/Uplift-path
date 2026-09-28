@@ -71,7 +71,7 @@ export const CONTENT = [
   {
     type: "ul",
     items: [
-      "Online Form: upliftpathwellness.com/contact (Select \"Grievance Form\" in the footer for formal issues)",
+      "Online Form: upliftpathwellness.com/contact-us (Select \"Grievance Form\" in the footer for formal issues)",
       "Phone: 513-299-4553",
       "Email: privacy@upliftpathinc.com",
       "Mail: Uplift Path Inc. Attn: Chief Risk Officer 20 E Broad St, Suite 225 Columbus, OH 43215",

@@ -98,7 +98,7 @@ export function Faq1() {
             <AccordionContent className="md:pb-6">
               We help clients address complex business challenges through
               collaborative coaching, process optimisation, technology
-              integration, and growth strategy delivering disciplined
+              integration, and growth strategy, delivering disciplined
               improvements and actionable outcomes.
             </AccordionContent>
           </AccordionItem>

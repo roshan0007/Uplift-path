@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     absolute: "Telehealth Peer Support for Adults in Ohio | Uplift Path",
   },
   description:
-    "Online counseling and peer support for adults across Ohio. Meet your Uplift Path provider by phone or video, on a schedule that fits around your life.",
+    "Peer support and connections to community resources for adults across Ohio. Meet your Uplift Peer Coach by phone or video, on a schedule that fits around your life.",
 };
 
 export default function Page() {

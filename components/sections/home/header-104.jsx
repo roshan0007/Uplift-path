@@ -22,7 +22,7 @@ const AUDIENCES = [
   },
   {
     title: "For Individuals",
-    description: "Peer coaching, mental health therapy and counseling.",
+    description: "Peer coaching and connections to community resources.",
     href: "/for-individual",
     image: "/images/home-audience-for-individual.png",
     alt: "An illustration of two people reaching through their screens to embrace",
@@ -67,7 +67,7 @@ export function Header104() {
             again, so the frame's own two-line composition is untouched at the
             widths the frame specifies. */}
         <h1 className="mb-5 text-balance text-[2.75rem] leading-[1.2] font-bold sm:text-[3.25rem] md:mb-6 md:text-[3.75rem] lg:mb-[0.625rem] lg:text-[4.375rem]">
-          Uplifting Every Life
+          Uplifting Every Life{" "}
           <span className="block">
             We <em className="font-heading-italic">Serve</em>
           </span>

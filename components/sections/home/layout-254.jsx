@@ -56,7 +56,12 @@ export function Layout254() {
               </p>
             </div>
           </div>
-          <div className="relative order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
+          {/* Phones (one column) take source order: two audiences, the video,
+              two audiences, so the text is broken up rather than stacked four
+              deep above the media. From sm the two text columns sit side by
+              side, so the video drops below them; from lg it is the middle
+              column. Changed by request on 2026-09-29. */}
+          <div className="relative w-full sm:order-last sm:col-span-2 lg:order-none lg:col-span-1">
             <AudienceMontage />
           </div>
           <div className="grid w-full grid-cols-1 gap-x-20 gap-y-10 md:gap-y-12">

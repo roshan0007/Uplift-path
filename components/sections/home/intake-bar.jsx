@@ -113,7 +113,7 @@ export function IntakeBar() {
                     Looking for support for yourself?
                   </p>
                   <p className="mt-1 text-small">
-                    Get matched with an Uplift Peer Coach — no cost with active
+                    Get matched with an Uplift Peer Coach. Available with active
                     Ohio Medicaid.
                   </p>
                 </div>
