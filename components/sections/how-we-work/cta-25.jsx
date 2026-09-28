@@ -43,6 +43,16 @@ export function Cta25() {
               <Button asChild title="Get Started">
                 <a href="/contact-us">Get Started</a>
               </Button>
+              {/* Phones only: a small copy of the envelope on the button's
+                  line. Full size it stood 400px tall under the text and
+                  outweighed the call to action (2026-09-29). The large one
+                  below takes over from lg, beside the text. */}
+              <img
+                src="/images/home-cta-envelope.png"
+                alt=""
+                aria-hidden="true"
+                className="ml-auto h-auto w-24 shrink-0 select-none sm:w-28 lg:hidden"
+              />
             </div>
           </div>
 
@@ -53,7 +63,7 @@ export function Cta25() {
             src="/images/home-cta-envelope.png"
             alt=""
             aria-hidden="true"
-            className="mx-auto h-auto w-full max-w-[400px] select-none lg:mx-0 lg:justify-self-end"
+            className="hidden h-auto w-full max-w-[400px] select-none lg:block lg:justify-self-end"
           />
         </div>
       </div>

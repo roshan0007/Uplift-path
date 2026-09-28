@@ -71,10 +71,11 @@ export function Layout423() {
             </p>
           </div>
 
-          {/* `order-last` so a phone gets the heading and the three steps before
-              the decoration — the illustration is the least useful thing on a
-              small screen, and putting it second would push the steps below the
-              fold. It returns to the middle column from lg up.
+          {/* Second in source order, so a phone reads text, image, text: the
+              heading, then the figure, then the three steps. This used to be
+              `order-last`, which stacked all the text and left the figure at
+              the foot; changed by request on 2026-09-29. From lg up it is the
+              middle column either way.
 
               Two corrections to what a plain centred grid cell would do, both
               measured off the Figma export: the figure sits at the right edge
@@ -88,7 +89,7 @@ export function Layout423() {
               moves the heading too — it dragged the whole composition 42px out
               of place. `translate` paints the figure elsewhere without
               touching layout, so nothing else shifts. */}
-          <div className="order-last lg:order-none">
+          <div>
             <img
               src="/images/home-steps-lightbulb.png"
               alt=""

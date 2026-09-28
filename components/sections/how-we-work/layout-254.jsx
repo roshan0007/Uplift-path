@@ -155,7 +155,11 @@ export function Layout254() {
               centred and nothing is squeezed; below `lg` the media is
               full-bleed and single-column, where the frame's aspect is right
               and the height costs nothing. */}
-          <div className="@container order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
+          {/* Phones take source order: three values, the video, three values
+              — text, media, text, the same rule as the homepage's Who We Work
+              With (2026-09-29). From sm the two value columns pair up and the
+              video drops below them; from lg it is the middle column. */}
+          <div className="@container w-full sm:order-last sm:col-span-2 lg:order-none lg:col-span-1">
             <video
               ref={videoRef}
               autoPlay

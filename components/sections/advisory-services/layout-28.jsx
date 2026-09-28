@@ -70,36 +70,15 @@ export function Layout28() {
   return (
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
-        <div className="grid grid-cols-1 items-center gap-y-12 md:grid-cols-2 md:gap-x-12 lg:gap-x-20">
-          <div className="flex flex-col gap-10 md:gap-12">
-            {BLOCKS.map(({ title, ordered, items }) => {
-              const List = ordered ? "ol" : "ul";
-              return (
-                <div
-                  key={title}
-                  className="border-l border-scheme-border pl-6 md:pl-8"
-                >
-                  <h3 className="mb-3 text-h4 font-bold md:mb-4">{title}</h3>
-                  <List
-                    className={
-                      ordered
-                        ? "list-decimal space-y-1 pl-5"
-                        : "list-disc space-y-1 pl-5"
-                    }
-                  >
-                    {items.map((item) => (
-                      <li key={item} className="pl-2">
-                        {item}
-                      </li>
-                    ))}
-                  </List>
-                </div>
-              );
-            })}
-          </div>
+        {/* Three children, not two, so a phone reads text, image, text: the
+            first block, the figure, then the other two (2026-09-29). From md
+            up the blocks stack in the left column and the figure spans both
+            rows on the right, which is the same two-column picture as before. */}
+        <div className="grid grid-cols-1 items-center gap-y-10 md:grid-cols-2 md:gap-x-12 md:gap-y-12 lg:gap-x-20">
+          <Block {...BLOCKS[0]} className="md:col-start-1 md:row-start-1" />
           {/* Decorative: the three blocks carry the meaning. Drawn 189x391.5 in
               the frame, so capped there rather than stretched to the column. */}
-          <div className="flex justify-center">
+          <div className="flex justify-center md:col-start-2 md:row-span-2 md:row-start-1">
             <img
               src="/images/advisory-pathway-figure.png"
               alt=""
@@ -107,8 +86,33 @@ export function Layout28() {
               className="h-auto w-full max-w-[189px] select-none"
             />
           </div>
+          <div className="flex flex-col gap-10 md:col-start-1 md:row-start-2 md:gap-12">
+            {BLOCKS.slice(1).map((block) => (
+              <Block key={block.title} {...block} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Block({ title, ordered, items, className = "" }) {
+  const List = ordered ? "ol" : "ul";
+  return (
+    <div className={`border-l border-scheme-border pl-6 md:pl-8 ${className}`}>
+      <h3 className="mb-3 text-h4 font-bold md:mb-4">{title}</h3>
+      <List
+        className={
+          ordered ? "list-decimal space-y-1 pl-5" : "list-disc space-y-1 pl-5"
+        }
+      >
+        {items.map((item) => (
+          <li key={item} className="pl-2">
+            {item}
+          </li>
+        ))}
+      </List>
+    </div>
   );
 }

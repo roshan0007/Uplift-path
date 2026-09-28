@@ -61,8 +61,13 @@ export function Layout491() {
             and look at the hard facts.
           </p>
         </div>
-        <div className="grid grid-cols-1 items-center gap-x-12 gap-y-12 md:grid-cols-2 lg:gap-x-20">
-          <div>
+        {/* Three children so a phone reads text, image, text: Funding, the
+            illustration, then the other two (2026-09-29). From md up the
+            first item sits on top of the rest in the left column
+            (`self-end` / `self-start` with no row gap, so the hairlines still
+            meet) and the illustration spans both rows on the right. */}
+        <div className="grid grid-cols-1 items-center gap-x-12 gap-y-12 md:grid-cols-2 md:gap-y-0 lg:gap-x-20">
+          <div className="md:col-start-1 md:row-start-1 md:self-end">
             <Resource
               title="Funding"
               youGet="an eligible-opportunity shortlist and a funding calendar."
@@ -71,6 +76,18 @@ export function Layout491() {
               narrative and budget, and set up the reporting funders expect
               afterwards.
             </Resource>
+          </div>
+          {/* One illustration for the section, as the frame has it. Decorative:
+              the three headings carry the meaning. 584px is the box that puts
+              its ink at the frame's own 208x451 — the source PNG is a 2000
+              square with the drawing 712x1543 inside it. */}
+          <img
+            src="/images/resource-assistance-feature-section.png"
+            alt=""
+            aria-hidden="true"
+            className="mx-auto w-full max-w-[584px] object-contain select-none md:col-start-2 md:row-span-2 md:row-start-1"
+          />
+          <div className="md:col-start-1 md:row-start-2 md:self-start">
             <Resource
               title="Payer Enrolment and Credentialing"
               youGet="a credentialing tracker with every renewal date."
@@ -88,16 +105,6 @@ export function Layout491() {
             </Resource>
           </div>
 
-          {/* One illustration for the section, as the frame has it. Decorative:
-              the three headings carry the meaning. 584px is the box that puts
-              its ink at the frame's own 208x451 — the source PNG is a 2000
-              square with the drawing 712x1543 inside it. */}
-          <img
-            src="/images/resource-assistance-feature-section.png"
-            alt=""
-            aria-hidden="true"
-            className="mx-auto w-full max-w-[584px] object-contain select-none"
-          />
         </div>
       </div>
     </section>
