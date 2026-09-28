@@ -283,7 +283,7 @@ export const CONTENT = [
   { type: "p", text: "General Inquiries:" },
   { type: "p", text: "Email: info@upliftpathinc.com" },
   { type: "p", text: "Phone: 513-299-4553" },
-  { type: "p", text: "Online Form: upliftpathwellness.com/contact" },
+  { type: "p", text: "Online Form: upliftpathwellness.com/contact-us" },
   { type: "p", text: "Privacy and Compliance Matters:" },
   { type: "p", text: "Email: privacy@upliftpathinc.com" },
   { type: "p", text: "Phone: 513-299-4553" },

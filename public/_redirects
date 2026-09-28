@@ -27,3 +27,23 @@
 # culture pillars and the six core values), different slug. It is indexed on
 # upliftpathwellness.com, so it redirects rather than 404ing at cutover.
 /our-culture /how-we-work 301
+
+# Old upliftpathwellness.com (Webflow) slugs that have no same-named route here.
+# Found by crawling the old nav on 2026-09-29 — the old sitemap.xml 404s, so this
+# list may not be complete; add to it if Search Console shows more.
+/about-uplift /about-us 301
+/business-consultation /for-business 301
+/grievance-form /grievance 301
+
+# Webflow redirected trailing-slash URLs, so backlinks may carry the slash.
+# _redirects matches the path exactly, so each old slug needs this form too.
+/about-uplift/ /about-us 301
+/business-consultation/ /for-business 301
+/grievance-form/ /grievance 301
+/our-culture/ /how-we-work 301
+/business-conusltation/ /for-business 301
+/advisory--services/ /advisory-services 301
+
+# The legal copy (carried over from the old site) used to cite /contact.
+/contact /contact-us 301
+/contact/ /contact-us 301
