@@ -97,8 +97,16 @@ export function WhatWeDo() {
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 gap-x-12 gap-y-12 md:gap-y-16 lg:grid-cols-3 lg:gap-x-16">
-          <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
-            <h2 className="mb-8 text-center text-h2 font-bold md:mb-10">
+          {/* Below lg this wrapper is `contents`, so the heading and the
+              figure are grid items in their own right and can be ordered:
+              heading, two capabilities, the figure, the other three. Before,
+              the figure sat straight under the heading and all five
+              capabilities ran on after it (2026-09-29, text-media-text on
+              phones). From lg it is the centre-column block it always was,
+              and the `order-*` classes are inert against the explicit
+              `lg:col-start` / `lg:row-start` placement. */}
+          <div className="contents lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:block lg:self-start">
+            <h2 className="order-1 text-center text-h2 font-bold lg:mb-10">
               What We Do
             </h2>
             {/* Decorative — the five capabilities beside it carry the meaning. */}
@@ -106,16 +114,16 @@ export function WhatWeDo() {
               src="/images/marketing-what-we-do.png"
               alt=""
               aria-hidden="true"
-              className="mx-auto h-auto w-full max-w-[400px] select-none"
+              className="order-4 mx-auto h-auto w-full max-w-[400px] select-none"
             />
           </div>
-          {CAPABILITIES.map((capability) => (
+          {CAPABILITIES.map((capability, index) => (
             // `mx-auto w-full max-w-md` (2026-09-29): on one column (768-991)
             // each body ran the full 842px at 87 characters. Inert at 375 and
             // in the lg cells, which are both narrower than 560px.
             <div
               key={capability.title}
-              className={`mx-auto w-full max-w-md ${capability.place}`}
+              className={`mx-auto w-full max-w-md ${index < 2 ? "order-2" : "order-5"} lg:order-none ${capability.place}`}
             >
               <Capability icon={capability.icon} title={capability.title}>
                 {capability.body}
