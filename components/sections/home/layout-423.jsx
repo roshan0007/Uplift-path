@@ -59,9 +59,12 @@ export function Layout423() {
               574/1128 share of the row, and capping it at 560px is what forced
               this heading onto four lines instead of the Figma's two. The
               50px is the Figma's too - a step below `text-h2`'s 52px, which is
-              just enough that "know which one you're on." no longer fits. */}
+              just enough that "know which one you're on." no longer fits.
+              Its `lg:leading-[1.333]` went on 2026-09-29: large type wants
+              tighter leading, so it now runs on `text-h2`'s own 1.2, as the
+              hero h1 already does. */}
           <div className="max-w-md lg:max-w-none">
-            <h2 className="mb-5 text-h2 font-bold md:mb-6 lg:text-[3.125rem] lg:leading-[1.333]">
+            <h2 className="mb-5 text-h2 font-bold md:mb-6 lg:text-[3.125rem]">
               Three Steps. You Always Know{" "}
               <em className="font-heading-italic">Which One You're On.</em>
             </h2>
@@ -88,17 +91,24 @@ export function Layout423() {
               shortens the grid row, and because the row is `items-center` that
               moves the heading too — it dragged the whole composition 42px out
               of place. `translate` paints the figure elsewhere without
-              touching layout, so nothing else shifts. */}
+              touching layout, so nothing else shifts.
+
+              128px wide below lg (2026-09-29): at 204px the figure stood 538px
+              tall on a phone, two-thirds of the screen, and outweighed the
+              three steps it illustrates. */}
           <div>
             <img
               src="/images/home-steps-lightbulb.png"
               alt=""
               aria-hidden="true"
-              className="mx-auto h-auto w-full max-w-[204px] select-none lg:mr-0 lg:ml-auto lg:-translate-y-[84px]"
+              className="mx-auto h-auto w-full max-w-32 select-none lg:max-w-[204px] lg:mr-0 lg:ml-auto lg:-translate-y-[84px]"
             />
           </div>
 
-          <ol className="flex flex-col gap-6 md:gap-8">
+          {/* `max-w-md lg:max-w-none` (2026-09-29): in the single column
+              below lg the steps spanned the full container, 100-111
+              characters a line at 768-991px. */}
+          <ol className="flex max-w-md flex-col gap-6 md:gap-8 lg:max-w-none">
             {STEPS.map((step) => (
               <li key={step.title} className="flex gap-4">
                 {/* The marker is the brand's own dot, not a list-style bullet:
@@ -131,8 +141,9 @@ export function Layout423() {
                       body copy while the h2 beside it stepped 40 -> 50, and on
                       mobile it out-ranked the 20px hero card titles. 28px at
                       lg is 3px off the frame and is the deliberate trade for
-                      being on the scale. */}
-                  <h3 className="text-h5 leading-[1.333] font-[700]">
+                      being on the scale. Its line height is the token's own
+                      1.4, not a hand-set 1.333 (2026-09-29). */}
+                  <h3 className="text-h5 font-[700]">
                     {step.title}
                   </h3>
                   {/* The Figma justifies all three step bodies at 18px, but

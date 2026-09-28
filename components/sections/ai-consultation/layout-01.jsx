@@ -35,8 +35,15 @@ export function Layout1() {
     // deliberate reversal and is left alone everywhere.
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
-        <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 lg:gap-x-20">
-          <div>
+        {/* Three children, not two, so a phone reads text, image, text: the
+            heading and the problem, the figure, then the answer (2026-09-29).
+            From md up the two text children stack in the left column and the
+            figure spans both rows on the right, the same picture as before;
+            `md:gap-y-0` plus the second paragraph's `md:mt-6` keep the
+            desktop column's 24px paragraph gap. Same pattern as
+            advisory-services/layout-28. */}
+        <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 md:gap-y-0 lg:gap-x-20">
+          <div className="md:col-start-1 md:row-start-1 md:self-end">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Your Partner in Practical AI Implementation
             </h2>
@@ -46,11 +53,6 @@ export function Layout1() {
               move beyond the hype and implement AI in a way that drives
               real-world productivity and profitability.
             </p>
-            <p className="mt-6 text-medium">
-              We provide end-to-end AI Consulting and implementation services
-              designed to make your workforce more efficient, productive, and
-              prepared for the future.
-            </p>
           </div>
           {/* Decorative: the heading and the two paragraphs carry the meaning.
               Centred in the right column, which is where the frame puts it once
@@ -59,15 +61,24 @@ export function Layout1() {
               illustration at 1012-1234), and centring in the 760-1360 column
               lands it at 949-1171 -- the same place, container-aligned. The
               design skill flags these pasted blocks' absolute coordinates as
-              not design intent. */}
-          <div className="flex justify-center">
+              not design intent.
+
+              `max-w-28` on a phone (2026-09-29): at its drawn 222px the figure
+              ran 642px tall, 79% of an 812px screen, the largest thing on the
+              page for a decorative picture. Same move as cta-25's envelope. */}
+          <div className="flex justify-center md:col-start-2 md:row-span-2 md:row-start-1">
             <img
               src="/images/ai-consultation-bulb-figure.png"
               alt=""
               aria-hidden="true"
-              className="h-auto w-full max-w-[222px] select-none"
+              className="h-auto w-full max-w-28 select-none md:max-w-[222px]"
             />
           </div>
+          <p className="text-medium md:col-start-1 md:row-start-2 md:mt-6 md:self-start">
+            We provide end-to-end AI Consulting and implementation services
+            designed to make your workforce more efficient, productive, and
+            prepared for the future.
+          </p>
         </div>
       </div>
     </section>

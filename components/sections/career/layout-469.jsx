@@ -40,22 +40,17 @@ export function Layout469() {
     // deliberate reversal and is left alone everywhere.
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
-        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-x-16">
-          <div>
+        {/* Three children (2026-09-29): heading, drawing, paragraph, so phones
+            read text -> media -> text. The split moved from md: to lg: at the
+            same time -- at 768 the half column left the paragraph at about 36
+            characters a line; 768-991 now stacks, with the paragraph held to
+            `max-w-md` there so the full width does not overshoot to ~85. */}
+        <div className="grid grid-cols-1 items-center gap-y-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0">
+          <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
             <p className="mb-3 font-semibold md:mb-4">Operations</p>
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Growth Acceleration
             </h2>
-            <p className="text-medium">
-              Discover how we navigate strategic growth with purpose, clear
-              strategy, and shared vision. Join us in fostering a culture that
-              values self-starters, autonomy, and the confidence to adapt and
-              overcome challenges. At Uplift Path, we're not just expanding;
-              we're building a future where business transformation and impact
-              remain at the heart of everything we do. Explore what working in a
-              high-growth consulting environment looks like, and see why being a
-              builder and problem solver is the key to thriving here.
-            </p>
           </div>
 
           {/* Decorative -- the heading and body carry the meaning. 310px is the
@@ -64,8 +59,19 @@ export function Layout469() {
             src="/images/career-growth-thinking.png"
             alt=""
             aria-hidden="true"
-            className="mx-auto w-full max-w-[310px] select-none"
+            className="mx-auto w-full max-w-[310px] select-none lg:col-start-2 lg:row-span-2 lg:row-start-1"
           />
+
+          <p className="max-w-md text-medium lg:col-start-1 lg:max-w-none lg:row-start-2 lg:self-start">
+            Discover how we navigate strategic growth with purpose, clear
+            strategy, and shared vision. Join us in fostering a culture that
+            values self-starters, autonomy, and the confidence to adapt and
+            overcome challenges. At Uplift Path, we're not just expanding;
+            we're building a future where business transformation and impact
+            remain at the heart of everything we do. Explore what working in a
+            high-growth consulting environment looks like, and see why being a
+            builder and problem solver is the key to thriving here.
+          </p>
         </div>
       </div>
     </section>

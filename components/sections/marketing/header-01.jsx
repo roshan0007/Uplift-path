@@ -26,10 +26,11 @@ export function Header01() {
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
       <div className="container">
         <div className="grid grid-cols-1 items-center gap-x-12 gap-y-12 lg:grid-cols-[2fr_3fr] lg:gap-x-20">
-          {/* `order-last` on one column so a phone gets the heading and the
-              call to action before the decoration; it returns to the left of
-              the row from lg up, which is where the frame draws it. */}
-          <div className="order-last flex justify-center lg:order-none">
+          {/* Hidden below lg (2026-09-29; was `order-last`). On one column it
+              was all the text then one lone picture, and at 991 it pushed the
+              hero past the fold. Decorative, so it goes, as on every
+              `layout-134` hero; from lg it sits left of the row as drawn. */}
+          <div className="hidden justify-center lg:flex">
             <img
               src="/images/marketing-hero-telescope.png"
               alt=""

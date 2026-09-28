@@ -52,7 +52,10 @@ function Situation({ icon, quote, children }) {
         />
       </div>
       <span>
-        <span className="block">{quote}</span>
+        {/* 600 on the quote, 400 on the answer (2026-09-29): the quote is
+            the part a reader scans for, and at one weight it was set apart
+            only by its quotation marks. Not `font-bold`, which is 400. */}
+        <span className="block font-semibold">{quote}</span>
         {children}
       </span>
     </li>
@@ -71,57 +74,64 @@ export function Layout16() {
     // deliberate reversal and is left alone everywhere.
     <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-mint badge-alt">
       <div className="container">
-        <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 lg:gap-x-20">
-          <div>
+        {/* Three children, not two, so a phone reads text, image, text: the
+            heading and first situation, the illustration, then the other four
+            (2026-09-29). From md up the two text children stack in the left
+            column and the illustration spans both rows on the right, the same
+            picture as before; `md:gap-y-0` plus the lead's `md:mb-6` keep the
+            desktop column's 24px gap. Same pattern as
+            advisory-services/layout-28. */}
+        <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 md:gap-y-0 lg:gap-x-20">
+          <div className="md:col-start-1 md:row-start-1 md:self-end">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Where Are You Right Now?
             </h2>
-            <p className="mb-5 text-medium md:mb-6">
-              <span className="block">&quot;We are brand new.&quot;</span>
+            <p className="text-medium md:mb-6">
+              <span className="block font-semibold">&quot;We are brand new.&quot;</span>
               Licensure requirements, foundational policies, and payer enrolment
               readiness — built correctly from the start, which is far cheaper
               than retrofitting later.
             </p>
-            <ul className="grid grid-cols-1 gap-4 py-2">
-              <Situation
-                icon="strategy"
-                quote="&quot;We are pursuing accreditation.&quot;"
-              >
-                Gap analysis against your standard, policy build-out, evidence
-                preparation, and a mock survey before the real one.
-              </Situation>
-              <Situation
-                icon="search_insights"
-                quote="&quot;Our policies have drifted from what we actually do.&quot;"
-              >
-                Chart audits and policy realignment, so the documented process
-                and the real process are the same thing again — plus a review
-                cycle that keeps them aligned.
-              </Situation>
-              <Situation
-                icon="support"
-                quote="&quot;We have findings.&quot;"
-              >
-                A corrective action plan with owners and deadlines, addressed at
-                the root rather than patched. We will be direct with you about
-                what has to change.
-              </Situation>
-              <Situation
-                icon="send"
-                quote="&quot;We passed — now we need to stay ready.&quot;"
-              >
-                An internal audit cadence, staff training, and a risk register,
-                owned by your team rather than by us.
-              </Situation>
-            </ul>
           </div>
-          <div>
+          <div className="md:col-start-2 md:row-span-2 md:row-start-1">
             <img
               src="/images/compliance-support-feature-section-0.png"
               className="w-full rounded-image object-cover"
               alt="An illustration of a person holding up a drawing of a flower"
             />
           </div>
+          <ul className="grid grid-cols-1 gap-4 py-2 md:col-start-1 md:row-start-2 md:self-start">
+            <Situation
+              icon="strategy"
+              quote="&quot;We are pursuing accreditation.&quot;"
+            >
+              Gap analysis against your standard, policy build-out, evidence
+              preparation, and a mock survey before the real one.
+            </Situation>
+            <Situation
+              icon="search_insights"
+              quote="&quot;Our policies have drifted from what we actually do.&quot;"
+            >
+              Chart audits and policy realignment, so the documented process
+              and the real process are the same thing again — plus a review
+              cycle that keeps them aligned.
+            </Situation>
+            <Situation
+              icon="support"
+              quote="&quot;We have findings.&quot;"
+            >
+              A corrective action plan with owners and deadlines, addressed at
+              the root rather than patched. We will be direct with you about
+              what has to change.
+            </Situation>
+            <Situation
+              icon="send"
+              quote="&quot;We passed — now we need to stay ready.&quot;"
+            >
+              An internal audit cadence, staff training, and a risk register,
+              owned by your team rather than by us.
+            </Situation>
+          </ul>
         </div>
       </div>
     </section>

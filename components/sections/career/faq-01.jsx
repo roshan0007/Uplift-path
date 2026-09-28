@@ -46,7 +46,7 @@ export function Faq1() {
                 apart. Weight is not available as the differentiator in this brand,
                 so it has to be size: one token step up, ruling intact. Same
                 resolution as home/faq-01. */}
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               What kinds of roles does Uplift Path typically hire for?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -57,7 +57,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               What core values guide how the team works together?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -68,7 +68,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               What learning and development opportunities are available?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -78,7 +78,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               How flexible are working hours?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

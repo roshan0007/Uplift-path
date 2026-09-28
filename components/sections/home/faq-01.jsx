@@ -57,8 +57,10 @@ export function Faq1() {
             Frequently Asked Questions
           </h2>
           {/* Was "Find answers to your questions about us." — the Relume
-              default, which says nothing the heading above it has not. */}
-          <p className="text-medium">
+              default, which says nothing the heading above it has not.
+              `max-w-md` (2026-09-29) holds the centred line near 70
+              characters; the accordion keeps the full 768px. */}
+          <p className="mx-auto max-w-md text-medium">
             The four things people ask us most, before anything else.
           </p>
         </div>
@@ -71,8 +73,12 @@ export function Faq1() {
                   own answer in family, size, weight and colour, with only the
                   chevron to separate them. Weight is not available as the
                   differentiator in this brand, so it has to be size: one token
-                  step up, ruling intact. */}
-              <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+                  step up, ruling intact.
+
+                  `text-left` (2026-09-29): the trigger is a <button>, whose
+                  text-align is never reset, so a question that wrapped
+                  centred its second line. */}
+              <AccordionTrigger className="text-large text-left font-body font-[400] md:py-5">
                 {faq.q}
               </AccordionTrigger>
               <AccordionContent className="md:pb-6">{faq.a}</AccordionContent>

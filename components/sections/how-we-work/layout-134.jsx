@@ -37,7 +37,9 @@ export function Layout134() {
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
           A Clear Path to Better Outcomes Starts Here
         </h1>
-        <p className="text-medium">
+        {/* `max-w-md` (2026-09-29): a centred lead-in at the wrapper's 768px ran
+            85-102 characters a line; the heading keeps the wider box. */}
+        <p className="mx-auto max-w-md text-medium">
           When people rise and step forward with purpose, new pathways open
           before them, allowing meaningful growth and lasting progress to follow
           naturally.

@@ -85,8 +85,13 @@ export function Layout423() {
           {SERVICES.map((s) => (
             <BackgroundCard
               key={s.title}
-              className="relative flex flex-col justify-end md:aspect-[405/470]"
+              className="relative flex flex-col justify-end min-[1280px]:aspect-[405/470]"
             >
+              {/* The frame's 405x470 ratio only from 1280 (2026-09-29). The
+                  card clips at its radius (`overflow: hidden`), so a fixed
+                  ratio can't grow to fit its copy: between 768 and ~1100 the
+                  three-line titles overflowed upward and the eyebrow was cut
+                  off. Below 1280 the card is `min-h-[18rem]` and grows to fit. */}
               {/* Decorative: the heading and body beside it carry the meaning. */}
               <img
                 src={s.image}
@@ -94,9 +99,11 @@ export function Layout423() {
                 aria-hidden="true"
                 className="absolute inset-0 size-full object-cover object-top"
               />
-              {/* The frame darkens the whole photo so the white type holds. */}
-              <div className="absolute inset-0 bg-neutral-darkest/50" />
-              <div className="relative min-h-[18rem] p-6 md:min-h-0 md:p-7 flex flex-col justify-end">
+              {/* The frame darkens the whole photo so the white type holds. 60%,
+                  not the frame's 50% (2026-09-29): at 50 the lightest
+                  highlights under the body copy sampled 4.11:1, under AA. */}
+              <div className="absolute inset-0 bg-neutral-darkest/60" />
+              <div className="relative min-h-[18rem] p-6 min-[1280px]:min-h-0 md:p-7 flex flex-col justify-end">
                 <p className="mb-2 font-semibold text-white">AI Consulting</p>
                 <h3 className="text-h4 font-bold text-white">{s.title}</h3>
                 <p className="mt-4 text-white md:mt-5">{s.body}</p>

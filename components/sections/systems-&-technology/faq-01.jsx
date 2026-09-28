@@ -11,9 +11,11 @@ import React from "react";
 /**
  * Copy is identical to the 2026-09-09 Figma (frame `System & Technology`) --
  * all three questions and answers at its own 18/27 and 16/24. Only the question
- * face changed: Lexend Deca 700 via `font-body font-[700]` at the call site,
- * both classes since `cn()` is tailwind-merge. See `globals.css` [13]. Fifth of
- * eleven `faq-01` sections to get it.
+ * face changed: Lexend Deca 400 via `font-body font-[400]` at the call site,
+ * both classes since `cn()` is tailwind-merge. 400, not the frame's 700, by
+ * explicit instruction: all eleven routes, not bold (CLAUDE.md). See
+ * `globals.css` [13]. `text-left` (2026-09-29) because the trigger is a
+ * <button>, whose text-align is never reset, so a wrapped question centred.
  */
 export function Faq1() {
   return (
@@ -37,7 +39,7 @@ export function Faq1() {
                 apart. Weight is not available as the differentiator in this brand,
                 so it has to be size: one token step up, ruling intact. Same
                 resolution as home/faq-01. */}
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Do we have to replace our current system?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -46,7 +48,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Our staff resist new tools.
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -55,7 +57,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               We handle sensitive client information.
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

@@ -53,22 +53,24 @@ export function Layout504() {
           </div>
         </div>
         <Tabs defaultValue="tab-one" className="flex flex-col items-center">
+          {/* `border-b-2` (2026-09-29, was 1px): the rule is the only thing
+              marking the selected tab, and 2px is the system's border width. */}
           <TabsList className="relative mb-10 scrollbar-none flex w-screen flex-nowrap items-center gap-x-6 overflow-auto px-[5vw] md:mb-12 md:w-auto md:max-w-full md:px-0">
             <TabsTrigger
               value="tab-one"
-              className="rounded-none border-0 border-b bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
+              className="rounded-none border-0 border-b-2 bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
             >
               By Phone
             </TabsTrigger>
             <TabsTrigger
               value="tab-two"
-              className="rounded-none border-0 border-b bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
+              className="rounded-none border-0 border-b-2 bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
             >
               By Video
             </TabsTrigger>
             <TabsTrigger
               value="tab-three"
-              className="rounded-none border-0 border-b bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
+              className="rounded-none border-0 border-b-2 bg-transparent px-0 py-2 data-[state=active]:border-scheme-text data-[state=active]:bg-transparent data-[state=inactive]:border-transparent"
             >
               On Your Schedule
             </TabsTrigger>

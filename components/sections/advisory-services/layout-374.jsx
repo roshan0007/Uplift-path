@@ -84,7 +84,12 @@ export function Layout374() {
             <h2 className="text-h2 font-bold">What We Do</h2>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        {/* Four-up only from 1280 (2026-09-29). At lg the type steps up at
+            992 too, and four columns squeezed the small cards to a 151px text
+            column: 13-18 characters a line, titles on three lines. Below 1280
+            the grid keeps its two-up shape. Arbitrary min-width because this
+            theme has no `xl`; see layout-134. */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 min-[1280px]:grid-cols-4">
           <Card className="flex flex-col sm:col-span-2 sm:row-span-2">
             <div className="flex flex-col justify-center p-6 md:p-8">
               <p className="mb-2 text-small font-semibold">Clarity</p>

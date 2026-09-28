@@ -16,7 +16,8 @@ import React from "react";
  * — both classes, since `cn()` is tailwind-merge and only drops `font-bold`
  * when a real font-weight utility lands beside it. That is the site-wide
  * ruling: all routes, not bold, deliberately. See `globals.css` [13] and
- * CLAUDE.md.
+ * CLAUDE.md. `text-left` (2026-09-29) because the trigger is a <button>, whose
+ * text-align is never reset, so a wrapped question centred.
  *
  * `text-large`, not `text-medium`, on every trigger: at `text-medium` the
  * question comes out identical to its own answer in family, size, weight and
@@ -41,7 +42,7 @@ export function Faq1() {
         </div>
         <Accordion type="multiple">
           <AccordionItem value="item-0">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Can we use client testimonials?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -53,7 +54,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Is a tracking pixel on our website a problem?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -64,7 +65,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Do you run the marketing or teach us to?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -74,7 +75,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               We already have a website. Do we have to start over?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

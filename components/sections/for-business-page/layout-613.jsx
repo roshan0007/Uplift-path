@@ -16,6 +16,9 @@ export function Layout613() {
     // texture or a blurred shadow. `.scheme-mint` is the light neutral already
     // used this way on home/testimonial-10; cta-25's white is a documented
     // deliberate reversal and is left alone everywhere.
+    // 2026-09-29: cards stay a row on phones too, so the 288px thumbnails
+    // render at thumbnail size instead of 338px squares; both rows share
+    // `lg:py-8`, and Relume's empty button row under the grid is gone.
     <section
       id="business-consulting"
       className="scroll-mt-20 px-[5%] py-16 md:py-20 lg:py-20 scheme-mint badge-alt"
@@ -30,7 +33,7 @@ export function Layout613() {
           </p>
         </div>
         <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-8">
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-0.png"
@@ -52,7 +55,7 @@ export function Layout613() {
               </p>
             </div>
           </div>
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-1.png"
@@ -75,8 +78,8 @@ export function Layout613() {
             </div>
           </div>
         </div>
-        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-12">
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-8">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-2.png"
@@ -98,7 +101,7 @@ export function Layout613() {
               </p>
             </div>
           </div>
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-3.jpg"
@@ -121,7 +124,6 @@ export function Layout613() {
             </div>
           </div>
         </div>
-        <div className="mt-8 flex flex-wrap gap-4 md:mt-10 lg:mt-12" />
       </div>
     </section>
   );

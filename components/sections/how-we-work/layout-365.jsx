@@ -40,7 +40,9 @@ export function Layout365() {
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               Three Simple Steps
             </h2>
-            <p className="text-medium">
+            {/* `max-w-md` (2026-09-29): a centred lead-in at the wrapper's 768px ran
+                85-102 characters a line; the heading keeps the wider box. */}
+            <p className="mx-auto max-w-md text-medium">
               Our culture is built on three core pillars that guide how we show
               up, how we grow, and how we deliver impact.
             </p>
@@ -80,7 +82,7 @@ export function Layout365() {
                   <p className="mb-2 font-semibold">Second</p>
                   <h3 className="mb-2 text-h5 font-bold">Kaizen</h3>
                   <p>
-                    Kaizen making small, ongoing improvements, welcoming
+                    Kaizen means making small, ongoing improvements, welcoming
                     suggestions from everyone, and learning through
                     experimentation to drive real innovation.
                   </p>
@@ -101,7 +103,10 @@ export function Layout365() {
                   <h3 className="mb-5 text-h3 font-bold md:mb-6">
                     Flexibility
                   </h3>
-                  <p>
+                  {/* Capped from md to below lg (2026-09-29): the card spans
+                      the full container there and this ran ~105 characters a
+                      line at 991px. */}
+                  <p className="md:max-w-md lg:max-w-none">
                     Flexibility means meeting real needs, supporting life and
                     work, and fostering safety to speak up, adapt, and try new
                     ideas.

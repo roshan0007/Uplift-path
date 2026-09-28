@@ -11,7 +11,9 @@ export function Layout237() {
         <div className="flex flex-col items-center">
           <div className="mb-12 w-full max-w-lg text-center md:mb-12 lg:mb-12">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">Our Core Values</h2>
-            <p className="text-medium">
+            {/* `max-w-md` (2026-09-29): the centred lead-in ran ~88
+                characters a line in the 768px wrapper. */}
+            <p className="mx-auto max-w-md text-medium">
               Our leadership brings decades of hard-won experience from the
               front lines of social work, education, and clinical practice. They
               guide our mission with steady hands and clear eyes.

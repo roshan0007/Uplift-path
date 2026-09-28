@@ -44,7 +44,10 @@ import React, { useEffect, useRef } from "react";
 function Value({ icon, title, children }) {
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="mb-3 md:mb-2">
+      {/* 12px under the icon at every width, 8px under the heading
+          (2026-09-29). At md+ both were 8px, so the heading sat equidistant
+          between its icon and its body. */}
+      <div className="mb-3">
         <span
           aria-hidden="true"
           className="block size-12 bg-viking-dark"
@@ -120,14 +123,16 @@ export function Layout254() {
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               What You'll Experience
             </h2>
-            <p className="text-medium">
+            {/* `max-w-md` (2026-09-29): a centred lead-in at the wrapper's 768px ran
+                85-102 characters a line; the heading keeps the wider box. */}
+            <p className="mx-auto max-w-md text-medium">
               At Uplift Path, we believe in uplifting every life through six
               core values that guide everything we do
             </p>
           </div>
         </div>
         <div className="grid place-items-center gap-x-8 gap-y-12 sm:grid-cols-2 md:gap-y-16 lg:grid-cols-[322fr_449fr_322fr] lg:gap-x-[7.3%]">
-          <div className="grid w-full grid-cols-1 gap-y-6 md:gap-y-5">
+          <div className="grid w-full grid-cols-1 gap-y-8">
             <Value icon="share" title="Psychological Safety">
               Share ideas. Admit mistakes. Try imperfect solutions. We've got
               you.
@@ -152,14 +157,24 @@ export function Layout254() {
               six values it exists to present were never on screen together.
               Asked for it to read in one view. The crop is taken through the
               `object-cover` that was already here, so the subject stays
-              centred and nothing is squeezed; below `lg` the media is
+              centred and nothing is squeezed. Below `sm` the media is
               full-bleed and single-column, where the frame's aspect is right
-              and the height costs nothing. */}
+              and the height costs nothing.
+
+              From `sm`, not just `lg` (2026-09-29): at 640-991px the video
+              spans both value columns, and at the frame's aspect it was
+              878x1385 at 991px, 1.5 screens of one picture closing a 2133px
+              section. It now takes the lg crop and is capped at `max-w-sm`,
+              centred.
+
+              Values are 32px apart (`gap-y-8`, 2026-09-29), not 20px, so each
+              icon/heading/body group reads as one item rather than the column
+              reading as a single list. */}
           {/* Phones take source order: three values, the video, three values
               — text, media, text, the same rule as the homepage's Who We Work
               With (2026-09-29). From sm the two value columns pair up and the
               video drops below them; from lg it is the middle column. */}
-          <div className="@container w-full sm:order-last sm:col-span-2 lg:order-none lg:col-span-1">
+          <div className="@container w-full sm:order-last sm:col-span-2 sm:mx-auto sm:max-w-sm lg:order-none lg:col-span-1 lg:max-w-none">
             <video
               ref={videoRef}
               autoPlay
@@ -169,7 +184,7 @@ export function Layout254() {
               preload="metadata"
               poster="/images/how-we-work-experience-poster.jpg"
               aria-label="A woman turning with her arms outstretched under a blossoming tree against a blue sky"
-              className="aspect-[449/708] w-full rounded-[4.454cqw] border border-scheme-border object-cover lg:aspect-[449/540]"
+              className="aspect-[449/708] w-full rounded-[4.454cqw] border border-scheme-border object-cover sm:aspect-[449/540]"
             >
               <source
                 src="/videos/how-we-work-experience.webm"
@@ -182,7 +197,7 @@ export function Layout254() {
             </video>
           </div>
 
-          <div className="grid w-full grid-cols-1 gap-y-6 md:gap-y-5">
+          <div className="grid w-full grid-cols-1 gap-y-8">
             <Value icon="experiment" title="Autonomy">
               Make decisions. Own your work. Experiment freely.
             </Value>

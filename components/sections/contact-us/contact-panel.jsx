@@ -64,7 +64,10 @@ export function ContactPanel() {
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
             <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">Start Here</h1>
-            <p className="text-medium">
+            {/* `max-w-md` (2026-09-29): below lg this column is the full
+                container, and at 991 the lead ran 92 characters a line. Inert
+                at lg, where the column is already 559px. */}
+            <p className="max-w-md text-medium">
               Whether you are an organization looking for consulting or an
               individual looking for support, this is the place to begin. We read
               every message and reply with a next step, not a pitch.
@@ -173,7 +176,12 @@ export function ContactPanel() {
                 Every step is the narrowest viewport in its own range plus a
                 little slack, so the Submit button is inside the frame at every
                 width and the worst dead space is ~50px instead of 313px of
-                clipping. Re-measure if the Zoho form's fields ever change. */}
+                clipping. Re-measure if the Zoho form's fields ever change.
+
+                There is deliberately no 375 step (considered 2026-09-29): the
+                ~150px under Submit at 375 is also the room the form needs when
+                it shows validation errors, which could not be measured from
+                outside the Zoho frame. A clipped Submit is worse than white. */}
             <ZohoFormSlot
               form="contact"
               className="h-[78rem] sm:h-[64rem] md:h-[55rem] lg:h-[64rem] min-[1200px]:h-[60rem] min-[1280px]:h-[58rem] min-[1400px]:h-[55rem] rounded-none border-0"

@@ -34,12 +34,14 @@ export function Header104() {
     // `bg-transparent` because the mint wash lives on the wrapper in
     // `app/(site)/page.tsx` and `scheme-1` would otherwise paint white over it.
     // The scheme class stays for its text, border and accent tokens.
-    <section className="relative bg-transparent px-[5%] py-12 md:py-16 lg:pt-[3.6875rem] lg:pb-10 scheme-1 badge-alt">
+    <section className="relative bg-transparent px-[5%] py-12 md:py-16 lg:pt-10 lg:pb-10 scheme-1 badge-alt">
       {/* The v3 Figma drops the two framing hand illustrations the previous
           pass had in the top corners, and with them the `lg:pt-60` that was
-          only ever there to clear them - the heading now sits 59px below the
-          navbar, which is `lg:pt-[3.6875rem]`. The assets are still in
-          `public/images/` and are used by no page. */}
+          only ever there to clear them. The frame then put the heading 59px
+          below the navbar (`lg:pt-[3.6875rem]`); cut to 40px on 2026-09-29
+          because at 1366x768, the commonest laptop, the card CTAs fell below
+          the fold. The assets are still in `public/images/` and are used by
+          no page. */}
       <div className="relative container text-center">
         {/* Two lines by design, not by wrapping: the break after "Life" is in
             the Figma and holds at every width, so it is a <span> rather than a
@@ -89,7 +91,9 @@ export function Header104() {
             keep the Figma's break after "organizations"; at 839px it wraps to
             three lines and the whole hero shifts down. 856px holds the
             two-line composition with a little slack. */}
-        <p className="mx-auto max-w-lg text-medium lg:max-w-[53.5rem] lg:text-[1.375rem] lg:leading-[1.21]">
+        {/* `max-w-md` below lg (2026-09-29): at 991px `max-w-lg` ran this
+            centred paragraph to ~97 characters a line. */}
+        <p className="mx-auto max-w-md text-medium lg:max-w-[53.5rem] lg:text-[1.375rem] lg:leading-[1.21]">
           Uplift Path helps individuals find whole-person support and helps
           organizations build stronger programs.{" "}
           <strong className="font-semibold">CARF Accredited.</strong> Based in
@@ -100,12 +104,15 @@ export function Header104() {
             reads as a caption on the pair the visitor has just looked at; asked
             for it as a lead-in instead, which is what it was before the v3
             pass — the question is put, then the two answers follow. This is a
-            deliberate departure from the frame. */}
-        <p className="mt-6 font-semibold lg:mt-6 lg:text-[1.375rem] lg:leading-[1.21]">
+            deliberate departure from the frame.
+
+            32px above and 16px below (2026-09-29), not 24/24: equidistant, it
+            belonged to neither the paragraph nor the cards it introduces. */}
+        <p className="mt-8 font-semibold lg:text-[1.375rem] lg:leading-[1.21]">
           Where Would You Like to Start?
         </p>
 
-        <div className="mt-6 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
+        <div className="mt-4 grid grid-cols-1 gap-6 text-left sm:grid-cols-2 md:gap-8">
           {AUDIENCES.map((audience, index) => (
             <motion.div
               key={audience.href}
@@ -122,8 +129,10 @@ export function Header104() {
                   {/* `object-contain`, not cover: these are line illustrations
                       on a transparent ground, so cropping them to a 5:2 band
                       would cut the figures in half. They sit inside the band
-                      with the card showing through instead. */}
-                  <div className="aspect-[5/2] w-full min-h-0 border-b-2 border-scheme-border p-4">
+                      with the card showing through instead. 3:1 from lg
+                      (2026-09-29) is ~37px of fold back at 1366x768; the
+                      contain fit means nothing is cropped. */}
+                  <div className="aspect-[5/2] lg:aspect-[3/1] w-full min-h-0 border-b-2 border-scheme-border p-4">
                     <img
                       src={audience.image}
                       alt={audience.alt}

@@ -69,7 +69,9 @@ export function Layout237() {
               to grow.
             </p>
           </div>
-          <div className="grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
+          {/* Two columns on tablets, three from lg (2026-09-29): at 768 three
+              columns left each centred paragraph about 22 characters wide. */}
+          <div className="grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-2 lg:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
             <Value icon="commit" title="Integrity & Trust">
               We honor our commitments and build relationships grounded in
               honesty, transparency, and accountability.

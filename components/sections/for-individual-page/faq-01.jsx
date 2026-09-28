@@ -57,7 +57,7 @@ export function Faq1() {
                 apart. Weight is not available as the differentiator in this brand,
                 so it has to be size: one token step up, ruling intact. Same
                 resolution as home/faq-01. */}
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Is this confidential?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -67,7 +67,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               How are providers matched?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -77,7 +77,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               What does it cost?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -86,7 +86,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Can I switch providers?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -95,7 +95,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               How soon can I start?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

@@ -17,7 +17,7 @@ import React from "react";
  * 18/27 weight 700; the build rendered them in Playfair Display 400. Two causes
  * compound -- Radix wraps the trigger in an <h3>, which the base h1-h6 Playfair
  * rule catches, and `font-bold` resolves through `--font-weight-bold`, which
- * this brand pins to 400 on purpose. `font-body font-[700]` fixes it at the
+ * this brand pins to 400 on purpose. `font-body font-[400]` fixes it at the
  * call site: both classes, since `cn()` is tailwind-merge and only drops
  * `font-bold` when a real font-weight utility lands beside it. See
  * `globals.css` [13]. This is the third of eleven `faq-01` sections to get it.
@@ -60,7 +60,7 @@ export function Faq1() {
                 apart. Weight is not available as the differentiator in this brand,
                 so it has to be size: one token step up, ruling intact. Same
                 resolution as home/faq-01. */}
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               What is business consulting?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -70,7 +70,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Why should we work with a business consultant?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -81,7 +81,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Which industries do you specialize in?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -92,7 +92,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               How do your consulting services create value for clients?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">

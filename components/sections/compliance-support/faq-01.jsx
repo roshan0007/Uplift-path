@@ -44,8 +44,11 @@ export function Faq1() {
                 family, size, weight and colour, with only the chevron to tell them
                 apart. Weight is not available as the differentiator in this brand,
                 so it has to be size: one token step up, ruling intact. Same
-                resolution as home/faq-01. */}
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+                resolution as home/faq-01.
+                `text-left` (2026-09-29): the trigger is a <button>, whose UA
+                default is centred, so a wrapped question centred its lines
+                under a left-aligned answer. */}
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               How long does accreditation take?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -54,7 +57,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Do you write our policies or coach us to write them?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
@@ -63,7 +66,7 @@ export function Faq1() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-large font-body font-[400] md:py-5">
+            <AccordionTrigger className="text-left text-large font-body font-[400] md:py-5">
               Can you guarantee accreditation?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
