@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { bookSlot, dayKey, fetchSlots } from "@/lib/booking-api";
 import { readCaseId, withCaseId } from "@/lib/case-id";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import React from "react";
-import { ChevronLeft, ChevronRight } from "relume-icons";
+import { ArrowBack, ChevronLeft, ChevronRight } from "relume-icons";
 
 /**
  * Step 3 of the intake funnel: pick a date, then a time, then confirm.
@@ -24,10 +25,21 @@ import { ChevronLeft, ChevronRight } from "relume-icons";
  * took the slot in the meantime — the reason is shown and that day's times are
  * fetched again, so the one that went is no longer on offer.
  *
- * Shaped like the schedulers people already know — a month on the left, that
- * day's times on the right, a confirm bar underneath — because this is the one
- * screen in the funnel that is not a form, and a visitor three steps into an
- * application should not have to learn a new control.
+ * Two stages in one card, so whichever choice is next gets the whole card
+ * (2026-09-29 redesign). The first version put a month and a day's times side
+ * by side; the times column was a quarter of the card, so a busy day was a
+ * long narrow list to scroll through.
+ *
+ *   1. **Date.** The month, full width, plus a shortcut to the earliest day
+ *      that has anything open (found by the auto-advance below).
+ *   2. **Time.** Picking a day swaps the month for that day: a "Change date"
+ *      way back, a seven-day strip to hop between neighbouring days without
+ *      going back to the month, and the times as a three- or four-column grid
+ *      grouped into morning / afternoon / evening. The confirm bar lives here.
+ *
+ * Motion is the brand's: opacity plus a small y-translate, 300ms on the
+ * standard curve, a short stagger on the time chips. Nothing springs or
+ * scales, and all of it is dropped under `prefers-reduced-motion`.
  *
  * Drawn in the brand rather than a booking-widget skin: 2px borders, the 12px
  * "bubble" radius that inputs and buttons use, a 5% wash on hover exactly like
@@ -169,6 +181,35 @@ export function SessionScheduler() {
     setViewMonth(new Date(next.getFullYear(), next.getMonth(), 1));
   }, [selectedDay, selectedDate]);
 
+  // "date" (the month) or "time" (one day's times). See the header comment.
+  const [stage, setStage] = React.useState("date");
+  // The first day the auto-advance found with anything open, offered as a
+  // shortcut from the month.
+  const [earliest, setEarliest] = React.useState(null);
+  const reduceMotion = useReducedMotion();
+  const timeHeadingRef = React.useRef(null);
+  const monthHeadingRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (earliest || autoAdvance.current !== 0) return;
+    if (selectedDay?.status === "ready" && selectedDay.slots.length > 0) {
+      setEarliest(selectedDate);
+    }
+  }, [earliest, selectedDay, selectedDate]);
+
+  // Move focus with the stage, so a keyboard or screen-reader user lands on
+  // the new content instead of on a control that has just been removed.
+  // Compared against the last stage rather than skipped on first run, so it
+  // cannot fire on load (dev mode runs effects twice) and steal focus.
+  const lastStage = React.useRef(stage);
+  React.useEffect(() => {
+    if (lastStage.current === stage) return;
+    lastStage.current = stage;
+    const target = stage === "time" ? timeHeadingRef : monthHeadingRef;
+    const id = window.setTimeout(() => target.current?.focus(), 320);
+    return () => window.clearTimeout(id);
+  }, [stage]);
+
   if (!today || !viewMonth) return <SchedulerFrame />;
 
   const busy = booking !== "idle";
@@ -250,145 +291,381 @@ export function SessionScheduler() {
   } else if (ready) {
     status = `${longDateFormatter.format(selectedDate)} at ${formatTime(selectedSlot.time)}`;
   } else {
-    status = "Choose a date and a time to continue.";
+    status = "Choose a time to continue.";
   }
+
+  const openDay = (date) => {
+    if (busy) return;
+    pickDate(date);
+    setStage("time");
+  };
+
+  const backToMonth = () => {
+    if (busy) return;
+    setViewMonth(
+      new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1),
+    );
+    setStage("date");
+  };
+
+  // The week strip: Sunday to Saturday around the selected day.
+  const weekStart = selectedDate
+    ? addDays(selectedDate, -selectedDate.getDay())
+    : today;
+  const week = Array.from({ length: 7 }, (_, index) => addDays(weekStart, index));
+  const canPrevWeek = addDays(weekStart, -1) >= today;
+  const canNextWeek = isBookable(addDays(weekStart, 7), today);
+  const shiftWeek = (delta) => {
+    let target = addDays(selectedDate, delta * 7);
+    if (target < today) target = today;
+    if (isBookable(target, today)) pickDate(target);
+  };
+
+  const knownEmpty = (date) => {
+    const day = days[dayKey(date)];
+    return day?.status === "ready" && day.slots.length === 0;
+  };
+
+  // Zoho returns 24-hour "HH:MM" strings.
+  const groups = [
+    { label: "Morning", test: (hour) => hour < 12 },
+    { label: "Afternoon", test: (hour) => hour >= 12 && hour < 17 },
+    { label: "Evening", test: (hour) => hour >= 17 },
+  ]
+    .map((group) => ({
+      label: group.label,
+      slots: times.filter((slot) => group.test(Number(slot.time.split(":")[0]))),
+    }))
+    .filter((group) => group.slots.length > 0);
+
+  // The brand's motion: opacity plus a small y-translate on the standard
+  // curve. Under reduced motion everything appears in place, instantly.
+  const ease = [0.4, 0, 0.2, 1];
+  const stageMotion = reduceMotion
+    ? { initial: false, exit: { opacity: 0, transition: { duration: 0 } } }
+    : {
+        initial: { opacity: 0, y: 8 },
+        animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease } },
+        exit: { opacity: 0, y: -4, transition: { duration: 0.15, ease } },
+      };
+  const swapMotion = reduceMotion
+    ? { initial: false }
+    : {
+        initial: { opacity: 0 },
+        animate: { opacity: 1, transition: { duration: 0.2, ease } },
+        exit: { opacity: 0, transition: { duration: 0.1, ease } },
+      };
+  const chipMotion = (index) =>
+    reduceMotion
+      ? { initial: false }
+      : {
+          initial: { opacity: 0, y: 4 },
+          animate: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.2, ease, delay: Math.min(index, 16) * 0.015 },
+          },
+        };
+
+  let offset = 0;
 
   return (
     <SchedulerFrame>
-      <div className="grid min-h-0 flex-1 grid-cols-1 overflow-y-auto md:grid-cols-[minmax(0,1fr)_minmax(0,16rem)] md:overflow-hidden">
-        {/* Month */}
-        <div className="p-5 md:min-h-0 md:overflow-y-auto md:p-6">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <p className="font-semibold">{monthFormatter.format(monthStart)}</p>
-            <div className="flex items-center gap-2">
-              <MonthButton
-                label="Previous month"
-                disabled={!canGoBack}
-                onClick={() => shiftMonth(-1)}
-              >
-                <ChevronLeft className="size-5 text-scheme-text" />
-              </MonthButton>
-              <MonthButton
-                label="Next month"
-                disabled={!canGoForward}
-                onClick={() => shiftMonth(1)}
-              >
-                <ChevronRight className="size-5 text-scheme-text" />
-              </MonthButton>
+      <AnimatePresence mode="popLayout" initial={false}>
+        {stage === "date" ? (
+          <motion.div
+            key="date"
+            className="flex min-h-0 flex-1 flex-col"
+            {...stageMotion}
+          >
+            <div className="relative min-h-0 flex-1 overflow-y-auto p-5 md:p-6">
+              <div className="mb-5 flex items-center justify-between gap-3">
+                <div>
+                  <p
+                    ref={monthHeadingRef}
+                    tabIndex={-1}
+                    className="font-semibold outline-none md:text-medium"
+                  >
+                    {monthFormatter.format(monthStart)}
+                  </p>
+                  <p className="mt-1 text-small text-scheme-text/60">
+                    Pick a day to see its open times.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MonthButton
+                    label="Previous month"
+                    disabled={!canGoBack}
+                    onClick={() => shiftMonth(-1)}
+                  >
+                    <ChevronLeft className="size-5 text-scheme-text" />
+                  </MonthButton>
+                  <MonthButton
+                    label="Next month"
+                    disabled={!canGoForward}
+                    onClick={() => shiftMonth(1)}
+                  >
+                    <ChevronRight className="size-5 text-scheme-text" />
+                  </MonthButton>
+                </div>
+              </div>
+
+              <div className="mb-2 grid grid-cols-7 gap-1.5 md:gap-2">
+                {WEEKDAY_LABELS.map((day) => (
+                  <span
+                    key={day}
+                    className="text-center text-small text-scheme-text/50"
+                  >
+                    {day}
+                  </span>
+                ))}
+              </div>
+
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.div
+                  key={dayKey(monthStart)}
+                  className="grid grid-cols-7 gap-1.5 md:gap-2"
+                  {...swapMotion}
+                >
+                  {Array.from({ length: cellCount }, (_, index) => {
+                    const dayNumber = index - firstWeekday + 1;
+                    if (dayNumber < 1 || dayNumber > daysInMonth) {
+                      return <span key={index} aria-hidden="true" />;
+                    }
+                    const date = new Date(
+                      monthStart.getFullYear(),
+                      monthStart.getMonth(),
+                      dayNumber,
+                    );
+                    return (
+                      <DayCell
+                        key={index}
+                        date={date}
+                        label={longDateFormatter.format(date)}
+                        bookable={isBookable(date, today)}
+                        selected={sameDay(date, selectedDate)}
+                        isToday={sameDay(date, today)}
+                        empty={knownEmpty(date)}
+                        onSelect={() => openDay(date)}
+                      />
+                    );
+                  })}
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </div>
 
-          <div className="mb-2 grid grid-cols-7 gap-1.5">
-            {WEEKDAY_LABELS.map((day) => (
-              <span
-                key={day}
-                className="text-center text-small text-scheme-text/50"
+            <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t-2 border-scheme-border p-5 md:p-6">
+              <p
+                aria-live="polite"
+                className={cn("text-small", caseId && "text-scheme-text/60")}
               >
-                {day}
-              </span>
-            ))}
-          </div>
+                {!caseId
+                  ? status
+                  : earliest
+                    ? `Earliest opening: ${longDateFormatter.format(earliest)}.`
+                    : "Looking for the earliest opening…"}
+              </p>
+              {earliest && (
+                <Button
+                  variant="secondary"
+                  title="See times"
+                  onClick={() => openDay(earliest)}
+                >
+                  See Times
+                </Button>
+              )}
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="time"
+            className="flex min-h-0 flex-1 flex-col"
+            {...stageMotion}
+          >
+            <div className="shrink-0 border-b-2 border-scheme-border p-5 md:p-6">
+              {/* One row: back to the month, the day, the week arrows. The
+                  back control and the date sit together so "which day" and
+                  "change it" read as one thing, and the row costs one line of
+                  height rather than two on a short laptop screen. */}
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex min-w-0 items-center gap-3">
+                  <MonthButton
+                    label="Change date"
+                    disabled={busy}
+                    onClick={backToMonth}
+                  >
+                    {/* The arrow, not a chevron: the week arrows beside it
+                        are chevrons, and two left chevrons would read as the
+                        same action. */}
+                    <ArrowBack className="size-5 text-scheme-text" />
+                  </MonthButton>
+                  <div className="min-w-0">
+                    <p
+                      ref={timeHeadingRef}
+                      tabIndex={-1}
+                      className="font-semibold outline-none md:text-medium"
+                    >
+                      {longDateFormatter.format(selectedDate)}
+                    </p>
+                    <p className="text-small text-scheme-text/60">
+                      Eastern Time (ET)
+                    </p>
+                  </div>
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
+                  <MonthButton
+                    label="Previous week"
+                    disabled={!canPrevWeek || busy}
+                    onClick={() => shiftWeek(-1)}
+                  >
+                    <ChevronLeft className="size-5 text-scheme-text" />
+                  </MonthButton>
+                  <MonthButton
+                    label="Next week"
+                    disabled={!canNextWeek || busy}
+                    onClick={() => shiftWeek(1)}
+                  >
+                    <ChevronRight className="size-5 text-scheme-text" />
+                  </MonthButton>
+                </div>
+              </div>
 
-          <div className="grid grid-cols-7 gap-1.5">
-            {Array.from({ length: cellCount }, (_, index) => {
-              const dayNumber = index - firstWeekday + 1;
-              if (dayNumber < 1 || dayNumber > daysInMonth) {
-                return <span key={index} aria-hidden="true" />;
-              }
-              const date = new Date(
-                monthStart.getFullYear(),
-                monthStart.getMonth(),
-                dayNumber,
-              );
-              return (
-                <DayCell
-                  key={index}
-                  date={date}
-                  label={longDateFormatter.format(date)}
-                  bookable={isBookable(date, today)}
-                  selected={sameDay(date, selectedDate)}
-                  isToday={sameDay(date, today)}
-                  onSelect={() => pickDate(date)}
-                />
-              );
-            })}
-          </div>
-        </div>
-
-        {/* That day's times.
-
-            From md the column is `relative` and its content `absolute
-            inset-0`, so it contributes no height to the grid row: the month
-            decides how tall the card is, and a day with thirty open slots
-            scrolls inside that box instead of stretching the card down the
-            page (2026-09-29). The date heading stays put above the scroll.
-            On one column there is no month beside it to take a height from,
-            so the list caps itself at `max-h-72` and scrolls. */}
-        <div className="border-t-2 border-scheme-border md:relative md:min-h-0 md:border-t-0 md:border-l-2">
-          <div className="flex flex-col p-5 md:absolute md:inset-0 md:p-6">
-          <p className="font-semibold">
-            {selectedDate ? shortDateFormatter.format(selectedDate) : "Times"}
-          </p>
-          <p className="mt-1 text-small text-scheme-text/60">
-            Eastern Time (ET)
-          </p>
-
-          <div aria-live="polite" className="flex min-h-0 flex-1 flex-col">
-            {times.length > 0 ? (
-              <div className="mt-4 flex max-h-72 min-h-0 flex-col gap-2 overflow-y-auto overscroll-contain md:max-h-none md:flex-1">
-                {times.map((slot) => (
-                  <TimeCell
-                    key={slot.time}
-                    label={formatTime(slot.time)}
-                    selected={slot.time === selectedSlot?.time}
-                    onSelect={() => pickSlot(slot)}
+              <div className="mt-4 grid grid-cols-7 gap-1.5 md:gap-2">
+                {week.map((date) => (
+                  <WeekDay
+                    key={dayKey(date)}
+                    date={date}
+                    label={longDateFormatter.format(date)}
+                    bookable={isBookable(date, today)}
+                    selected={sameDay(date, selectedDate)}
+                    empty={knownEmpty(date)}
+                    onSelect={() => pickDate(date)}
                   />
                 ))}
               </div>
-            ) : (
-              <p className="mt-4 text-small text-scheme-text/60">
-                {!selectedDate
-                  ? "Pick a date to see the times that are open."
-                  : !selectedDay || selectedDay.status === "loading"
-                    ? "Checking what's open…"
-                    : selectedDay.status === "error"
-                      ? selectedDay.error
-                      : "Nothing open on this day. Try another date."}
-              </p>
-            )}
-            {selectedDay?.status === "error" && (
-              <button
-                type="button"
-                onClick={() => load(selectedDate, { force: true })}
-                className="mt-3 text-small underline"
-              >
-                Try again
-              </button>
-            )}
-          </div>
-          </div>
-        </div>
-      </div>
+            </div>
 
-      {/* Confirm bar */}
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t-2 border-scheme-border p-5 md:p-6">
-        <p
-          aria-live="polite"
-          className={cn(
-            "text-small",
-            !ready && !bookingError && caseId && "text-scheme-text/60",
-          )}
-        >
-          {status}
-        </p>
-        <Button
-          title="Confirm time"
-          disabled={!ready || busy || !caseId}
-          onClick={confirm}
-        >
-          {busy ? "Booking…" : "Confirm Time"}
-        </Button>
-      </div>
+            {/* The times take whatever height the card has left, and scroll
+                only when a day has more than fits. */}
+            <div className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 md:p-6">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.div
+                  key={dayKey(selectedDate)}
+                  aria-live="polite"
+                  {...swapMotion}
+                >
+                  {groups.length > 0 ? (
+                    <div className="flex flex-col gap-6">
+                      {groups.map((group) => {
+                        const start = offset;
+                        offset += group.slots.length;
+                        return (
+                          <div key={group.label}>
+                            <p className="text-small font-semibold">
+                              {group.label}
+                              <span className="font-normal text-scheme-text/60">
+                                {" "}
+                                · {group.slots.length} open
+                              </span>
+                            </p>
+                            <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5">
+                              {group.slots.map((slot, index) => (
+                                <motion.div
+                                  key={slot.time}
+                                  {...chipMotion(start + index)}
+                                >
+                                  <TimeCell
+                                    label={formatTime(slot.time)}
+                                    selected={slot.time === selectedSlot?.time}
+                                    onSelect={() => pickSlot(slot)}
+                                  />
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : !selectedDay || selectedDay.status === "loading" ? (
+                    <div>
+                      <p className="text-small text-scheme-text/60">
+                        Checking what's open…
+                      </p>
+                      {/* Placeholder chips in the 5% wash, so the grid is
+                          already the right shape when the times land. */}
+                      <div
+                        aria-hidden="true"
+                        className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5"
+                      >
+                        {Array.from({ length: 8 }, (_, index) => (
+                          <div
+                            key={index}
+                            className="h-11 rounded-form bg-neutral-darkest-5"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-start gap-3">
+                      <p className="text-small text-scheme-text/60">
+                        {selectedDay.status === "error"
+                          ? selectedDay.error
+                          : "Nothing open on this day."}
+                      </p>
+                      {selectedDay.status === "error" ? (
+                        <button
+                          type="button"
+                          onClick={() => load(selectedDate, { force: true })}
+                          className="text-small underline"
+                        >
+                          Try again
+                        </button>
+                      ) : (
+                        isBookable(addDays(selectedDate, 1), today) && (
+                          <button
+                            type="button"
+                            onClick={() => pickDate(addDays(selectedDate, 1))}
+                            className="text-small underline"
+                          >
+                            Try the next day
+                          </button>
+                        )
+                      )}
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Confirm bar. Below lg the card is in page flow and a busy
+                day runs well past the fold, so the bar sticks to the bottom
+                of the screen: whichever time you tap, Confirm is in reach
+                without scrolling for it. That is also why the frame only
+                clips its overflow from lg — `overflow-hidden` on an ancestor
+                stops `sticky` working. From lg the card is height-bounded and
+                the bar simply sits at its foot. */}
+            <div className="sticky bottom-0 z-10 flex shrink-0 flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-b-card border-t-2 border-scheme-border bg-scheme-background p-5 md:p-6 lg:static">
+              <p
+                aria-live="polite"
+                className={cn(
+                  "text-small",
+                  !ready && !bookingError && caseId && "text-scheme-text/60",
+                  ready && !bookingError && caseId && "font-semibold",
+                )}
+              >
+                {status}
+              </p>
+              <Button
+                title="Confirm time"
+                disabled={!ready || busy || !caseId}
+                onClick={confirm}
+              >
+                {busy ? "Booking…" : "Confirm Time"}
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </SchedulerFrame>
   );
 }
@@ -409,10 +686,21 @@ function SchedulerFrame({ children = null }) {
     // exactly how tall it wants to be, so on a tall display it hugs its content
     // instead of drawing a 2px rectangle around a lot of nothing, and on a
     // short one it fills and the two panes scroll inside themselves.
-    <div className="flex h-full min-h-0 items-center">
-      <div className="flex max-h-full w-full min-h-0 flex-col overflow-hidden rounded-card border-2 border-scheme-border">
+    // From lg the card is lifted out of flow (`absolute inset-0` inside a
+    // `relative` box), so it takes the height the intake grid gives it rather
+    // than pushing the page taller: the times then scroll inside the card
+    // instead of the whole page scrolling (2026-09-29). Below lg it stays in
+    // flow and the page scrolls normally, which on a phone is what you want.
+    <div className="relative h-full min-h-0">
+    <div className="flex h-full min-h-0 items-center lg:absolute lg:inset-0">
+      {/* `relative` because the stage transitions use `popLayout`: the
+          outgoing stage is taken out of flow and positioned against this box
+          while it fades, so the incoming one mounts at once instead of
+          waiting for the exit to finish. */}
+      <div className="relative flex max-h-full w-full min-h-0 flex-col rounded-card border-2 border-scheme-border lg:overflow-hidden">
         {children}
       </div>
+    </div>
     </div>
   );
 }
@@ -431,10 +719,10 @@ function MonthButton({ label, disabled, onClick, children }) {
   );
 }
 
-function DayCell({ date, label, bookable, selected, isToday, onSelect }) {
+function DayCell({ date, label, bookable, selected, isToday, empty, onSelect }) {
   if (!bookable) {
     return (
-      <span className="flex aspect-square items-center justify-center text-small text-scheme-text/25">
+      <span className="flex h-11 items-center justify-center text-small text-scheme-text/25 md:h-14">
         {date.getDate()}
       </span>
     );
@@ -447,7 +735,10 @@ function DayCell({ date, label, bookable, selected, isToday, onSelect }) {
       aria-pressed={selected}
       onClick={onSelect}
       className={cn(
-        "flex aspect-square items-center justify-center rounded-form border-2 border-scheme-border text-small transition-all duration-200 ease-in-out",
+        // Fixed height, not `aspect-square`: now that the month has the whole
+        // card width, square cells came out 80px and six weeks of them no
+        // longer fitted a 768px laptop screen.
+        "flex h-11 items-center justify-center rounded-form border-2 border-scheme-border text-small transition-all duration-200 ease-in-out md:h-14",
         selected
           ? "bg-scheme-text text-scheme-background"
           : "hover:bg-neutral-darkest-5",
@@ -455,9 +746,45 @@ function DayCell({ date, label, bookable, selected, isToday, onSelect }) {
         // already has one filled state and adding another would make two
         // things compete to look chosen.
         isToday && !selected && "font-semibold",
+        // A day already fetched and found empty stays pickable (Zoho can free
+        // a slot) but reads quieter, so the eye goes to the days that aren't.
+        empty && !selected && "border-scheme-border/30 text-scheme-text/40",
       )}
     >
       {date.getDate()}
+    </button>
+  );
+}
+
+/** One day in the time stage's week strip: weekday over date. */
+function WeekDay({ date, label, bookable, selected, empty, onSelect }) {
+  const weekday = WEEKDAY_LABELS[date.getDay()];
+  if (!bookable) {
+    return (
+      <span className="flex flex-col items-center justify-center py-1.5 text-small text-scheme-text/25">
+        <span>{weekday}</span>
+        <span>{date.getDate()}</span>
+      </span>
+    );
+  }
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      aria-pressed={selected}
+      onClick={onSelect}
+      className={cn(
+        "flex flex-col items-center justify-center rounded-form border-2 border-scheme-border py-1.5 text-small transition-all duration-200 ease-in-out",
+        selected
+          ? "bg-scheme-text text-scheme-background"
+          : "hover:bg-neutral-darkest-5",
+        empty && !selected && "border-scheme-border/30 text-scheme-text/40",
+      )}
+    >
+      <span className={cn(!selected && !empty && "text-scheme-text/60")}>
+        {weekday}
+      </span>
+      <span className="font-semibold">{date.getDate()}</span>
     </button>
   );
 }
