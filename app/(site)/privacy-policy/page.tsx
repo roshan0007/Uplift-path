@@ -3,8 +3,9 @@ import React from "react";
 import { LegalPage } from "@/components/sections/legal/legal-page";
 import {
   CONTENT,
+  EFFECTIVE,
   TITLE,
-  UPDATED,
+  VERSION,
 } from "@/components/sections/legal/privacy-policy.content";
 
 // `absolute` because these titles already carry the brand: the root layout's
@@ -14,21 +15,24 @@ export const metadata: Metadata = {
     canonical: "/privacy-policy",
   },
   title: {
-    absolute: "Uplift Path Inc. Privacy Policy and Data Practices",
+    absolute: "Website Privacy Policy Notice | Uplift Path, Inc.",
   },
   description:
-    "This Privacy Policy explains how Uplift Path Inc. collects, uses, and protects your information. It covers general website data and PHI under HIPAA.",
+    "How Uplift Path, Inc. collects, uses, shares and protects information from visitors to upliftpathwellness.com, and how it relates to our HIPAA Notice of Privacy Practices.",
 };
 
 /**
- * The words on this page are the live ones from upliftpathwellness.com, moved
- * across verbatim. They replace the lorem ipsum the Relume export shipped as
- * this page's content-07 section, which is deleted.
- *
- * Content lives in its own module rather than inline JSX because it is data,
- * not markup — a legal team edits the text, nobody should have to read past
- * className strings to do it.
+ * The words on this page are Uplift Path's Oct 2026 notice, moved across
+ * verbatim from the CRO's document (see the content module's header). Version and
+ * effective date are legal facts and are shown exactly as the notice states them.
  */
 export default function Page() {
-  return <LegalPage title={TITLE} updated={UPDATED} content={CONTENT} />;
+  return (
+    <LegalPage
+      title={TITLE}
+      version={VERSION}
+      effective={EFFECTIVE}
+      content={CONTENT}
+    />
+  );
 }

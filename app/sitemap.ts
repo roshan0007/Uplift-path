@@ -8,7 +8,7 @@ import { SITE_URL } from "@/lib/site";
 export const dynamic = "force-static";
 
 /**
- * The eleven public routes, listed by hand.
+ * The public routes, listed by hand.
  *
  * Deliberately not derived from the filesystem: `app/` also holds the two
  * Relume scratch pages (`/faq-for-test`, `/page-20`) and the three intake-funnel
@@ -35,6 +35,10 @@ const ROUTES = [
   "/contact-us",
   "/accessibility",
   "/privacy-policy",
+  "/cookies-and-tracking-technologies",
+  "/consumer-health-data-privacy",
+  "/state-privacy-rights",
+  "/nondiscrimination-and-language-access",
   "/terms-of-use",
   "/grievance",
 ];

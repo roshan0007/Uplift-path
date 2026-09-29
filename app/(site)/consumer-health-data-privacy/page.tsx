@@ -6,19 +6,19 @@ import {
   EFFECTIVE,
   TITLE,
   VERSION,
-} from "@/components/sections/legal/accessibility.content";
+} from "@/components/sections/legal/consumer-health-data.content";
 
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
   alternates: {
-    canonical: "/accessibility",
+    canonical: "/consumer-health-data-privacy",
   },
   title: {
-    absolute: "Website Accessibility Notice | Uplift Path, Inc.",
+    absolute: "Consumer Health Data Privacy Notice | Uplift Path, Inc.",
   },
   description:
-    "Our commitment to WCAG 2.1 Level AA, the accessibility features on this website, and how to report a barrier or request an alternative format or accommodation.",
+    "How Uplift Path, Inc. collects, uses and shares consumer health data outside HIPAA, and how to access, delete or withdraw consent for that data.",
 };
 
 /**

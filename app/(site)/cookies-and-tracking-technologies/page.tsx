@@ -6,19 +6,19 @@ import {
   EFFECTIVE,
   TITLE,
   VERSION,
-} from "@/components/sections/legal/accessibility.content";
+} from "@/components/sections/legal/cookies-tracking.content";
 
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
   alternates: {
-    canonical: "/accessibility",
+    canonical: "/cookies-and-tracking-technologies",
   },
   title: {
-    absolute: "Website Accessibility Notice | Uplift Path, Inc.",
+    absolute: "Cookies and Tracking Technologies Notice | Uplift Path, Inc.",
   },
   description:
-    "Our commitment to WCAG 2.1 Level AA, the accessibility features on this website, and how to report a barrier or request an alternative format or accommodation.",
+    "The cookies and tracking technologies used on upliftpathwellness.com, what each category does, and how to accept, decline or withdraw your choices.",
 };
 
 /**

@@ -6,19 +6,19 @@ import {
   EFFECTIVE,
   TITLE,
   VERSION,
-} from "@/components/sections/legal/accessibility.content";
+} from "@/components/sections/legal/nondiscrimination.content";
 
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
   alternates: {
-    canonical: "/accessibility",
+    canonical: "/nondiscrimination-and-language-access",
   },
   title: {
-    absolute: "Website Accessibility Notice | Uplift Path, Inc.",
+    absolute: "Nondiscrimination and Language Access Notice | Uplift Path, Inc.",
   },
   description:
-    "Our commitment to WCAG 2.1 Level AA, the accessibility features on this website, and how to report a barrier or request an alternative format or accommodation.",
+    "Uplift Path, Inc. does not discriminate, and provides language assistance and auxiliary aids free of charge. How to ask for help and how to file a complaint.",
 };
 
 /**

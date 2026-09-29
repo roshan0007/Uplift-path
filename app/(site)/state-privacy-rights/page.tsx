@@ -6,19 +6,19 @@ import {
   EFFECTIVE,
   TITLE,
   VERSION,
-} from "@/components/sections/legal/accessibility.content";
+} from "@/components/sections/legal/state-privacy-rights.content";
 
 // `absolute` because these titles already carry the brand: the root layout's
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
   alternates: {
-    canonical: "/accessibility",
+    canonical: "/state-privacy-rights",
   },
   title: {
-    absolute: "Website Accessibility Notice | Uplift Path, Inc.",
+    absolute: "State Privacy Rights Notice | Uplift Path, Inc.",
   },
   description:
-    "Our commitment to WCAG 2.1 Level AA, the accessibility features on this website, and how to report a barrier or request an alternative format or accommodation.",
+    "The privacy rights available to residents of states with comprehensive consumer privacy laws, and how to submit and appeal a request to Uplift Path, Inc.",
 };
 
 /**

@@ -1,5 +1,6 @@
 "use client";
 
+import { IntakePrivacyLinks } from "@/components/intake/intake-privacy-links";
 import { IntakeShell } from "@/components/intake/intake-shell";
 import { backHref } from "@/components/intake/intake-steps";
 import React from "react";
@@ -39,6 +40,7 @@ export function IntakePage({ step, title, intro, children }) {
       >
         {children}
       </IntakeShell>
+      <IntakePrivacyLinks />
     </section>
   );
 }
