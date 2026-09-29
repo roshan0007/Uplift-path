@@ -6,13 +6,14 @@ vendor, category, purpose, retention — kept current. This is it.
 
 **Keep it current in the same change that adds or removes a tag.** A new
 non-essential technology also needs the HIPAA Security Officer's approval recorded
-in the Monitoring Audit Register *before* it ships (V-3), and must be mounted
-through `<ConsentGate>` (`components/consent/consent-gate.jsx`). Nothing on the
-inquiry-form routes (`INQUIRY_FORM_PATHS` in `lib/consent.js`) may ever carry
-advertising or social technology (FM-1), and session replay, heatmap and
+in the Monitoring Audit Register *before* it ships (V-3), and must sit behind a
+consent gate (`<ConsentGate>` on `feat/cookie-banner`). Nothing on the
+inquiry-form routes (contact, grievance, intake, consent form, thank-you) may ever
+carry advertising or social technology (FM-1), and session replay, heatmap and
 form-analytics tools are prohibited there in every category (FM-5).
 
-Last reviewed: 2026-09-29, against the code on `legal/oct-2026-notices`.
+Last reviewed: 2026-09-29, against the code on `legal/oct-2026-notices`. The consent
+banner and `<ConsentGate>` referred to below exist only on `feat/cookie-banner`.
 
 ## Non-essential technologies (Analytics, Functionality, Advertising and Social)
 
@@ -31,8 +32,6 @@ Skynet and `next/script`: no matches.
 
 | Item | Set by | Purpose (why the site cannot run without it) | Lifetime |
 |---|---|---|---|
-| `uplift-consent` (localStorage) | This site | Records the visitor's cookie choices so the banner does not reappear and so the choices are honoured (CAT-1 permits "the record of the consent choice itself") | Until the visitor clears site data |
-| `uplift-consent-hidden` (sessionStorage) | This site | Remembers that the visitor tucked the cookie banner away, so it does not reopen on every page. Not a consent record; optional categories stay off | Browser tab session |
 | `zalb_*` cookie (`Secure`, `HttpOnly`) | Zoho, on `forms.zohopublic.com` | Load-balancer affinity so a form request reaches the same Zoho server. Set when an embedded form is displayed | Session |
 
 ## Third parties the site talks to
