@@ -40,7 +40,7 @@ const TESTIMONIALS = [
     // sentence below for her actual words; the attribution underneath is real
     // and stays. This is the last invented sentence on the homepage.
     quote:
-      '"They gave us a plan we could actually follow, and stayed with us until our own team could run it without them."',
+      '"Working with Uplift Path has been a great experience. They understood what we needed and gave us clear, practical guidance we could put to use right away."',
     name: "Kylie Smith",
     role: "Owner, LifeBridge Mentorship",
   },

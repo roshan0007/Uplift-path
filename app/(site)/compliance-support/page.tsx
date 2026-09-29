@@ -13,10 +13,10 @@ export const metadata: Metadata = {
     canonical: "/compliance-support",
   },
   title: {
-    absolute: "Healthcare Compliance Consultant in Ohio | Uplift Path",
+    absolute: "Healthcare Compliance Advisory in Ohio | Uplift Path",
   },
   description:
-    "Compliance consultancy services for behavioral health providers in Ohio. Get audit ready with gap analysis, aligned policies and a practical corrective plan.",
+    "Compliance advisory for behavioral health providers in Ohio. Get audit ready with gap analysis, aligned policies and a practical corrective plan.",
 };
 
 export default function Page() {

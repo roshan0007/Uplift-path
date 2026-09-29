@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: '%s | Uplift Path',
   },
   description:
-    'Strategic consulting, coaching, and resources that create clear and sustainable pathways to meaningful growth.',
+    'Strategic advisory, coaching, and resources that create clear and sustainable pathways to meaningful growth.',
   icons: {
     icon: [{ url: '/brand/uplift-path-icon.svg', type: 'image/svg+xml' }],
     apple: '/apple-icon.png',
