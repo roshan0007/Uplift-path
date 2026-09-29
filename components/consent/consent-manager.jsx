@@ -143,6 +143,8 @@ export function ConsentManager() {
 
   function setHidden(value) {
     setCollapsed(value);
+    // Hiding from the Manage view closes it too; the tab reopens the compact card.
+    if (value) setExpanded(false);
     try {
       if (value) window.sessionStorage.setItem(HIDDEN_KEY, "1");
       else window.sessionStorage.removeItem(HIDDEN_KEY);
@@ -157,7 +159,7 @@ export function ConsentManager() {
   const position =
     "fixed right-4 bottom-[calc(1rem+var(--sticky-bar-offset,0px))] z-50 md:right-6 md:bottom-[calc(1.5rem+var(--sticky-bar-offset,0px))]";
 
-  if (collapsed && !expanded) {
+  if (collapsed) {
     // The hidden state: a small tab, so the choice is one click away and the
     // page is not covered. It records nothing -- optional categories stay off.
     return (
