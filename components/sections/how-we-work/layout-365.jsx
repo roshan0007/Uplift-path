@@ -112,8 +112,8 @@ export function Layout365() {
               <div className="aspect-[608/360] min-h-0">
                 <img
                   src="/images/how-we-work-flexibility.png"
-                  alt="A row of people presenting plans, artwork and ideas to one another"
-                  className="size-full object-cover object-bottom"
+                  alt="A person sitting on a windowsill with a tablet, surrounded by mail, a calendar, documents and a phone"
+                  className="size-full object-contain p-4"
                 />
               </div>
             </Card>
