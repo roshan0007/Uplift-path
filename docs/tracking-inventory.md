@@ -32,6 +32,7 @@ Skynet and `next/script`: no matches.
 | Item | Set by | Purpose (why the site cannot run without it) | Lifetime |
 |---|---|---|---|
 | `uplift-consent` (localStorage) | This site | Records the visitor's cookie choices so the banner does not reappear and so the choices are honoured (CAT-1 permits "the record of the consent choice itself") | Until the visitor clears site data |
+| `uplift-consent-hidden` (sessionStorage) | This site | Remembers that the visitor tucked the cookie banner away, so it does not reopen on every page. Not a consent record; optional categories stay off | Browser tab session |
 | `zalb_*` cookie (`Secure`, `HttpOnly`) | Zoho, on `forms.zohopublic.com` | Load-balancer affinity so a form request reaches the same Zoho server. Set when an embedded form is displayed | Session |
 
 ## Third parties the site talks to
