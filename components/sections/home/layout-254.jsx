@@ -31,12 +31,13 @@ export function Layout254() {
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">
-                Behavioral Health Consulting
+                Behavioral Health Operations & Accreditation Advisory
               </h3>
               <p>
-                We hold the CARF Gold Seal ourselves. We help providers build
-                service models that last, get survey-ready, and hold quality
-                steady while they grow.
+                We help providers build service models that last, get
+                survey-ready, and hold quality steady while they grow —
+                drawing on our own CARF Gold Seal accreditation and CPST
+                program experience.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
