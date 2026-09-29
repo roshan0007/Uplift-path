@@ -12,6 +12,7 @@ import {
 } from "@/lib/consent";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { createPortal } from "react-dom";
 import { KeyboardArrowDown, KeyboardArrowUp } from "relume-icons";
 
 const ALL_OFF = { analytics: false, functionality: false, advertising: false };
@@ -53,6 +54,7 @@ export function ConsentManager() {
   const [mounted, setMounted] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
+  const [host, setHost] = React.useState(null);
   const [armed, setArmed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
   const [hasDecision, setHasDecision] = React.useState(false);
@@ -84,6 +86,11 @@ export function ConsentManager() {
       setExpanded(true);
       setCollapsed(false);
       setArmed(true);
+      // Opened from inside a modal (the Application form is one)? Render the
+      // card inside it. Radix marks everything outside an open dialog
+      // aria-hidden and traps focus, so a card left in <body> would be
+      // unreachable by keyboard and screen reader.
+      setHost(document.querySelector('[role="dialog"][data-state="open"]'));
       setVisible(true);
       focusOnOpen.current = true;
     };
@@ -111,6 +118,16 @@ export function ConsentManager() {
     window.addEventListener("scroll", check, { passive: true });
     return () => window.removeEventListener("scroll", check);
   }, [pathname]);
+
+  // If the modal the card was rendered into closes, fall back to <body>.
+  React.useEffect(() => {
+    if (!host) return undefined;
+    const observer = new MutationObserver(() => {
+      if (!host.isConnected) setHost(null);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [host]);
 
   // Focus moves into the card only when the visitor asked for it, and only once
   // it has rendered -- which is why this is an effect on `visible`, not a call
@@ -153,16 +170,20 @@ export function ConsentManager() {
     }
   }
 
+  // z-[60] and pointer-events-auto so the card is above, and clickable over, a
+  // Radix modal (the Application form opens as one and links here).
   // `--sticky-bar-offset` is published by the homepage's sticky CTA bar while it
   // is on screen (components/sections/home/intake-bar.jsx), so this sits above
   // it rather than over its "Get Started" button.
   const position =
-    "fixed right-4 bottom-[calc(1rem+var(--sticky-bar-offset,0px))] z-50 md:right-6 md:bottom-[calc(1.5rem+var(--sticky-bar-offset,0px))]";
+    "pointer-events-auto fixed right-4 bottom-[calc(1rem+var(--sticky-bar-offset,0px))] z-[60] md:right-6 md:bottom-[calc(1.5rem+var(--sticky-bar-offset,0px))]";
+
+  const place = (node) => (host ? createPortal(node, host) : node);
 
   if (collapsed) {
     // The hidden state: a small tab, so the choice is one click away and the
     // page is not covered. It records nothing -- optional categories stay off.
-    return (
+    return place(
       <div className={position}>
         <Button
           size="sm"
@@ -177,7 +198,7 @@ export function ConsentManager() {
     );
   }
 
-  return (
+  return place(
     <section
       aria-labelledby="consent-heading"
       className={`${position} max-h-[80dvh] w-[calc(100vw-2rem)] max-w-[22rem] overflow-y-auto rounded-card border-2 border-neutral-darkest scheme-1 p-4`}

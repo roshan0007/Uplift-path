@@ -5,6 +5,7 @@ import {
   IntakeShell,
 } from "@/components/intake/intake-shell";
 import { ZohoFormSlot } from "@/components/forms/zoho-form-slot";
+import { IntakePrivacyLinks } from "@/components/intake/intake-privacy-links";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -132,6 +133,7 @@ function ApplicationDialogContent() {
             only handoff from step 1 to step 2. */}
         <ZohoFormSlot form="application" />
       </IntakeShell>
+      <IntakePrivacyLinks />
     </DialogContent>
   );
 }

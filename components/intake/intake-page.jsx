@@ -1,6 +1,6 @@
 "use client";
 
-import { CookiePreferencesLink } from "@/components/consent/cookie-preferences-link";
+import { IntakePrivacyLinks } from "@/components/intake/intake-privacy-links";
 import { IntakeShell } from "@/components/intake/intake-shell";
 import { backHref } from "@/components/intake/intake-steps";
 import React from "react";
@@ -40,22 +40,7 @@ export function IntakePage({ step, title, intro, children }) {
       >
         {children}
       </IntakeShell>
-      {/* These screens have no footer, and they collect personal information.
-          The Consumer Health Data Privacy Notice has to be linked from every
-          page that does, and the cookie banner has to be reopenable from every
-          page (build spec CB-4), so both live here. */}
-      <nav
-        aria-label="Privacy"
-        className="container flex shrink-0 flex-wrap items-center justify-center gap-x-6 gap-y-1 pb-4 text-small"
-      >
-        <a href="/consumer-health-data-privacy" className="underline">
-          Consumer Health Data Privacy
-        </a>
-        <a href="/privacy-policy" className="underline">
-          Privacy Policy
-        </a>
-        <CookiePreferencesLink />
-      </nav>
+      <IntakePrivacyLinks />
     </section>
   );
 }
