@@ -3,7 +3,7 @@
 import { ApplicationDialog } from "@/components/intake/get-started-button";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "motion/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Close } from "relume-icons";
 
 /**
@@ -32,6 +32,7 @@ export function IntakeBar() {
   const [atFinalCta, setAtFinalCta] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const barRef = useRef(null);
 
   useEffect(() => {
     const trigger = document.getElementById("uplift-outcomes");
@@ -73,11 +74,30 @@ export function IntakeBar() {
   // not only wrong to look at - its dismiss button could not be clicked either.
   const visible = pastTrigger && !atFinalCta && !dismissed && !modalOpen;
 
+  // Publishes the bar's height as `--sticky-bar-offset` while it is on screen, so
+  // the cookie banner (bottom right, components/consent) rides above it instead
+  // of covering "Get Started". Zero again the moment the bar goes.
+  useEffect(() => {
+    if (!visible || !barRef.current) return undefined;
+    const root = document.documentElement;
+    const node = barRef.current;
+    const publish = () =>
+      root.style.setProperty("--sticky-bar-offset", `${node.offsetHeight}px`);
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--sticky-bar-offset");
+    };
+  }, [visible]);
+
   return (
     <>
       <AnimatePresence>
         {visible && (
           <motion.div
+            ref={barRef}
             // Slides its own full height, so it reads as arriving from off the
             // bottom edge rather than blinking into place. 450ms in on the
             // brand easing; the exit is quicker because getting out of the way
