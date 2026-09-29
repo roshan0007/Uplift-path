@@ -88,13 +88,12 @@ export function Layout613() {
             <div>
               <div className="mb-3 md:mb-4">
                 <h3 className="text-h4 font-bold">
-                  Accreditation Consulting Service
+                  Accreditation Advisory
                 </h3>
               </div>
               <p>
-                Get expert guidance to prepare and navigate accreditation
-                processes, ensuring your organization meets high industry
-                standards.
+                Get guidance to prepare for and navigate accreditation
+                processes, drawing on our own CARF Gold Seal experience.
               </p>
             </div>
           </div>
