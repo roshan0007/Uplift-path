@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: "/ai-consultation",
   },
   title: {
-    absolute: "AI Consulting Services for Behavioral Health | Uplift Path",
+    absolute: "AI Advisory & Implementation for Behavioral Health | Uplift Path",
   },
   description:
     "Behavioral health organizations need AI built for their compliance rules, not generic software. Let Uplift Path build yours, from strategy to staff training.",

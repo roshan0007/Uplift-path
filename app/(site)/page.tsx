@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    absolute: "Behavioral Health Consulting Columbus, OH | Uplift Path",
+    absolute: "Behavioral Health Operations Advisory Columbus, OH | Uplift Path",
   },
   description:
-    "Uplift Path provides CARF-accredited behavioral health consulting for Ohio organizations. Talk to our team about strategy, operations, and program development.",
+    "Uplift Path provides CARF-accredited operations and accreditation advisory for Ohio behavioral health organizations. Talk to our team about strategy, operations, and program development.",
 };
 
 export default function Page() {

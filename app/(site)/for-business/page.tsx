@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     canonical: "/for-business",
   },
   title: {
-    absolute: "Behavioral Health Business Consulting Ohio | Uplift Path",
+    absolute: "Behavioral Health Business Advisory Ohio | Uplift Path",
   },
   description:
     "Uplift Path advises behavioral health organizations on operations, program development, and business structuring. Let's map out what your organization needs.",
