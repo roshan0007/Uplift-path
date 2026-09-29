@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { ConsentManager } from '@/components/consent/consent-manager'
 import { INDEXABLE, SITE_URL } from '@/lib/site'
 import './globals.css'
 
@@ -99,7 +100,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        {/* The cookie banner, on every route. See components/consent. */}
+        <ConsentManager />
+      </body>
     </html>
   )
 }
