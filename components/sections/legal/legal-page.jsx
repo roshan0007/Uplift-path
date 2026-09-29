@@ -37,9 +37,16 @@ import React from "react";
  * between them; rendering them as h2 under the page's h1 keeps the outline
  * honest for a screen reader and for the SEO audit.
  *
+ * The Oct 2026 notices carry a version and an effective date instead of a
+ * "last updated" date. Those are legal facts (the notice binds us from the day it
+ * is posted), so they are rendered exactly as the notice states them and are
+ * never derived from a build date.
+ *
  * @param {{
  *   title: string,
  *   updated?: string | null,
+ *   version?: string | null,
+ *   effective?: string | null,
  *   intro?: React.ReactNode,
  *   content: Array<Record<string, any>>,
  *   children?: React.ReactNode,
@@ -48,6 +55,8 @@ import React from "react";
 export function LegalPage({
   title,
   updated,
+  version = null,
+  effective = null,
   intro = null,
   content,
   children = null,
@@ -94,11 +103,30 @@ export function LegalPage({
     titles run to three and four lines on a phone at the new size, and
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
-          <h1 className="text-balance text-h1 font-bold">{title}</h1>
-          {updated && (
+          {/* One step down (`text-h2`) when the title holds a word too long
+              for the 25rem column at `text-h1`. "Nondiscrimination" is 17
+              letters and set in Playfair at the lg h1 step it is ~540px wide,
+              which overhangs the column and runs through the body text -- the
+              same failure "Accessibility" caused, one word longer. Section
+              headings on this route are `text-h4`, so the h1 is still the
+              largest thing on the page at the smaller step. */}
+          <h1
+            className={`text-balance font-bold ${
+              longestWord(title) > 15 ? "text-h2" : "text-h1"
+            }`}
+          >
+            {title}
+          </h1>
+          {version && effective ? (
             <p className="mt-4 text-small text-scheme-text/60">
-              Last updated {updated}
+              Version {version} · Effective {effective}
             </p>
+          ) : (
+            updated && (
+              <p className="mt-4 text-small text-scheme-text/60">
+                Last updated {updated}
+              </p>
+            )
           )}
           {sections.length > 2 && (
             <nav aria-label="On This Page" className="mt-8 hidden lg:block">
@@ -157,7 +185,28 @@ function Block({ block, id }) {
 
   if (block.type === "ul") return <List items={block.items} className="my-4" />;
 
-  return <p className="mb-4">{block.text}</p>;
+  // `whitespace-pre-line` honours the line breaks the notices use for postal
+  // addresses and phone/TTY pairs; it collapses everything else as usual.
+  return (
+    <p className="mb-4 whitespace-pre-line">
+      {block.lead && (
+        <>
+          <strong className="font-semibold">{block.lead}</strong>{" "}
+        </>
+      )}
+      {block.bold ? (
+        <strong className="font-semibold">
+          <Inline text={block.text} />
+        </strong>
+      ) : (
+        <Inline text={block.text} />
+      )}
+    </p>
+  );
+}
+
+function longestWord(text) {
+  return Math.max(...text.split(/\s+/).map((word) => word.length));
 }
 
 /**
@@ -188,7 +237,9 @@ function List({ items, className = "" }) {
     <ul className={`list-disc pl-5 ${className}`}>
       {items.map((item, index) => (
         <li key={index} className="my-1 self-start pl-2">
-          <p>{typeof item === "string" ? item : item.text}</p>
+          <p className="whitespace-pre-line">
+            <Inline text={typeof item === "string" ? item : item.text} />
+          </p>
           {typeof item !== "string" && item.items && (
             <List items={item.items} className="mt-1 mb-2" />
           )}
@@ -196,6 +247,76 @@ function List({ items, className = "" }) {
       ))}
     </ul>
   );
+}
+
+/**
+ * Turns the plain strings in a notice into text with links, without touching the
+ * wording. Four kinds of thing are linked and nothing else:
+ *
+ *   - email addresses (mailto:) and the office phone number (tel:)
+ *   - the contact form, which the notices cite as `upliftpathwellness.com/contact`;
+ *     the href is `/contact-us` (the real route; `/contact` also 301s there)
+ *   - the two HHS pages the nondiscrimination notice tells people to use
+ *   - the other notices, by their exact titles, so a reader can get from the
+ *     Website Privacy Notice to the Consumer Health Data Privacy Notice it
+ *     points at. The notices say they are separate documents; this is how a
+ *     reader finds the other one.
+ *
+ * Phrases are matched exactly and case-sensitively. A near-miss stays plain text
+ * rather than being linked to the wrong place.
+ */
+const PHRASE_LINKS = {
+  "Cookies and Tracking Technologies Notice": "/cookies-and-tracking-technologies",
+  "Consumer Health Data Privacy Notice": "/consumer-health-data-privacy",
+  "State Privacy Rights Notice": "/state-privacy-rights",
+  "Website Notice of Privacy": "/privacy-policy",
+  "Website Terms of Use": "/terms-of-use",
+  "notice of Nondiscrimination and Language Access":
+    "/nondiscrimination-and-language-access",
+  "grievance form": "/grievance",
+};
+
+const OTHER_LINKS = {
+  "upliftpathwellness.com/contact": "/contact-us",
+  "ocrportal.hhs.gov/ocr/portal/lobby.jsf":
+    "https://ocrportal.hhs.gov/ocr/portal/lobby.jsf",
+  "hhs.gov/ocr/office/file/index.html":
+    "https://www.hhs.gov/ocr/office/file/index.html",
+  "hhs.gov/ocr": "https://www.hhs.gov/ocr",
+  "(513) 299-4553": "tel:+15132994553",
+};
+
+const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+// Longest keys first inside each group would matter if one key contained
+// another; `hhs.gov/ocr` is a prefix of the form-page path, so the specific
+// paths are listed before it above and alternation takes the first that fits.
+const INLINE_PATTERN = new RegExp(
+  `(${[
+    "[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)*\\.[A-Za-z]{2,}",
+    ...Object.keys(OTHER_LINKS).map(escapeRe),
+    ...Object.keys(PHRASE_LINKS).map(escapeRe),
+  ].join("|")})`,
+);
+
+function Inline({ text }) {
+  return text.split(INLINE_PATTERN).map((part, index) => {
+    if (index % 2 === 0) return part;
+    const href = part.includes("@")
+      ? `mailto:${part}`
+      : (OTHER_LINKS[part] ?? PHRASE_LINKS[part]);
+    const external = href.startsWith("https://");
+    return (
+      <a
+        key={index}
+        href={href}
+        className="underline"
+        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      >
+        {part}
+      </a>
+    );
+  });
 }
 
 /**

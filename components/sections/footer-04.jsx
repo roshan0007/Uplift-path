@@ -106,6 +106,22 @@ const FOOTER_GROUPS = [
   },
 ];
 
+/**
+ * The legal notices. Each is its own page because the CRO's Oct 2026 notices are
+ * legally required to be separate documents; do not merge or nest them. Labels
+ * for the first four are unchanged from before the notices arrived.
+ */
+const LEGAL_LINKS = [
+  { label: "Accessibility", href: "/accessibility" },
+  { label: "Terms of Service", href: "/terms-of-use" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Consumer Health Data Privacy", href: "/consumer-health-data-privacy" },
+  { label: "State Privacy Rights", href: "/state-privacy-rights" },
+  { label: "Cookies and Tracking Technologies", href: "/cookies-and-tracking-technologies" },
+  { label: "Nondiscrimination and Language Access", href: "/nondiscrimination-and-language-access" },
+  { label: "Grievance", href: "/grievance" },
+];
+
 export function Footer4() {
   return (
     <footer className="scheme-1 badge-alt">
@@ -294,10 +310,10 @@ export function Footer4() {
               parser rebuilt it, the server markup and client tree disagreed,
               and React threw a hydration error on every route because this is
               site chrome. Hence the <li> wrappers.) */}
-          <div className="flex flex-col items-center gap-y-4 pt-5 text-center text-small md:pt-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-x-8">
+          <div className="flex flex-col items-center gap-y-4 pt-5 text-center text-small md:pt-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-x-8 lg:gap-y-6">
             {/* The brand name in the copyright line is the conventional
                 home link, and QA asked for it. */}
-            <p className="lg:col-start-2 lg:row-start-1">
+            <p className="lg:col-start-2 lg:row-start-2">
               ©{" "}
               <a href="/" className="hover:underline">
                 2026 Uplift Path Inc.
@@ -310,7 +326,7 @@ export function Footer4() {
                 The footer is the placement their guidance allows when a credit
                 can't sit beside each image. Drop it only if every asset is
                 confirmed as a Premium download. */}
-            <p className="lg:col-start-3 lg:row-start-1 lg:justify-self-end lg:text-right">
+            <p className="lg:col-start-3 lg:row-start-2 lg:justify-self-end lg:text-right">
               Illustrations by{" "}
               <a
                 href="https://www.magnific.com"
@@ -322,27 +338,22 @@ export function Footer4() {
               </a>
               .
             </p>
-            <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-items-center gap-y-4 md:flex md:flex-row md:gap-x-6 md:gap-y-0 lg:col-start-1 lg:row-start-1 lg:justify-self-start">
-              <li>
-                <a href="/accessibility" className="underline">
-                  Accessibility
-                </a>
-              </li>
-              <li>
-                <a href="/terms-of-use" className="underline">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="/privacy-policy" className="underline">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="/grievance" className="underline">
-                  Grievance
-                </a>
-              </li>
+            {/* The legal row is a wrapping line of its own, above the copyright
+                and credit, because it now carries nine links rather than four.
+                Every one of them is a separate, required notice (Oct 2026), so
+                none can be folded into another or into a "Legal" submenu: the
+                Cookies notice must be linked from the footer, the Consumer
+                Health Data notice must be reachable from every page that
+                collects personal information, and the Nondiscrimination
+                notice must be reachable from the homepage. */}
+            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:col-span-3 lg:row-start-1">
+              {LEGAL_LINKS.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="underline">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -1,142 +1,36 @@
-export const TITLE = "Accessibility Statement";
-export const UPDATED = "February 16, 2026";
+/*
+ * SOURCE OF TRUTH: WebsiteAccessibilityNotice_Oct2026_v2.0.docx (Martha Matthews, Chief Risk Officer, Oct 2026).
+ * Generated from that document; the wording is verbatim and is not ours to edit.
+ * VERSION and EFFECTIVE are legal facts: the notice binds Uplift Path from the date
+ * it is posted. Do not change either without written instruction from the CRO.
+ */
+export const TITLE = "Website Accessibility Notice";
+export const VERSION = "2.0";
+export const EFFECTIVE = "October 2026";
 
 export const CONTENT = [
-  { type: "h", text: "Our Commitment to Accessibility" },
-  { type: "p", text: "Uplift Path Inc. is committed to ensuring digital accessibility for all people, including individuals with disabilities. We believe everyone deserves equal access to information, services, and opportunities to participate fully in our programs. We continuously work to improve the accessibility and usability of our website and ensure that we meet or exceed applicable standards." },
-  { type: "p", text: "This commitment reflects our core value of Inclusion for All and our mission to create clear, sustainable pathways to meaningful growth for every person we serve." },
-  { type: "h", text: "Accessibility Standards" },
-  { type: "p", text: "Our website strives to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards published by the World Wide Web Consortium (W3C). These guidelines explain how to make web content more accessible for people with disabilities and improve usability for all users." },
-  { type: "p", text: "We test our website accessibility quarterly against WCAG 2.1 AA standards. Critical or high-severity failures are remediated within documented service level agreements (SLAs). Test results and remediation records are retained as evidence of our ongoing commitment." },
-  { type: "h", text: "Accessibility Features" },
-  { type: "p", text: "Our website includes the following accessibility features to support diverse needs:" },
-  {
-    type: "ul",
-    items: [
-      {
-        text: "Website Accessibility Widget: The Skynet Technologies widget is deployed across upliftpathwellness.com to provide:",
-        items: [
-          "Reading Mask: Helps focus on specific content areas",
-          "High Contrast Mode: Improves readability for users with visual impairments",
-          "Font Adjustment: Allows customization of text size and spacing",
-          "Keyboard Navigation: Full website navigation without a mouse",
-          "Text Magnifier: Enlarges text for easier reading",
-          "Closed Captions: Available on video content for individuals who are deaf or hard of hearing",
-          "Audio Formats: Large print and audio formats available upon request",
-        ],
-      },
-      {
-        text: "Multimedia Accessibility:",
-        items: [
-          "Closed Captions: Available on video content for individuals who are deaf or hard of hearing",
-          "Audio Formats: Large print and audio formats available upon request",
-        ],
-      },
-    ],
-  },
-  { type: "h", text: "Alternative Access Options" },
-  {
-    type: "ul",
-    items: [
-      "Audio-Only CPST Services: Available via phone for persons without video capability (for Clinical Services).",
-      "Alternative Format Materials: Documents and materials provided in accessible formats upon request, including large print, audio, and translated versions.",
-    ],
-  },
-  { type: "h", text: "Technology Platform Accessibility" },
-  { type: "p", text: "Our service delivery platforms are selected with accessibility in mind:" },
-  {
-    type: "ul",
-    items: [
-      "HIPAA-Compliant Forms: Secure, accessible intake and service request forms.",
-      "Electronic Health Record (EHR): Vendor accessibility features documented and reviewed quarterly.",
-      "Telehealth Platform: Designed to support keyboard navigation, screen readers, and assistive technologies.",
-    ],
-  },
-  { type: "h", text: "Known Limitations and Ongoing Improvements" },
-  { type: "p", text: "While we strive for full accessibility, we acknowledge that some content may not yet meet all WCAG 2.1 AA standards. We are actively working to identify and address barriers through:" },
-  {
-    type: "ul",
-    items: [
-      "Quarterly accessibility testing and remediation",
-      "Ongoing stakeholder feedback collection",
-      "Annual comprehensive accessibility plan reviews",
-      "Continuous staff training on accessibility best practices",
-    ],
-  },
-  { type: "h", text: "Assistive Technology Compatibility" },
-  { type: "p", text: "Our website is designed to be compatible with common assistive technologies, including Screen readers (e.g., JAWS, NVDA, VoiceOver), screen magnification software, voice recognition software, and alternative input devices." },
-  { type: "h", text: "Feedback and Reporting Accessibility Barriers" },
-  { type: "p", text: "Your feedback helps us improve accessibility for everyone. If you experience difficulty accessing any content or feature on our website, or if you have suggestions for improvement, please contact us." },
-  { type: "h", text: "Contact the Chief Risk Officer:" },
-  {
-    type: "ul",
-    items: [
-      "Online Form: upliftpathwellness.com/contact-us (Select \"Grievance Form\" in the footer for formal issues)",
-      "Phone: 513-299-4553",
-      "Email: privacy@upliftpathinc.com",
-      "Mail: Uplift Path Inc. Attn: Chief Risk Officer 20 E Broad St, Suite 225 Columbus, OH 43215",
-    ],
-  },
-  { type: "p", text: "We strive to acknowledge accessibility inquiries within 24 hours and provide formal responses within 5 business days." },
-  { type: "p", text: "Unresolved Issues: If you believe you have been denied access to services or content due to a disability and we have not resolved the issue to your satisfaction, you may file a formal grievance using the Grievance Form located in the website footer." },
-  { type: "p", text: "When Reporting a Barrier, Please Include:" },
-  {
-    type: "ul",
-    items: [
-      "Description of the accessibility barrier you encountered",
-      "The webpage or feature where you experienced the issue",
-      "The assistive technology or browser you were using (if applicable)",
-      "Your contact information so we can follow up",
-    ],
-  },
-  { type: "h", text: "Our Accessibility Plan" },
-  { type: "p", text: "Uplift Path maintains a comprehensive Accessibility Plan that establishes processes for assessing accessibility needs and identifying and addressing barriers for persons served, personnel, and stakeholders." },
-  { type: "h", text: "Our Accessibility Plan addresses barriers in the following categories:" },
-  {
-    type: "ul",
-    items: [
-      "Architecture",
-      "Environment",
-      "Attitudes",
-      "Employment",
-      "Communication",
-      "Technology",
-      "Transportation",
-      "Community Integration",
-      "Any other identified barriers",
-      "Finances",
-    ],
-  },
-  { type: "p", text: "The Accessibility Plan is reviewed and updated annually, with quarterly monitoring by leadership and our Board of Strategic Advisors." },
-  { type: "h", text: "Resources for Individuals with Disabilities" },
-  { type: "p", text: "National Accessibility Resources" },
-  {
-    type: "ul",
-    items: [
-      "Federal ADA National Network: adata.org | 800-949-4232",
-      "U.S. Access Board: access-board.gov | 800-872-2253",
-      "National Disability Rights Network: ndrn.org",
-    ],
-  },
-  { type: "p", text: "Crisis and Mental Health Support" },
-  {
-    type: "ul",
-    items: [
-      "988 Suicide & Crisis Lifeline: Dial or text 988",
-      "NAMI Helpline: nami.org | 800-950-6264",
-      "Crisis Text Line: Text \"HOME\" to 741741",
-    ],
-  },
-  { type: "p", text: "Community and Technology Resources" },
-  {
-    type: "ul",
-    items: [
-      "211 (Local Resources Nationwide): Dial 211",
-      "EveryoneOn (Technology Access): everyoneon.org",
-      "Lifeline Program (Affordable Internet): lifelinesupport.org",
-    ],
-  },
-  { type: "h", text: "Updates to This Statement" },
-  { type: "p", text: "We review and update this Accessibility Statement regularly. Material changes will be reflected in the \"Last Updated\" date at the top of this page." },
-  { type: "p", text: "For questions about this Accessibility Statement, contact the Chief Risk Officer at privacy@upliftpathinc.com or 513-299-4553 ." },
+  {"type": "h", "text": "Our Commitment", "level": 1},
+  {"type": "p", "text": "Uplift Path, Inc. is committed to making our website and digital services accessible to everyone, including people with disabilities. We want every visitor — persons served, their families, our workforce, and the public — to be able to perceive, understand, navigate, and interact with our website and the information we provide."},
+  {"type": "h", "text": "Conformance Status", "level": 1},
+  {"type": "p", "text": "We work to make our website (upliftpathwellness.com), our mobile-accessible content, and our electronic documents conform to the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA — the internationally recognized standard for digital accessibility published by the World Wide Web Consortium (W3C). These guidelines describe how to make digital content accessible to people with a wide range of disabilities, including visual, auditory, physical, speech, cognitive, and neurological disabilities."},
+  {"type": "h", "text": "How We Maintain Accessibility", "level": 1},
+  {"type": "p", "text": "Accessibility is an ongoing effort. To maintain and improve the accessibility of our website, we:"},
+  {"type": "ul", "items": ["Test our website at least quarterly against WCAG 2.1 Level AA;", "Fix critical and high-severity issues within our documented timeframes and keep records of our testing and remediation;", "Produce our electronic documents (such as PDFs and word-processing files) to be readable and accessible wherever feasible;", "Require our technology vendors to meet, or certify that they meet, WCAG 2.1 Level AA, because our obligations extend to web content and mobile applications we make available through contractual, licensing, or other arrangements with third parties;", "Review our digital accessibility at least annually against the current guidelines and update our practices as those standards evolve."]},
+  {"type": "h", "text": "Accessibility Features on This Website", "level": 1},
+  {"type": "p", "text": "Our website includes a built-in accessibility tool that lets you customize your experience. Features include:"},
+  {"type": "ul", "items": ["A reading mask to help you focus on one line at a time;", "High-contrast display options;", "Font and text-size adjustment;", "A text magnifier;", "Keyboard navigation for visitors who do not use a mouse."]},
+  {"type": "h", "text": "Alternative Formats and Accommodations", "level": 1},
+  {"type": "p", "text": "If you need information from our website in a different format — for example, large print, an audio version, or another accessible format — we will provide it upon request, free of charge. We also provide qualified interpreters and language-access support for individuals with limited English proficiency, and reasonable accommodations for people with disabilities, so that everyone can access our services. You will never be denied care or asked to supply your own interpreter or accessibility aids."},
+  {"type": "h", "text": "Report a Barrier or Give Feedback", "level": 1},
+  {"type": "p", "text": "If any part of our website is difficult to use, or you have a suggestion for how we can improve accessibility, please tell us — your feedback helps us do better. When you contact us, please describe the problem, the web page or content involved, and the best way to reach you."},
+  {"type": "h", "text": "Our Legal Obligation", "level": 1},
+  {"type": "p", "text": "Conformance with WCAG 2.1 Level AA is not only our own commitment. As a recipient of federal financial assistance, Uplift Path, Inc. is required to make its web content and mobile applications conform to WCAG 2.1 Level A and Level AA under Section 504 of the Rehabilitation Act, at 45 CFR sec 84.84. The compliance date that applies to an organization with fewer than fifteen employees is 10 May 2028, following the interim final rule published on 11 May 2026 (91 FR 25496), which extended the original dates by one year. Section 1557 of the Affordable Care Act places a parallel obligation on our health programs and activities at 45 CFR sec 92.104. We are working toward full conformance ahead of that date."},
+  {"type": "p", "text": "Uplift Path, Inc. is a private organization, so the Department of Justice rule for state and local government websites at 28 CFR Part 35, Subpart H does not apply to us. We use it, and Ohio Administrative Policy IT-09, as reference benchmarks only."},
+  {"type": "h", "text": "Your Civil Rights", "level": 1},
+  {"type": "p", "text": "Separately from this website statement, Uplift Path, Inc. publishes a notice of Nondiscrimination and Language Access. That notice sets out your right to qualified interpreters, translated materials, auxiliary aids and services, and reasonable modifications, all free of charge, and explains how to raise a concern with us or file a complaint with the U.S. Department of Health and Human Services, Office for Civil Rights."},
+  {"type": "h", "text": "Contact Us", "level": 1},
+  {"type": "p", "text": "For accessibility feedback or to request an accommodation or an alternative format, reach us at:"},
+  {"type": "ul", "items": ["Online: advocate@upliftpathinc.com", "Phone: (513) 299-4553\nOhio Relay / TTY users: dial 711"]},
+  {"type": "p", "text": "We will acknowledge your request or feedback in a timely manner — we estimate up to ten (10) business days — and work with you to provide the information or accommodation you need."},
+  {"type": "p", "text": "If you wish to file a formal accessibility grievance, you may file on the website grievance form or for assistance email grievance@upliftpathinc.com."},
 ];
