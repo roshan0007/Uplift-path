@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     absolute: "Contact Uplift Path | Operations & Accreditation Advisory, Ohio",
   },
   description:
-    "Reach Uplift Path for behavioral health operations and business advisory based in Columbus, Ohio. Send a message and a member of our team will follow up soon.",
+    "Reach Uplift Path for behavioral health operations advisory and business consulting based in Columbus, Ohio. Send a message and a member of our team will follow up soon.",
 };
 
 /**
