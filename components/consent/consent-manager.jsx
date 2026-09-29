@@ -10,6 +10,7 @@ import {
   readStoredConsent,
   saveConsent,
 } from "@/lib/consent";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { KeyboardArrowDown, KeyboardArrowUp } from "relume-icons";
 
@@ -52,10 +53,12 @@ export function ConsentManager() {
   const [mounted, setMounted] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
+  const [armed, setArmed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
   const [hasDecision, setHasDecision] = React.useState(false);
   const [gpc, setGpc] = React.useState(false);
   const [draft, setDraft] = React.useState(ALL_OFF);
+  const pathname = usePathname();
   const headingRef = React.useRef(null);
   const focusOnOpen = React.useRef(false);
 
@@ -80,12 +83,34 @@ export function ConsentManager() {
       setDraft(gpcEnabled() ? ALL_OFF : (current ?? ALL_OFF));
       setExpanded(true);
       setCollapsed(false);
+      setArmed(true);
       setVisible(true);
       focusOnOpen.current = true;
     };
     window.addEventListener(OPEN_PREFERENCES_EVENT, onOpen);
     return () => window.removeEventListener(OPEN_PREFERENCES_EVENT, onOpen);
   }, []);
+
+  // On the homepage the banner stays out of the way of the hero until the
+  // visitor has scrolled down past the first screen. Every other page shows it
+  // straight away. Nothing non-essential loads in the meantime, so holding it
+  // back changes what is on screen, not what the site does. The footer link
+  // (`onOpen` above) arms it regardless.
+  React.useEffect(() => {
+    if (pathname !== "/") {
+      setArmed(true);
+      return undefined;
+    }
+    const check = () => {
+      if (window.scrollY > window.innerHeight * 0.75) {
+        setArmed(true);
+        window.removeEventListener("scroll", check);
+      }
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    return () => window.removeEventListener("scroll", check);
+  }, [pathname]);
 
   // Focus moves into the card only when the visitor asked for it, and only once
   // it has rendered -- which is why this is an effect on `visible`, not a call
@@ -107,7 +132,7 @@ export function ConsentManager() {
     return () => window.removeEventListener("keydown", onKey);
   }, [visible, hasDecision]);
 
-  if (!mounted || !visible) return null;
+  if (!mounted || !visible || !armed) return null;
 
   function commit(choices) {
     saveConsent(choices);
