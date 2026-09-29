@@ -44,7 +44,7 @@ Checked against the code, and the public Zoho form markup, on 2026-09-29.
 
 | The notices say | Status |
 |---|---|
-| Cookie banner on first visit, per-category choices, decline as easy as accept (CB-1..3) | **Built** in this PR (`components/consent`) |
+| Cookie banner on first visit, per-category choices, decline as easy as accept (CB-1..3) | **Built** (`components/consent`) |
 | Banner reopens from a footer link on every page, including the inquiry page (CB-4) | **Built**: footer button; intake screens (no footer) get one too |
 | Choice persists; withdrawing clears that category's cookies and storage (CB-5, CB-6) | **Built** (`lib/consent.js`) |
 | Optional categories off by default; nothing non-essential loads before a choice (CAT-2) | **True** — the site loads none at all. `<ConsentGate>` is the only way to add one |
@@ -65,8 +65,9 @@ These need her decision or someone else's action. None was changed unilaterally.
 1. **Timing.** The site went live on `upliftpathwellness.com` today (2026-09-29).
    The email says the notices must be posted before the new site is live, and that
    we are bound by them from the day they are posted to the public. They say
-   "Effective October 2026". Merging this PR posts them; is that the intended
-   posting date, or should the merge wait until 1 October?
+   "Effective October 2026". Merging them into `master` does not publish them
+   (deploys are manual), but the deploy does. Is the intended posting date the
+   deploy date, or 1 October?
 2. **Accessibility widget.** The Accessibility Notice promises a built-in tool that
    the new site does not have. Either the Skynet widget is re-installed (needs the
    account/embed key; it becomes a listed third-party technology) or the sentence
@@ -109,3 +110,8 @@ These need her decision or someone else's action. None was changed unilaterally.
 14. **Legal citations** in the notices (e.g. 45 CFR 84.84, 91 FR 25496, 45 CFR
     92.201(c)) were carried across as written and not independently checked.
 15. **Columbus office posters** use the same notices; not part of this repo.
+16. **Cookie banner was built on inference.** The Cookies notice and build spec
+    require one, but the email did not ask for it. It is in (`components/consent`)
+    at Sarfaraz's request; Martha should confirm she wants it as built: a small
+    bottom-right card, per-category choices, hide arrow, held back on the homepage
+    until the visitor scrolls.
