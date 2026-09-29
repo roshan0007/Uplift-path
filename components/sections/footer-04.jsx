@@ -1,6 +1,7 @@
 "use client";
 
 import { CARF_PROVIDER_URL, CarfSeal } from "@/components/brand/carf-seal";
+import { CookiePreferencesLink } from "@/components/consent/cookie-preferences-link";
 import React from "react";
 import { LinkedinLogo } from "relume-icons";
 
@@ -354,6 +355,12 @@ export function Footer4() {
                   </a>
                 </li>
               ))}
+              {/* Reopens the cookie banner. Required on every page (build spec
+                  CB-4), and a button rather than a link because it acts, not
+                  navigates. */}
+              <li>
+                <CookiePreferencesLink />
+              </li>
             </ul>
           </div>
         </div>
