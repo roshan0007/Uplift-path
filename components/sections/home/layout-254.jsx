@@ -35,7 +35,7 @@ export function Layout254() {
               </h3>
               <p>
                 We help providers build service models that last, get
-                survey-ready, and hold quality steady while they grow —
+                survey-ready, and hold quality steady while they grow â€”
                 drawing on our own CARF Gold Seal accreditation and CPST
                 program experience.
               </p>
