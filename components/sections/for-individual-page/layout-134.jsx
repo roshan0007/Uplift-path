@@ -21,18 +21,24 @@ import React from "react";
  * - between them, the embrace full height, then the hands across the top
  *   and two landscapes under it.
  *
- * The boxes are in 1440-wide px measured from the top of the strip, with a
- * 16px gap everywhere; the columns start above it, so they have a negative
- * `y`. Each file is cut from the full-size original at exactly 2x its box,
- * so no `object-fit` is needed. The corners are the frame's 25px, which the
+ * The boxes are in 1440x383 frame px measured from the top of the strip, with
+ * a 16px gap everywhere (the vertical gaps tighten a little when the strip is
+ * shortened, below); the columns start above it, so they have a negative
+ * `y`. Each file is cut from the full-size original at 2x its frame box. The corners are the frame's 25px, which the
  * old delivered PNGs had baked in; it is in `cqw` here -- 25/1440 of the
  * strip's width -- so it scales with the photos.
  *
  * The collage sits 2.5% short of each page edge (the frame bleeds it off the
- * page; on a real screen that read as cut off). It is a share of the page
- * width at every size, up to 108rem. The 2026-09-24 cap that shrank it to
- * fit the first screen is gone: on a 1440x900 screen that left it two-thirds
- * wide with wide white margins, and filling the width was the call.
+ * page; on a real screen that read as cut off). It must both fill the width
+ * and fit on the first screen (both raised 2026-10-01), so its width and
+ * height are set separately rather than locked to one shape: the width is
+ * the full content box, up to 108rem, and the height is what is left of the
+ * viewport under the copy -- `100vh - 610px`, the strip's top at lg (~578px:
+ * nav 72, pt 64, copy ~402, gap 40) plus 32px of air -- never taller than
+ * the frame's own 1440:383 shape would make it (25.27vw) and never shorter
+ * than 12rem (192px, which a 1366x768 laptop just fits). Every `y`/`h` is a share of that height and every `x`/`w` a
+ * share of the width, so on a short screen the tiles get flatter and
+ * `object-cover` crops each photo to its tile rather than distorting it.
  *
  * Decorative, so `aria-hidden` and no alt text -- the heading and body carry
  * the meaning. `lg:` only: at tablet and below the strip would shrink to
@@ -110,15 +116,15 @@ export function Layout134() {
           reaches halfway into the gutter on each side. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none -mx-[2.7778%] hidden select-none lg:mt-16 lg:block"
+        className="pointer-events-none -mx-[2.7778%] hidden select-none lg:mt-10 lg:block"
       >
-        <div className="@container relative mx-auto aspect-[1440/383] w-full max-w-[108rem]">
+        <div className="@container relative mx-auto h-[clamp(12rem,min(calc(100vh-610px),25.27vw),28rem)] w-full max-w-[108rem]">
           {PIECES.map(({ src, x, y, w, h }) => (
             <img
               key={src}
               src={`/images/for-individual-hero-${src}.jpg`}
               alt=""
-              className="absolute rounded-[1.7361cqw]"
+              className="absolute rounded-[1.7361cqw] object-cover"
               style={{
                 left: `${(x / 1440) * 100}%`,
                 top: `${(y / 383) * 100}%`,
