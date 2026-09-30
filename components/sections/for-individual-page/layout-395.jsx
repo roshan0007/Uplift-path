@@ -101,7 +101,7 @@ export function Layout395() {
 
   return (
     // `scheme-mint`, not `scheme-1`.
-    // /for-individual ran six consecutive white sections. This one and faq-01
+    // /peer-coaching ran six consecutive white sections. This one and faq-01
     // break it into white white MINT white MINT white.
     // This brand has exactly two depth cues -- a scheme change and the button
     // ledge -- so the remedy for a same-background run is the scheme, never a

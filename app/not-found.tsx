@@ -21,6 +21,7 @@ export default function NotFound() {
     <>
       <Navbar12 />
       <StatusPanel
+        art="404"
         eyebrow="Error 404"
         title="We Can't Find That Page"
         actions={[

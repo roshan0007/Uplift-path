@@ -31,7 +31,7 @@ import React from "react";
 export function Faq1() {
   return (
     // `scheme-mint`, not `scheme-1`.
-    // See the note in layout-395: second of the two breaks in /for-individual's
+    // See the note in layout-395: second of the two breaks in /peer-coaching's
     // white run.
     // This brand has exactly two depth cues -- a scheme change and the button
     // ledge -- so the remedy for a same-background run is the scheme, never a
