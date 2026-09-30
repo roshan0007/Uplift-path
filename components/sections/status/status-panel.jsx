@@ -17,20 +17,25 @@ import React from "react";
  * `art`:
  *
  * - `"404"` puts the speech-bubble illustration between the eyebrow and the
- *   title, at its frame size of 504x327 (the file is 2x).
+ *   title. The frame draws it at 504x327; at that size, under a two-line 72px
+ *   title, the page ran past the fold and read as too big (raised
+ *   2026-10-01), so it is 320px wide here (256px on phones).
  * - `"thank-you"` hangs two line-drawn pairs of hands from the top corners,
  *   at their frame share of the 1440 width (397 and 458 of it). The frame
  *   bleeds the right pair 17px off the page; it is flush to the edge here, as
  *   the For Individual hero's collage was pulled in for the same reason. Each
  *   is also capped at `50vw - 290px`, which keeps 580px clear between them
- *   -- the 72px two-line title is 531px wide -- so below ~1300px they shrink
+ *   -- the title is under 450px wide at 52px -- so below ~1300px they shrink
  *   rather than run into it. They are `lg:` only: below 992px they would be
  *   too small to read as drawings.
  *
  * Both are decorative, so `aria-hidden` and no alt text.
  *
- * `text-h1` for the title, as on every other route: `--font-weight-bold` is
- * 400, so size is the only signal of rank. `min-h-[60vh]` keeps the footer
+ * `text-h2` for the title (52px at lg), which is what both frames set. Other
+ * routes use `text-h1` so the page title outranks their `text-h2` section
+ * headings; these pages have no other heading, so there is nothing for it to
+ * outrank, and at 72px "We Can't Find That Page" broke onto two lines and made
+ * the 404 too big (2026-10-01). `min-h-[60vh]` keeps the footer
  * from riding up into the middle of a tall screen on a page this short.
  *
  * No `"use client"`: nothing here is interactive, and `app/not-found.tsx`
@@ -65,10 +70,10 @@ export function StatusPanel({ eyebrow, title, children, actions, art }) {
             aria-hidden="true"
             width={504}
             height={327}
-            className="mx-auto mb-6 w-full max-w-[504px] md:mb-8"
+            className="mx-auto mb-6 w-64 md:mb-8 md:w-80"
           />
         )}
-        <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">{title}</h1>
+        <h1 className="mb-5 text-balance text-h2 font-bold md:mb-6">{title}</h1>
         <p className="text-medium">{children}</p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 md:mt-8">
           {actions.map(({ label, href, variant }) => (

@@ -4,61 +4,49 @@ import { GetStartedButton } from "@/components/intake/get-started-button";
 import React from "react";
 
 /**
- * The 2026-09-30 For Individual frame (node 10634:7946) keeps the hero's type
- * -- tagline 16/24 w600, heading Playfair, body 18/27, button 140x44 -- and
- * redraws the collage below it: eight photographs plus four flat green shapes
- * (a rounded square, a pill under the embrace, a circle, and a block closing
- * the right column), all `#06a785`, which is `--color-caribbean-green-dark`.
- * It also sets two emphases in the copy: the first heading line in Playfair
- * ExtraBold, and "no-cost" / "Available for adults 18+" in the body.
+ * Built from the 2026-09-30 For Individual frame (node 10634:7946), which
+ * keeps the hero's type -- tagline 16/24 w600, heading Playfair, body 18/27,
+ * button 140x44 -- and sets two emphases in the copy: the first heading line
+ * in Playfair ExtraBold, and "no-cost" / "Available for adults 18+" in the
+ * body.
  *
- * Every box below is the frame's own, in 1440-frame px, measured from the top
- * of the strip (frame y=598, the green square -- the highest item outside the
- * right column). The right column climbs above that, beside the copy, so its
- * first photo has a negative `y`. The strip starts 93px under the button in
- * the frame; it is built as 64px -- see 2 below. Each
- * file was delivered at exactly 2x its box with its corners already rounded,
- * so none of them needs a radius or `object-fit` here. The circle was not
- * delivered as a file, so it is the one shape drawn in CSS.
+ * The collage is the frame's eight photographs, re-packed on review
+ * (2026-10-01). The frame mixed them with four flat green shapes (a square, a
+ * pill, a circle and a block) and left gaps between the pieces; those shapes
+ * are gone and the photos now fill the strip edge to edge in a tight grid:
  *
- * Two departures from the frame, both kept from the 2026-09-24 review:
+ * - a column at each end, two photos tall, that climbs up beside the copy --
+ *   the frame's right column, mirrored on the left so neither side of the
+ *   page is empty;
+ * - between them, the embrace full height, then the hands across the top
+ *   and two landscapes under it.
  *
- * 1. **The collage sits inside the page gutter, not flush to the edges.** The
- *    frame bleeds the left photo and the right column off the page; on a real
- *    screen that read as cut off. The strip stops 2.5% short of each edge, and
- *    the four pieces that bled had their square side rounded to match their
- *    others (done in the files, not here).
- * 2. **The whole collage fits on the first screen.** The strip keeps the
- *    frame's 1440:383 shape (`x`/`w` a share of 1440, `y`/`h` a share of 383)
- *    but its width is also capped by the viewport *height*, so the photos
- *    land above the fold. This collage is 85px taller than the 2026-09-24 one,
- *    so to keep it from shrinking to two-thirds of a 1440x900 screen the gap
- *    above it is 64px rather than the frame's 93, and the 48px of white the
- *    old cap left under the photos is gone. `375.98vh - 2263.4px` is that
- *    cap: the copy above the strip is ~402px from the section top at lg, so
- *    the strip may be `100vh - 72 (nav) - 64 (pt) - 402 - 64 (gap)` tall,
- *    times 1440/383 for the width. It never goes below 60rem, under
- *    which the right column would reach the paragraph, and never above 108rem,
- *    past which that column would climb into the navbar. When the cap binds,
- *    the strip is centred and the side margins grow.
+ * The boxes are in 1440-wide px measured from the top of the strip, with a
+ * 16px gap everywhere; the columns start above it, so they have a negative
+ * `y`. Each file is cut from the full-size original at exactly 2x its box,
+ * so no `object-fit` is needed. The corners are the frame's 25px, which the
+ * old delivered PNGs had baked in; it is in `cqw` here -- 25/1440 of the
+ * strip's width -- so it scales with the photos.
+ *
+ * The collage sits 2.5% short of each page edge (the frame bleeds it off the
+ * page; on a real screen that read as cut off). It is a share of the page
+ * width at every size, up to 108rem. The 2026-09-24 cap that shrank it to
+ * fit the first screen is gone: on a 1440x900 screen that left it two-thirds
+ * wide with wide white margins, and filling the width was the call.
  *
  * Decorative, so `aria-hidden` and no alt text -- the heading and body carry
  * the meaning. `lg:` only: at tablet and below the strip would shrink to
- * thumbnails and the right column would sit on the copy.
+ * thumbnails and the end columns would sit on the copy.
  */
 const PIECES = [
-  { src: "01-counselling", x: 0, y: 154, w: 169, h: 173 },
-  { src: "02-green-square", x: 183, y: 0, w: 136, h: 139 },
-  { src: "03-desk", x: 183, y: 154, w: 136, h: 88 },
-  { circle: true, x: 193, y: 268, w: 115, h: 115 },
-  { src: "04-thinking", x: 340, y: 70, w: 136, h: 139 },
-  { src: "05-headache", x: 336, y: 229, w: 136, h: 139 },
-  { src: "06-embrace", x: 494, y: 26, w: 231, h: 254 },
-  { src: "07-green-pill", x: 492, y: 298, w: 233, h: 47 },
-  { src: "08-hands", x: 743, y: 147, w: 465, h: 191 },
-  { src: "09-pillow", x: 1232, y: -264, w: 208, h: 231 },
-  { src: "10-knees", x: 1232, y: -13, w: 208, h: 205 },
-  { src: "11-green-block", x: 1232, y: 210, w: 208, h: 173 },
+  { src: "01-pillow", x: 0, y: -214, w: 208, h: 290 },
+  { src: "02-thinking", x: 0, y: 92, w: 208, h: 291 },
+  { src: "03-embrace", x: 224, y: 0, w: 260, h: 383 },
+  { src: "04-hands", x: 500, y: 0, w: 716, h: 200 },
+  { src: "05-counselling", x: 500, y: 216, w: 350, h: 167 },
+  { src: "06-desk", x: 866, y: 216, w: 350, h: 167 },
+  { src: "07-knees", x: 1232, y: -214, w: 208, h: 290 },
+  { src: "08-headache", x: 1232, y: 92, w: 208, h: 291 },
 ];
 
 export function Layout134() {
@@ -124,30 +112,21 @@ export function Layout134() {
         aria-hidden="true"
         className="pointer-events-none -mx-[2.7778%] hidden select-none lg:mt-16 lg:block"
       >
-        <div className="relative mx-auto aspect-[1440/383] w-full max-w-[min(108rem,max(60rem,calc(375.98vh-2263.4px)))]">
-          {PIECES.map(({ src, circle, x, y, w, h }) => {
-            const style = {
-              left: `${(x / 1440) * 100}%`,
-              top: `${(y / 383) * 100}%`,
-              width: `${(w / 1440) * 100}%`,
-              height: `${(h / 383) * 100}%`,
-            };
-            return circle ? (
-              <div
-                key="circle"
-                className="absolute rounded-full bg-caribbean-green-dark"
-                style={style}
-              />
-            ) : (
-              <img
-                key={src}
-                src={`/images/for-individual-hero-${src}.png`}
-                alt=""
-                className="absolute"
-                style={style}
-              />
-            );
-          })}
+        <div className="@container relative mx-auto aspect-[1440/383] w-full max-w-[108rem]">
+          {PIECES.map(({ src, x, y, w, h }) => (
+            <img
+              key={src}
+              src={`/images/for-individual-hero-${src}.jpg`}
+              alt=""
+              className="absolute rounded-[1.7361cqw]"
+              style={{
+                left: `${(x / 1440) * 100}%`,
+                top: `${(y / 383) * 100}%`,
+                width: `${(w / 1440) * 100}%`,
+                height: `${(h / 383) * 100}%`,
+              }}
+            />
+          ))}
         </div>
       </div>
     </section>
