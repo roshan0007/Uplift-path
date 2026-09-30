@@ -312,7 +312,7 @@ export function Navbar12() {
                         anywhere, so a dashed one would read as foreign. */}
                     <div className="lg:border-l lg:border-scheme-border lg:pl-8">
                       <a
-                        href="/for-individual"
+                        href="/peer-coaching"
                         className="mb-3 block text-medium leading-[1.3]"
                       >
                         For Individuals

@@ -59,7 +59,7 @@ import { ArrowBack, ChevronLeft, ChevronRight } from "relume-icons";
 const NEXT_STEP_HREF = "/consent-form";
 
 /** Where someone who arrived without a case id is sent to get one. */
-const START_HREF = "/for-individual";
+const START_HREF = "/peer-coaching";
 
 /** How far ahead the calendar will let anyone look. */
 const MONTHS_AHEAD = 3;

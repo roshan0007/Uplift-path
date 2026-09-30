@@ -4,53 +4,61 @@ import { GetStartedButton } from "@/components/intake/get-started-button";
 import React from "react";
 
 /**
- * The 2026-09-24 For Individual frame keeps the hero's type as it was --
- * tagline 16/24 w600, heading Playfair 400, body 18/27, button 140x44 -- and
- * replaces the three line-art vignettes with a collage of ten photographs:
- * a strip of seven under the button, plus a column of three at the right
- * end that climbs up beside the copy.
+ * The 2026-09-30 For Individual frame (node 10634:7946) keeps the hero's type
+ * -- tagline 16/24 w600, heading Playfair, body 18/27, button 140x44 -- and
+ * redraws the collage below it: eight photographs plus four flat green shapes
+ * (a rounded square, a pill under the embrace, a circle, and a block closing
+ * the right column), all `#06a785`, which is `--color-caribbean-green-dark`.
+ * It also sets two emphases in the copy: the first heading line in Playfair
+ * ExtraBold, and "no-cost" / "Available for adults 18+" in the body.
  *
  * Every box below is the frame's own, in 1440-frame px, measured from the top
- * of the strip (frame y=417 below the navbar, 19px above the button's bottom
- * edge -- the button sits between columns, so they never touch; the overlap
- * is built as 20px, the nearest step on the spacing scale). Each file was
- * delivered at exactly 2x its box with its corners already rounded, so none
- * of them needs a radius or `object-fit` here.
+ * of the strip (frame y=598, the green square -- the highest item outside the
+ * right column). The right column climbs above that, beside the copy, so its
+ * first photo has a negative `y`. The strip starts 93px under the button in
+ * the frame; it is built as 64px -- see 2 below. Each
+ * file was delivered at exactly 2x its box with its corners already rounded,
+ * so none of them needs a radius or `object-fit` here. The circle was not
+ * delivered as a file, so it is the one shape drawn in CSS.
  *
- * Two departures from the frame, both from review in the browser:
+ * Two departures from the frame, both kept from the 2026-09-24 review:
  *
  * 1. **The collage sits inside the page gutter, not flush to the edges.** The
  *    frame bleeds the left photo and the right column off the page; on a real
- *    screen that read as cut off. The strip now stops 2.5% short of each edge
- *    -- half the section's 5% gutter, which read as too much margin -- and the
- *    four photos that bled had their square side rounded to match their
- *    others.
+ *    screen that read as cut off. The strip stops 2.5% short of each edge, and
+ *    the four pieces that bled had their square side rounded to match their
+ *    others (done in the files, not here).
  * 2. **The whole collage fits on the first screen.** The strip keeps the
- *    frame's 1440:298 shape (`x`/`w` a share of 1440, `y`/`h` a share of 298)
- *    but its width is also capped by the viewport *height*, so the photos plus
- *    48px of white under them land above the fold rather than half under it.
- *    `483.2vh - 2643px` is that cap: the copy above the strip is ~363px from
- *    the section top at lg, so the strip may be `100vh - 72 (nav) - 64 (pt) -
- *    363 - 48` tall, times 1440/298 for the width. It never goes below 52.5rem,
- *    under which the paragraph would reach the right column, and never above
- *    108rem, past which the right column would climb into the navbar. When
- *    the cap binds, the strip is centred and the side margins grow.
+ *    frame's 1440:383 shape (`x`/`w` a share of 1440, `y`/`h` a share of 383)
+ *    but its width is also capped by the viewport *height*, so the photos
+ *    land above the fold. This collage is 85px taller than the 2026-09-24 one,
+ *    so to keep it from shrinking to two-thirds of a 1440x900 screen the gap
+ *    above it is 64px rather than the frame's 93, and the 48px of white the
+ *    old cap left under the photos is gone. `375.98vh - 2263.4px` is that
+ *    cap: the copy above the strip is ~402px from the section top at lg, so
+ *    the strip may be `100vh - 72 (nav) - 64 (pt) - 402 - 64 (gap)` tall,
+ *    times 1440/383 for the width. It never goes below 60rem, under
+ *    which the right column would reach the paragraph, and never above 108rem,
+ *    past which that column would climb into the navbar. When the cap binds,
+ *    the strip is centred and the side margins grow.
  *
  * Decorative, so `aria-hidden` and no alt text -- the heading and body carry
- * the meaning. `lg:` only, as the vignettes were: at tablet and below the
- * strip would shrink to thumbnails and the right column would sit on the copy.
+ * the meaning. `lg:` only: at tablet and below the strip would shrink to
+ * thumbnails and the right column would sit on the copy.
  */
-const PHOTOS = [
-  { src: "01-resting", x: 0, y: 125, w: 169, h: 173 },
-  { src: "02-couple", x: 185, y: 56, w: 136, h: 139 },
-  { src: "03-desk", x: 185, y: 210, w: 136, h: 88 },
-  { src: "04-sofa", x: 336, y: 0, w: 136, h: 139 },
-  { src: "05-headache", x: 332, y: 159, w: 136, h: 139 },
-  { src: "06-embrace", x: 490, y: 56, w: 231, h: 242 },
-  { src: "07-hands", x: 743, y: 107, w: 465, h: 191 },
-  { src: "08-window", x: 1232, y: -319, w: 208, h: 271 },
-  { src: "09-knees", x: 1232, y: -28, w: 208, h: 205 },
-  { src: "10-phone", x: 1232, y: 195, w: 208, h: 103 },
+const PIECES = [
+  { src: "01-counselling", x: 0, y: 154, w: 169, h: 173 },
+  { src: "02-green-square", x: 183, y: 0, w: 136, h: 139 },
+  { src: "03-desk", x: 183, y: 154, w: 136, h: 88 },
+  { circle: true, x: 193, y: 268, w: 115, h: 115 },
+  { src: "04-thinking", x: 340, y: 70, w: 136, h: 139 },
+  { src: "05-headache", x: 336, y: 229, w: 136, h: 139 },
+  { src: "06-embrace", x: 494, y: 26, w: 231, h: 254 },
+  { src: "07-green-pill", x: 492, y: 298, w: 233, h: 47 },
+  { src: "08-hands", x: 743, y: 147, w: 465, h: 191 },
+  { src: "09-pillow", x: 1232, y: -264, w: 208, h: 231 },
+  { src: "10-knees", x: 1232, y: -13, w: 208, h: 205 },
+  { src: "11-green-block", x: 1232, y: 210, w: 208, h: 173 },
 ];
 
 export function Layout134() {
@@ -79,8 +87,13 @@ export function Layout134() {
     titles run to three and four lines on a phone at the new size, and
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
+        {/* The first line is Playfair ExtraBold (800) in the 2026-09-30 frame.
+            800 is not self-hosted -- 700 is the heaviest Playfair face in
+            globals.css -- so it is set at 700 rather than letting the browser
+            synthesise a bolder one. `font-[700]`, not `font-bold`, because
+            `--font-weight-bold` is 400 on purpose. */}
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-          Individualized Support{" "}
+          <span className="font-[700]">Individualized Support</span>{" "}
           <span className="block">for Ohio Adults</span>
         </h1>
         {/* `max-w-md` on the paragraph alone, not the container: at 48rem
@@ -89,9 +102,13 @@ export function Layout134() {
             split the h1 onto three lines up to ~1087px. `text-pretty` stops
             the phone wrap ending on a single word. */}
         <p className="mx-auto max-w-md text-pretty text-medium">
-          Get Personalized Supportive Services from a dedicated Uplift
-          Peer Coach to help you move toward your goals. Available for adults
-          18+ with active Ohio Medicaid.
+          {/* Emphases are the frame's: "Get no-cost" Bold, "Available for
+              adults 18+" SemiBold. */}
+          <strong className="font-[700]">Get no-cost</strong> Personalized
+          Supportive Services from a dedicated Uplift Peer Coach to help you
+          move toward your goals.{" "}
+          <strong className="font-semibold">Available for adults 18+</strong>{" "}
+          with active Ohio Medicaid.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
           {/* Opens the intake Application modal (step 1). It used to link to
@@ -105,23 +122,32 @@ export function Layout134() {
           reaches halfway into the gutter on each side. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none -mx-[2.7778%] hidden select-none lg:-mt-5 lg:block"
+        className="pointer-events-none -mx-[2.7778%] hidden select-none lg:mt-16 lg:block"
       >
-        <div className="relative mx-auto aspect-[1440/298] w-full max-w-[min(108rem,max(52.5rem,calc(483.2vh-2643px)))]">
-          {PHOTOS.map(({ src, x, y, w, h }) => (
-            <img
-              key={src}
-              src={`/images/for-individual-hero-${src}.png`}
-              alt=""
-              className="absolute"
-              style={{
-                left: `${(x / 1440) * 100}%`,
-                top: `${(y / 298) * 100}%`,
-                width: `${(w / 1440) * 100}%`,
-                height: `${(h / 298) * 100}%`,
-              }}
-            />
-          ))}
+        <div className="relative mx-auto aspect-[1440/383] w-full max-w-[min(108rem,max(60rem,calc(375.98vh-2263.4px)))]">
+          {PIECES.map(({ src, circle, x, y, w, h }) => {
+            const style = {
+              left: `${(x / 1440) * 100}%`,
+              top: `${(y / 383) * 100}%`,
+              width: `${(w / 1440) * 100}%`,
+              height: `${(h / 383) * 100}%`,
+            };
+            return circle ? (
+              <div
+                key="circle"
+                className="absolute rounded-full bg-caribbean-green-dark"
+                style={style}
+              />
+            ) : (
+              <img
+                key={src}
+                src={`/images/for-individual-hero-${src}.png`}
+                alt=""
+                className="absolute"
+                style={style}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

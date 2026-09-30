@@ -90,7 +90,7 @@ const FOOTER_GROUPS = [
   {
     heading: "Start Here",
     links: [
-      { label: "For Individuals", href: "/for-individual" },
+      { label: "For Individuals", href: "/peer-coaching" },
       { label: "For Businesses", href: "/for-business" },
     ],
   },
