@@ -30,6 +30,7 @@ instead, the session that ran it saves the hand-back here verbatim.
 | 2026-09-29 | ui-refactor-auditor | `/for-business`, 1440 / 992 / 991 / 375 | [refactor-audit-for-business-2026-09-29.md](refactor-audit-for-business-2026-09-29.md) |
 | 2026-09-29 | ui-refactor-auditor | `/for-individual`, whole page, 1440 / 992 / 991 / 375; confirms the 2026-09-24 hero fixes held | [refactor-audit-for-individual-2026-09-29.md](refactor-audit-for-individual-2026-09-29.md) |
 | 2026-09-29 | ui-refactor-auditor | `/careers`, 1440 / 992 / 768 / 375 | [refactor-audit-careers-2026-09-29.md](refactor-audit-careers-2026-09-29.md) |
+| 2026-10-01 | ui-refactor-auditor | Legal pages: `/cookies-and-tracking-technologies` and the shared `legal-page.jsx` layout used by all 8 legal/notice routes (1440, 375; jump list sized on all 8) | [refactor-audit-legal-pages-2026-10-01.md](refactor-audit-legal-pages-2026-10-01.md) |
 
 `docs/seo-status-2026-09-11.md` is a status note written by hand, not agent
 output. The first `seo-auditor` report is the 2026-09-29 launch audit above.
