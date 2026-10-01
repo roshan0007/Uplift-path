@@ -129,7 +129,10 @@ be marked off on their side.
 
 1. Get the old-site URL inventory; build the 301 map.
 2. Schema, OG tags, alt text.
-3. `NEXT_PUBLIC_INDEXABLE=true npm run build` — the only step that makes the
+3. ~~`NEXT_PUBLIC_INDEXABLE=true npm run build`~~ **Missed at the 2026-09-29
+   cutover** — the live site shipped noindex. Since 2026-10-02 a plain build is
+   the indexable one; staging opts out with `NEXT_PUBLIC_INDEXABLE=false`.
+   Original note: the only step that makes the
    site indexable. **Do not run it before DNS cutover**, or staging competes
    with the client's live site for its own keywords.
 4. DNS cutover to `upliftpathwellness.com`.

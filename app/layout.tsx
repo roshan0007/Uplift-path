@@ -24,8 +24,8 @@ export const metadata: Metadata = {
    */
   metadataBase: new URL(SITE_URL),
   /**
-   * Site-wide noindex until `NEXT_PUBLIC_INDEXABLE=true` is passed to the
-   * build. This is the second half of the staging lock — `app/robots.ts` is the
+   * Site-wide noindex only for a staging build (`NEXT_PUBLIC_INDEXABLE=false`).
+   * This is the second half of the staging lock — `app/robots.ts` is the
    * first. Individual pages that must stay hidden after launch (the two Relume
    * scratch pages) set their own `robots` and are unaffected by this.
    */
