@@ -153,7 +153,7 @@ export function Layout395() {
                 playsInline
                 preload="metadata"
                 poster="/images/for-individual-care-poster.jpg"
-                aria-label="A montage of five moments outdoors: someone photographing a sunset over the water as pelicans glide past, a hand holding a yellow flower in a green field, a woman blowing bubbles in golden light, a woman resting back on a swing, and a woman laughing with clouds painted around her eyes"
+                aria-label="A montage of four moments: someone photographing a sunset over the water as gulls glide past, a hand holding a yellow flower in a green field, a woman blowing bubbles in golden light, and a woman laughing with clouds painted around her eyes"
                 className="size-full rounded-[14.191cqw] object-cover"
               >
                 <source
