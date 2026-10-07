@@ -370,7 +370,7 @@ export function SessionScheduler() {
   let offset = 0;
 
   return (
-    <SchedulerFrame>
+    <SchedulerFrame bounded={stage === "time"}>
       <AnimatePresence mode="popLayout" initial={false}>
         {stage === "date" ? (
           <motion.div
@@ -678,7 +678,7 @@ export function SessionScheduler() {
  * is, and a box that appears at a different size a frame later reads as a
  * glitch.
  */
-function SchedulerFrame({ children = null }) {
+function SchedulerFrame({ children = null, bounded = true }) {
   return (
     // `max-h-full` rather than `h-full`, centred in whatever height it is
     // given. The Zoho screens have to stretch — an iframe cannot report its own
@@ -691,13 +691,30 @@ function SchedulerFrame({ children = null }) {
     // than pushing the page taller: the times then scroll inside the card
     // instead of the whole page scrolling (2026-09-29). Below lg it stays in
     // flow and the page scrolls normally, which on a phone is what you want.
+    //
+    // Only the time stage is bounded that way (`bounded`). The month is a
+    // fixed shape that never needs to scroll, and bounding it on a short
+    // laptop screen (~840px) cut the grid off mid-row with the remaining weeks
+    // hidden behind an inner scroll nobody could see (2026-10-07). Unbounded,
+    // it stays in flow at its natural height and, on a screen that short, the
+    // page grows a little instead.
     <div className="relative h-full min-h-0">
-    <div className="flex h-full min-h-0 items-center lg:absolute lg:inset-0">
+    <div
+      className={cn(
+        "flex h-full min-h-0 items-center",
+        bounded && "lg:absolute lg:inset-0",
+      )}
+    >
       {/* `relative` because the stage transitions use `popLayout`: the
           outgoing stage is taken out of flow and positioned against this box
           while it fades, so the incoming one mounts at once instead of
           waiting for the exit to finish. */}
-      <div className="relative flex max-h-full w-full min-h-0 flex-col rounded-card border-2 border-scheme-border lg:overflow-hidden">
+      <div
+        className={cn(
+          "relative flex w-full min-h-0 flex-col rounded-card border-2 border-scheme-border",
+          bounded && "max-h-full lg:overflow-hidden",
+        )}
+      >
         {children}
       </div>
     </div>
