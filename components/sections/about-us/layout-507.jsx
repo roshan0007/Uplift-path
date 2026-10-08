@@ -7,18 +7,23 @@
  * breaks the same copy into a labelled heading and a bulleted list. That is the
  * change -- the structure the copy always had, marked up. No words were added,
  * removed or rewritten, and no class on the section was touched.
+ *
+ * LinkedIn (2026-10-08): the legacy site linked Tasha Coppett and Tia Glaspie
+ * to their LinkedIn profiles, the way the team cards above link theirs. Regina
+ * Wooten and Teresa Guerin had no profile linked there, so they have none here.
  */
 
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
+import { LinkedinLogo } from "relume-icons";
 
 export function Layout507() {
   return (
     <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
         <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-12 lg:mb-12">
-          <h2 className="mb-5 text-h2 font-bold md:mb-6">Board of Advisory</h2>
+          <h2 className="mb-5 text-h2 font-bold md:mb-6">Advisory Board</h2>
           {/* `max-w-md` (2026-09-29): the centred lead-in ran ~88 characters a
               line in the 768px wrapper; the heading keeps that width. */}
           <p className="mx-auto max-w-md text-medium">
@@ -150,6 +155,15 @@ export function Layout507() {
                       Legal Studies at Cornell University.
                     </li>
                   </ul>
+                  <a
+                    href="https://www.linkedin.com/in/tasha-coppett-1a5bb725/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Tasha Coppett on LinkedIn"
+                    className="mt-5 inline-flex md:mt-6"
+                  >
+                    <LinkedinLogo className="size-6 text-scheme-text" />
+                  </a>
                 </div>
                 <div className="order-first aspect-[4/3] w-full md:order-none">
                   <img
@@ -246,6 +260,15 @@ export function Layout507() {
                       a Master of Social Work (Johnson C. Smith University).
                     </li>
                   </ul>
+                  <a
+                    href="https://www.linkedin.com/in/tia-glaspie-dsw-lcsw-43b39b150/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Tia Glaspie on LinkedIn"
+                    className="mt-5 inline-flex md:mt-6"
+                  >
+                    <LinkedinLogo className="size-6 text-scheme-text" />
+                  </a>
                 </div>
                 <div className="order-first aspect-[4/3] w-full md:order-none">
                   <img

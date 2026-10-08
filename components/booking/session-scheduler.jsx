@@ -115,7 +115,21 @@ const shortDateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
 });
 
-export function SessionScheduler() {
+/**
+ * `submit` and `onBooked` are what /reschedule-booking changes: by default
+ * Confirm books a new session and moves on to consent; there, it moves the
+ * existing booking and the page shows its own confirmation.
+ *
+ * @param {{
+ *   submit?: (args: { caseId: string, date: Date, slot: object }) => Promise<unknown>,
+ *   onBooked?: (args: { caseId: string, date: Date, slot: object }) => void,
+ * }} props
+ */
+export function SessionScheduler({
+  submit = bookSlot,
+  onBooked = ({ caseId }) =>
+    window.location.assign(withCaseId(NEXT_STEP_HREF, caseId)),
+} = {}) {
   // `today` is resolved on mount, never during render. These routes are
   // statically exported, so a date read at render time would be baked in at
   // build and disagree with the browser's clock on hydration — and the
@@ -256,9 +270,10 @@ export function SessionScheduler() {
     setBooking("booking");
     setBookingError(null);
     try {
-      await bookSlot({ caseId, date: selectedDate, slot: selectedSlot });
+      const booked = { caseId, date: selectedDate, slot: selectedSlot };
+      await submit(booked);
       setBooking("booked");
-      window.location.assign(withCaseId(NEXT_STEP_HREF, caseId));
+      onBooked(booked);
     } catch (error) {
       setBooking("idle");
       setBookingError(error.message);
