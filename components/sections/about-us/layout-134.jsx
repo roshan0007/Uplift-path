@@ -74,7 +74,7 @@ export function Layout134() {
                 the two paragraphs ran ~114 characters a line. */}
             <div className="max-w-md space-y-6 text-medium lg:max-w-none lg:text-justify">
               <p>
-                Uplift Path unlocks true growth for Founders, and organizations
+                Uplift Path unlocks true growth for founders and organizations
                 by designing clear, sustainable pathways to progress. Our
                 purpose is to uplift every client we serve through trusted
                 collaboration, holistic support, and transparent guidance at
