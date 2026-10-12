@@ -19,8 +19,8 @@ import React from "react";
  * Two of the answers carry statements of fact rather than marketing, and they
  * are worded the way they are on purpose:
  *
- *  - the peer-coaching answer states plainly that it is not psychotherapy, not
- *    diagnosis and not a substitute for clinical treatment, and gives 988. Peer
+ *  - the peer-coaching answer states plainly that it is not a substitute for
+ *    clinical treatment (it can complement it), and gives 988. Peer
  *    support and clinical care are different things under Ohio licensure, and a
  *    visitor in crisis reaching this page needs the number, not a nurture flow.
  *  - the CARF answer claims accreditation of our own programs. That claim is
@@ -40,11 +40,11 @@ const FAQS = [
   },
   {
     q: "Is peer coaching the same as therapy?",
-    a: "No. Peer coaching is support from someone with lived experience — practical help navigating a difficult stretch, setting goals, and finding resources. It is not psychotherapy, it is not diagnosis, and it is not a substitute for clinical treatment. If you need clinical care we will help you find it. If you are in crisis, call or text 988.",
+    a: "No. Peer coaching is support from someone with lived experience — practical help navigating a difficult stretch, setting goals, and finding resources. It can complement therapeutic services; it is not a substitute for clinical treatment. If you need clinical care we will help you find it. If you are in crisis, call or text 988.",
   },
   {
     q: "What does your CARF accreditation mean for me?",
-    a: "CARF is an independent accreditor that surveys organizations on-site against national quality standards. We hold the Gold Seal for our own programs — so when we help a provider get survey-ready, we have been through it ourselves rather than read about it.",
+    a: "CARF is an independent accreditor that surveys organizations on-site against international quality standards. We hold the Gold Seal for our own programs — having gone through the process, our experience allows us to advise providers on the process from survey design to pre-survey preparation.",
   },
 ];
 
