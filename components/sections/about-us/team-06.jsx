@@ -30,7 +30,7 @@ const MEMBERS = [
     role: "Chief Risk Officer",
     linkedin: "https://www.linkedin.com/in/marthamatthewsCROCCO/",
     image: "/images/about-us-award-logos-list-section-2.jpg",
-    bio: "Martha brings over 20 years of expertise in enterprise risk management and governance, guiding strategic operations for financial, healthcare, and other enterprises. A former Board member of the National Society of Compliance Professionals and recipient of a U.S. Senate Leadership Gavel, her leadership strengthens Uplift’s commitment to responsible growth and compliant innovation.",
+    bio: "Martha brings 20+ years expertise in enterprise risk management and governance for financial, healthcare, and other enterprises. She is a former Board member of the National Society of Compliance Professionals and a recipient of a U.S. Senate Leadership Gavel for constitutional delegate contributions to a healthcare nonprofit focused on educating future professionals, now with 55 charters serving 300,000 global members.",
   },
 ];
 
