@@ -56,8 +56,14 @@ export function IntakeBar() {
       // above it.
       { threshold: 0, rootMargin: "0px 0px -35% 0px" },
     );
+    // Same `|| top < 0` as above. With plain `isIntersecting` the bar came back
+    // once the CTA scrolled off the top, i.e. over the footer — and covered the
+    // crisis notice that has to stay readable at the bottom of every page.
     const ctaObserver = new IntersectionObserver(
-      ([entry]) => setAtFinalCta(entry.isIntersecting),
+      ([entry]) =>
+        setAtFinalCta(
+          entry.isIntersecting || entry.boundingClientRect.top < 0,
+        ),
       { threshold: 0 },
     );
 
