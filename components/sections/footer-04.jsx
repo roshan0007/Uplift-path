@@ -312,33 +312,6 @@ export function Footer4() {
               and React threw a hydration error on every route because this is
               site chrome. Hence the <li> wrappers.) */}
           <div className="flex flex-col items-center gap-y-4 pt-5 text-center text-small md:pt-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-x-8 lg:gap-y-6">
-            {/* The brand name in the copyright line is the conventional
-                home link, and QA asked for it. */}
-            <p className="lg:col-start-2 lg:row-start-2">
-              ©{" "}
-              <a href="/" className="hover:underline">
-                2026 Uplift Path Inc.
-              </a>{" "}
-              All rights reserved.
-            </p>
-            {/* The Magnific credit is a licence condition, not decoration: the
-                2D illustrations come from Magnific (formerly Freepik), whose
-                free licence requires a visible credit linking to magnific.com.
-                The footer is the placement their guidance allows when a credit
-                can't sit beside each image. Drop it only if every asset is
-                confirmed as a Premium download. */}
-            <p className="lg:col-start-3 lg:row-start-2 lg:justify-self-end lg:text-right">
-              Illustrations by{" "}
-              <a
-                href="https://www.magnific.com"
-                target="_blank"
-                rel="noreferrer"
-                className="underline"
-              >
-                Magnific
-              </a>
-              .
-            </p>
             {/* The legal row is a wrapping line of its own, above the copyright
                 and credit, because it now carries nine links rather than four.
                 Every one of them is a separate, required notice (Oct 2026), so
@@ -362,6 +335,58 @@ export function Footer4() {
                 <CookiePreferencesLink />
               </li>
             </ul>
+            {/* Crisis notice, asked for by the client (Oct 2026) at the bottom of
+                every screen, so it is site chrome and lands on every route. It
+                sits between the legal row and the copyright line, which the
+                client asked to stay last. Their wording, with "crises"
+                corrected to "crisis". The numbers are tel: links so a visitor
+                on a phone can call in one tap.
+
+                The DOM order here (legal, notice, copyright, credit) is also
+                the phone order, which is why the <ul> now comes first. */}
+            <p
+              role="note"
+              className="max-w-2xl lg:col-span-3 lg:row-start-2 lg:justify-self-center"
+            >
+              For life-threatening emergencies, dial{" "}
+              <a href="tel:911" className="font-semibold underline">
+                9-1-1
+              </a>
+              . If you feel you are a danger to yourself (or others) or need
+              emotional support, dial{" "}
+              <a href="tel:988" className="font-semibold underline">
+                9-8-8
+              </a>{" "}
+              for trained crisis counselors 24/7.
+            </p>
+            {/* The brand name in the copyright line is the conventional
+                home link, and QA asked for it. Left-hand side from lg up,
+                opposite the credit, as the client asked (Oct 2026). */}
+            <p className="lg:col-start-1 lg:row-start-3 lg:justify-self-start lg:text-left">
+              ©{" "}
+              <a href="/" className="hover:underline">
+                2026 Uplift Path Inc.
+              </a>{" "}
+              All rights reserved.
+            </p>
+            {/* The Magnific credit is a licence condition, not decoration: the
+                2D illustrations come from Magnific (formerly Freepik), whose
+                free licence requires a visible credit linking to magnific.com.
+                The footer is the placement their guidance allows when a credit
+                can't sit beside each image. Drop it only if every asset is
+                confirmed as a Premium download. */}
+            <p className="lg:col-start-3 lg:row-start-3 lg:justify-self-end lg:text-right">
+              Illustrations by{" "}
+              <a
+                href="https://www.magnific.com"
+                target="_blank"
+                rel="noreferrer"
+                className="underline"
+              >
+                Magnific
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>
