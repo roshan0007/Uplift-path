@@ -7,18 +7,27 @@
  * breaks the same copy into a labelled heading and a bulleted list. That is the
  * change -- the structure the copy always had, marked up. No words were added,
  * removed or rewritten, and no class on the section was touched.
+ *
+ * LinkedIn (2026-10-08): the legacy site linked Tasha Coppett and Tia Glaspie
+ * to their LinkedIn profiles, the way the team cards above link theirs. Regina
+ * Wooten and Teresa Guerin had no profile linked there, so they have none here.
+ *
+ * 2026-10-12: Tasha Coppett is the first tab and opens by default, and the
+ * LinkedIn icon sits on the role line beside the advisor's title, where it is
+ * seen first, rather than under the Key Expertise list.
  */
 
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
+import { LinkedinLogo } from "relume-icons";
 
 export function Layout507() {
   return (
     <section className="px-[5%] py-16 md:py-20 lg:py-20 scheme-1 badge-alt">
       <div className="container">
         <div className="mx-auto mb-12 w-full max-w-lg text-center md:mb-12 lg:mb-12">
-          <h2 className="mb-5 text-h2 font-bold md:mb-6">Board of Advisory</h2>
+          <h2 className="mb-5 text-h2 font-bold md:mb-6">Advisory Board</h2>
           {/* `max-w-md` (2026-09-29): the centred lead-in ran ~88 characters a
               line in the 768px wrapper; the heading keeps that width. */}
           <p className="mx-auto max-w-md text-medium">
@@ -36,19 +45,19 @@ export function Layout507() {
               portrait then bio, as the team cards above do, instead of nine
               lines of text and then a lone picture. From md it is the second
               column again. */}
-          <Tabs defaultValue="tab-2">
+          <Tabs defaultValue="tab-3">
             <TabsList className="flex-col group-data-[slot=card-flat]:border-0 md:flex-row">
-              <TabsTrigger
-                value="tab-2"
-                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent data-[state=active]:font-semibold"
-              >
-                Regina Wooten
-              </TabsTrigger>
               <TabsTrigger
                 value="tab-3"
                 className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent data-[state=active]:font-semibold"
               >
                 Tasha Coppett
+              </TabsTrigger>
+              <TabsTrigger
+                value="tab-2"
+                className="w-full items-start justify-start gap-4 rounded-none border-0 border-b p-6 text-h6 font-bold whitespace-normal group-data-[slot=card-flat]:border-0 data-[state=active]:bg-scheme-foreground data-[state=inactive]:border-scheme-border data-[state=inactive]:bg-scheme-background md:items-center md:justify-center md:border-t-0 md:border-r md:px-8 md:py-6 md:data-[state=active]:border-b-transparent data-[state=active]:font-semibold"
+              >
+                Regina Wooten
               </TabsTrigger>
               <TabsTrigger
                 value="tab-4"
@@ -117,9 +126,20 @@ export function Layout507() {
             >
               <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-10">
                 <div>
-                  <p className="mb-3 font-semibold md:mb-4">
-                    Associate Dean of Residential Life - MIT
-                  </p>
+                  <div className="mb-3 flex items-center gap-3 md:mb-4">
+                    <p className="font-semibold">
+                      Associate Dean of Residential Life - MIT
+                    </p>
+                    <a
+                      href="https://www.linkedin.com/in/tasha-coppett-1a5bb725/"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      aria-label="Tasha Coppett on LinkedIn"
+                      className="inline-flex shrink-0"
+                    >
+                      <LinkedinLogo className="size-6 text-scheme-text" />
+                    </a>
+                  </div>
                   <h3 className="mb-5 text-h3 font-bold md:mb-6">
                     Tasha Coppett sees the whole picture
                   </h3>
@@ -215,9 +235,20 @@ export function Layout507() {
             >
               <div className="grid grid-cols-1 gap-y-12 p-6 md:grid-cols-2 md:items-center md:gap-x-12 md:p-8 lg:gap-x-20 lg:p-10">
                 <div>
-                  <p className="mb-3 font-semibold md:mb-4">
-                    Licensed Clinical Social Worker
-                  </p>
+                  <div className="mb-3 flex items-center gap-3 md:mb-4">
+                    <p className="font-semibold">
+                      Licensed Clinical Social Worker
+                    </p>
+                    <a
+                      href="https://www.linkedin.com/in/tia-glaspie-dsw-lcsw-43b39b150/"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      aria-label="Tia Glaspie on LinkedIn"
+                      className="inline-flex shrink-0"
+                    >
+                      <LinkedinLogo className="size-6 text-scheme-text" />
+                    </a>
+                  </div>
                   <h3 className="mb-5 text-h3 font-bold md:mb-6">
                     Tia Glaspie turns vision into action
                   </h3>

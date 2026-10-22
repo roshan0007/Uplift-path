@@ -24,7 +24,7 @@ const ROUTES = [
   "/about-us",
   "/how-we-work",
   "/for-business",
-  "/for-individual",
+  "/peer-coaching",
   "/advisory-services",
   "/ai-consultation",
   "/compliance-support",

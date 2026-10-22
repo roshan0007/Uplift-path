@@ -26,5 +26,11 @@ to `out/`. There are no API routes, no middleware and no server actions, and
 
 ## Deploy
 
-Pushing to `master` runs `.github/workflows/deploy.yml`, which builds and deploys
-`out/` to Cloudflare Workers via `wrangler.jsonc`.
+There is no CI deploy. Build and deploy `out/` to Cloudflare Workers by hand
+(`wrangler.jsonc` points at it):
+
+    pnpm build && npx wrangler deploy
+
+A plain build is the production build for upliftpathwellness.com — indexable,
+with canonicals on the apex. For a noindexed staging build, pass
+`NEXT_PUBLIC_INDEXABLE=false` (see `lib/site.ts`).

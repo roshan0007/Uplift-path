@@ -4,53 +4,55 @@ import { GetStartedButton } from "@/components/intake/get-started-button";
 import React from "react";
 
 /**
- * The 2026-09-24 For Individual frame keeps the hero's type as it was --
- * tagline 16/24 w600, heading Playfair 400, body 18/27, button 140x44 -- and
- * replaces the three line-art vignettes with a collage of ten photographs:
- * a strip of seven under the button, plus a column of three at the right
- * end that climbs up beside the copy.
+ * Built from the 2026-09-30 For Individual frame (node 10634:7946), which
+ * keeps the hero's type -- tagline 16/24 w600, heading Playfair, body 18/27,
+ * button 140x44 -- and sets two emphases in the copy: the first heading line
+ * in Playfair ExtraBold, and "no-cost" / "Available for adults 18+" in the
+ * body.
  *
- * Every box below is the frame's own, in 1440-frame px, measured from the top
- * of the strip (frame y=417 below the navbar, 19px above the button's bottom
- * edge -- the button sits between columns, so they never touch; the overlap
- * is built as 20px, the nearest step on the spacing scale). Each file was
- * delivered at exactly 2x its box with its corners already rounded, so none
- * of them needs a radius or `object-fit` here.
+ * The collage is the frame's eight photographs, re-packed on review
+ * (2026-10-01). The frame mixed them with four flat green shapes (a square, a
+ * pill, a circle and a block) and left gaps between the pieces; those shapes
+ * are gone and the photos now fill the strip edge to edge in a tight grid:
  *
- * Two departures from the frame, both from review in the browser:
+ * - a column at each end, two photos tall, that climbs up beside the copy --
+ *   the frame's right column, mirrored on the left so neither side of the
+ *   page is empty;
+ * - between them, the embrace full height, then the hands across the top
+ *   and two landscapes under it.
  *
- * 1. **The collage sits inside the page gutter, not flush to the edges.** The
- *    frame bleeds the left photo and the right column off the page; on a real
- *    screen that read as cut off. The strip now stops 2.5% short of each edge
- *    -- half the section's 5% gutter, which read as too much margin -- and the
- *    four photos that bled had their square side rounded to match their
- *    others.
- * 2. **The whole collage fits on the first screen.** The strip keeps the
- *    frame's 1440:298 shape (`x`/`w` a share of 1440, `y`/`h` a share of 298)
- *    but its width is also capped by the viewport *height*, so the photos plus
- *    48px of white under them land above the fold rather than half under it.
- *    `483.2vh - 2643px` is that cap: the copy above the strip is ~363px from
- *    the section top at lg, so the strip may be `100vh - 72 (nav) - 64 (pt) -
- *    363 - 48` tall, times 1440/298 for the width. It never goes below 52.5rem,
- *    under which the paragraph would reach the right column, and never above
- *    108rem, past which the right column would climb into the navbar. When
- *    the cap binds, the strip is centred and the side margins grow.
+ * The boxes are in 1440x383 frame px measured from the top of the strip, with
+ * a 16px gap everywhere (the vertical gaps tighten a little when the strip is
+ * shortened, below); the columns start above it, so they have a negative
+ * `y`. Each file is cut from the full-size original at 2x its frame box. The corners are the frame's 25px, which the
+ * old delivered PNGs had baked in; it is in `cqw` here -- 25/1440 of the
+ * strip's width -- so it scales with the photos.
+ *
+ * The collage sits 2.5% short of each page edge (the frame bleeds it off the
+ * page; on a real screen that read as cut off). It must both fill the width
+ * and fit on the first screen (both raised 2026-10-01), so its width and
+ * height are set separately rather than locked to one shape: the width is
+ * the full content box, up to 108rem, and the height is what is left of the
+ * viewport under the copy -- `100vh - 610px`, the strip's top at lg (~578px:
+ * nav 72, pt 64, copy ~402, gap 40) plus 32px of air -- never taller than
+ * the frame's own 1440:383 shape would make it (25.27vw) and never shorter
+ * than 12rem (192px, which a 1366x768 laptop just fits). Every `y`/`h` is a share of that height and every `x`/`w` a
+ * share of the width, so on a short screen the tiles get flatter and
+ * `object-cover` crops each photo to its tile rather than distorting it.
  *
  * Decorative, so `aria-hidden` and no alt text -- the heading and body carry
- * the meaning. `lg:` only, as the vignettes were: at tablet and below the
- * strip would shrink to thumbnails and the right column would sit on the copy.
+ * the meaning. `lg:` only: at tablet and below the strip would shrink to
+ * thumbnails and the end columns would sit on the copy.
  */
-const PHOTOS = [
-  { src: "01-resting", x: 0, y: 125, w: 169, h: 173 },
-  { src: "02-couple", x: 185, y: 56, w: 136, h: 139 },
-  { src: "03-desk", x: 185, y: 210, w: 136, h: 88 },
-  { src: "04-sofa", x: 336, y: 0, w: 136, h: 139 },
-  { src: "05-headache", x: 332, y: 159, w: 136, h: 139 },
-  { src: "06-embrace", x: 490, y: 56, w: 231, h: 242 },
-  { src: "07-hands", x: 743, y: 107, w: 465, h: 191 },
-  { src: "08-window", x: 1232, y: -319, w: 208, h: 271 },
-  { src: "09-knees", x: 1232, y: -28, w: 208, h: 205 },
-  { src: "10-phone", x: 1232, y: 195, w: 208, h: 103 },
+const PIECES = [
+  { src: "01-pillow", x: 0, y: -214, w: 208, h: 290 },
+  { src: "02-thinking", x: 0, y: 92, w: 208, h: 291 },
+  { src: "03-embrace", x: 224, y: 0, w: 260, h: 383 },
+  { src: "04-hands", x: 500, y: 0, w: 716, h: 200 },
+  { src: "05-counselling", x: 500, y: 216, w: 350, h: 167 },
+  { src: "06-desk", x: 866, y: 216, w: 350, h: 167 },
+  { src: "07-knees", x: 1232, y: -214, w: 208, h: 290 },
+  { src: "08-headache", x: 1232, y: 92, w: 208, h: 291 },
 ];
 
 export function Layout134() {
@@ -79,8 +81,13 @@ export function Layout134() {
     titles run to three and four lines on a phone at the new size, and
     without it the last line orphans a single word. It is inert on the
     one-line titles and at lg, so it only acts where the wrap is real. */}
+        {/* The first line is Playfair ExtraBold (800) in the 2026-09-30 frame.
+            800 is not self-hosted -- 700 is the heaviest Playfair face in
+            globals.css -- so it is set at 700 rather than letting the browser
+            synthesise a bolder one. `font-[700]`, not `font-bold`, because
+            `--font-weight-bold` is 400 on purpose. */}
         <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-          Individualized Support{" "}
+          <span className="font-[700]">Individualized Support</span>{" "}
           <span className="block">for Ohio Adults</span>
         </h1>
         {/* `max-w-md` on the paragraph alone, not the container: at 48rem
@@ -89,9 +96,13 @@ export function Layout134() {
             split the h1 onto three lines up to ~1087px. `text-pretty` stops
             the phone wrap ending on a single word. */}
         <p className="mx-auto max-w-md text-pretty text-medium">
-          Get Personalized Supportive Services from a dedicated Uplift
-          Peer Coach to help you move toward your goals. Available for adults
-          18+ with active Ohio Medicaid.
+          {/* Emphases are the frame's: "Get no-cost" Bold, "Available for
+              adults 18+" SemiBold. */}
+          <strong className="font-[700]">Get no-cost</strong> Personalized
+          Supportive Services from a dedicated Uplift Peer Coach to help you
+          move toward your goals.{" "}
+          <strong className="font-semibold">Available for adults 18+</strong>{" "}
+          with active Ohio Medicaid.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
           {/* Opens the intake Application modal (step 1). It used to link to
@@ -105,20 +116,20 @@ export function Layout134() {
           reaches halfway into the gutter on each side. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none -mx-[2.7778%] hidden select-none lg:-mt-5 lg:block"
+        className="pointer-events-none -mx-[2.7778%] hidden select-none lg:mt-10 lg:block"
       >
-        <div className="relative mx-auto aspect-[1440/298] w-full max-w-[min(108rem,max(52.5rem,calc(483.2vh-2643px)))]">
-          {PHOTOS.map(({ src, x, y, w, h }) => (
+        <div className="@container relative mx-auto h-[clamp(12rem,min(calc(100vh-610px),25.27vw),28rem)] w-full max-w-[108rem]">
+          {PIECES.map(({ src, x, y, w, h }) => (
             <img
               key={src}
-              src={`/images/for-individual-hero-${src}.png`}
+              src={`/images/for-individual-hero-${src}.jpg`}
               alt=""
-              className="absolute"
+              className="absolute rounded-[1.7361cqw] object-cover"
               style={{
                 left: `${(x / 1440) * 100}%`,
-                top: `${(y / 298) * 100}%`,
+                top: `${(y / 383) * 100}%`,
                 width: `${(w / 1440) * 100}%`,
-                height: `${(h / 298) * 100}%`,
+                height: `${(h / 383) * 100}%`,
               }}
             />
           ))}

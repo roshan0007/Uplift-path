@@ -13,23 +13,67 @@ import React from "react";
  * third gradient. The scheme is `.scheme-light`, so text and buttons resolve
  * as they do on white.
  *
- * Interim design for the 404. It was raised in the 2026-09-21 QA review as
- * needing a proper design (Anushka), so this is the on-brand placeholder
- * until that lands; the thank-you page can move with it.
+ * Artwork is the 2026-09-30 frames' ("404 page" and "Thank you"), chosen with
+ * `art`:
  *
- * `text-h1` for the title, as on every other route: `--font-weight-bold` is
- * 400, so size is the only signal of rank. `min-h-[60vh]` keeps the footer
+ * - `"404"` puts the speech-bubble illustration between the eyebrow and the
+ *   title. The frame draws it at 504x327; at that size, under a two-line 72px
+ *   title, the page ran past the fold and read as too big (raised
+ *   2026-10-01), so it is 320px wide here (256px on phones).
+ * - `"thank-you"` hangs two line-drawn pairs of hands from the top corners,
+ *   at their frame share of the 1440 width (397 and 458 of it). The frame
+ *   bleeds the right pair 17px off the page; it is flush to the edge here, as
+ *   the For Individual hero's collage was pulled in for the same reason. Each
+ *   is also capped at `50vw - 290px`, which keeps 580px clear between them
+ *   -- the title is under 450px wide at 52px -- so below ~1300px they shrink
+ *   rather than run into it. They are `lg:` only: below 992px they would be
+ *   too small to read as drawings.
+ *
+ * Both are decorative, so `aria-hidden` and no alt text.
+ *
+ * `text-h2` for the title (52px at lg), which is what both frames set. Other
+ * routes use `text-h1` so the page title outranks their `text-h2` section
+ * headings; these pages have no other heading, so there is nothing for it to
+ * outrank, and at 72px "We Can't Find That Page" broke onto two lines and made
+ * the 404 too big (2026-10-01). `min-h-[60vh]` keeps the footer
  * from riding up into the middle of a tall screen on a page this short.
  *
  * No `"use client"`: nothing here is interactive, and `app/not-found.tsx`
  * renders it from a server component.
  */
-export function StatusPanel({ eyebrow, title, children, actions }) {
+export function StatusPanel({ eyebrow, title, children, actions, art }) {
   return (
-    <section className="flex min-h-[60vh] items-center px-[5%] py-16 md:py-24 lg:py-28 scheme-light hero-fade badge-alt">
-      <div className="container max-w-lg text-center">
+    <section className="relative flex min-h-[60vh] items-center overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-light hero-fade badge-alt">
+      {art === "thank-you" && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none hidden select-none lg:block"
+        >
+          <img
+            src="/images/status-thank-you-hands-heart.png"
+            alt=""
+            className="absolute top-0 left-0 w-[min(27.57%,calc(50vw-290px))]"
+          />
+          <img
+            src="/images/status-thank-you-hands-flower.png"
+            alt=""
+            className="absolute top-0 right-0 w-[min(31.81%,calc(50vw-290px))]"
+          />
+        </div>
+      )}
+      <div className="relative container max-w-lg text-center">
         <p className="mb-3 font-semibold md:mb-4">{eyebrow}</p>
-        <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">{title}</h1>
+        {art === "404" && (
+          <img
+            src="/images/status-404-speech-bubbles.png"
+            alt=""
+            aria-hidden="true"
+            width={504}
+            height={327}
+            className="mx-auto mb-6 w-64 md:mb-8 md:w-80"
+          />
+        )}
+        <h1 className="mb-5 text-balance text-h2 font-bold md:mb-6">{title}</h1>
         <p className="text-medium">{children}</p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 md:mt-8">
           {actions.map(({ label, href, variant }) => (

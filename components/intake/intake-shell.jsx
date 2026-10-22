@@ -122,6 +122,18 @@ export function IntakeShell({
           <IntroWrapper>
             <p className="text-medium">{intro}</p>
           </IntroWrapper>
+          {/* The phone alternative on every intake screen (2026-10-07 client
+              review): someone struggling with a form, or in a hard moment,
+              should not have to finish it to reach a person. Outside
+              IntroWrapper so the dialog's accessible description stays the
+              intro alone. */}
+          <p className="mt-4 text-small text-scheme-text/60">
+            Rather talk to someone? Call us on{" "}
+            <a href="tel:+15132994553" className="underline">
+              (513) 299-4553
+            </a>
+            .
+          </p>
         </div>
         {/* The row's `minmax(0,1fr)` lets this shrink to whatever height is
             left over; `min-h-96` is the floor underneath that. A 24rem frame is

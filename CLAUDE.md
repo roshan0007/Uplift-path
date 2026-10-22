@@ -56,7 +56,8 @@ order, and the scheme each one carries.
   There are nine: `.scheme-light`, `.scheme-accent`, `.scheme-navy`,
   `.scheme-mint`, `.scheme-deep-teal`, `.scheme-cerulean-deep`, `.scheme-black`,
   `.scheme-jade` (v3, `#01a66e`, the footer band only), and
-  `.scheme-green-deep` (v3, `#05866b`, the About Us green band only).
+  `.scheme-green-deep` (v3, `#05866b`, built for the About Us green band; unused
+  since the 2026-09-30 frame replaced that band with a white portrait wall).
   `--color-plantation` (v3, `#274d40`) is a palette entry but **not** a scheme:
   it is the How We Work decorative curve only, drawn at 20%. See [12].
   `.scheme-1/2/3` are aliases of the first three and are what the exported

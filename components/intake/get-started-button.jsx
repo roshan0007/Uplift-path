@@ -26,7 +26,7 @@ import React from "react";
  * matches steps 2-4 exactly. The four screens should feel like one flow, and a
  * small centred card followed by three full pages does not.
  *
- * This replaces the "Get Started" buttons on /for-individual that all used
+ * This replaces the "Get Started" buttons on /peer-coaching that all used
  * to point at /contact-us. Anywhere on the individual side that offers to start
  * the process should render this rather than link somewhere.
  *

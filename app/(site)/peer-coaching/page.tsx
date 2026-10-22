@@ -11,7 +11,7 @@ import { Cta25 } from "@/components/sections/for-individual-page/cta-25";
 // "%s | Uplift Path" template would otherwise append it twice.
 export const metadata: Metadata = {
   alternates: {
-    canonical: "/for-individual",
+    canonical: "/peer-coaching",
   },
   title: {
     absolute: "Telehealth Peer Support for Adults in Ohio | Uplift Path",

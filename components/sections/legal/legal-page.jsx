@@ -1,6 +1,12 @@
 "use client";
 
 import React from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 /**
  * The one layout every legal page uses: Accessibility, Terms of Use, Privacy
@@ -11,26 +17,23 @@ import React from "react";
  * not summarised, because a policy that has been paraphrased is a different
  * policy. What changed is only the typography and the layout.
  *
- * Two columns from `lg`: the title, the last-updated date and a jump list on
- * the left, the policy itself on the right. Privacy Policy alone runs to 127
- * blocks and Terms to 142 — long enough that a single centred column gives a
- * reader no idea where they are or how much is left, and no way to reach the
- * one section they actually came for. The left column sticks as the body
- * scrolls, so the jump list is always in reach.
+ * Two sections since 2026-10-01 (refactor audit,
+ * docs/agent-reports/refactor-audit-legal-pages-2026-10-01.md): a full-width
+ * `scheme-mint` title band carrying the h1 and the version or date line, then
+ * the notice on `scheme-1`. Below the band, two columns from `lg`: a jump list
+ * on the left, the policy on the right. Privacy Policy alone runs to 127 blocks
+ * and Terms to 142 — long enough that a single column gives a reader no idea
+ * where they are and no way to reach the one section they came for. Only the
+ * jump list is sticky, capped at the viewport height so it never runs off
+ * screen; below `lg` it collapses into an accordion above the body.
  *
- * The left column is 25rem, not the 18rem it started at. "Accessibility" set
- * in Playfair at the lg `--text-h1` step is 391px wide and cannot be broken, so
- * an 18rem (288px) track could not contain it: the word overhung its column by
- * 103px and ran straight through the body text beside it. Measured at 1440.
- * 25rem clears the longest word on any of the four pages with room to spare,
- * and the body column still exceeds its 45rem measure at every width from lg
- * up. Reducing the h1 instead is not available -- it is one step above the h2s
- * on the same page for a reason, documented on the element below.
+ * The h1 used to sit in the left column, which had to widen to 25rem to hold
+ * "Accessibility" at the lg h1 step and still could not hold
+ * "Nondiscrimination" (that page stepped down to `text-h2`). In the band it has
+ * the full container, so every title is `text-h1` and the sidebar is 20rem.
  *
- * The measure is capped at 45rem. The design system puts text columns at 35rem
- * and heading blocks at 48rem; policy prose sits between the two — narrower
- * than a heading block, but tight enough that a 90-character legal sentence
- * does not run the full width of a desktop.
+ * The measure is `max-w-md`, the design system's 35rem text column — 50 to 70
+ * characters a line.
  *
  * Headings are h2 throughout. The source used h3 for every section under a
  * single h2 page title, which skips no levels only because there is nothing
@@ -85,80 +88,118 @@ export function LegalPage({
     .map((block, index) => ({ block, id: ids[index] }))
     .filter(({ block }) => block.type === "h" && levelOf(block) === 1);
 
+  const hasToc = sections.length > 2;
+
+  const meta =
+    version && effective
+      ? `Version ${version} · Effective ${effective}`
+      : updated
+        ? `Last updated ${updated}`
+        : null;
+
   return (
-    <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-1 badge-alt">
-      <div className="container grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] lg:gap-16">
-        <header className="lg:sticky lg:top-24 lg:self-start">
-          {/* `text-h1`, not `text-h2`. Every section heading on this route is
-              `text-h2` -- 40px at 375, 52px at 1440 -- and so was the page
-              title, which made the h1 the joint-largest heading rather than the
-              largest. Weight cannot recover the rank here: `--font-weight-bold`
-              is 400 on purpose, so size is the only signal available. One token
-              step up is 44px / 72px, which clears every h2 at both widths. The
-              lg step is 20px over the frame's 52, and that is the deliberate
-              trade -- the frame giving the h1 and the h2 the same size is
-              exactly the finding. Same resolution as the homepage h1.
-
-    `text-balance` is what makes 44px survive a 338px measure: these
-    titles run to three and four lines on a phone at the new size, and
-    without it the last line orphans a single word. It is inert on the
-    one-line titles and at lg, so it only acts where the wrap is real. */}
-          {/* One step down (`text-h2`) when the title holds a word too long
-              for the 25rem column at `text-h1`. "Nondiscrimination" is 17
-              letters and set in Playfair at the lg h1 step it is ~540px wide,
-              which overhangs the column and runs through the body text -- the
-              same failure "Accessibility" caused, one word longer. Section
-              headings on this route are `text-h4`, so the h1 is still the
-              largest thing on the page at the smaller step. */}
-          <h1
-            className={`text-balance font-bold ${
-              longestWord(title) > 15 ? "text-h2" : "text-h1"
-            }`}
-          >
-            {title}
-          </h1>
-          {version && effective ? (
-            <p className="mt-4 text-small text-scheme-text/60">
-              Version {version} · Effective {effective}
+    <>
+      {/* The title band. The page used to be one white field from navbar to
+          footer, about 5,000px of `scheme-1` with nothing to mark where the
+          notice starts. Refactor audit 2026-10-01: the mint scheme is the
+          light neutral the brand already uses for full-bleed washes, dark text
+          on it is 17.91:1 and the /60 meta line 5.16:1, so the page gets one
+          quiet colour block without breaking any rule. Full width, so the h1
+          no longer has to fit a 25rem sidebar -- which is what the old
+          `longestWord > 15 ? text-h2 : text-h1` workaround was for, and why
+          Nondiscrimination alone came out a step smaller than the other seven. */}
+      <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-mint badge-alt">
+        <div className="container">
+          <h1 className="max-w-lg text-balance text-h1 font-bold">{title}</h1>
+          {meta && (
+            <p className="mt-5 text-small text-scheme-text/60 md:mt-6">
+              {meta}
             </p>
-          ) : (
-            updated && (
-              <p className="mt-4 text-small text-scheme-text/60">
-                Last updated {updated}
-              </p>
-            )
           )}
-          {sections.length > 2 && (
-            <nav aria-label="On This Page" className="mt-8 hidden lg:block">
-              <p className="mb-4 text-small font-semibold">On This Page</p>
-              {/* A hairline rule down the list, which is the treatment the
-                  footer divider and the accordion already use. The 1px is
-                  deliberate — a 2px border here would read as a card edge. */}
-              <ul className="max-h-[50vh] space-y-3 overflow-y-auto border-l border-scheme-border pl-4 text-small">
-                {sections.map(({ block, id }) => (
-                  <li key={id}>
-                    <a
-                      href={`#${id}`}
-                      className="block transition-opacity duration-200 ease-in-out hover:opacity-70"
-                    >
-                      {block.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          )}
-        </header>
-
-        <div className="max-w-[45rem]">
-          {intro}
-          {content.map((block, index) => (
-            <Block key={index} block={block} id={ids[index]} />
-          ))}
-          {children}
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="px-[5%] py-16 md:py-20 lg:py-24 scheme-1 badge-alt">
+        {/* One column when there is no jump list (Grievance): a 20rem track
+            with nothing in it would push the form off-centre for no reason. */}
+        <div
+          className={`container grid grid-cols-1 gap-10 lg:gap-16 ${
+            hasToc ? "lg:grid-cols-[minmax(0,20rem)_minmax(0,35rem)]" : ""
+          }`}
+        >
+          {hasToc && (
+            <aside>
+              {/* Phones and tablets: a collapsed list, so a reader on an
+                    8,700px notice can still reach the section they came for.
+                    Composed from the accordion primitive. Its trigger sits in
+                    an <h3>, so it takes `font-body` like every FAQ question. */}
+              {/* The wrapper carries `lg:hidden` because the primitive's
+                    root drops `className`. */}
+              <div className="lg:hidden">
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="toc">
+                    <AccordionTrigger className="font-body text-small font-semibold">
+                      On This Page
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <TocList sections={sections} />
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+
+              {/* Desktop: only the nav is sticky, not the whole column. The
+                    column used to carry the h1 and date as well, 902px pinned
+                    at 96px, so the bottom of the list ran off a 900px screen
+                    on four of the eight routes. The 96px offset was also
+                    clearing a sticky navbar that is not sticky. The list now
+                    caps at the viewport, so there is one scroll box at most
+                    (Terms and Privacy only), not a 50vh box inside a column
+                    that was already clipped. */}
+              <nav
+                aria-label="On This Page"
+                className="hidden lg:sticky lg:top-8 lg:block lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto [scrollbar-color:var(--color-scheme-border)_transparent] [scrollbar-width:thin]"
+              >
+                <p className="mb-4 text-small font-semibold">On This Page</p>
+                <TocList sections={sections} />
+              </nav>
+            </aside>
+          )}
+
+          {/* `max-w-md` (35rem, the design system's text column) instead of the
+              old 45rem: 76-84 characters a line came down to 50-70. */}
+          <div className="max-w-md">
+            {intro}
+            {content.map((block, index) => (
+              <Block key={index} block={block} id={ids[index]} />
+            ))}
+            {children}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+/**
+ * The jump list. Links sit at 60% so the list reads as navigation next to the
+ * policy rather than competing with it (5.36:1 on white, AA). A 1px hairline
+ * down the side, the same treatment as the footer divider and the accordion.
+ */
+function TocList({ sections }) {
+  return (
+    <ul className="space-y-3 border-l border-scheme-border pl-4 text-small">
+      {sections.map(({ block, id }) => (
+        <li key={id}>
+          <a
+            href={`#${id}`}
+            className="block text-scheme-text/60 transition-colors duration-200 ease-in-out hover:text-scheme-text"
+          >
+            {block.text}
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -169,13 +210,14 @@ function Block({ block, id }) {
     // policy's spine and which hang off it.
     const Tag = levelOf(block) === 1 ? "h2" : "h3";
     return (
-      // `scroll-mt` clears the sticky navbar when the jump list lands here.
+      // `scroll-mt-8` matches the sticky jump list's `top-8`; the navbar is
+      // static, so there is nothing else to clear.
       <Tag
         id={id}
         className={
           Tag === "h2"
-            ? "mt-12 mb-4 scroll-mt-24 text-h4 font-bold first:mt-0 md:mt-14"
-            : "mt-8 mb-3 scroll-mt-24 text-h6 font-bold"
+            ? "mt-12 mb-4 scroll-mt-8 text-h4 font-bold first:mt-0 md:mt-14"
+            : "mt-8 mb-3 scroll-mt-8 text-h6 font-bold"
         }
       >
         {block.text}
@@ -203,10 +245,6 @@ function Block({ block, id }) {
       )}
     </p>
   );
-}
-
-function longestWord(text) {
-  return Math.max(...text.split(/\s+/).map((word) => word.length));
 }
 
 /**
@@ -266,7 +304,8 @@ function List({ items, className = "" }) {
  * rather than being linked to the wrong place.
  */
 const PHRASE_LINKS = {
-  "Cookies and Tracking Technologies Notice": "/cookies-and-tracking-technologies",
+  "Cookies and Tracking Technologies Notice":
+    "/cookies-and-tracking-technologies",
   "Consumer Health Data Privacy Notice": "/consumer-health-data-privacy",
   "State Privacy Rights Notice": "/state-privacy-rights",
   "Website Notice of Privacy": "/privacy-policy",

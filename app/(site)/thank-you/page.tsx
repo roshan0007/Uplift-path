@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <StatusPanel
+      art="thank-you"
       eyebrow="Thank You"
       title="Your Submission Is Complete"
       actions={[{ label: "Return to Home Page", href: "/" }]}

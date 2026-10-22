@@ -19,7 +19,7 @@
 # /systems-&-technology is the one that was a real defect: an ampersand in a
 # path URL-encodes to %26, which is how the auditors found it.
 /for-business-page /for-business 301
-/for-individual-page /for-individual 301
+/for-individual-page /peer-coaching 301
 /systems-&-technology /systems-technology 301
 /career /careers 301
 
@@ -47,3 +47,10 @@
 # The legal copy (carried over from the old site) used to cite /contact.
 /contact /contact-us 301
 /contact/ /contact-us 301
+
+# /for-individual was renamed to /peer-coaching on 2026-09-30. It is indexed
+# (in the sitemap, and linked from the nav, footer and homepage), so it keeps a
+# permanent redirect, in both slash forms. /for-individual-page above points
+# straight at the new slug rather than chaining through this one.
+/for-individual /peer-coaching 301
+/for-individual/ /peer-coaching 301

@@ -5,11 +5,11 @@
  * staging build or wholly a production one and there is no third state to get
  * half-right:
  *
- *   - default (staging) — every absolute URL the build emits names the
- *     workers.dev host it is actually served from, and `robots.txt` plus the
- *     per-page robots meta keep it out of the index.
- *   - `NEXT_PUBLIC_INDEXABLE=true` (production) — the same URLs all move to
- *     the production domain together, in one build, at the cutover.
+ *   - default (production) — every absolute URL the build emits names
+ *     upliftpathwellness.com, and the site is indexable.
+ *   - `NEXT_PUBLIC_INDEXABLE=false` (staging) — every absolute URL names the
+ *     workers.dev host, and `robots.txt` plus the per-page robots meta keep
+ *     it out of the index.
  *
  * This is a change of approach, and the reason is worth keeping. `SITE_URL`
  * used to be pinned to the production domain even on staging, on the argument
@@ -29,22 +29,30 @@
  * `NEXT_PUBLIC_SITE_URL` still overrides both, for a preview deploy on some
  * other host.
  *
- * The defaults are chosen so that a forgotten environment variable fails safe:
- * no flag means noindex *and* staging URLs, never a staging build quietly
- * competing with the client's live site for its own keywords. Turning it on is
- * an explicit act:
+ * The default is the production build. It used to be the other way round —
+ * staging unless `NEXT_PUBLIC_INDEXABLE=true` — so that a forgotten variable
+ * could never let a staging copy compete with the client's old site. That
+ * reasoning expired at the domain cutover on 2026-09-29: the Worker now *is*
+ * upliftpathwellness.com, and the same default turned into the opposite
+ * failure. The go-live deploy was a plain build, so the live site shipped
+ * `noindex, nofollow`, a blanket `Disallow: /` and canonicals pointing at
+ * workers.dev — de-indexing the domain it was meant to replace. Failing safe
+ * now means failing to production. A staging build is the explicit act:
  *
- *     NEXT_PUBLIC_INDEXABLE=true pnpm build && npx wrangler deploy
+ *     NEXT_PUBLIC_INDEXABLE=false pnpm build
+ *
+ * The workers.dev host serves the same production build; its canonicals name
+ * the apex, so a crawler that finds it files the pages under the apex.
  *
  * Read at build time, not request time: `output: 'export'` means there is no
  * server, so whatever these are when the static export runs is what ships.
  */
-export const INDEXABLE = process.env.NEXT_PUBLIC_INDEXABLE === "true";
+export const INDEXABLE = process.env.NEXT_PUBLIC_INDEXABLE !== "false";
 
-/** The production domain. Used once the site is allowed to be indexed. */
+/** The production domain, live since 2026-09-29. */
 const PRODUCTION_URL = "https://upliftpathwellness.com";
 
-/** Where the build is really served until the domain cutover. */
+/** The workers.dev host, for a staging build. */
 const STAGING_URL = "https://uplift-path.black-cake-c8c6.workers.dev";
 
 /**

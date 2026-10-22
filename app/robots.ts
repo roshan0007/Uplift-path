@@ -8,14 +8,14 @@ import { INDEXABLE, NOINDEX_ROUTES, SITE_URL } from "@/lib/site";
 export const dynamic = "force-static";
 
 /**
- * While `INDEXABLE` is false — which is every build that does not explicitly
- * opt in — this emits a blanket disallow. The site is a rebuild of a live,
+ * While `INDEXABLE` is false — a staging build, which has to opt out
+ * explicitly — this emits a blanket disallow. The site is a rebuild of a live,
  * indexed upliftpathwellness.com; a staging copy that gets crawled would be
  * duplicate content competing with the client's own pages.
  *
  * The disallow is belt to the per-page `noindex` braces: robots.txt asks a
  * crawler not to fetch, `noindex` tells it not to list what it fetched anyway.
- * Neither alone is reliable, so we ship both until launch.
+ * Neither alone is reliable, so a staging build ships both.
  */
 export default function robots(): MetadataRoute.Robots {
   if (!INDEXABLE) {
