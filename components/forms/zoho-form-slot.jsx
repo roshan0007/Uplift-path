@@ -1,6 +1,7 @@
 "use client";
 
 import { withCaseIdPrefill } from "@/lib/case-id";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -79,6 +80,9 @@ export const ZOHO_FORMS = {
     title: "Consent Form",
     src: "https://forms.zohopublic.com/upliftpathinc/form/ConsentFormclient/formperma/l1giydGIPzdtmEl0cHDHzWrOHvXcqyGQ6abxPefIru8",
     height: null, // measured 5771px — fills the screen instead
+    // Long enough that people want to read it before they sign: the slot offers
+    // a "View larger" button that lifts the same iframe to near full screen.
+    expandable: true,
     // Two of them. `SingleLine10` is the plain hidden field and takes the
     // prefill; `SingleLine11` is a Search field — a lookup into another form —
     // and did not, when the URL parameter was tried against it directly. It is
@@ -185,11 +189,26 @@ function withReferrer(src) {
  * these screens are noindexed anyway — there is nothing for a crawler to miss.
  */
 /**
+ * ## Expandable forms
+ *
+ * A form with `expandable: true` gets a "View larger" button above its frame.
+ * It does not open a second copy of the form: the *same* iframe is lifted to a
+ * fixed, near-full-screen box over a dimmed backdrop, and put back on close.
+ * Moving an iframe in the DOM reloads it and wipes what has been typed, so this
+ * only restyles the element that is already there. Whatever the person has
+ * filled in is still there when they shrink it again.
+ *
+ * Escape closes it, as does the backdrop, but Escape only reaches us while focus
+ * is outside the iframe — the visible Close button is the dependable way out.
+ *
  * @param {{ form: string, className?: string }} props
  */
 export function ZohoFormSlot({ form, className = undefined }) {
   const config = ZOHO_FORMS[form];
   const [src, setSrc] = React.useState(null);
+  const [expanded, setExpanded] = React.useState(false);
+  const expandRef = React.useRef(null);
+  const closeRef = React.useRef(null);
 
   // Both of these read `window.location`, so both belong here rather than in
   // render — see the note on client-side mounting below.
@@ -199,42 +218,134 @@ export function ZohoFormSlot({ form, className = undefined }) {
   }, [config]);
 
   const height = config?.height ?? null;
+  const expandable = Boolean(config?.expandable);
+
+  // While expanded: Escape closes, the page behind stops scrolling, and focus
+  // moves to Close — then returns to the button that opened it.
+  React.useEffect(() => {
+    if (!expanded) return undefined;
+    const trigger = expandRef.current;
+    const previousOverflow = document.body.style.overflow;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setExpanded(false);
+    };
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKeyDown);
+    closeRef.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+      trigger?.focus();
+    };
+  }, [expanded]);
+
+  const frame = (
+    <div
+      data-zoho-slot={form}
+      role={expanded ? "dialog" : undefined}
+      aria-modal={expanded ? "true" : undefined}
+      aria-label={expanded ? config.title : undefined}
+      style={height ? { "--zoho-form-height": height } : undefined}
+      className={cn(
+        "overflow-hidden rounded-card border-2 border-scheme-border bg-white",
+        expanded
+          ? // Lifted out of the layout. The wrapper around it keeps its size,
+            // so the page behind does not jump.
+            "fixed inset-3 z-[100] flex flex-col text-neutral-darkest sm:inset-6"
+          : "h-full w-full",
+        // The declared height only applies from `lg`, where the two-column
+        // layout leaves surplus height to centre the frame in. Below that the
+        // stacked layout is tight enough that the form should take everything
+        // it can get, and there is no surplus to look empty.
+        //
+        // The cap is measured off the viewport, not off the parent. `100%`
+        // here would be circular — the row sizes to its content, the content
+        // is a percentage of the row — and the browser resolves that circle
+        // by letting the row grow, which put 325px of page scroll on a phone.
+        // `100dvh` is a fixed reference, so it caps instead of feeding back.
+        // The 8rem is the step bar plus the bottom padding, with slack.
+        !expanded &&
+          height &&
+          "lg:h-[var(--zoho-form-height)] lg:max-h-[calc(100dvh-8rem)]",
+        className,
+      )}
+    >
+      {expanded && (
+        <div className="flex shrink-0 items-center justify-between gap-4 border-b-2 border-scheme-border px-4 py-3">
+          <p className="font-medium">{config.title}</p>
+          <Button
+            ref={closeRef}
+            type="button"
+            variant="secondary"
+            size="sm"
+            onClick={() => setExpanded(false)}
+          >
+            Close
+          </Button>
+        </div>
+      )}
+      {config && src && (
+        <iframe
+          src={src}
+          title={config.title}
+          className={cn(
+            "block border-0",
+            expanded ? "min-h-0 w-full flex-1" : "size-full",
+          )}
+        />
+      )}
+      {!config && <UnknownForm form={form} />}
+    </div>
+  );
+
+  if (!expandable) {
+    return (
+      // The outer box is the full space the caller gave us; the inner one is the
+      // frame. They are the same thing when no height is declared.
+      <div className="flex h-full min-h-0 w-full items-center">{frame}</div>
+    );
+  }
 
   return (
-    // The outer box is the full space the caller gave us; the inner one is the
-    // frame. They are the same thing when no height is declared.
-    <div className="flex h-full min-h-0 w-full items-center">
-      <div
-        data-zoho-slot={form}
-        style={height ? { "--zoho-form-height": height } : undefined}
-        className={cn(
-          "h-full w-full overflow-hidden rounded-card border-2 border-scheme-border bg-white",
-          // The declared height only applies from `lg`, where the two-column
-          // layout leaves surplus height to centre the frame in. Below that the
-          // stacked layout is tight enough that the form should take everything
-          // it can get, and there is no surplus to look empty.
-          //
-          // The cap is measured off the viewport, not off the parent. `100%`
-          // here would be circular — the row sizes to its content, the content
-          // is a percentage of the row — and the browser resolves that circle
-          // by letting the row grow, which put 325px of page scroll on a phone.
-          // `100dvh` is a fixed reference, so it caps instead of feeding back.
-          // The 8rem is the step bar plus the bottom padding, with slack.
-          height &&
-            "lg:h-[var(--zoho-form-height)] lg:max-h-[calc(100dvh-8rem)]",
-          className,
-        )}
-      >
-        {config && src && (
-          <iframe
-            src={src}
-            title={config.title}
-            className="block size-full border-0"
-          />
-        )}
-        {!config && <UnknownForm form={form} />}
+    <div className="flex h-full min-h-0 w-full flex-col gap-3">
+      <div className="flex shrink-0 justify-end">
+        <Button
+          ref={expandRef}
+          type="button"
+          variant="secondary"
+          size="sm"
+          aria-expanded={expanded}
+          onClick={() => setExpanded(true)}
+          iconLeft={<ExpandIcon />}
+        >
+          View larger
+        </Button>
       </div>
+      <div className="flex min-h-0 w-full flex-1 items-center">{frame}</div>
+      {expanded && (
+        <div
+          aria-hidden="true"
+          onClick={() => setExpanded(false)}
+          className="fixed inset-0 z-[99] bg-neutral-darkest/90"
+        />
+      )}
     </div>
+  );
+}
+
+function ExpandIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="square"
+      aria-hidden="true"
+    >
+      <path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7" />
+    </svg>
   );
 }
 
