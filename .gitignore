@@ -27,8 +27,6 @@ yarn-error.log*
 next-env.d.ts
 # wrangler local state
 .wrangler/
-# local secrets for `wrangler dev` — never commit
-.dev.vars*
 
 # figma design handoff staging (not shipped)
 /figma-inbox/
