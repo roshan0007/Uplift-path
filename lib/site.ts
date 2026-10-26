@@ -69,4 +69,5 @@ export const NOINDEX_ROUTES = [
   "/booking",
   "/cmps",
   "/consent-form",
+  "/accept-client",
 ];

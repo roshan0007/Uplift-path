@@ -1,0 +1,9 @@
+# Cloudflare Workers static assets reads this file; Next's static export copies
+# `public/` to `out/`, so it lands at `out/_headers` on build.
+#
+# /accept-client is the page a coach opens from the "new client" email. The link
+# carries a case id, so it must not be indexed, cached, or leaked in a Referer.
+/accept-client*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer

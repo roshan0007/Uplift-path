@@ -146,7 +146,10 @@ order, and the scheme each one carries.
 - Tailwind **v4** — no `tailwind.config.js`, and `@relume_io/relume-tailwind`
   (a v3 preset) cannot be used. Tokens live in CSS.
 - Static export (`output: 'export'`): no API routes, no middleware, no server
-  actions, and `next/image` optimization is off.
+  actions, and `next/image` optimization is off. The one server-side route is
+  `worker/index.ts` (`POST /api/coach-response`), a plain Worker script that
+  runs only for `/api/*` — see the README. Its Zoho key is the Worker secret
+  `ZOHO_COACH_API_URL`; never put it in the repo.
 - Section folder names come from Relume and include its typos
   (`business-conusltation`, `advisory--services`). Routes match them. Renaming
   means renaming the route too — and the site is indexed, so each rename needs a
