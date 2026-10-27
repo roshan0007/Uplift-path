@@ -273,7 +273,7 @@ export function Navbar12() {
                           <div className="flex grow flex-col">
                             <p className="font-semibold">Resource Assistance</p>
                             <p className="hidden text-small md:block">
-                              Compliance support for behavioral health and human
+                              Compliance support for providers and human
                               services
                             </p>
                           </div>

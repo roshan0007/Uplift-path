@@ -37,10 +37,10 @@ export function Faq1() {
               Which industries do you specialize in?
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
-              Our business consulting approach serves Founders and Leaders
-              primarily in the behavioural health services sectors, from
-              early-stage startups navigating accreditation to established
-              agencies seeking operational transformation and growth.
+              Our business consulting approach serves Founders and Leaders,
+              helping providers to build operational models, from early-stage
+              startups navigating accreditation to established agencies seeking
+              operational transformation and growth.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">

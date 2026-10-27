@@ -28,8 +28,7 @@ export function Team6() {
             </div>
             <p>
               Julia is a trauma-informed social worker with 9 years of
-              experience in behavioral health, addiction recovery, and mental
-              health services. She specializes in mentoring professionals,
+              experience in addiction recovery and mental health services. She specializes in mentoring professionals,
               managing recovery programs, and creating supportive environments
               for diverse clients, including survivors of human trafficking and
               K-8 students. Julia is committed to fostering resilience and
@@ -63,10 +62,10 @@ export function Team6() {
             </div>
             <p>
               Devyani Balladin, COO of Uplift Path Inc., brings 20+ years of
-              leadership across business, behavioral health, education, and
+              leadership across business, human services, education, and
               nonprofits. Known for people-centered solutions, she strengthens
-              teams, streamlines operations, and drives growth. Her behavioral
-              health expertise fosters strategic clarity and sustainable change,
+              teams, streamlines operations, and drives growth. Her operational
+              expertise fosters strategic clarity and sustainable change,
               aligning strategy, culture, and resources for measurable impact.
             </p>
             <div className="mt-5 grid grid-flow-col grid-cols-[max-content] gap-3.5 self-center md:mt-6">

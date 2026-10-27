@@ -27,7 +27,7 @@ export function Faq1() {
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
               We hire for consulting, operations, project management, marketing,
-              and analyst roles that support behavioral health and broader
+              and analyst roles that support providers and broader
               service-based organizations in improving their systems,
               compliance, and growth.
             </AccordionContent>
@@ -49,8 +49,8 @@ export function Faq1() {
             </AccordionTrigger>
             <AccordionContent className="md:pb-6">
               Team members have access to ongoing training, mentoring, and
-              curated resources that build skills in consulting, behavioral
-              health operations, compliance frameworks, and business systems.
+              curated resources that build skills in consulting, provider
+              operations, compliance frameworks, and business systems.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">

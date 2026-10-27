@@ -22,7 +22,7 @@ export function Layout19() {
             <ul className="my-4 list-disc pl-5">
               <li className="my-1 self-start pl-2">
                 <p>
-                  Behavioral health providers building or refining service lines
+                  Providers building or refining service lines
                 </p>
               </li>
               <li className="my-1 self-start pl-2">

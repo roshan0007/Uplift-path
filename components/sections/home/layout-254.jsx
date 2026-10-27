@@ -27,12 +27,11 @@ export function Layout254() {
                 />
               </div>
               <h3 className="mb-3 text-h5 font-bold md:mb-4">
-                Behavioral Health Consulting
+                Provider Consulting
               </h3>
               <p>
-                Strategic consulting for behavioral health: improving care,
-                efficiency, and compliance. We build sustainable models,
-                optimize teams, and navigate change.
+                We help providers to build operational models, improve
+                efficiency and compliance, optimize teams, and navigate change.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">

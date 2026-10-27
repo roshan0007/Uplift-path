@@ -23,8 +23,8 @@ export function Layout615() {
                 Julia Gilliam, LSW
               </h3>
               <p>
-                Chief Compliance Officer, Clinical. Nine years across behavioral
-                health, addiction recovery and mental health services.
+                Chief Compliance Officer, Clinical. Nine years across addiction
+                recovery and mental health services.
               </p>
             </div>
             <div className="hidden h-full w-px bg-scheme-border md:block" />
