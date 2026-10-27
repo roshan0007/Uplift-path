@@ -160,8 +160,8 @@ static assets it belongs in `public/`.
 **6. Orphan pages.** Build the internal link graph: for every route, find
 every other page that links to it. Parse `href`s out of the emitted HTML in
 `out/`, not the JSX, so you catch what actually shipped. Any route with zero
-inbound internal links is orphaned. **Read the existing QA report at the repo
-root if one is there** — a prior sweep found that every homepage link is
+inbound internal links is orphaned. **Read the latest QA report in
+`docs/agent-reports/` if one is there** — a prior sweep found that every homepage link is
 `href="#"`. If that's still true, effectively every route is orphaned from
 the homepage, and you should verify and report it that way (a link graph with
 no edges) rather than listing 18 separate orphan findings.
@@ -244,7 +244,7 @@ each occurrence with file and line.
 
 ## Report
 
-Write `seo-report-<YYYY-MM-DD>.md` at the repo root. Lead with a **checklist
+Write `docs/agent-reports/seo-report-<YYYY-MM-DD>.md`. Lead with a **checklist
 table**: the 14 checks, one row each, verdict (pass / fail / unverified) and a
 one-line reason. Someone should be able to read that table alone and know
 where the site stands.

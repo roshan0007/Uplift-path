@@ -84,3 +84,38 @@
 .btn-light{--btn-force:light /* @kind other */}
 /* Knocks a colour logo to solid white for dark sections. */
 .logo-alt img[alt*="logo" i],.logo-alt img[src*="logo" i]{filter:brightness(0) invert(1)}
+
+/* v3 (2026-09-08 Figma). The footer band moved off .scheme-accent onto its own
+   green, with WHITE text to match the frame. Known contrast exception, taken by
+   decision: white on #01a66e is 3.14:1 and these are 14px links, which need
+   4.5:1 (the 3:1 large-text allowance starts at 24px, or 18.66px bold). The dark
+   neutral would be 6.38:1. To get AA back either darken the fill to ~#017a51 and
+   keep white, or use .scheme-deep-teal where white is 9.05:1. Do not copy this
+   pairing onto .scheme-accent - that green is 1.96:1 against white. */
+.scheme-jade{
+  --color-scheme-background:var(--color-jade);
+  --color-scheme-foreground:var(--color-jade);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-white);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}
+
+/* v3 (2026-09-08 Figma About Us). The ninth scheme, carrying the "Why Uplift
+   Path" band on the About Us page and nothing else yet. Unlike .scheme-jade
+   this is NOT a contrast exception: white on #05866b is 4.54:1 and passes AA
+   for body text. It exists because the frame's own #06a785 does not (3.06:1),
+   and the decision was to keep the white and darken the fill rather than flip
+   the text to the dark neutral. */
+.scheme-green-deep{
+  --color-scheme-background:var(--color-caribbean-green-deep);
+  --color-scheme-foreground:var(--color-caribbean-green-deep);
+  --color-scheme-text:var(--color-white);
+  --color-scheme-border:var(--color-white);
+  --color-scheme-accent:var(--color-white);
+  --color-scheme-btn-text:var(--color-neutral-darkest);
+  background-color:var(--color-scheme-background);
+  color:var(--color-scheme-text);
+}

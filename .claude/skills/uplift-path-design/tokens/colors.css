@@ -48,6 +48,29 @@
   --color-viking-darker:#20584d;
   --color-viking-darkest:#184239;
 
+  /* v3 (2026-09-08 Figma homepage). Faintest step of the Viking ramp, used
+     only by the homepage hero wash. */
+  --color-viking-faintest:#f0fffc;
+  /* v3. The footer band green. Greener and darker than anything on the
+     Caribbean Green ramp, so it is its own hue rather than a step on one. */
+  --color-jade:#01a66e;
+  /* v3 (2026-09-08 Figma About Us). The "Why Uplift Path" band. The frame
+     draws it #06a785 (--color-caribbean-green-dark) with white text, which is
+     3.06:1 and fails AA for the band's 18px SemiBold body; this is the same
+     hue held at the same saturation and dropped in value until white clears
+     4.5:1 (it lands at 4.54:1). A step between -dark and -darker on the
+     Caribbean Green ramp. Consumed only by .scheme-green-deep. */
+  --color-caribbean-green-deep:#05866b;
+
+  /* v3 (2026-09-08 Figma How We Work). The decorative curve behind the foot of
+     the "What You'll Experience" section, drawn at 20% opacity - over white it
+     resolves to #d4dbd9. Nothing on the Viking or Caribbean Green ramps is
+     this colour; --color-viking-darker (#20584d) is nearest and is lighter and
+     more cyan. Named for the swatch the way Viking, Cerulean and Pickled
+     Bluewood are - #274d40 is Plantation on that list. The token holds the
+     source colour, not the composite. */
+  --color-plantation:#274d40;
+
   /* ---- Black ---- */
   --color-black-lightest:#e5e5e5;
   --color-black-lighter:#cccccc;

@@ -95,8 +95,8 @@ function HomeScreen({ onNavigate }) {
     <>
       <section className="scheme-light section" style={{ position: "relative" }}>
         <div className="container" style={{ maxWidth: "64rem", textAlign: "center" }}>
-          <h1 className="hero-title" style={{ marginBottom: "1.5rem" }}>Uplift<br />One Path. Two Ways Forward.</h1>
-          <p style={{ fontSize: "var(--text-medium)", maxWidth: "34rem", margin: "0 auto" }}>Unlock progress and meaningful growth through clarity, collaboration and trusted guidance every step.</p>
+          <h1 className="hero-title" style={{ marginBottom: "1.5rem" }}>Uplifting every<br />life we serve</h1>
+          <p style={{ fontSize: "var(--text-medium)", maxWidth: "34rem", margin: "0 auto" }}>Unlock progress and meaningful growth through clarity, collaboration and trusted guidance at every step.</p>
           <div style={{ marginTop: "2rem", display: "flex", justifyContent: "center", gap: "1rem" }}>
             <Button onClick={() => onNavigate("business")}>Business</Button>
             <Button variant="secondary" onClick={() => onNavigate("business")}>Individual</Button>

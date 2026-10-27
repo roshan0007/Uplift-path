@@ -3,364 +3,337 @@
 import { Button } from "@/components/ui/button";
 // The export uses `motion.create(Card)` below but never imports Card.
 import { Card } from "@/components/ui/card";
+import { SymbolIcon } from "@/components/ui/symbol-icon";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { AnimatePresence, motion } from "motion/react";
-import React, { useState } from "react";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
 import { KeyboardArrowDown } from "relume-icons";
+
+// The two service arrays and `iconUrl` moved to `lib/services.js` when the
+// merged /for-business started rendering the same six services as cards.
+// The nav and that page now read one array, so they cannot drift apart.
+import { BUSINESS_SERVICES, INDIVIDUAL_SERVICES } from "@/lib/services";
+
+/**
+ * The top-level nav links.
+ *
+ * Regular weight and no hover effect, by instruction from the 2026-09-21 QA
+ * review: the whole navbar — links, the Uplift Services trigger, the
+ * mega-menu headings and items — is one weight. The only motion left in the
+ * navbar is the Uplift Services sheet's 200ms fade and its chevron, asked for
+ * separately. Don't reintroduce `font-semibold` or other transitions here
+ * without that being reversed.
+ *
+ * One hover state was asked for since (2026-09-24): a mega-menu item's icon,
+ * and only its icon, turns brand green -- `caribbean-green-dark`, since the
+ * full-strength green read too bright on the white sheet (`MenuItem` below).
+ * The label and description stay as they are, and it is a colour swap, not a
+ * transition.
+ *
+ * The current page is marked with a 2px underline in the scheme text colour.
+ * 2px is the brand's border width. `aria-current="page"` carries the same
+ * fact to assistive tech.
+ */
+const NavLink = ({ href, children }) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  return (
+    <a
+      href={href}
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        "block py-3 text-base lg:px-4 lg:py-2 lg:first:pt-2",
+        "first:pt-7",
+        isActive && "underline decoration-2 underline-offset-[6px]",
+      )}
+    >
+      {children}
+    </a>
+  );
+};
+
+// `SymbolIcon`, not the export's `<img>`: an `<img>` paints the SVG's own
+// black and cannot take a colour, so the hover had nothing to change. The mask
+// primitive paints `currentColor`, which lets the icon alone go brand green on
+// hover -- and on keyboard focus, so the cue isn't pointer-only.
+const MenuItem = ({ item }) => (
+  <a href={item.href} className="group flex items-start gap-x-3 text-base">
+    <SymbolIcon
+      name={item.icon}
+      className="size-6 shrink-0 text-scheme-text group-hover:text-caribbean-green-dark group-focus-visible:text-caribbean-green-dark"
+    />
+    <div className="flex grow flex-col">
+      <p>{item.label}</p>
+      {/* `short`, not `description`. The full descriptions run to two lines
+          each at this column width, and six of those stacked made the sheet a
+          third taller than it needed to be. The long form still runs on the
+          service cards, where there is room for it.
+
+          Still hidden below 1280: the column narrows enough there that even the
+          short line wraps, and a menu of labels is better than a menu of ragged
+          two-line items. There is no `xl` breakpoint in this project
+          (`--breakpoint-*: initial`), hence the arbitrary variant. */}
+      <p className="hidden text-small min-[1280px]:block">
+        {item.short ?? item.description}
+      </p>
+    </div>
+  </a>
+);
 
 const useRelume = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 991px)");
+  // The sheet closes on a short delay rather than instantly. Pointer paths to a
+  // mega-menu item are rarely straight down: people cut the corner, overshoot,
+  // or pause. Closing on the first mouseleave pulls the menu out from under
+  // them mid-reach. The timer is cancelled the moment the pointer comes back
+  // into the trigger or the sheet (the sheet is a DOM child of the same
+  // wrapper, so re-entering it fires onMouseEnter here).
+  const closeTimer = useRef(null);
+  useEffect(() => () => clearTimeout(closeTimer.current), []);
+
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
   const openOnMobileDropdownMenu = () => {
     setIsDropdownOpen((prev) => !prev);
   };
   const openOnDesktopDropdownMenu = () => {
-    !isMobile && setIsDropdownOpen(true);
+    if (isMobile) return;
+    clearTimeout(closeTimer.current);
+    setIsDropdownOpen(true);
   };
   const closeOnDesktopDropdownMenu = () => {
-    !isMobile && setIsDropdownOpen(false);
+    if (isMobile) return;
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setIsDropdownOpen(false), 300);
   };
-  const animateMobileMenu = isMobileMenuOpen ? "open" : "close";
-  const animateMobileMenuButtonSpan = isMobileMenuOpen
-    ? ["open", "rotatePhase"]
-    : "closed";
-  const animateDropdownMenu = isDropdownOpen ? "open" : "close";
-  const animateDropdownMenuIcon = isDropdownOpen ? "rotated" : "initial";
   return {
+    isMobileMenuOpen,
+    isDropdownOpen,
     toggleMobileMenu,
     openOnDesktopDropdownMenu,
     closeOnDesktopDropdownMenu,
     openOnMobileDropdownMenu,
-    animateMobileMenu,
-    animateMobileMenuButtonSpan,
-    animateDropdownMenu,
-    animateDropdownMenuIcon,
   };
 };
 
-const ConditionalCard = () => {
-  const Component = ({ children, ...props }) => {
-    // `initializeWithValue: false` is required, not cosmetic. This hook otherwise
-    // reads matchMedia during the first client render, so below 992px the server
-    // renders the desktop <Card> and the client's first render wants a <nav> --
-    // different element, hydration error on every route. With it, both agree and
-    // the swap happens in a layout effect, before paint.
-    const isMobile = useMediaQuery("(max-width: 991px)", {
-      initializeWithValue: false,
-    });
-    const MotionCard = isMobile ? motion.nav : motion.create(Card);
-    return React.createElement(MotionCard, props, children);
-  };
-  return Component;
+// The mega-menu sheet: a bordered <Card> on desktop, a plain <nav> inside the
+// mobile menu. Defined at module scope — minting it inside the component body
+// makes a new component type every render and remounts the whole sheet.
+const ConditionalRenderedCard = ({ children, ...props }) => {
+  // `initializeWithValue: false` is required, not cosmetic. This hook otherwise
+  // reads matchMedia during the first client render, so below 992px the server
+  // renders the desktop <Card> and the client's first render wants a <nav> --
+  // different element, hydration error on every route. With it, both agree and
+  // the swap happens in a layout effect, before paint.
+  const isMobile = useMediaQuery("(max-width: 991px)", {
+    initializeWithValue: false,
+  });
+  return React.createElement(isMobile ? "nav" : Card, props, children);
 };
-
-// Created once at module scope. The export called ConditionalCard() inside the
-// component body, which minted a brand-new component type on every render and
-// remounted the whole dropdown subtree each time - which in turn reset the
-// navbar's Motion components to their initial variant, so nothing in the navbar
-// ever animated (the mobile menu could not open).
-const ConditionalRenderedCard = ConditionalCard();
 
 export function Navbar12() {
   const useActive = useRelume();
+  // Homepage only. Everywhere else the page below the bar is flat white and a
+  // flat white bar is the right answer; on the homepage the page below is the
+  // `hero-fade` mint wash, which starts at full strength (#f0fffc) directly
+  // under the bar — so a white bar drew a hard horizontal seam across the top
+  // of the site. `home-nav-fade` gives the bar its own top-to-bottom ramp that
+  // lands on exactly the wash's first stop at its bottom edge, so the two read
+  // as one wash that fades in from the top of the page as well as out at the
+  // bottom of it.
+  //
+  // `usePathname` rather than a class threaded down from the page, because the
+  // navbar is mounted in `app/(site)/layout.tsx` and no page can reach it.
+  const isHome = usePathname() === "/";
   return (
-    <section className="z-[999] flex w-full items-center bg-scheme-background lg:min-h-18 lg:px-[5%] scheme-1 badge-alt">
+    <section
+      className={cn(
+        "z-[999] flex w-full items-center lg:min-h-18 lg:px-[5%] scheme-1 badge-alt",
+        isHome ? "home-nav-fade" : "bg-scheme-background",
+      )}
+    >
       <div className="size-full lg:flex lg:items-center lg:justify-between">
-        <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
-          <a href="#">
+        {/* The logo block and the Contact block are both `lg:flex-1`, so the
+            <nav> between them sits on the exact centre of the bar no matter how
+            wide the logo or the button get. */}
+        <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:flex-1 lg:px-0">
+          <a href="/">
             <img
               src="/brand/uplift-path-logo.svg"
               alt="Uplift Path"
               className="h-8 w-auto"
             />
           </a>
+          {/* The three bars are decorative <span>s, so without an explicit
+              name this button is announced as an unlabelled "button" — and on
+              mobile it is the only way into the site's navigation. */}
           <button
+            type="button"
+            aria-label={useActive.isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={useActive.isMobileMenuOpen}
+            aria-controls="navbar-mobile-menu"
             className="-mr-2 flex size-12 flex-col items-center justify-center lg:hidden"
             onClick={useActive.toggleMobileMenu}
           >
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-scheme-text"
-              animate={useActive.animateMobileMenuButtonSpan}
-              variants={{
-                open: { translateY: 8, transition: { delay: 0.1 } },
-                rotatePhase: { rotate: -45, transition: { delay: 0.2 } },
-                closed: {
-                  translateY: 0,
-                  rotate: 0,
-                  transition: { duration: 0.2 },
-                },
-              }}
+            {/* Bars snap to an X with no transition. Tailwind v4's translate
+                and rotate utilities write separate properties, so they
+                compose. */}
+            <span
+              className={cn(
+                "my-[3px] h-0.5 w-6 bg-scheme-text",
+                useActive.isMobileMenuOpen && "translate-y-2 -rotate-45",
+              )}
             />
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-scheme-text"
-              animate={useActive.animateMobileMenu}
-              variants={{
-                open: { width: 0, transition: { duration: 0.1 } },
-                // Keyed "close", not "closed": this span is driven by
-                // animateMobileMenu, which yields "open" | "close". The export
-                // wrote "closed" here, so nothing matched on the way back and the
-                // middle bar stayed collapsed after the first open.
-                close: {
-                  width: "1.5rem",
-                  transition: { delay: 0.3, duration: 0.2 },
-                },
-              }}
+            <span
+              className={cn(
+                "my-[3px] h-0.5 w-6 bg-scheme-text",
+                useActive.isMobileMenuOpen && "w-0",
+              )}
             />
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-scheme-text"
-              animate={useActive.animateMobileMenuButtonSpan}
-              variants={{
-                open: { translateY: -8, transition: { delay: 0.1 } },
-                rotatePhase: { rotate: 45, transition: { delay: 0.2 } },
-                closed: {
-                  translateY: 0,
-                  rotate: 0,
-                  transition: { duration: 0.2 },
-                },
-              }}
+            <span
+              className={cn(
+                "my-[3px] h-0.5 w-6 bg-scheme-text",
+                useActive.isMobileMenuOpen && "-translate-y-2 rotate-45",
+              )}
             />
           </button>
         </div>
-        {/* The export animated this height between two `var(...)` strings, relying
-            on `lg:[--height-*:auto]` to keep the desktop nav visible. Motion
-            cannot animate a var() to a var(), so it wrote nothing at all and the
-            mobile menu never opened - it is dead on the live site today too. The
-            variants are numeric now, which Motion can animate, and `lg:h-auto!`
-            takes over above 992px so the desktop nav is unaffected. The two
-            custom properties are kept as the documented override hook. */}
-        <motion.div
-          variants={{
-            open: { height: "auto" },
-            close: { height: 0 },
-          }}
-          initial="close"
-          exit="close"
-          animate={useActive.animateMobileMenu}
-          transition={{ duration: 0.4 }}
-          className="overflow-auto px-[5%] lg:flex lg:h-auto! lg:items-center lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
+        {/* Shown or hidden outright below 992px, no height animation.
+            `display: none` when closed also takes its links out of the tab
+            order. `lg:contents` overrides `hidden`, so the desktop nav is
+            unaffected. */}
+        <div
+          id="navbar-mobile-menu"
+          className={cn(
+            "overflow-auto px-[5%] lg:contents lg:items-center lg:overflow-visible lg:px-0",
+            !useActive.isMobileMenuOpen && "hidden",
+          )}
         >
           <nav className="lg:flex lg:items-center">
-            <a
-              href="#"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              About
-            </a>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/about-us">About</NavLink>
+            {/* "How We Work" is in the 2026-09 Figma navbar, between About and
+                Uplift Services, and was missing from the export's nav.
+
+                CLAUDE.md had recorded the design system's own reference
+                homepage as having drifted from the code on account of an
+                "extra nav item" — this was that item, and the reference was
+                right. Worth correcting there too.
+
+                It also matters more than it used to: the homepage's three-step
+                section used to link to /how-we-work from each of its cards,
+                and the Figma redesign drops those links. Without this the
+                route is reachable from the footer alone. */}
+            <NavLink href="/how-we-work">How We Work</NavLink>
             <div
               onMouseEnter={useActive.openOnDesktopDropdownMenu}
               onMouseLeave={useActive.closeOnDesktopDropdownMenu}
             >
-              <p
-                role="button"
+              {/* A real <button>, not the export's `<p role="button">`. A <p>
+                  is not focusable whatever role it claims, and the sheet is
+                  `display: none` when closed, so its links are out of the tab
+                  order too — between them that left the seven service pages
+                  with no keyboard path from the navbar on any route. The click
+                  handler toggles at both breakpoints, so Enter/Space opens the
+                  sheet on desktop exactly as hover does. */}
+              <button
+                type="button"
+                aria-expanded={useActive.isDropdownOpen}
+                aria-haspopup="true"
                 className="flex w-full items-center justify-between gap-2 py-3 text-left text-base lg:flex-none lg:justify-start lg:px-4 lg:py-2"
                 onClick={useActive.openOnMobileDropdownMenu}
               >
                 Uplift Services
-                <motion.span
-                  variants={{
-                    rotated: { rotate: 180 },
-                    initial: { rotate: 0 },
-                  }}
-                  animate={useActive.animateDropdownMenuIcon}
-                  transition={{ duration: 0.3 }}
+                {/* Turns to point up while the sheet is open, on the same
+                    200ms as the sheet's fade so the two move together. */}
+                <span
+                  className={cn(
+                    "transition-[rotate] duration-200 ease-in-out",
+                    useActive.isDropdownOpen && "rotate-180",
+                  )}
                 >
                   <KeyboardArrowDown className="text-scheme-text" />
-                </motion.span>
-              </p>
-              <AnimatePresence>
-                <ConditionalRenderedCard
-                  variants={{
-                    open: {
-                      visibility: "visible",
-                      opacity: "var(--opacity-open, 100%)",
-                      y: 0,
-                      display: "block",
-                    },
-                    close: {
-                      visibility: "hidden",
-                      opacity: "var(--opacity-close, 0)",
-                      y: "var(--y-close, 0%)",
-                      display: "none",
-                    },
-                  }}
-                  animate={useActive.animateDropdownMenu}
-                  initial="close"
-                  exit="close"
-                  transition={{ duration: 0.2 }}
-                  className="bg-scheme-background py-4 lg:absolute lg:right-[186px] lg:z-50 lg:max-w-[640px] lg:border lg:border-scheme-border lg:p-6 lg:[--y-close:25%]"
+                </span>
+              </button>
+              {/* Nothing between this sheet and <body> is positioned, so it
+                  resolves against the page: `top-18` puts it exactly on the
+                  navbar's 72px bottom edge and `left-1/2` centres it. The
+                  export right-anchored it with `right-[186px]`, which pinned
+                  it under the Contact button. */}
+              <ConditionalRenderedCard
+                  // The trigger's box ends at y 56 but the sheet starts at 72,
+                  // so those 16px belonged to neither and crossing them fired
+                  // mouseleave. This invisible strip spans the gap and is part
+                  // of the sheet, so the pointer stays inside the hover target
+                  // the whole way down. It only exists while the sheet is open,
+                  // and sits below the nav links (which end at y 56), so it
+                  // never intercepts a click on them. `lg:overflow-visible`
+                  // is required: the Card primitive ships `overflow-hidden`,
+                  // which clips the strip away entirely.
+                  className={cn(
+                    "bg-scheme-background py-4 lg:absolute lg:top-18 lg:left-1/2 lg:z-50 lg:w-[min(72rem,90vw)] lg:-translate-x-1/2 lg:overflow-visible lg:border lg:border-scheme-border lg:p-6 lg:before:absolute lg:before:inset-x-0 lg:before:-top-4 lg:before:h-4 lg:before:content-['']",
+                    // Desktop only: a 200ms fade in and out, and nothing else —
+                    // no slide, no scale. The sheet stays `display: block` there
+                    // and toggles opacity plus visibility, so it can transition
+                    // and its links still leave the tab order when closed
+                    // (visibility flips at the end of the fade on the way out).
+                    // Below 992px it sits in the mobile menu's flow and snaps.
+                    "lg:transition-[opacity,visibility] lg:duration-200 lg:ease-in-out",
+                    useActive.isDropdownOpen
+                      ? "block lg:visible lg:opacity-100"
+                      : "hidden lg:invisible lg:block lg:opacity-0",
+                  )}
                 >
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+                  <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.34fr] lg:gap-8">
                     <div>
-                      <div className="flex flex-col gap-2 md:gap-4">
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/add_business.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">
-                              Business Consultation
-                            </p>
-                            <p className="hidden text-small md:block">About</p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/business_messages.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">AI Consultation</p>
-                            <p className="hidden text-small md:block">
-                              For Businesses
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/chat_info.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">
-                              Individual Consultation
-                            </p>
-                            <p className="hidden text-small md:block">
-                              For Individuals
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/medical_services.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Advisory Services</p>
-                            <p className="hidden text-small md:block">
-                              Resources
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/support.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Resource Assistance</p>
-                            <p className="hidden text-small md:block">
-                              Compliance support for providers and human
-                              services
-                            </p>
-                          </div>
-                        </a>
+                      <a
+                        href="/for-business"
+                        className="mb-3 block text-medium leading-[1.3]"
+                      >
+                        For Businesses
+                      </a>
+                      {/* Three columns from 1280 up, which is exactly where the
+                          descriptions appear. Six items become two rows instead
+                          of three, and the single-item Individuals column beside
+                          them stops trailing two empty rows of dead space. */}
+                      <div className="grid grid-cols-1 gap-x-8 gap-y-3 md:grid-cols-2 min-[1280px]:grid-cols-3">
+                        {BUSINESS_SERVICES.map((item) => (
+                          <MenuItem key={item.href} item={item} />
+                        ))}
                       </div>
                     </div>
-                    <div>
-                      <div className="flex flex-col gap-2 md:gap-4">
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/work.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Contact</p>
-                            <p className="hidden text-small md:block">
-                              How we work
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/devices.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Advisory services</p>
-                            <p className="hidden text-small md:block">
-                              Systems & Technology
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/assistant_device.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">System & Technology</p>
-                            <p className="hidden text-small md:block">
-                              Resource Assistance
-                            </p>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="my-1 flex items-start gap-x-3 text-base"
-                        >
-                          <img
-                            className="size-6 text-scheme-text"
-                            src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/more_time.svg"
-                          />
-                          <div className="flex grow flex-col">
-                            <p className="font-semibold">Compliance Support</p>
-                            <p className="hidden text-small md:block">
-                              Systems that give your people time back
-                            </p>
-                          </div>
-                        </a>
+                    {/* The hairline reads as a divider between the two audiences
+                        rather than the individual column looking like a leftover
+                        of the business grid. Solid 1px in the scheme border
+                        colour: it is the same rule the footer divider and this
+                        sheet's own outline use -- the brand has no dotted rules
+                        anywhere, so a dashed one would read as foreign. */}
+                    <div className="lg:border-l lg:border-scheme-border lg:pl-8">
+                      <a
+                        href="/peer-coaching"
+                        className="mb-3 block text-medium leading-[1.3]"
+                      >
+                        For Individuals
+                      </a>
+                      <div className="grid grid-cols-1 gap-y-2">
+                        {INDIVIDUAL_SERVICES.map((item) => (
+                          <MenuItem key={item.href} item={item} />
+                        ))}
                       </div>
                     </div>
                   </div>
                 </ConditionalRenderedCard>
-              </AnimatePresence>
             </div>
-            <a
-              href="#"
-              className="block py-3 text-base first:pt-7 lg:px-4 lg:py-2 lg:first:pt-2"
-            >
-              Careers
-            </a>
+            <NavLink href="/careers">Careers</NavLink>
           </nav>
-          <div className="my-6 flex flex-col gap-4 lg:my-0 lg:ml-4 lg:flex-row lg:items-center">
-            <Button title="Contact" size="sm">
-              Contact
+          <div className="my-6 flex flex-col gap-4 lg:my-0 lg:flex-1 lg:flex-row lg:items-center lg:justify-end">
+            <Button asChild title="Contact" size="sm">
+              <a href="/contact-us">Contact</a>
             </Button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

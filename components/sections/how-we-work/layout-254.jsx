@@ -1,117 +1,216 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
+
+/**
+ * Matched to the 2026-09-08 Figma (node 10214-103297, children 5-9 plus the
+ * `Vector 5` curve at 10286:1391).
+ *
+ * Three changes from the v2 export:
+ *
+ * 1. **The icons are Viking dark (#41b19a), which is what the frame draws**,
+ *    and they are served from `/svgs` rather than hot-linked off jsdelivr.
+ *    Both follow from the same thing: the export set `text-scheme-text` on an
+ *    `<img>`, which cannot tint anything, so the icons rendered black however
+ *    the class was written. Tinting needs the file as a mask, and a mask needs
+ *    a same-origin file. The six SVGs are the same Material Symbols the export
+ *    named, saved into the repo.
+ *
+ * 2. **The centre media is a video.** Its Figma fill carries an `imageRef`
+ *    *and* a `gifRef`; the `imageRef` is only the poster frame. Searching the
+ *    node tree for `VIDEO` or `videoRef` finds nothing, which is how this kind
+ *    of node has shipped as a still before.
+ *
+ * 3. **The decorative curve behind the foot of the section** is new. See
+ *    `[12]` in `globals.css` for the colour and `@utility experience-curve`
+ *    for the placement.
+ *
+ * What the frame asks for and this section does *not* do: the frame lists
+ * "The people behind it" twice, once per column, with two rewordings of the
+ * same sentence about leadership experience. That is the Relume export's own
+ * duplication carried into the design file, and it leaves a section headed
+ * "six core values" showing five - one of which is not a value but an About Us
+ * line. The two slots keep the pillars an earlier pass put there: Collaboration
+ * (the U in UPLIFT) and Inclusion (the I). Flagged in the import record.
+ *
+ * Geometry the frame draws: columns 322 / video 449 / columns 322 across the
+ * 1280 container, so the two gaps are 93 and 94 - 7.3% of the container, which
+ * is how `lg:gap-x-[7.3%]` is derived. Items are 64px apart vertically. The
+ * video is 449x708 at r20 with a 1px outline. Type is 28/39.2 Playfair for the
+ * headings and 16/24 for the copy, both of which are the existing tokens.
+ */
+
+/** One value. The icon is a mask so the fill comes from the palette. */
+function Value({ icon, title, children }) {
+  return (
+    <div className="flex flex-col items-center text-center">
+      {/* 12px under the icon at every width, 8px under the heading
+          (2026-09-29). At md+ both were 8px, so the heading sat equidistant
+          between its icon and its body. */}
+      <div className="mb-3">
+        <span
+          aria-hidden="true"
+          className="block size-12 bg-viking-dark"
+          style={{
+            maskImage: `url(/svgs/icon-${icon}.svg)`,
+            WebkitMaskImage: `url(/svgs/icon-${icon}.svg)`,
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+          }}
+        />
+      </div>
+      <h3 className="mb-2 text-h5 font-bold md:mb-2">{title}</h3>
+      <p>{children}</p>
+    </div>
+  );
+}
 
 export function Layout254() {
+  const videoRef = useRef(null);
+
+  // No CSS pauses a video, so the reduced-motion preference is honoured in JS:
+  // the poster stays and playback never starts. `autoPlay` stays on the element
+  // so the common case needs no JS at all.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => {
+      if (mq.matches) {
+        el.pause();
+        el.removeAttribute("autoplay");
+      } else if (el.paused) {
+        el.play().catch(() => {});
+      }
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
-      <div className="container">
-        <div className="mb-12 md:mb-18 lg:mb-20">
+    // `scheme-mint`, not `scheme-1`.
+    // /how-we-work ran five consecutive white sections. One break in the middle
+    // is enough: white white MINT white white.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    <section className="relative overflow-hidden px-[5%] py-10 md:py-12 lg:py-12 scheme-mint badge-alt">
+      {/* The frame's `Vector 5`, verbatim: its own path in its own 1563.5x749
+          box, so nothing is re-drawn by hand. Behind everything, and the
+          section clips the part that runs off-canvas to the right. */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 1563.4979 748.9818"
+        className="experience-curve"
+      >
+        <path
+          d="M1446 132.982C1233.2 547.382 393.333 601.648 0 576.982L0 748.982L1446 748.982C1534.67 370.982 1658.8 -281.418 1446 132.982Z"
+          fill="var(--color-plantation)"
+          fillOpacity="0.2"
+        />
+      </svg>
+
+      <div className="relative container">
+        <div className="mb-6 md:mb-8 lg:mb-8">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="mb-5 text-h2 font-bold md:mb-6">
               What You'll Experience
             </h2>
-            <p className="text-medium">
+            {/* `max-w-md` (2026-09-29): a centred lead-in at the wrapper's 768px ran
+                85-102 characters a line; the heading keeps the wider box. */}
+            <p className="mx-auto max-w-md text-medium">
               At Uplift Path, we believe in uplifting every life through six
               core values that guide everything we do
             </p>
           </div>
         </div>
-        <div className="grid place-items-center gap-x-8 gap-y-12 sm:grid-cols-2 md:gap-y-16 lg:grid-cols-[1fr_1.5fr_1fr] lg:gap-x-12">
-          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16">
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/share.svg"
-                />
-              </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">
-                Psychological Safety
-              </h3>
-              <p>
-                Share ideas. Admit mistakes. Try imperfect solutions. We've got
-                you.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/business_center.svg"
-                />
-              </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">
-                The people behind it
-              </h3>
-              <p>
-                Decades of frontline business and tech experience guide our
-                leadership.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/menu_open.svg"
-                />
-              </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">Transparency</h3>
-              <p>
-                Open goals, open data, and open decisions—transparency drives
-                every step forward.
-              </p>
-            </div>
+        <div className="grid place-items-center gap-x-8 gap-y-12 sm:grid-cols-2 md:gap-y-16 lg:grid-cols-[322fr_449fr_322fr] lg:gap-x-[7.3%]">
+          <div className="grid w-full grid-cols-1 gap-y-8">
+            <Value icon="share" title="Psychological Safety">
+              Share ideas. Admit mistakes. Try imperfect solutions. We've got
+              you.
+            </Value>
+            <Value icon="groups" title="Collaboration">
+              We work the problem together. No one carries a decision alone, and
+              no one is left out of one.
+            </Value>
+            <Value icon="menu_open" title="Transparency">
+              Open goals, open data, and open decisions—transparency drives
+              every step forward.
+            </Value>
           </div>
-          <div className="relative order-last w-full sm:col-span-2 lg:order-none lg:col-span-1">
-            <img
-              src="/images/how-we-work-team-section-new.png"
-              alt="Relume placeholder image"
-              className="h-auto w-full rounded-image object-cover"
-            />
+
+          {/* 449x708 at r20 in the frame. The radius is in `cqw` against the
+              media's own box rather than px, so it holds its proportion as the
+              column narrows instead of creeping towards a pill.
+
+              **Cropped to 449x540 at `lg` by decision.** The frame's 708px
+              media, plus the frame's 64px item gaps, made this section 1130px
+              tall — it could not be seen at once on any laptop, and the
+              six values it exists to present were never on screen together.
+              Asked for it to read in one view. The crop is taken through the
+              `object-cover` that was already here, so the subject stays
+              centred and nothing is squeezed. Below `sm` the media is
+              full-bleed and single-column, where the frame's aspect is right
+              and the height costs nothing.
+
+              From `sm`, not just `lg` (2026-09-29): at 640-991px the video
+              spans both value columns, and at the frame's aspect it was
+              878x1385 at 991px, 1.5 screens of one picture closing a 2133px
+              section. It now takes the lg crop and is capped at `max-w-sm`,
+              centred.
+
+              Values are 32px apart (`gap-y-8`, 2026-09-29), not 20px, so each
+              icon/heading/body group reads as one item rather than the column
+              reading as a single list. */}
+          {/* Phones take source order: three values, the video, three values
+              — text, media, text, the same rule as the homepage's Who We Work
+              With (2026-09-29). From sm the two value columns pair up and the
+              video drops below them; from lg it is the middle column. */}
+          <div className="@container w-full sm:order-last sm:col-span-2 sm:mx-auto sm:max-w-sm lg:order-none lg:col-span-1 lg:max-w-none">
+            <video
+              ref={videoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster="/images/how-we-work-experience-poster.jpg"
+              aria-label="A woman turning with her arms outstretched under a blossoming tree against a blue sky"
+              className="aspect-[449/708] w-full rounded-[4.454cqw] border border-scheme-border object-cover sm:aspect-[449/540]"
+            >
+              <source
+                src="/videos/how-we-work-experience.webm"
+                type="video/webm"
+              />
+              <source
+                src="/videos/how-we-work-experience.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
-          <div className="grid w-full grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16">
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/experiment.svg"
-                />
-              </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">Autonomy</h3>
-              <p>Make decisions. Own your work. Experiment freely.</p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/business_center.svg"
-                />
-              </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">
-                The people behind it
-              </h3>
-              <p>
-                Our leadership brings decades of frontline business and tech
-                experience.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 md:mb-6">
-                <img
-                  className="size-12 text-scheme-text"
-                  src="https://cdn.jsdelivr.net/npm/@material-symbols/svg-500@latest/rounded/self_improvement.svg"
-                />
-              </div>
-              <h3 className="mb-3 text-h5 font-bold md:mb-4">Growth</h3>
-              <p>
-                Monthly improvement goals. Continuous learning. Progress over
-                perfection.
-              </p>
-            </div>
+
+          <div className="grid w-full grid-cols-1 gap-y-8">
+            <Value icon="experiment" title="Autonomy">
+              Make decisions. Own your work. Experiment freely.
+            </Value>
+            <Value icon="diversity_3" title="Inclusion">
+              Every life we serve, and everyone who serves them, belongs in the
+              room where the work is decided.
+            </Value>
+            <Value icon="self_improvement" title="Growth">
+              Monthly improvement goals. Continuous learning. Progress over
+              perfection.
+            </Value>
           </div>
         </div>
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:mt-18 lg:mt-20" />
       </div>
     </section>
   );

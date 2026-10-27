@@ -1,24 +1,151 @@
 "use client";
 
+import { CARF_PROVIDER_URL, CarfSeal } from "@/components/brand/carf-seal";
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { ChevronRight } from "relume-icons";
 
+/**
+ * Matched to the 2026-09-09 Figma (frame `Compliance Support`, 1440x4527).
+ *
+ * The type is untouched -- tagline 16/24 w600, heading 52/62.4 Playfair 400,
+ * body 18/27 -- and the frame adds two decorative line-art vignettes: an open
+ * letter on the left, a globe on the right. Both cut from the 2x reference
+ * render (the Figma API is paywalled on this account; see the import record)
+ * and un-composited off white with a min-channel alpha key. The letter shares
+ * rows with the body copy and the globe shares rows with the heading, so both
+ * boxes were measured over only the y bands the neighbouring text leaves free.
+ *
+ * Promoted from <h2> to <h1>. The route's only <h1> was `layout-16`'s "Where
+ * are you right now?", which is not the page title.
+ *
+ * **The CARF Gold Seal that stood above the tagline is gone.** The frame draws
+ * nothing between the navbar (y=72) and the tagline (ink at y=197) -- the two
+ * vignettes take that visual weight instead. No claim is lost: the body still
+ * says we hold the seal, and the seal itself still renders in the footer
+ * lockup on all 20 routes and in the homepage trust strip. Flagged in the
+ * import record rather than treated as an oversight.
+ *
+ * **The seal is back below the hero copy, as a card, by later request** -- see
+ * the comment on that block. That is a different element in a different place,
+ * not a reversal of the line above: the frame's gap above the tagline is still
+ * empty.
+ */
 export function Layout134() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
-      <div className="container max-w-lg text-center">
+    <section className="relative overflow-hidden px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+      {/* Frame-relative, measured from the top of this section (y=72):
+          letter at 84,299.5 237.5x222; globe at 1167,153 156.5x153.
+
+          Anchored off the centre line, not the viewport edges (2026-09-29),
+          the same fix as advisory-services/layout-134, whose comment has the
+          full reasoning. Pinned to the edges from lg, the centred text column
+          slid out under them: at 1024 the letter sat 185px into the H1 and
+          the globe 136px. `calc(50% + 416px)` is the column's half-measure
+          (384px) plus a 32px gutter, so neither can reach the text at any
+          width, and below 1280 there is no room left to show them. At 1280
+          the letter's left edge runs off canvas, the trade Advisory accepted
+          for its planes. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden select-none min-[1280px]:block"
+      >
+        <img
+          src="/images/compliance-hero-letter.png"
+          alt=""
+          className="absolute top-[299.5px] right-[calc(50%+416px)] h-[222px] w-[237.5px]"
+        />
+        <img
+          src="/images/compliance-hero-globe.png"
+          alt=""
+          className="absolute top-[153px] left-[calc(50%+416px)] h-[153px] w-[156.5px]"
+        />
+      </div>
+
+      <div className="relative container max-w-lg text-center">
         <p className="mb-3 font-semibold md:mb-4">Compliance Support</p>
-        <h2 className="mb-5 text-h2 font-bold md:mb-6">
-          Be ready before the audit, not because of it
-        </h2>
+        {/* `text-h1`, not `text-h2`. Every section heading on this route is
+            `text-h2` -- 40px at 375, 52px at 1440 -- and so was the page
+            title, which made the h1 the joint-largest heading rather than the
+            largest. Weight cannot recover the rank here: `--font-weight-bold`
+            is 400 on purpose, so size is the only signal available. One token
+            step up is 44px / 72px, which clears every h2 at both widths. The
+            lg step is 20px over the frame's 52, and that is the deliberate
+            trade -- the frame giving the h1 and the h2 the same size is
+            exactly the finding. Same resolution as the homepage h1.
+
+    `text-balance` is what makes 44px survive a 338px measure: these
+    titles run to three and four lines on a phone at the new size, and
+    without it the last line orphans a single word. It is inert on the
+    one-line titles and at lg, so it only acts where the wrap is real. */}
+        <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
+          Be Ready Before the Audit, Not Because of It
+        </h1>
         <p className="text-medium">
           We hold the CARF Gold Seal ourselves. We have been through this as an
           organisation, not only advised on it.
         </p>
         <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
-          <Button title="Book a discovery call" variant="secondary">
-            Book a discovery call
+          <Button asChild title="Book a Discovery Call" variant="secondary">
+            <a href="/contact-us">Book a Discovery Call</a>
           </Button>
+        </div>
+
+        {/* The seal, back on this page and given weight — asked for.
+            The note above records why the frame's own bare seal above the
+            tagline was dropped: the frame draws nothing in that gap. This is
+            not that element. It is a card, below the hero copy, and it exists
+            because this is the one route on the site whose entire subject is
+            accreditation and it was the one route showing the mark only in the
+            footer lockup every other route also has.
+
+            Built on the brand's card rule — 2px border, `rounded-card`, no
+            shadow — and on the homepage trust strip's structure: the mark
+            links to CARF's own provider record, not to this page, because an
+            accreditation mark's job is to be checkable. Second link dropped:
+            "how we support compliance" is the page it is standing on.
+
+            The seal renders at its native 1:1 with its colours untouched and
+            clear space of its own, per CARF's usage rules and the brand doc's
+            logo guidance. `size-20`/`size-24` is the largest it appears
+            anywhere on the site, which is the point of it being here.
+
+            Left-aligned on a phone too (2026-09-29): stacked and centred, the
+            14px body ran five centred lines. The seal now sits left above the
+            copy; the row from `sm` up is unchanged. The link's `py-3` (was
+            `mt-3`) makes it a 45px tap target; `-mb-3` lets the extra 12px
+            below sit in the card's own padding, so the card and the hero
+            keep their height. It also drops `font-medium`, the heaviest
+            weight in the card on its least important line. */}
+        <div className="mt-10 flex justify-center md:mt-12">
+          <div className="flex max-w-md flex-col items-start gap-5 rounded-card border-2 border-scheme-border p-6 text-left sm:max-w-lg sm:flex-row sm:items-center sm:gap-6 sm:p-8">
+            <a
+              href={CARF_PROVIDER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex shrink-0 transition-opacity duration-200 ease-in-out hover:opacity-70"
+              title="Verify our accreditation on carf.org"
+            >
+              <CarfSeal className="size-20 md:size-24" />
+            </a>
+            <div>
+              <p className="font-semibold">CARF Accredited — Gold Seal</p>
+              <p className="mt-1 text-small">
+                An independent accreditor surveyed our own programs on-site
+                against national quality standards. When we help you get
+                survey-ready, we have been through it ourselves.
+              </p>
+              <a
+                href={CARF_PROVIDER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="-mb-3 inline-flex items-center gap-1 py-3 text-small underline transition-opacity duration-200 ease-in-out hover:opacity-70"
+              >
+                Verify on carf.org
+                <ChevronRight className="size-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

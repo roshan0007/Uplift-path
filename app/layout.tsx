@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
+import { ConsentManager } from '@/components/consent/consent-manager'
+import { INDEXABLE, SITE_URL } from '@/lib/site'
 import './globals.css'
-import { Navbar12 } from '@/components/sections/navbar-12'
-import { Footer4 } from '@/components/sections/footer-04'
 
 /**
  * Playfair Display carries the headlines, Lexend Deca the body — a high-contrast
@@ -17,15 +17,62 @@ import { Footer4 } from '@/components/sections/footer-04'
  */
 
 export const metadata: Metadata = {
+  /**
+   * Canonicals and the sitemap resolve against this, so every page can declare
+   * its canonical as a bare path and still emit an absolute URL — on the
+   * production domain for an indexable build, on workers.dev for a staging one.
+   */
+  metadataBase: new URL(SITE_URL),
+  /**
+   * Site-wide noindex only for a staging build (`NEXT_PUBLIC_INDEXABLE=false`).
+   * This is the second half of the staging lock — `app/robots.ts` is the
+   * first. Individual pages that must stay hidden after launch (the two Relume
+   * scratch pages) set their own `robots` and are unaffected by this.
+   */
+  ...(INDEXABLE ? {} : { robots: { index: false, follow: false } }),
   title: {
     default: 'Uplift Path — Uplifting Every Life We Serve',
     template: '%s | Uplift Path',
   },
   description:
-    'Strategic consulting, coaching, and resources that create clear and sustainable pathways to meaningful growth.',
+    'Strategic advisory, coaching, and resources that create clear and sustainable pathways to meaningful growth.',
   icons: {
     icon: [{ url: '/brand/uplift-path-icon.svg', type: 'image/svg+xml' }],
     apple: '/apple-icon.png',
+  },
+  /**
+   * The share card. One image for the whole site: a branded 1200x630 PNG, the
+   * size Facebook, LinkedIn and Slack all want and the one X reads as a large
+   * summary card. Per-page `openGraph` blocks inherit everything they don't
+   * override, so a page that wants its own title still gets this image for
+   * free — and pages that want their own art only have to set `images`.
+   *
+   * `url` is left off on purpose: `metadataBase` plus each page's canonical
+   * already resolve the absolute URL, and hard-coding one here would stamp the
+   * homepage's address onto every page's card.
+   *
+   * The image is written absolute anyway, rather than left to `metadataBase`
+   * to resolve. Next would resolve it to the same string; spelling it out is
+   * what makes it visible that this URL is fetched by a scraper the moment
+   * someone pastes a link, and so has to name the host actually serving the
+   * build. `SITE_URL` is that host on both staging and production — see
+   * `lib/site.ts`, where being wrong about it cost us the first share.
+   */
+  openGraph: {
+    type: 'website',
+    siteName: 'Uplift Path',
+    locale: 'en_US',
+    images: [
+      {
+        url: `${SITE_URL}/brand/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Uplift Path — Uplifting Every Life We Serve. Whole-person support for individuals, stronger programs for organizations. CARF Accredited, Columbus, Ohio.',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
   },
 }
 
@@ -35,9 +82,16 @@ export const viewport: Viewport = {
 }
 
 /**
- * The navbar and footer are site chrome, not page sections — they live here so
- * every route gets them without repeating the import. Individual pages compose
- * only their own sections.
+ * The root layout is the document shell and nothing else — no navbar, no footer.
+ *
+ * The site chrome moved down into `app/(site)/layout.tsx` so the individual
+ * intake funnel can opt out of it. `/cmps`, `/booking` and `/consent-form` sit
+ * outside the `(site)` group and render full-screen with only a close control,
+ * matching the Application modal that starts the flow: once someone is filling
+ * in an intake form, a nav bar offering to take them to Careers is a way out of
+ * the funnel, not a convenience.
+ *
+ * Route groups do not appear in the URL, so every existing path is unchanged.
  */
 export default function RootLayout({
   children,
@@ -47,9 +101,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <Navbar12 />
         {children}
-        <Footer4 />
+        {/* The cookie banner, on every route. See components/consent. */}
+        <ConsentManager />
       </body>
     </html>
   )

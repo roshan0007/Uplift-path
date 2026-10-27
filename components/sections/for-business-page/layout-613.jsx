@@ -4,9 +4,27 @@ import React from "react";
 
 export function Layout613() {
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28 scheme-1 badge-alt">
+    // `id` added when /business-conusltation was merged in: this section is
+    // where that page's content landed, so the navbar's "Business
+    // Consultation" entry and the service card both deep-link to it.
+    // `scheme-mint`, not `scheme-1`.
+    // /for-business ran six consecutive white sections top to bottom. Tinting
+    // this one and faq-01 gives white white MINT white MINT white -- no run
+    // longer than two.
+    // This brand has exactly two depth cues -- a scheme change and the button
+    // ledge -- so the remedy for a same-background run is the scheme, never a
+    // texture or a blurred shadow. `.scheme-mint` is the light neutral already
+    // used this way on home/testimonial-10; cta-25's white is a documented
+    // deliberate reversal and is left alone everywhere.
+    // 2026-09-29: cards stay a row on phones too, so the 288px thumbnails
+    // render at thumbnail size instead of 338px squares; both rows share
+    // `lg:py-8`, and Relume's empty button row under the grid is gone.
+    <section
+      id="business-consulting"
+      className="scroll-mt-20 px-[5%] py-16 md:py-20 lg:py-20 scheme-mint badge-alt"
+    >
       <div className="container">
-        <div className="mb-12 max-w-lg md:mb-18 lg:mb-20">
+        <div className="mb-12 max-w-lg md:mb-12 lg:mb-12">
           <h2 className="mb-5 text-h2 font-bold md:mb-6">
             Our Business Consulting Services
           </h2>
@@ -14,12 +32,13 @@ export function Layout613() {
             Helping you build, structure, and grow your business.
           </p>
         </div>
-        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-12">
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-8">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-0.png"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>
@@ -36,11 +55,12 @@ export function Layout613() {
               </p>
             </div>
           </div>
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-1.png"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>
@@ -58,33 +78,34 @@ export function Layout613() {
             </div>
           </div>
         </div>
-        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-12">
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+        <div className="grid auto-cols-fr grid-cols-1 md:grid-cols-2 md:gap-16 md:border-t md:border-scheme-border md:py-8 lg:py-8">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-2.png"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>
             <div>
               <div className="mb-3 md:mb-4">
                 <h3 className="text-h4 font-bold">
-                  Accreditation Consulting Service
+                  Accreditation Advisory
                 </h3>
               </div>
               <p>
-                Get expert guidance to prepare and navigate accreditation
-                processes, ensuring your organization meets high industry
-                standards.
+                Get guidance to prepare for and navigate accreditation
+                processes, drawing on our own CARF Gold Seal experience.
               </p>
             </div>
           </div>
-          <div className="flex w-full flex-col items-start justify-start gap-6 border-t border-scheme-border py-6 md:flex-row md:gap-8 md:border-none md:py-0">
+          <div className="flex w-full flex-row items-start justify-start gap-6 border-t border-scheme-border py-6 md:gap-8 md:border-none md:py-0">
             <div className="w-full shrink-0 grow-1 basis-1/4 overflow-hidden">
               <img
                 src="/images/for-business-page-benefits-section-3.jpg"
-                alt="Relume placeholder image"
+                alt=""
+                aria-hidden="true"
                 className="aspect-square size-full rounded-image object-cover"
               />
             </div>
@@ -102,7 +123,6 @@ export function Layout613() {
             </div>
           </div>
         </div>
-        <div className="mt-8 flex flex-wrap gap-4 md:mt-10 lg:mt-12" />
       </div>
     </section>
   );

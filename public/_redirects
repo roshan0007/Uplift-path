@@ -1,0 +1,56 @@
+# Cloudflare Workers static assets reads this file (wrangler.jsonc has no `main`,
+# so `out/` is served directly). Next's static export copies everything in
+# `public/` to `out/`, so this lands at `out/_redirects` on build.
+#
+# /business-conusltation was merged into /for-business-page on 2026-08-31. The
+# old URL is indexed, so it keeps a permanent redirect rather than 404ing.
+/business-conusltation /for-business 301
+
+# /advisory--services carried a Relume typo (double hyphen) in the slug. Renamed
+# to /advisory-services on 2026-08-31; the old URL is indexed, so it keeps a
+# permanent redirect.
+/advisory--services /advisory-services 301
+
+# Slug renames requested in the SEO workbook's `URL List` tab (2026-09-11).
+# These four only ever existed on the staging workers.dev host, which is
+# noindexed, so no search equity rides on them — but the URLs have been shared
+# for review, so they redirect rather than 404.
+#
+# /systems-&-technology is the one that was a real defect: an ampersand in a
+# path URL-encodes to %26, which is how the auditors found it.
+/for-business-page /for-business 301
+/for-individual-page /peer-coaching 301
+/systems-&-technology /systems-technology 301
+/career /careers 301
+
+# The old site's /our-culture is this site's /how-we-work — same page (the
+# culture pillars and the six core values), different slug. It is indexed on
+# upliftpathwellness.com, so it redirects rather than 404ing at cutover.
+/our-culture /how-we-work 301
+
+# Old upliftpathwellness.com (Webflow) slugs that have no same-named route here.
+# Found by crawling the old nav on 2026-09-29 — the old sitemap.xml 404s, so this
+# list may not be complete; add to it if Search Console shows more.
+/about-uplift /about-us 301
+/business-consultation /for-business 301
+/grievance-form /grievance 301
+
+# Webflow redirected trailing-slash URLs, so backlinks may carry the slash.
+# _redirects matches the path exactly, so each old slug needs this form too.
+/about-uplift/ /about-us 301
+/business-consultation/ /for-business 301
+/grievance-form/ /grievance 301
+/our-culture/ /how-we-work 301
+/business-conusltation/ /for-business 301
+/advisory--services/ /advisory-services 301
+
+# The legal copy (carried over from the old site) used to cite /contact.
+/contact /contact-us 301
+/contact/ /contact-us 301
+
+# /for-individual was renamed to /peer-coaching on 2026-09-30. It is indexed
+# (in the sitemap, and linked from the nav, footer and homepage), so it keeps a
+# permanent redirect, in both slash forms. /for-individual-page above points
+# straight at the new slug rather than chaining through this one.
+/for-individual /peer-coaching 301
+/for-individual/ /peer-coaching 301
