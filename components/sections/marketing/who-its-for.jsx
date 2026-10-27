@@ -19,7 +19,7 @@ import React from "react";
  * `first-engagement`.
  */
 const AUDIENCES = [
-  "Behavioral health providers",
+  "Providers",
   "Nonprofits and community organizations",
   "Private practices adding a location or service line",
   "Schools and education programs",

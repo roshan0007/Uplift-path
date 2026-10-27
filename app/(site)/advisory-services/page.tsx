@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     absolute: "Strategic & Operational Advisory Services | Uplift Path",
   },
   description:
-    "Ohio business advisory services for behavioral health, nonprofit, education and startup teams. Get a strategic growth plan your team can actually execute.",
+    "Ohio business advisory services for provider, nonprofit, education and startup teams. Get a strategic growth plan your team can actually execute.",
 };
 
 export default function Page() {

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     absolute: "Business Consulting for Ohio Organizations | Uplift Path",
   },
   description:
-    "Uplift Path advises behavioral health organizations on operations, program development, and business structuring. Let's map out what your organization needs.",
+    "Uplift Path advises provider organizations on operations, program development, and business structuring. Let's map out what your organization needs.",
 };
 
 /**

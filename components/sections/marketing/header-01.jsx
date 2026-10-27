@@ -47,7 +47,7 @@ export function Header01() {
           <div className="max-w-lg lg:max-w-none">
             <p className="mb-3 font-semibold md:mb-4">Marketing</p>
             <h1 className="mb-5 text-balance text-h1 font-bold md:mb-6">
-              Marketing for Behavioral Health Organizations.
+              Marketing for Provider Organizations.
             </h1>
             <p className="text-medium">
               Most marketing agencies have never read a HIPAA marketing rule or

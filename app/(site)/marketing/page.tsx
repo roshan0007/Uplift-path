@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     canonical: "/marketing",
   },
   title: {
-    absolute: "Marketing for Behavioral Health Organizations | Uplift Path",
+    absolute: "Marketing for Provider Organizations | Uplift Path",
   },
   description:
-    "HIPAA- and CARF-aware marketing for behavioral health providers and nonprofits. Positioning, local search, referral outreach and a compliance-safe review.",
+    "HIPAA- and CARF-aware marketing for providers and nonprofits. Positioning, local search, referral outreach and a compliance-safe review.",
 };
 
 export default function Page() {

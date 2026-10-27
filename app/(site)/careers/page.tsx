@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     canonical: "/careers",
   },
   title: {
-    absolute: "Behavioral Health Jobs Columbus Ohio | Uplift Path",
+    absolute: "Advisory Jobs Columbus Ohio | Uplift Path",
   },
   description:
-    "Uplift Path hires for behavioral health, advisory and business roles based in Columbus, Ohio. Learn about our team, our values, and what it's like to work here.",
+    "Uplift Path hires for provider operations, advisory and business roles based in Columbus, Ohio. Learn about our team, our values, and what it's like to work here.",
 };
 
 // Section order is the 2026-09-09 Figma's (frame `Career`): hero, Who We Are,

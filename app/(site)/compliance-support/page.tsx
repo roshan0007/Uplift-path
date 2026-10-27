@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     absolute: "Healthcare Compliance Advisory in Ohio | Uplift Path",
   },
   description:
-    "Compliance advisory for behavioral health providers in Ohio. Get audit ready with gap analysis, aligned policies and a practical corrective plan.",
+    "Compliance advisory for providers in Ohio. Get audit ready with gap analysis, aligned policies and a practical corrective plan.",
 };
 
 export default function Page() {

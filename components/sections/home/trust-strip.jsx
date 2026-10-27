@@ -45,7 +45,7 @@ export function TrustStrip() {
             <p className="font-semibold">CARF Accredited</p>
             <p className="mt-1 text-small">
               We hold the CARF Gold Seal ourselves — the same standard we help
-              behavioral health organizations reach.
+              providers reach.
             </p>
             {/* Two links, two different jobs: verify the claim, or read what we
                 do with it. Kept apart so neither has to stand for both. */}

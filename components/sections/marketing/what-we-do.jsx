@@ -40,7 +40,7 @@ const CAPABILITIES = [
   {
     icon: "groups",
     title: "Referral & Community Outreach",
-    body: "In behavioral health most admissions come from a person, not an ad. We build the referral list, the one-page leave-behind and the follow-up rhythm that keeps your name on it, so that referrals arrive steadily instead of whenever someone happens to remember you.",
+    body: "In this field most admissions come from a person, not an ad. We build the referral list, the one-page leave-behind and the follow-up rhythm that keeps your name on it, so that referrals arrive steadily instead of whenever someone happens to remember you.",
     // Left column, bottom.
     place: "lg:col-start-1 lg:row-start-2",
   },

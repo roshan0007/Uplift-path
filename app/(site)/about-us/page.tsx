@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     canonical: "/about-us",
   },
   title: {
-    absolute: "About Uplift Path | CARF-Accredited Behavioral Health Firm",
+    absolute: "About Uplift Path | CARF-Accredited Advisory Firm",
   },
   description:
-    "Our leadership team brings decades of combined experience in behavioral health, education, and business. Meet the people guiding your organization's next step.",
+    "Our leadership team brings decades of combined experience in human services, education, and business. Meet the people guiding your organization's next step.",
 };
 
 export default function Page() {

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     absolute: "Grant Writing & Medicaid Enrollment Support Ohio | Uplift Path",
   },
   description:
-    "Funding, Medicaid enrollment and credentialing support for Ohio behavioral health and nonprofit teams. Eligible-opportunity shortlists and renewal tracking.",
+    "Funding, Medicaid enrollment and credentialing support for Ohio provider and nonprofit teams. Eligible-opportunity shortlists and renewal tracking.",
 };
 
 export default function Page() {
