@@ -76,6 +76,8 @@ const NOTICES = {
     "This link isn't for that email address. Check you typed the email this message was sent to.",
   error:
     "Something went wrong on our side, so nothing was recorded. Please try again in a moment.",
+  unconfirmed:
+    "Something went wrong and we couldn't confirm whether your response was recorded. Please check again in a moment, or call the team.",
 };
 
 export function AcceptClient() {
@@ -168,9 +170,18 @@ export function AcceptClient() {
     setEmailError(null);
     setNotice(null);
     setBusy(decision);
-    const result = await sendCoachResponse({ caseId, email: value, decision });
+    let result = await sendCoachResponse({ caseId, email: value, decision });
+    // An error does not mean nothing happened: the CRM can finish the pairing
+    // after the Worker or the browser has stopped waiting. Ask read-only before
+    // telling the coach their press was lost.
+    let confirmed = true;
+    if (result === "error") {
+      const look = await sendCoachResponse({ caseId, email: value, decision: "check" });
+      if (look === "already_taken") result = look;
+      else confirmed = look !== "error";
+    }
     setBusy("idle");
-    apply(result);
+    if (!apply(result) && result === "error" && !confirmed) setNotice("unconfirmed");
   };
 
   if (phase === "reading") {
