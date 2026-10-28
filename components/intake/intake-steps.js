@@ -29,7 +29,7 @@ export const STEP_ILLUSTRATIONS = {
   application: "/images/intake-application-magnifier.png",
   eligibility: "/images/intake-eligibility-alert.png",
   scheduling: "/images/intake-scheduling-question.png",
-  consent: "/images/intake-consent-cursor.png",
+  consent: "/images/intake-consent-shield.png",
 };
 
 /** The illustration for `id`, or null if the step has none. */
